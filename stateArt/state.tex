@@ -1,0 +1,149 @@
+\documentclass[citeauthoryear]{llncs}
+\usepackage{url}
+\usepackage{cite}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{verbatim}
+\usepackage{eurosym}
+
+
+%\title{Assessing Modeling Languages, metrics and tools}
+\title{Study on Test Case Generation Tools}
+
+%Exemplo para adição dos autores
+\author{Ulisses Araújo Costa}
+
+\institute{Department of Informatics, University of Minho\\ Campus de Gualtar, 4710-057 Braga, Portugal\\
+\email{ulissesmonhecosta@gmail.com}
+}
+
+\newcommand{\xunit}{\textit{xUnit}}
+
+\begin{document}
+\maketitle
+% Software Testing Techniques:
+% https://docs.google.com/viewer?a=v&q=cache:blahkDj0Q3QJ:www.cs.cmu.edu/~luluo/Courses/17939Report.pdf+There+are+two+major+forms+of+data+%EF%AC%82ow+testing:&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEEShRSdMyUxeL-7AKWQG2D9wpjOa4orrW9o3F0ntehrAK-w2jq1iaQ16jPWiar28zrG46Etox4qQ8C0kOmDz06pc9r03CPjmWo_voTaZ4VL8db9-2911bQbF7cx7cWeI9RqVaQJqd&sig=AHIEtbSnC3GcvJWzIDjecPhjHlMoqFFpqg
+\begin{abstract}
+ATCG (Automated Test Case Generation) are tools that give support for creating test cases and at the same time ensure test case coverage methodically.
+The main goal of this tools is extract information from the program on how to generate executable test cases.\\
+Using  manual test generation is tedious, time consuming and error-prone. Lots of functions/methods need full code coverage and this technique leaves
+to incomplete test suites and is hard to create tests that cover specific code paths potentially leaving many hidden bugs.
+Besides that, software is not a static artifact and is constantly evolving, so a test generation technique could be a more suitable mechanism in the development process.\\
+There are many approaches trying to tackle this problem and therefore many tools were developed. Here I will present a study on the most recent tools that uses:
+Model-based testing, Specification-based testing, Constraint-based generation, Random generation and Grammar-based generation for the most used languages - C, Java and C\#.
+\end{abstract}
+
+\section{Introduction}
+Since ever all programmers use methods to discover bugs in early stages of the development process and improve the quality of their software.
+Like Miller describe the utility of testing\cite{miller}:
+
+\begin{quotation}
+The general aim of testing is to affirm the quality of software systems by systematically exercising the software in carefully controlled circumstances.
+\end{quotation}
+
+In the most recent period of software history the integration of software testing as a step in the process of the development opened up to the
+appearance of \xunit\cite{xunit} tools and Agile software development. Also, companies start to use manual generated tests as a part of their software development processes.\\
+Two different techniques emerge for different proposes, Structural techniques and Functional techniques, White-box testing and Black-box\cite{black} testing respectively.
+
+\subsection{White-box testing}
+In White-box testing the tester needs to understand the internals of the code to be able to write tests for it.
+The goal of selecting test cases that tests specific parts of the code is to cause the execution of specific spots in the software, such as statements, branches or
+paths. The expected results are evaluated on a set of coverage criteria. Examples of coverage criteria include path coverage, branch coverage, and data-flow coverage.
+%\begin{description}
+% Code Coverage Analysis:
+% http://www.bullseye.com/coverage.html
+% Software Testing and Quality Assurance - Control Flow:
+% https://docs.google.com/viewer?a=v&q=cache:6QvcPxmUFyUJ:www.swen.uwaterloo.ca/~knaik/MYBOOK1/Ch4-ControlFlowTesting.ppt+control+flow+testing&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESh9osuIe2hmQ-r6YXXHBvwps_E1zdNH3zVghGKe4tIHwN3GUXagUUQmKqnleoE0SiirRrVfC6mV16yaLTecr1z0OoKa1B9MELI7KR5ir8CsZ4DMTam3y86AfecwaXPUL--y1Qg3&sig=AHIEtbRivm5nl9TBdhUyoQYAkQ42z1uQqA
+\paragraph{Control Flow based testing} analyzes all the possible paths in the code and write unit tests to cover multiple paths regarding our criteria.
+We generate the CFG (Control Flow Graph) of the program, we select different paths regarding our criteria:
+Select all paths, Select paths to achieve complete statement coverage\cite{stt,Ntafos:1988:CST:630792.631017},
+Select paths to achieve complete branch coverage\cite{Roper1994,stt}
+or Select paths to achieve predicate coverage\cite{stt,Ntafos:1988:CST:630792.631017}.
+And we generate the test inputs to make any path execute (exist input so the path can be executed, also called feasible path).
+To be able to accomplish this we must generate input data that satisfy all the conditions on the path.\\
+But we may have a problem, we may find infeasible paths (paths for which there is no input to the system that can cause that path to be executed)
+and we today that a general-purpose algorithm for identifying infeasible paths has been proven to be impossible\cite{infeasible} so, full path coverage
+is mathematically impossible. Even if we were able to compute all the possible paths.\\
+To avoid this problem we may apply a path selection strategy, an heuristic like: Select as many short paths as possible or Choose longer paths.
+
+% Data Flow Testing:
+% https://docs.google.com/viewer?a=v&q=cache:XxIB25uhkaoJ:www.cs.swan.ac.uk/~csmarkus/CS339/dissertations/NewM.pdf+Data+flow+testing+papers&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEEShlAvKZrR7h-XK0DgCkyl3AY_A7rpAsNopgLImb9ekkezxf9-I-g4vq74BTi87q5xozI8WJnMKlsu45y-f-aN3LtSKKt5r2zCsplRbbyMkVVq6-ZtbY6CF2u2h8K-mF8-UJbsOe&sig=AHIEtbRRDyhXAUaZ7aIXqRVx4JcgCV61FQ
+% Software Testing and Quality Assurance - Data Flow:
+% https://docs.google.com/viewer?a=v&q=cache:64LCfXP-LdAJ:www.swen.uwaterloo.ca/~knaik/MYBOOK1/Ch5-DataFlowTesting.ppt+Data+flow+testing&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESgnbadiCY2oGJ0rJ6Q_aEqO5srxsIeapB7rcE78Hyb7f2gU8N8a9oEqRPzHQ_eaerJoMt3IJmEC2uzhpA8YUVZVB7ehh-farOJU11xIzbsOpKZMQK77ImKc_wF1L2zukfBRBX0R&sig=AHIEtbRFefrgxnAcEDcypTYbwwnOf_YSiQ
+\paragraph{Data Flow testing} select test cases according to CFG of software programs. Also looks at the life cycle (creation, usage and destruction)
+of a particular piece of data and observes how it is used along the CFG, this ensures that the number of paths are always finite\cite{dataflow}.\\
+Data Flow ca be performed at two conceptual levels, static and dynamic data flow testing. With statical data flow we are able to identify potential
+defects (aka data flow anomaly) and analyze the source code. On the other hand dynamic data flow involves actual program execution and bears similarity with control flow testing
+since we identify paths to execute them and paths are identified based on data flow testing criteria.\\
+The increased level of complexity in modern software systems can result in errors within programs, references may be made to variables that don't exist,
+or the value of variables may have changed in an unexpected and undesired manner. A more problematic decision in software testing when to stop testing,
+and an \textit{adequacy criterion}\cite{Frankl:1988:AFD:53064.53075} notion was created to be able to determine whether a program has been testes "enough".\\
+In more detail Data Flow testing define/use testing paths of the program CFG, this paths link variables, represented as nodes\cite{dataflow}.
+Associated with this are a set of test coverage metrics, also defined by Sandra Rapps and Elaine Weyuker in \cite{dataflow}.
+The metrics are a set of criteria, essentially – allow the tester to select sets of paths through the program, where "the number of paths selected
+is always finite, and chosen in a systematic and intelligent manner in order to
+help us uncover errors".
+%\end{description}
+
+\subsection{Black-box testing}
+Opposed to White-box testing, Black-box testing is based on functionality, so the tester observes a system based in their functional contracts and writes the
+pairs of inputs and the expected outputs for a given system and this is used from unit testing of single methods/functions to integration testing
+of combinations of the methods/functions to system testing of the final system. The positive aspect of this approach is the functional specification-based testing
+regardless of the final implementation and it consequent randomness of $input \times output$ pairs, that is very interesting to catch crashes or failures in the system.\\
+In fact there a recent tool - csmith\footnote{See more at: http://embed.cs.utah.edu/csmith/} that can generate random C programs and have already proved
+the power of stress-testing compilers, static analyzers, and other tools that process C code\cite{Yang:2011:FUB:1993316.1993532}.\\
+
+The downside of this technique, e.g., for a algorithmically non-trivial implementation it could be impossible to give a good test coverage.
+Imagine any traversal or search algorithm over a graph, it is very difficult to generate a good coverage of test cases without the knowledge of the algorithm.
+
+\section{Testing Tools Approaches}
+
+% Practical Model-Based Testing: A Tools Approach
+% http://www.cs.waikato.ac.nz/research/mbt/
+% MODEL BASED TEST GENERATION TOOLS
+% http://www.geocities.com/model_based_testing/
+% http://www.agedis.de/documents/ModelBasedTestGenerationTools_cs.pdf
+% Wikipedia
+% http://en.wikipedia.org/wiki/Model-based_testing
+% Microsoft Spec# model-based presentation (for dummies)
+% https://docs.google.com/viewer?a=v&q=cache:PVdrO7s75ScJ:www.sasqag.org/pastmeetings/harryr.ppt+model+based+testing&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESjsdNheYbIWtyBYEfgNss2mRQuVcH0Kh8nejgxYwFMSSoPDuEgtZbxdchxcNXENujrMXaIeDr4Q17lpB1Kk8073iuk76o6G66sppEYAq8wGbUKnNtbOx4etHlT_P2boklZ_DwiO&sig=AHIEtbTECVDePxriKz0fNYbhSo56Ktgvww
+\subsection{Model-based Testing}
+Predicates as specifications (Alloy is related to OCL (Object Constraint Language) for UML)
+\subsection{Specification-based Testing}
+
+\subsection{Constraint-based Generation Testing}
+
+\subsection{Random Generation Testing}
+
+\subsection{Grammar-based Generation Testing}
+
+\subsection{Combinatorial Selection Testing}
+
+\subsection{Pex}
+O Microsoft Pex vem com um outro pacote que se chama Moles ajuda a escrever unit tests, mas a tarefa entediosa de escrever os testes especificos permanece. 
+O Microsoft Pex é uma ferramenta de witebox testing (ou seja, ele analiza o código para produzir os testes) ajuda a compreender o comportamento de entrada/saída do código, encontrar entradas que fazem com que o código em teste dê problemas (faça throws de uma excepção, ...) , e explorar unit tests com parâmetros para verificar se o código implementa a funcionalidade desejada para todas as entradas.
+Quando se executa o Pex este gera casos de teste, analisando o código. Para cada declaração no código, o Pex acabará por tentar criar uma entrada de teste que irá atingir esse pedaço de código.
+O Pex faz uma análise de caso para cada ramo condicional no código, por exemplo: as declarações, todas as operações que podem lançar exceções, if statements, asserções e contractos (Contracts do .net).
+
+Assim sendo o número de testes que o Pex irá gerar será o número de caminhos possíveis no código.
+
+O Pex pode ser usado num projecto, classe ou até método (o que faz com que seja uma ferramenta muito versátil e comoda de usar). Depois de analizar, este apresenta no "Pex Exploration Results" os pares de (input, output) que obteve para cada métodos e aida dá um resumo da percentagem de cobertura dos testes que gerou.
+
+Experimentei o Pex num projecto C\# de tamanho consideravel (35+ classes), que usa ficheiros XML, ZIP e tem uma GUI em WindowsForms e isto foi os resultados que obtive ou o que me apercebi que ele faz:
+- Gera um ficheiro de teste para cada classe publica
+- O Pex pode gerar inputs para testes unitários parametrizados , analizando as branch conditions no código que está a ser testado.
+- O Pex usa um constraint solver para automaticamente gerar inputs relevantes sobre o códgio que esta a ser testado (ele consegue usar os vários construtores de uma classe).
+- Quando um teste gerado falha, o Pex tenta sugerir como o código do programa para que o teste passe (isto acontece muitas vezes com faltas de verificação de nulls nos parametros de entrada).
+
+Conclusão: O Pex é uma ferramenta que já está a ser desenvolvida há 3 anos pela msft e parece estar muito robusta. Ésta ferramenta tenta faer o máximo de trabalho possível e depois deixa na mão do developer um conjunto de ajustes a fazer (no estilo point-and-click) que permite facilmente escolher e gerar o caso de teste que queremos que fique escrito em código.
+Num dia consegui testar uma parte considerável da minha aplicação (toda a parte de business practicamente).
+
+
+%%Conclusão
+%%Biblio
+\bibliographystyle{alpha}
+\bibliography{state}
+
+\end{document} 
