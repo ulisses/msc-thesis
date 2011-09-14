@@ -38,16 +38,20 @@ Model-based testing, Specification-based testing, Constraint-based generation, R
 \end{abstract}
 
 \section{Introduction}
-Since ever all programmers use methods to discover bugs in early stages of the development process and improve the quality of their software.
-Like Miller describe the utility of testing\cite{miller}:
+Since ever, industry use methods to discover problems in early stages of development process and improve
+the quality of their product and software industry is not an exception. Miller\cite{miller} describe the utility
+of software testing as:
 
 \begin{quotation}
-The general aim of testing is to affirm the quality of software systems by systematically exercising the software in carefully controlled circumstances.
+The general aim of testing is to affirm the quality of software systems by systematically
+exercising the software in carefully controlled circumstances.
 \end{quotation}
 
-In the most recent period of software history the integration of software testing as a step in the process of the development opened up to the
-appearance of \xunit\cite{xunit} tools and Agile software development. Also, companies start to use manual generated tests as a part of their software development processes.\\
-Two different techniques emerge for different proposes, Structural techniques and Functional techniques, White-box testing and Black-box\cite{black} testing respectively.
+In the most recent period of software history the integration of software testing as a important step in the process of
+software development opened up to the appearance of \xunit\cite{xunit} tools and Agile software development.
+Also, companies start to use manual generated tests as a part of their software development processes.\\
+Two different techniques emerge for different proposes, Structural techniques and Functional techniques,
+White-box testing and Black-box\cite{black} testing respectively.
 
 \subsection{White-box testing}
 In White-box testing the tester needs to understand the internals of the code to be able to write tests for it.
@@ -118,6 +122,50 @@ Predicates as specifications (Alloy is related to OCL (Object Constraint Languag
 \subsection{Constraint-based Generation Testing}
 
 \subsection{Random Generation Testing}
+In the random testing approach, test inputs are selected randomly from the input domain of the system
+Random testing can be summarized as:
+
+– Step 1 : The input domain is identified
+– Step 2 : Test inputs are selected independently from the domain
+– Step 3 : The system under test is executed on these inputs
+• The inputs constitute a random test set
+– Step 4 : The results are compared to the system specification.
+• The test is a failure if any input leads to incorrect results
+• Otherwise it is a success.
+
+Random testing gives us an advantage of easily estimating software reliability from test outcomes.
+Test inputs are randomly generated according to an operational
+profile, and failure times are recorded The data obtained from random testing can then be used to estimate reliability
+
+Computing expected outcomes becomes difficult, if the inputs are randomly chosen
+Therefore, the technique requires good test oracles to ensure the adequate evaluation of test results
+A test oracle is a mechanism that verifies the correctness of program outputs
+An oracle provides a method to
+
+- generate expected results for the test inputs, and
+- compare the expected results with the actual results of execution of the Implementation Under Test (IUT)
+
+Four common types of oracles are as follows:
+
+- Perfect oracle
+- Gold standard oracle
+- Parametric oracle
+- Statistical oracle
+
+\subsubsection{Adaptive Random Testing}
+In adaptive random testing the test inputs are selected from the
+randomly generated set in such a way that these are evenly spread
+over the entire input domain
+The goal is to select a small number of test inputs to detect the first
+failure
+A number of random test inputs are generated, then the “best” one
+among them is selected
+We need to make sure the selected new test input should not be too
+close to any of the previously selected ones
+That is, try to distribute the selected test inputs as spaced out as
+possible
+
+
 
 \subsection{Grammar-based Generation Testing}
 
