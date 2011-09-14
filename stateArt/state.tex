@@ -117,7 +117,20 @@ Imagine any traversal or search algorithm over a graph, it is very difficult to 
 % https://docs.google.com/viewer?a=v&q=cache:PVdrO7s75ScJ:www.sasqag.org/pastmeetings/harryr.ppt+model+based+testing&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESjsdNheYbIWtyBYEfgNss2mRQuVcH0Kh8nejgxYwFMSSoPDuEgtZbxdchxcNXENujrMXaIeDr4Q17lpB1Kk8073iuk76o6G66sppEYAq8wGbUKnNtbOx4etHlT_P2boklZ_DwiO&sig=AHIEtbTECVDePxriKz0fNYbhSo56Ktgvww
 \subsection{Model-based Testing}
 Predicates as specifications (Alloy is related to OCL (Object Constraint Language) for UML)
+
+% Specification Based Testing:
+% http://cs.union.edu/~barrv/Testing/Labs/lab9.html
+% Video:
+% http://www.youtube.com/watch?v=caElFKbceP0
+
+% http://cs.gmu.edu/~offutt/rsrch/spec.html
 \subsection{Specification-based Testing}
+Specification Based Testing, refers to the process of testing a program based on what its specification says its behavior should be. In particular, we can develop test cases based on the specification of the program's behavior, without seeing an implementation of the program. Furthermore, we can develop test cases before the program even exists!
+Consider the following specification for a program:
+Write a program that simulates a pocket calculator. The input is an arithmetic expression that contains only integers and the arithmetic operators +, -, *, /, %, and ** (exponentiation). Assume that the input is written in infix notation. Report an error if the input contains characters other than those mentioned above. The expression may be as long as 1,000 characters and as short as 3 characters (e.g., 3+2). The program reads input entered at the terminal and prints the expression's value.
+Without writing a program to solve this problem (you don't really know enough C yet to do it), based only on the specification given, and without knowing anything about the ultimate implementation, generate a set of test data that you think would be sufficient to test a program that would be written in accordance with this specification. If you think the specification is incomplete in anyway, state what assumptions you are making about how it should be completed or clarified.
+Remember that a test case consists of the input data and the expected result for that input data.
+
 
 \subsection{Constraint-based Generation Testing}
 
