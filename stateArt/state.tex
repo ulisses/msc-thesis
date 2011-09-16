@@ -128,15 +128,34 @@ Predicates as specifications (Alloy is related to OCL (Object Constraint Languag
 % http://cs.union.edu/~barrv/Testing/Labs/lab9.html
 % Video:
 % http://www.youtube.com/watch?v=caElFKbceP0
-
+% Program Veriﬁcation - Automated Test Case Generation, Part I
+% https://docs.google.com/viewer?a=v&q=cache:xNINgGyegt8J:www.cs.uiowa.edu/~tinelli/classes/181/Spring08/Notes/10-ATCG-1.pdf+automatic+testcase+generation+-gui+-uml+-web&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESg65_S-6rwRNXFWJZjChW3x1J4oIldqfY6feMxBYdluY2LkCivOB8fs19Wtg6z1fhTpvrOQYBiIIyUv_3aRnJS3rzZSBjtnuHvtz3fx48xdJW6Jfj66_YvsMcaInpcw3xmO8t0Z&sig=AHIEtbTkPm7QVWO3evlUquwqV8LT-PvtBA
 % http://cs.gmu.edu/~offutt/rsrch/spec.html
 \subsection{Specification-based Testing}
-Specification Based Testing, refers to the process of testing a program based on what its specification says its behavior should be. In particular, we can develop test cases based on the specification of the program's behavior, without seeing an implementation of the program. Furthermore, we can develop test cases before the program even exists!
-Consider the following specification for a program:
-Write a program that simulates a pocket calculator. The input is an arithmetic expression that contains only integers and the arithmetic operators +, -, *, /, %, and ** (exponentiation). Assume that the input is written in infix notation. Report an error if the input contains characters other than those mentioned above. The expression may be as long as 1,000 characters and as short as 3 characters (e.g., 3+2). The program reads input entered at the terminal and prints the expression's value.
-Without writing a program to solve this problem (you don't really know enough C yet to do it), based only on the specification given, and without knowing anything about the ultimate implementation, generate a set of test data that you think would be sufficient to test a program that would be written in accordance with this specification. If you think the specification is incomplete in anyway, state what assumptions you are making about how it should be completed or clarified.
-Remember that a test case consists of the input data and the expected result for that input data.
+Specification Based Testing, refers to the process of testing a program based on what its specification says its behavior should be.
+In particular, we can develop test cases based on the specification of the program's behavior, without seeing an implementation of the program. So this clearly a
+way of Black-box testing.\\
+With this technique we can even start the testing phase and development phase in parallel, because we don't need the implementation
+to start the developing test cases. The only thing we need is the functional contracts, $input \times output$ sets for each function/method.\\
 
+There are many tools out there that can perform Specification-based Testing approach namely: \textbf{TestEra}\cite{testera}
+that can be used to perform automated specification-based testing of
+Java programs. This framework requires as input a Java method, a formal specification\footnote{Specifications are first-order logic formulae.}
+of the pre and post-conditions of that method, and
+a bound that limits the size of the test cases to be generated.\\
+With the pre-condition it automatically generates all nonisomorphic test inputs up to the given bound.
+It executes the method on each test input, and uses the method postcondition as an oracle to check the correctness of each output. This tool
+uses Alloy's SAT system to analyze first-order  formulae. The authors claim that have used TestEra to check several Java programs including an architecture for
+dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods from the Java Collection Framework.\\ However this paper have some years already and we
+don't find the tool available online.
+
+
+
+%Consider the following specification for a program:
+%Write a program that simulates a pocket calculator. The input is an arithmetic expression that contains only integers and the arithmetic
+%operators $+, -, *, /, \%$, and $**$ (exponentiation). Assume that the input is written in infix notation. Report an error if the input contains characters other than those mentioned above. The expression may be as long as 1,000 characters and as short as 3 characters (e.g., 3+2). The program reads input entered at the terminal and prints the expression's value.
+%Without writing a program to solve this problem (you don't really know enough C yet to do it), based only on the specification given, and without knowing anything about the ultimate implementation, generate a set of test data that you think would be sufficient to test a program that would be written in accordance with this specification. If you think the specification is incomplete in anyway, state what assumptions you are making about how it should be completed or clarified.
+%Remember that a test case consists of the input data and the expected result for that input data.
 
 \subsection{Constraint-based Generation Testing}
 
