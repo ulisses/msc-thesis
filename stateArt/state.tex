@@ -121,8 +121,8 @@ Imagine any traversal or search algorithm over a graph, it is very difficult to 
 % http://en.wikipedia.org/wiki/Model-based_testing
 % Microsoft Spec# model-based presentation (for dummies)
 % https://docs.google.com/viewer?a=v&q=cache:PVdrO7s75ScJ:www.sasqag.org/pastmeetings/harryr.ppt+model+based+testing&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESjsdNheYbIWtyBYEfgNss2mRQuVcH0Kh8nejgxYwFMSSoPDuEgtZbxdchxcNXENujrMXaIeDr4Q17lpB1Kk8073iuk76o6G66sppEYAq8wGbUKnNtbOx4etHlT_P2boklZ_DwiO&sig=AHIEtbTECVDePxriKz0fNYbhSo56Ktgvww
-\subsection{Model-based Testing}
-Predicates as specifications (Alloy is related to OCL (Object Constraint Language) for UML)
+%\subsection{Model-based Testing}
+%Predicates as specifications (Alloy is related to OCL (Object Constraint Language) for UML)
 
 % Specification Based Testing:
 % http://cs.union.edu/~barrv/Testing/Labs/lab9.html
@@ -132,22 +132,45 @@ Predicates as specifications (Alloy is related to OCL (Object Constraint Languag
 % https://docs.google.com/viewer?a=v&q=cache:xNINgGyegt8J:www.cs.uiowa.edu/~tinelli/classes/181/Spring08/Notes/10-ATCG-1.pdf+automatic+testcase+generation+-gui+-uml+-web&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESg65_S-6rwRNXFWJZjChW3x1J4oIldqfY6feMxBYdluY2LkCivOB8fs19Wtg6z1fhTpvrOQYBiIIyUv_3aRnJS3rzZSBjtnuHvtz3fx48xdJW6Jfj66_YvsMcaInpcw3xmO8t0Z&sig=AHIEtbTkPm7QVWO3evlUquwqV8LT-PvtBA
 % http://cs.gmu.edu/~offutt/rsrch/spec.html
 \subsection{Specification-based Testing}
-Specification Based Testing, refers to the process of testing a program based on what its specification says its behavior should be.
+Specification Based Testing, also referred as model-based testing, refers to the process of testing a program based on what its specification says its behavior should be.
 In particular, we can develop test cases based on the specification of the program's behavior, without seeing an implementation of the program. So this clearly a
 way of Black-box testing.\\
 With this technique we can even start the testing phase and development phase in parallel, because we don't need the implementation
-to start the developing test cases. The only thing we need is the functional contracts, $input \times output$ sets for each function/method.\\
+to start the developing test cases. The only thing we need is the functional contracts, $input \times output$ sets for each function/method.
 
-There are many tools out there that can perform Specification-based Testing approach namely: \textbf{TestEra}\cite{testera}
+Since the 90's there have been some effort into using specifications to try to generate test cases such as Z specifications
+\cite{Horcher95improvingsoftware,Stocks:1996:FST:239916.239918},
+UML statecharts\cite{Offutt:1999:GTU:1767297.1767341} and ADL specifications\cite{Sankar94specifyingand}.
+These specifications typically do not consider structurally complex inputs and these tools do not generate junit test cases.
+Nowadays there are some tools out there that can perform Specification-based Testing approach namely:
+
+\paragraph{\textbf{TestEra}\cite{testera}}
 that can be used to perform automated specification-based testing of
 Java programs. This framework requires as input a Java method, a formal specification\footnote{Specifications are first-order logic formulae.}
 of the pre and post-conditions of that method, and
 a bound that limits the size of the test cases to be generated.\\
 With the pre-condition it automatically generates all nonisomorphic test inputs up to the given bound.
 It executes the method on each test input, and uses the method postcondition as an oracle to check the correctness of each output. This tool
-uses Alloy's SAT system to analyze first-order  formulae. The authors claim that have used TestEra to check several Java programs including an architecture for
-dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods from the Java Collection Framework.\\ However this paper have some years already and we
-don't find the tool available online.
+uses Alloy's\footnote{Alloy is a first-order declarative language based on sets and relations. The Alloy Analyzer is a fully
+automatic tool that finds instances of Alloy specifications: an instance
+assigns values to the sets and relations in the specification such that
+all formulae in the specification evaluate to true.}
+SAT system to analyze first-order  formulae.
+The authors claim that have used TestEra to check several Java programs including an architecture for
+dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods from the Java Collection Framework.\\
+\textit{This too have some years already and we don't find the tool available online.}
+
+\paragraph{\textbf{Spec Explorer}\cite{}} is a Microsoft model-based testing that uses two software modeling languages:
+AsmL (Abstract State Machine Language) that provides the foundations of the Spec Explorer\footnote{Can be found at: http://research.microsoft.com/en-us/projects/specexplorer/} tool
+and Spec\# that is a formal language for API contracts (influenced by JML, AsmL, and Eiffel), which extends C\# with constructs for non-null types,
+preconditions, postconditions, and object invariants\footnote{Can be found at: http://research.microsoft.com/en-us/projects/specsharp/}.\\
+The user of Spec Explorer can search throw all possible sequences of methods invocation that not violate the contracts (pre, pos conditions) and
+that are relevant to a user-specified set of test properties.
+
+%S. A. Khalek, G. Yang, L. Zhang, D. Marinov, and S. Khurshid
+%TestEra: A tool for testing Java programs using Alloy specifications
+%26th IEEE/ACM International Conference On Automated Software Engineering, Tool Demonstrations Track
+%(ASE Demo 2011), pages TO-APPEAR, Lawrence, KS, Nov. 2011
 
 
 
