@@ -160,12 +160,18 @@ The authors claim that have used TestEra to check several Java programs includin
 dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods from the Java Collection Framework.\\
 \textit{This too have some years already and we don't find the tool available online.}
 
-\paragraph{\textbf{Spec Explorer}\cite{}} is a Microsoft model-based testing that uses two software modeling languages:
+\paragraph{\textbf{Spec Explorer}} is a Microsoft model-based testing that uses two software modeling languages:
 AsmL (Abstract State Machine Language) that provides the foundations of the Spec Explorer\footnote{Can be found at: http://research.microsoft.com/en-us/projects/specexplorer/} tool
 and Spec\# that is a formal language for API contracts (influenced by JML, AsmL, and Eiffel), which extends C\# with constructs for non-null types,
-preconditions, postconditions, and object invariants\footnote{Can be found at: http://research.microsoft.com/en-us/projects/specsharp/}.\\
-The user of Spec Explorer can search throw all possible sequences of methods invocation that not violate the contracts (pre, pos conditions) and
-that are relevant to a user-specified set of test properties.
+preconditions, postconditions, and object invariants\footnote{Can be found at: http://research.microsoft.com/en-us/projects/specsharp/}.
+This tool is already available to users and is a very mature phase.\\
+
+The user of Spec Explorer writes a model of the system and sets the possible values for some properties in his code, furthermore the user also provides a scenario.
+This scenarios are simple sets of calls to methods without its parameters (remember that this is Spec Explorer job).
+Then Spec Explorer will generate a visual graph on each node represents a state of the system and the arrows represent a call to some method.
+It searches throw all possible sequences of methods invocation that not violate the contracts (pre, pos conditions) and
+that are relevant to a user-specified set of test properties. After that we can generate from this visual graphs the unit tests (the arrows) and the
+test cases (a graph).
 
 %S. A. Khalek, G. Yang, L. Zhang, D. Marinov, and S. Khurshid
 %TestEra: A tool for testing Java programs using Alloy specifications
