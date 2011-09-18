@@ -9,7 +9,34 @@
 \usepackage{float}
 \usepackage{verbatim}
 \usepackage{eurosym}
+\usepackage{amsfonts}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{pifont}
 
+%% CONF STUFF
+\lstdefinelanguage{codeTT}
+{
+        basicstyle=\ttfamily\footnotesize,
+        %backgroundcolor=\color{yellow},
+        %frameshape={RYRYNYYYY}{yny}{yny}{RYRYNYYYY}, %contornos... muito nice...
+        sensitive=true,
+%        morecomment=[l][\color{gray_ulisses}\ttfamily\tiny]{--},
+%        morecomment=[s][\color{gray_ulisses}\ttfamily\tiny]{\{-}{-\}},
+%        morestring=[b]",
+%        stringstyle=\color{red},
+        showstringspaces=false,
+%       numbers=left,
+%       firstnumber=\thelstnumber,
+%        numberstyle=\tiny,
+        numberblanklines=true,
+        showspaces=false,
+        breaklines=true,
+        showtabs=false
+}
+
+\lstnewenvironment{code}{\lstset{language=codeTT}}{}
+
+%%
 
 %\title{Assessing Modeling Languages, metrics and tools}
 \title{Study on Test Case Generation Tools}
@@ -22,6 +49,9 @@
 }
 
 \newcommand{\xunit}{\textit{xUnit}}
+\newcommand{\checkK}{\color{ForestGreen}\checkmark}
+\newcommand{\cross}{\color{red}\hspace{-3pt}\ding{55}}
+\newcommand{\bigexclaim}{\color{Dandelion}$\bigtriangleup$\hspace{-5.6pt}!}
 
 \begin{document}
 \maketitle
@@ -116,7 +146,6 @@ The downside of this technique, e.g., for a algorithmically non-trivial implemen
 Imagine any traversal or search algorithm over a graph, it is very difficult to generate a good coverage of test cases without the knowledge of the algorithm.
 
 \section{Testing Tools Approaches}
-
 % Practical Model-Based Testing: A Tools Approach
 % http://www.cs.waikato.ac.nz/research/mbt/
 % MODEL BASED TEST GENERATION TOOLS
@@ -213,81 +242,171 @@ Korat generates all the possible input spaces regarding the predicate and monito
 The writing of a predicate is done using JAVA language and in most cases we can write the first thing that cames to our heads to restrict the input space.
 But for more complex structures it is better to understand how the matching algorithm work to be able to write a fast verifiable predicate.
 
+\paragraph{\textbf{Pex}\cite{Tillmann:2008:PWB:1792786.1792798}} is an automatic white-box test generation tool for .NET. Starting from a method that takes parameters, Pex performs path-bounded model-checking
+by repeatedly executing the program and solving constraint systems to obtain inputs that will steer the program along different execution paths.
+This uses the idea of dynamic symbolic execution\cite{Tillmann06unittests}. Pex uses the theorem prover and
+constraint solver Z3\footnote{See more at: http://research.microsoft.com/en-us/um/redmond/projects/z3/} to reason about the feasibility of execution paths, and
+to obtain ground models for constraint systems.\\
+Pex came with Moles that helps to generate unit tests. This tools together are able to understand the input (by analyzing branches in the code:
+declarations, all exceptions throws operations, if statements, asserts and .net Contracts). With this information Pex uses Z3 constraint solver to
+produce new test inputs which exercise diferent program behavior.\\
+The result is an automatically generated small test suite which often achieves high code coverage.\\
+
+Pex can be used in a project, class or method (which make it a very helpful and versatile tool). After the analysis process we can see in "Pex Explorarion Results"
+the $input \times output$ pairs selected for each test case for our method, we also get a percentage of the test coverage.
+
 \subsection{Grammar-based Generation Testing}
 In this approach inputs to a system under test are defined by a context-free grammar. The language of the grammar contains all possible test cases.
 Using this approach to describe the syntax of the input to the system under test proves to be very helpful to test
-network protocols\cite{tal:syntax-based,kaksonen2001functional} and compilers\cite{1994-burgess,Burgess_Saidi_1996}
+network protocols\cite{tal:syntax-based,kaksonen2001functional} and parsers and compilers\cite{1994-burgess,Burgess_Saidi_1996}.
+
+\paragraph{\textbf{ASTGen}\cite{Daniel:2007:ATR:1287624.1287651}} Is a JAVA framework that automates testing of refactoring engines: generation of test inputs
+and checking of test outputs. The main technique is an iterative generation of structurally complex test inputs.
+ASTGen\footnote{See more at: http://mir.cs.illinois.edu/astgen/} allows developers to write imperative generators whose executions
+produce input programs for refactoring engines. More precisely, ASTGen
+offers a library of generic, reusable, and composable generators that produce abstract syntax trees (ASTs).\\
+So, ASTGen ensures the production of test inputs instead of the developer produce them. The developer needs to write a generator whose execution
+produces thousands of programs with structural properties that are relevant for the specific refactoring being tested. This tool has found
+21 bugs in Eclipse and 26 bugs in Netbeans applications.
 
 \subsection{Random Generation Testing}
-In the random testing approach, test inputs are selected randomly from the input domain of the system
-Random testing can be summarized as:
-
-– Step 1 : The input domain is identified
-– Step 2 : Test inputs are selected independently from the domain
-– Step 3 : The system under test is executed on these inputs
-• The inputs constitute a random test set
-– Step 4 : The results are compared to the system specification.
-• The test is a failure if any input leads to incorrect results
-• Otherwise it is a success.
-
+In the random testing approach, test inputs are selected randomly from the input domain of the system.
+To have a random testing suite first we must identify the input domain, after that select test inputs independently from the domain,
+then the system under test is executed on these inputs, the results are compared to the system specification, an oracle.\\
 Random testing gives us an advantage of easily estimating software reliability from test outcomes.
-Test inputs are randomly generated according to an operational
-profile, and failure times are recorded The data obtained from random testing can then be used to estimate reliability
+Test inputs are randomly generated according to an operational profile, and failure times are recorded.
+The data obtained from random testing can then be used to find bugs or non expected behaviors.\\
 
-Computing expected outcomes becomes difficult, if the inputs are randomly chosen
-Therefore, the technique requires good test oracles to ensure the adequate evaluation of test results
-A test oracle is a mechanism that verifies the correctness of program outputs
-An oracle provides a method to
+The main problem regarding random generation is the problem of the coverage, it is possible that will not be broad enough. And furthermore it can be
+too sparse to actually test specifics in the program. Either way, this this technique proves to be very effective testing compilers.
 
-- generate expected results for the test inputs, and
-- compare the expected results with the actual results of execution of the Implementation Under Test (IUT)
+\paragraph{\textbf{csmith}\cite{Yang:2011:FUB:1993316.1993532}} is a black-box random testing generator. That is able to generate C programs
+conform to the C99\footnote{See more at: http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf} standard. This is a very recent tool that already discover
+more than 195 bugs in LLVM and 79 bugs in GCC. With csmith we are able to generate random programs with unambiguous meanings (undefined behavior or 
+unspecified behavior). Does not attempt to generate terminating program, so they use timeouts for long time consuming generated programs.
+And the main supported features right now are: Arithmetic, logical, and bit operations on integers, Loops, Conditionals, Function calls, Const and volatile,
+Structs and Bitfields, Pointers and arrays, Goto, Break and continue. The generation of code regarding this features can be tuned using the command line program.
 
-Four common types of oracles are as follows:
-
-- Perfect oracle
-- Gold standard oracle
-- Parametric oracle
-- Statistical oracle
-
-\subsubsection{Adaptive Random Testing}
-In adaptive random testing the test inputs are selected from the
-randomly generated set in such a way that these are evenly spread
-over the entire input domain
-The goal is to select a small number of test inputs to detect the first
-failure
-A number of random test inputs are generated, then the “best” one
-among them is selected
-We need to make sure the selected new test input should not be too
-close to any of the previously selected ones
-That is, try to distribute the selected test inputs as spaced out as
-possible
-
-
-
-\subsection{Combinatorial Selection Testing}
+\section{Using the tools}
+After introducing the theory and the techniques that support each tool we will demonstrate some of the tools in action, regarding small but illustrative examples
+on how each tool can help us find good test cases.
 
 \subsection{Pex}
-O Microsoft Pex vem com um outro pacote que se chama Moles ajuda a escrever unit tests, mas a tarefa entediosa de escrever os testes especificos permanece. 
-O Microsoft Pex é uma ferramenta de witebox testing (ou seja, ele analiza o código para produzir os testes) ajuda a compreender o comportamento de entrada/saída do código, encontrar entradas que fazem com que o código em teste dê problemas (faça throws de uma excepção, ...) , e explorar unit tests com parâmetros para verificar se o código implementa a funcionalidade desejada para todas as entradas.
-Quando se executa o Pex este gera casos de teste, analisando o código. Para cada declaração no código, o Pex acabará por tentar criar uma entrada de teste que irá atingir esse pedaço de código.
-O Pex faz uma análise de caso para cada ramo condicional no código, por exemplo: as declarações, todas as operações que podem lançar exceções, if statements, asserções e contractos (Contracts do .net).
+Regarding a simple implementation of a 2D $Point$ class we will create a program that has a special behaviour, under a certain condition
+$x \times y \equiv 42$ it is supposed to throw an exception, imagine we found a bug when this property evaluates to $true$.
 
-Assim sendo o número de testes que o Pex irá gerar será o número de caminhos possíveis no código.
+\begin{code}
+public class Point  {
+  public readonly int X, Y;
+  public Point(int x, int y) { X = x; Y = y; }
+}
 
-O Pex pode ser usado num projecto, classe ou até método (o que faz com que seja uma ferramenta muito versátil e comoda de usar). Depois de analizar, este apresenta no "Pex Exploration Results" os pares de (input, output) que obteve para cada métodos e aida dá um resumo da percentagem de cobertura dos testes que gerou.
+public class Program {
+  public static void Puzzle(Point p) {
+    if (p.X * p.Y == 42)
+        throw new Exception("hidden bug!");
+	}
+}
+\end{code}
 
-Experimentei o Pex num projecto C\# de tamanho consideravel (35+ classes), que usa ficheiros XML, ZIP e tem uma GUI em WindowsForms e isto foi os resultados que obtive ou o que me apercebi que ele faz:
-- Gera um ficheiro de teste para cada classe publica
-- O Pex pode gerar inputs para testes unitários parametrizados , analizando as branch conditions no código que está a ser testado.
-- O Pex usa um constraint solver para automaticamente gerar inputs relevantes sobre o códgio que esta a ser testado (ele consegue usar os vários construtores de uma classe).
-- Quando um teste gerado falha, o Pex tenta sugerir como o código do programa para que o teste passe (isto acontece muitas vezes com faltas de verificação de nulls nos parametros de entrada).
+So, as we describe earlier, Pex will try to generate such input as it is possible (in an given amount of time) to traverse all the paths inside the code.
+This is the output table, with the inputs and outputs that Pex found more interesting.\\
 
-Conclusão: O Pex é uma ferramenta que já está a ser desenvolvida há 3 anos pela msft e parece estar muito robusta. Ésta ferramenta tenta faer o máximo de trabalho possível e depois deixa na mão do developer um conjunto de ajustes a fazer (no estilo point-and-click) que permite facilmente escolher e gerar o caso de teste que queremos que fique escrito em código.
-Num dia consegui testar uma parte considerável da minha aplicação (toda a parte de business practicamente).
+\noindent \begin{tabular}{|c|c|c|c|}\hline
+Result & p & Output/Exception & Error Message\\\hline
+\cross & null & NullReferenceException & Object ref. not set to an instance of an object.\\\hline
+\checkK & new Point{X=0,Y=0} & &\\\hline
+\cross & new Point{X=3,Y=14} & Exception & hidden bug!\\\hline
+\end{tabular}\\
 
+As you can see Pex was successful to reach the $Exception$ path inside the code. Of course this is not always possible, since sometimes the functions
+inside the $if$ statement does not have inverse function.\\
+
+Pex can also be very helpful checking assertions and contracts in .net code. Here we write a binary search algorithm and we have an assertion in
+the middle of our code.
+
+\begin{code}
+public class Program {
+  public static int Puzzle(int x, int n) {
+    return BinarySearch(x, i=>i, 0, n);
+  }
+  static int BinarySearch(int x, Func<int, int> f, int lo, int hi) {
+    while (lo < hi) {
+      int mid = (lo+hi)/2;
+      Debug.Assert(mid >= lo && mid < hi);
+      if (x < f(mid)) { hi = mid; } else { lo = mid+1; }
+    }
+    return lo;
+  }
+}
+\end{code}
+
+This is the results provided by Pex: it was able to generate an input that could not pass in the assertion inerted in our code.\\
+
+\noindent \begin{tabular}{|c|c|c|c|c|}\hline
+Result & x & n & result & Output/Exception \\\hline
+\checkK & 0 & 0 & 0      & \\\hline
+\checkK & 0 & 1 & 1      & \\\hline
+\checkK & 0 & 3 & 1      & \\\hline
+\cross & 1073741888 & 1719676992 & & TraceAssertionException \\\hline
+\checkK & 1 & 6 & 2      & \\\hline
+\checkK & 50 & 96 & 51      &\\\hline
+\end{tabular}\\
+
+Now we have another example, a function that verifies if a given day since 1980 belongs to a leap year or not. Pex was able to generate
+some important test cases, but it has reached the limit amount of time to calculate interesting paths in the code.
+
+\begin{code}
+public class Program {
+  private static bool IsLeapYear(int year) {
+    return (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0));
+  }
+  public static void Puzzle(int day, out int year) {
+    year = 1980;
+    while (day > 365) {
+      if (IsLeapYear(year)) {
+        if (day > 366) {
+          day -= 366;
+          year += 1;
+        }
+      } else {
+        day -= 365;
+        year += 1;
+      }
+    }
+  }
+}
+\end{code}
+
+And this is the results:\\
+
+\noindent \begin{tabular}{|c|c|c|c|c|}\hline
+Result & day & out year & Output/Exception\\\hline
+\checkK & 0 & 1980 & \\\hline
+\checkK & 367 & 1981 & \\\hline
+\bigexclaim & 366 & & path bounds exceeded\\\hline
+\checkK & 1023 & 1982 &\\\hline
+\checkK & 2561 & 1987 & \\\hline
+\checkK & 7874 & 2001 & \\\hline
+\bigexclaim &  7671 & & path bounds exceeded\\\hline
+\end{tabular}
+
+% https://docs.google.com/viewer?a=v&q=cache:n1iv3bIgPt4J:asa.iti.kit.edu/downloads/korat.pdf+koratsearch+method&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEEShqAe4m4a6eyvCLDJb1tJ1N8n4qXUOqQRfdMIs8G-7vUXjlpir2Y6xecTu5l25hjU0i8GFnts5sZdQIUtNZajlw6FTZhc8MLNbkm-lrgwMoPOjUWZThNbxLMRbniFz8o0WovIsl&sig=AHIEtbRDAmtti5JRTj8n5K-gjl0S5eC2Hg
+\subsection{Korat}
+As we explain before, Korat generates 
+
+\begin{code}
+public class BinaryTree {
+  public static class Node {
+    Node left;
+    Node right;
+  }
+  private Node root;
+  private int size;
+}
+\end{code}
 
 %%Conclusão
-%%Biblio
 \bibliographystyle{alpha}
 \bibliography{state}
 
