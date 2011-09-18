@@ -8,7 +8,7 @@ all:$(PDF)
 # Compile the PDF file
 $(PDF):$(TEX)
 ifeq ($(UNAME),Darwin)
-	latexmk -e '$$pdflatex=q/pdflatex -synctex=1 %T/' -pdf $(TEX)
+	latexmk -e '$$pdflatex=q/pdflatex --shell-escape -synctex=1 %T/' -pdf $(TEX)
 endif
 ifeq ($(UNAME),Linux)
 	latexmk -pdf $(TEX)

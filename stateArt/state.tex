@@ -1,6 +1,6 @@
 % http://www.swen.uwaterloo.ca/~knaik/ByChapters.html
 
-\documentclass[citeauthoryear]{llncs}
+\documentclass{llncs}
 \usepackage{url}
 \usepackage{cite}
 \usepackage{listings}
@@ -11,23 +11,38 @@
 \usepackage{eurosym}
 \usepackage{amsfonts}
 \usepackage[usenames,dvipsnames]{color}
-\usepackage{pifont}
+\usepackage{pifont} % for the cross symbol
+\usepackage[a4paper, pdftex, bookmarks, colorlinks,citecolor=darkblue,linkcolor=darkblue,urlcolor=darkblue,filecolor=darkblue]{hyperref}
+
+% BEGIN: DOT related imports
+\usepackage[autosize]{dot2texi}
+\usepackage{tikz}
+
+\usetikzlibrary{shapes,decorations,shadows}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{decorations.shapes}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{decorations.footprints}
+\usetikzlibrary{decorations.fractals}
+\usetikzlibrary{shapes.gates.logic.IEC}
+\usetikzlibrary{shapes.gates.logic.US}
+\usetikzlibrary{fit,chains}
+\usetikzlibrary{positioning}
+\usepgflibrary{shapes}
+\usetikzlibrary{scopes}
+% END: DOT related imports
 
 %% CONF STUFF
+\definecolor{darkblue}{rgb}{0,0.1,0.5}
+
 \lstdefinelanguage{codeTT}
 {
         basicstyle=\ttfamily\footnotesize,
-        %backgroundcolor=\color{yellow},
-        %frameshape={RYRYNYYYY}{yny}{yny}{RYRYNYYYY}, %contornos... muito nice...
         sensitive=true,
-%        morecomment=[l][\color{gray_ulisses}\ttfamily\tiny]{--},
-%        morecomment=[s][\color{gray_ulisses}\ttfamily\tiny]{\{-}{-\}},
-%        morestring=[b]",
-%        stringstyle=\color{red},
         showstringspaces=false,
-%       numbers=left,
-%       firstnumber=\thelstnumber,
-%        numberstyle=\tiny,
         numberblanklines=true,
         showspaces=false,
         breaklines=true,
@@ -240,7 +255,8 @@ Korat generates all (nonisomorphic) inputs for which the predicate returns $true
 Korat generates all the possible input spaces regarding the predicate and monitor the predicate's executions to be able to prune large portions of the search space.\\
 
 The writing of a predicate is done using JAVA language and in most cases we can write the first thing that cames to our heads to restrict the input space.
-But for more complex structures it is better to understand how the matching algorithm work to be able to write a fast verifiable predicate.
+But for more complex structures it is better to understand how the matching algorithm work to be able to write a fast verifiable predicate.\\
+Unfortunately the test derivation tool using korat (that also uses JML) is not available to the public.
 
 \paragraph{\textbf{Pex}\cite{Tillmann:2008:PWB:1792786.1792798}} is an automatic white-box test generation tool for .NET. Starting from a method that takes parameters, Pex performs path-bounded model-checking
 by repeatedly executing the program and solving constraint systems to obtain inputs that will steer the program along different execution paths.
@@ -393,7 +409,8 @@ Result & day & out year & Output/Exception\\\hline
 
 % https://docs.google.com/viewer?a=v&q=cache:n1iv3bIgPt4J:asa.iti.kit.edu/downloads/korat.pdf+koratsearch+method&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEEShqAe4m4a6eyvCLDJb1tJ1N8n4qXUOqQRfdMIs8G-7vUXjlpir2Y6xecTu5l25hjU0i8GFnts5sZdQIUtNZajlw6FTZhc8MLNbkm-lrgwMoPOjUWZThNbxLMRbniFz8o0WovIsl&sig=AHIEtbRDAmtti5JRTj8n5K-gjl0S5eC2Hg
 \subsection{Korat}
-As we explain before, Korat generates 
+As we explain before, Korat generates a graphical representation of the structure instances that validates the property we define using JAVA code, $repOK$ method.\\
+Imagine we have a simple definition of a Binary Tree structure in JAVA.
 
 \begin{code}
 public class BinaryTree {
@@ -406,7 +423,89 @@ public class BinaryTree {
 }
 \end{code}
 
-%%Conclusão
+Now we must define the predicate method.
+This predicate method will check that the tree doesn't have any cycles and that the number of nodes traversed from root matches the value of the field size.
+Note that we using short-circuiting, so we return $false$ as soon as we can. This way Korat will be able to generate a baster solution.
+
+\begin{code}
+  public boolean repOK() {
+    if (root == null)
+      return size == 0;
+    // checks that tree has no cycle
+    Set visited = new HashSet();
+    visited.add(root);
+    LinkedList workList = new LinkedList();
+    workList.add(root);
+    while (!workList.isEmpty()) {
+      Node current = (Node) workList.removeFirst();
+      if (current.left != null) {
+        if (!visited.add(current.left))
+          return false;
+        workList.add(current.left);
+      }
+      if (current.right != null) {
+        if (!visited.add(current.right))
+          return false;
+        workList.add(current.right);
+      }
+    }
+    // checks that size is consistent
+    return (visited.size() == size);
+  }
+\end{code}
+
+The last step is to define the finitization method, this way we tell Korat how to bound the input space.
+
+\begin{code}
+  public static IFinitization finBinaryTree(int nodesNum, int minSize, int maxSize) {
+    IFinitization f = FinitizationFactory.create(BinaryTree.class);
+    IObjSet nodes = f.createObjSet(Node.class, nodesNum, true);
+    f.set("root", nodes);
+    f.set("Node.left", nodes);
+    f.set("Node.right", nodes);
+    IIntSet sizes = f.createIntSet(minSize, maxSize);
+    f.set("size", sizes);
+    return f;
+  }
+\end{code}
+
+Using this specification we were able to generate the following 2 structures: One with a root node and this node with two children.
+
+\begin{dot2tex}[neato,options=-tmath]
+digraph "graph" {
+graph [fontname="LucidaGrande", fontsize=12]
+node [fontname="LucidaGrande", fontsize=12]
+edge [fontname="LucidaGrande", fontsize=12]
+rankdir=TB;
+"N0" -> "N1" [color = "black", fontcolor = "black", style = "solid", label = "left", dir = "forward", weight = "0"]
+"N0" -> "N2" [color = "black", fontcolor = "black", style = "solid", label = "right", dir = "forward", weight = "0"]
+"N3" -> "N0" [color = "black", fontcolor = "black", style = "solid", label = "root", dir = "forward", weight = "0"]
+"N0" [label="Node0", color="black", fontcolor = "black", shape = "box"]
+"N1" [label="Node1", color="black", fontcolor = "black", shape = "box"]
+"N2" [label="Node2", color="black", fontcolor = "black", shape = "box"]
+"N3" [label="BinaryTree0 : 3", color="black", fontcolor = "black"]
+}
+\end{dot2tex}
+\newline
+And the other with the behavior of a list, the root node as only one child, and this child has another one.
+\newline
+\begin{dot2tex}[]
+digraph "graph" {
+graph [fontname="LucidaGrande", fontsize=12]
+node [fontname="LucidaGrande", fontsize=12]
+edge [fontname="LucidaGrande", fontsize=12]
+rankdir=TB;
+"N0" -> "N1" [color = "black", fontcolor = "black", style = "solid", label = "right", dir = "forward", weight = "0"]
+"N1" -> "N2" [color = "black", fontcolor = "black", style = "solid", label = "right", dir = "forward", weight = "0"]
+"N3" -> "N0" [color = "black", fontcolor = "black", style = "solid", label = "root", dir = "forward", weight = "0"]
+"N0" [label="Node0",  fontcolor = "black", shape = "box"]
+"N1" [label="Node1", fontcolor = "black", shape = "box"]
+"N2" [label="Node2",  fontcolor = "black", shape = "box"]
+"N3" [label="BinaryTree0 : 3", color="black", fontcolor = "black"]
+}
+\end{dot2tex}
+
+
 \bibliographystyle{alpha}
 \bibliography{state}
 
