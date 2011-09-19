@@ -471,6 +471,7 @@ The last step is to define the finitization method, this way we tell Korat how t
 
 Using this specification we were able to generate the following 2 structures: One with a root node and this node with two children.
 
+\begin{center}
 \begin{dot2tex}[neato,options=-tmath]
 digraph "graph" {
 graph [fontname="LucidaGrande", fontsize=12]
@@ -486,9 +487,11 @@ rankdir=TB;
 "N3" [label="BinaryTree0 : 3", color="black", fontcolor = "black"]
 }
 \end{dot2tex}
-\newline
+\end{center}
+
 And the other with the behavior of a list, the root node as only one child, and this child has another one.
-\newline
+
+\begin{center}
 \begin{dot2tex}[]
 digraph "graph" {
 graph [fontname="LucidaGrande", fontsize=12]
@@ -504,6 +507,7 @@ rankdir=TB;
 "N3" [label="BinaryTree0 : 3", color="black", fontcolor = "black"]
 }
 \end{dot2tex}
+\end{center}
 
 
 \bibliographystyle{alpha}
