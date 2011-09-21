@@ -7,6 +7,7 @@ all:$(PDF)
 
 # Compile the PDF file
 $(PDF):$(TEX)
+	make clean
 ifeq ($(UNAME),Darwin)
 	latexmk -e '$$pdflatex=q/pdflatex --shell-escape -synctex=1 %T/' -pdf $(TEX)
 endif

@@ -18,11 +18,11 @@
 \usepackage{rotating} % for the rotated columns of table
 
 % my imports
+\usepackage[avantgarde]{quotchap}
 \usepackage[english]{minitoc}
 \usepackage{pgf}
 \usepackage{color,graphicx}
 \usepackage[all]{xy}
-\usepackage[avantgarde]{quotchap}
 \usepackage[pdfauthor={João Moura Barbosa,Mário Ulisses Costa},%
             pdftitle={\{Calculador Pointfree\}},%
             urlcolor=darkblue,%
@@ -33,14 +33,37 @@
 
 \definecolor{darkblue}{rgb}{0,0,0.6}
 
+%% stuff do minitoc %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{minitocdepth}{2}
+\setlength{\mtcindent}{24pt}
+\renewcommand{\mtcfont}{\small\rm}
+\renewcommand{\mtcSSfont}{\small\bf}
+%\newenvironment{mtc}{\secttoc\sectlof\sectlot}{\pagebreak}
+%                        ^       ^        ^
+%                    conteudos  figuras  tabelas
+% \newenvironment{mtc}{\minitoc\minilof\minilot}{\pagebreak}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
 
+\pagenumbering{roman}
 \include{cover}
-\newpage \mbox{} \pagestyle{empty} \newpage
+\pagestyle{empty}
 \include{abstract}
+\dominitoc 
+\dominilof
+\dominilot
 \newpage \tableofcontents
+\addcontentsline{toc}{chapter}{\contentsname}
 \newpage \listoffigures
+\addcontentsline{toc}{section}{\listfigurename}
+\newpage \listoftables
+\addcontentsline{toc}{section}{\listtablename}
 \include{acknowledgements}
+
+% start the thesis
+\pagenumbering{arabic}
+\addtocounter{mtc}{+1}
 \include{introduction}
 \include{background}
 \include{future}
