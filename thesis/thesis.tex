@@ -1,0 +1,51 @@
+\documentclass[a4paper,11pt]{report}
+\usepackage[left=2.5cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\usepackage[english]{babel}
+\usepackage{amssymb, amsmath} %math functions
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+\usepackage[utf8x]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{url}
+
+\usepackage{indentfirst}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{colortbl}
+\usepackage{rotating} % for the rotated columns of table
+
+% my imports
+\usepackage[english]{minitoc}
+\usepackage{pgf}
+\usepackage{color,graphicx}
+\usepackage[all]{xy}
+\usepackage[avantgarde]{quotchap}
+\usepackage[pdfauthor={João Moura Barbosa,Mário Ulisses Costa},%
+            pdftitle={\{Calculador Pointfree\}},%
+            urlcolor=darkblue,%
+            citecolor=darkblue,%
+            filecolor=darkblue,%
+            linkcolor=darkblue,%
+            pdftex,bookmarks,colorlinks,a4paper]{hyperref}
+
+\definecolor{darkblue}{rgb}{0,0,0.6}
+
+\begin{document}
+
+\include{cover}
+\newpage \mbox{} \pagestyle{empty} \newpage
+\include{abstract}
+\newpage \tableofcontents
+\newpage \listoffigures
+\include{acknowledgements}
+\include{introduction}
+\include{background}
+\include{future}
+
+\bibliographystyle{alpha}
+\bibliography{thesisBib}
+
+\end{document}
