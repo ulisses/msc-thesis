@@ -26,11 +26,7 @@ endif
 # Clean rules
 clean:
 	@echo "Cleaning the shop"
-	@find . -maxdepth 1 \(  \! -iname "*.pdf" \! -iname README* \! -iname .gitignore \! -iname "*.bib" \! -iname "*.tex" -type f \! -iname "makefile" \! -iname "*.sty" \! -iname "*.cls" \) -exec rm '{}' \;
-	@find . \( -name *~ -or -name *.*~ \) -exec rm '{}' \;
-
-cleanAll:
-	@echo "Cleaning the shop"
 	@find . -maxdepth 1 \( \! -iname README* \! -iname .gitignore \! -iname "*.bib" \! -iname "*.tex" -type f \! -iname "makefile" \! -iname "*.sty" \! -iname "*.cls" \) -exec rm '{}' \;
 	@find . \( -name *~ -or -name *.*~ \) -exec rm '{}' \;
+	@rm -f *-dot2tex-*
 

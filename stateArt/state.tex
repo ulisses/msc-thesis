@@ -321,7 +321,7 @@ public class Program {
   public static void Puzzle(Point p) {
     if (p.X * p.Y == 42)
         throw new Exception("hidden bug!");
-	}
+  }
 }
 \end{code}
 
@@ -406,6 +406,125 @@ Result & day & out year & Output/Exception\\\hline
 \checkK & 7874 & 2001 & \\\hline
 \bigexclaim &  7671 & & path bounds exceeded\\\hline
 \end{tabular}
+
+\subsubsection{Testing a class using Pex:}
+As we saw before, Pex can easily give a full coverage on our methods (even the more complex ones). Now let's see about the generated code
+for testing entires implementations of a class.\\
+We will use regarding this example an implementation for generic Linked Lists in C\#.\\
+
+So, we consider a $LinkedListElement<T>$ parametrized with type $T$ to be the element we want to keep and two more $LinkedListElement$, one to keep
+tracking of previous element and the other for the next.
+
+\begin{code}
+public class LinkedListElement<T> {
+  public T Data;
+  public LinkedListElement<T> Prev;
+  public LinkedListElement<T> Next;
+
+  public LinkedListElement(T data) {
+    Data = data;
+  }
+}
+\end{code}
+
+In order to keep track of both head and tail of my linked list I will have two variables of type $LinkedListElement$ in my linked list implementation.
+
+\begin{code}
+public class LinkedList<T> {
+  public LinkedListElement<T> Head;
+  public LinkedListElement<T> Tail;
+
+  public LinkedList(T element) {
+    Head = null;
+    Tail = null;
+    Add(element);
+  }
+\end{code}
+
+I will also add a few methods to manage this data structure: $Add$, $Next$ to jump to the next element on the list,
+$Prev$ to accomplish the same effect but for the previous element, $Remove$ and $Find$.
+
+\begin{code}
+  public void Add(T element) {
+    LinkedListElement<T> Listelement = new LinkedListElement<T>(element);
+    if (Head == null) {
+      Head = Listelement;
+    }
+    else {
+      Listelement.Prev = Tail;
+      Tail.Next = Listelement;
+    }
+    Tail = Listelement;
+  }
+
+  public static LinkedListElement<T> Next(LinkedListElement<T> element) {
+    if (element == null)
+      throw new Exception("Next: element is null");
+
+    return element.Next;
+  }
+
+  public static LinkedListElement<T> Prev(LinkedListElement<T> element) {
+    if (element == null)
+      throw new NullReferenceException("Prev: element is null");
+    
+    return element.Prev;
+  }
+
+  public void Remove(LinkedListElement<T> element) {
+    if (element == null)
+      return;
+
+    if (element == Head)
+      Head = element.Next;
+    if (element == Tail)
+      Tail = element.Prev;
+
+    if (element.Prev != null) {
+      LinkedListElement<T> prev = element.Prev;
+      prev.Next = element.Next;
+    }
+    if (element.Next != null) {
+      LinkedListElement<T> next = element.Next;
+      next.Prev = element.Prev;
+    }
+  }
+
+  public LinkedListElement<T> Find(T needle) {
+    return Find(needle, Head);
+  }
+
+  public LinkedListElement<T> Find(T needle, LinkedListElement<T> start) {
+    LinkedListElement<T> iterator = start;
+    while (iterator != null) {
+      if (iterator.Data.Equals(needle)) return iterator;
+      iterator = iterator.Next;
+    }
+    return null;
+  }
+}
+\end{code}
+
+To avoid more verbosity I will now explain the generated code for each method and explain the changes we need to do to accomplish a full test coverage
+for this class.
+
+\begin{code}
+[TestClass]
+public partial class LinkedListTTest {
+  [PexMethod]
+  public void Remove<T>([PexAssumeUnderTest]LinkedList<T> target, LinkedListElement<T> element) {
+    PexAssume.IsTrue(target.Find(element.Data) == null, "complex reason");
+    PexAssume.IsNotNull((object)element, "element");
+    try {
+      target.Remove(element);
+    } catch (Exception) {
+      if (element == null) PexAssert.IsTrue(true);
+    }
+
+    LinkedListElement<T> linkedListElement = target.Find(element.Data);
+    PexAssert.IsTrue(linkedListElement == null);
+  }
+\end{code}
 
 % https://docs.google.com/viewer?a=v&q=cache:n1iv3bIgPt4J:asa.iti.kit.edu/downloads/korat.pdf+koratsearch+method&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEEShqAe4m4a6eyvCLDJb1tJ1N8n4qXUOqQRfdMIs8G-7vUXjlpir2Y6xecTu5l25hjU0i8GFnts5sZdQIUtNZajlw6FTZhc8MLNbkm-lrgwMoPOjUWZThNbxLMRbniFz8o0WovIsl&sig=AHIEtbRDAmtti5JRTj8n5K-gjl0S5eC2Hg
 \subsection{Korat}
