@@ -16,7 +16,9 @@ ifeq ($(UNAME),Linux)
 endif
 
 # open PDF file
-open:$(PDF)
+open:
+	make clean
+	make $(PDF)
 ifeq ($(UNAME),Darwin)
 	open $(PDF)
 endif
@@ -27,6 +29,6 @@ endif
 # Clean rules
 clean:
 	@echo "Cleaning the shop"
-	@find . -maxdepth 1 \( \! -iname README* \! -iname .gitignore \! -iname "*.bib" \! -iname "*.tex" -type f \! -iname "makefile" \! -iname "*.sty" \! -iname "*.cls" \) -exec rm '{}' \;
-	@find . \( -name *~ -or -name *.*~ \) -exec rm '{}' \;
+	@find . -maxdepth 1 \( \! -iname README* \! -iname .gitignore \! -iname "*.bib" \! -iname "*.tex" -type f \! -iname "makefile" \! -iname "*.sty" \! -iname "*.cls" \) -exec rm -f '{}' \;
+	@find . \( -name *~ -or -name *.*~ \) -exec rm -f '{}' \;
 
