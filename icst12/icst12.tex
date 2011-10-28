@@ -52,8 +52,9 @@
         breaklines=true,
         showtabs=false
 }
-
 \lstnewenvironment{code}{\lstset{language=codeTT}}{}
+
+% New commands
 \newcommand{\xunit}{\textit{xUnit}}
 \newcommand{\checkK}{\color{ForestGreen}\checkmark}
 \newcommand{\cross}{\color{red}\hspace{-3pt}\ding{55}}
@@ -61,7 +62,7 @@
 
 \begin{document}
 
-\title{Title}
+\title{Automatic Test Generation for Space}
 
 \author{
 \IEEEauthorblockN{Ulisses Costa}
@@ -82,28 +83,6 @@ University of Minho\\
 Braga, Portugal\\
 pedrorangelhenriques@gmail.com}
 }
-
-% conference papers do not typically use \thanks and this command
-% is locked out in conference mode. If really needed, such as for
-% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
-% after \documentclass
-
-% for over three affiliations, or if they all won't fit within the width
-% of the page, use this alternative format:
-% 
-%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
-%Homer Simpson\IEEEauthorrefmark{2},
-%James Kirk\IEEEauthorrefmark{3}, 
-%Montgomery Scott\IEEEauthorrefmark{3} and
-%Eldon Tyrell\IEEEauthorrefmark{4}}
-%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
-%Georgia Institute of Technology,
-%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
-%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
-%Email: homer@thesimpsons.com}
-%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
-%Telephone: (800) 555--1212, Fax: (888) 555--1212}
-%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
 
 \maketitle
 
@@ -139,20 +118,9 @@ Furthermore in this paper we show a brief study on how to start resolving this s
 
 \begin{IEEEkeywords}
 Automatic Test Generation; White-box testing; UML/OCL;
-
 \end{IEEEkeywords}
 
-
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
-
 
 \section{Introduction}
 Since ever, industry use methods to discover problems in early stages of development process and improve
@@ -339,7 +307,6 @@ Pex came with Moles that helps to generate unit tests. This tools together are a
 declarations, all exceptions throws operations, if statements, asserts and .net Contracts). With this information Pex uses Z3 constraint solver to
 produce new test inputs which exercise diferent program behavior.\\
 The result is an automatically generated small test suite which often achieves high code coverage.\\
-
 Pex can be used in a project, class or method (which make it a very helpful and versatile tool). After the analysis process we can see in "Pex Explorarion Results"
 the $input \times output$ pairs selected for each test case for our method, we also get a percentage of the test coverage.
 
@@ -398,11 +365,12 @@ public class Program {
 \end{code}
 
 So, as we describe earlier, Pex will try to generate such input as it is possible (in an given amount of time) to traverse all the paths inside the code.
-This is the output table, with the inputs and outputs that Pex found more interesting.\\
+The output table can be seen in Table \ref{tab:point}, with the inputs and outputs that Pex found to ensure a full coverage of the code.
 
-\begin{table}[!h]
+\begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
-\caption{An Example of a Table}
+\caption{Output Table for $Point$ class}
+\label{tab:point}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|}\hline
 Result & p & Output/Exception & Error Message\\\hline
@@ -436,11 +404,12 @@ public class Program {
 }
 \end{code}
 
-This is the results provided by Pex: it was able to generate an input that could not pass in the assertion inerted in our code.\\
+Pex was able to generate an input that could not pass in the assertion inerted in our code as we can seen in Table \ref{tab:binary}.
 
-\begin{table}[!h]
+\begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
-\caption{An Example of a Table}
+\caption{Output Table for $BinarySearch$ class}
+\label{tab:binary}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|c|}\hline
 Result & x & n & result & Output/Exception \\\hline
@@ -453,8 +422,9 @@ Result & x & n & result & Output/Exception \\\hline
 \end{tabular}
 \end{table}
 
-Now we have another example, a function that verifies if a given day since 1980 belongs to a leap year or not. Pex was able to generate
-some important test cases, but it has reached the limit amount of time to calculate interesting paths in the code.
+Now we have a more complex example, a function that returns the year where the $n^{th}$ day occurred since 1980.
+Pex was able to generate some important test cases, but it has reached the limit amount of time to calculate interesting paths in the code,
+this boundary prevents Pex from getting stuck when the program goes into an infinite loop\footnote{In this particular case we could increment the number of $MaxConditions$: $[PexMethod(MaxConditions=10000)]$}.
 
 \begin{code}
 public class Program {
@@ -478,11 +448,12 @@ public class Program {
 }
 \end{code}
 
-And this is the results:\\
+After Pex run we discover \ref{tab:leap}
 
-\begin{table}[!h]
+\begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
-\caption{An Example of a Table}
+\caption{Output Table for $IsLeapYear$ method}
+\label{tab:leap}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|c|}\hline
 Result & day & out year & Output/Exception\\\hline
@@ -496,7 +467,7 @@ Result & day & out year & Output/Exception\\\hline
 \end{tabular}
 \end{table}
 
-\subsubsection{Testing a class using Pex:}
+\subsubsection{Testing a class using Pex}
 As we saw before, Pex can easily give a full coverage on our methods (even the more complex ones). Now let's see about the generated code
 for testing entires implementations of a class.\\
 We will use regarding this example an implementation for generic Linked Lists in C\#.\\
@@ -679,7 +650,7 @@ The last step is to define the finitization method, this way we tell Korat how t
 
 Using this specification we were able to generate the following 2 structures: One with a root node and this node with two children.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 \centering
 \begin{dot2tex}[neato,options=-tmath]
 digraph "graph" {
@@ -701,7 +672,7 @@ rankdir=TB;
 
 And the other with the behavior of a list, the root node as only one child, and this child has another one.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 \centering
 \begin{dot2tex}[]
 digraph "graph" {
@@ -726,7 +697,6 @@ The conclusion goes here. this is more of the conclusion
 
 \section*{Acknowledgment}
 The authors would like to thank...
-more thanks here
 
 \bibliographystyle{IEEEtran}
 %\bibliography{IEEEfull,icst12}
