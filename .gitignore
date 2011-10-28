@@ -1,4 +1,33 @@
+# Mac OS X Finder and whatnot
+.DS_Store
+
+# misc stuff...
 *~
 *.*~
+
+# LaTeX related
 *-dot2tex-*
+*.swp
+*.toc
+*.out
+*.log
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.tex.backup
+*.lof
+*.lot
+*.bbl
+*.blg
+*.fdb_latexmk
+*.mlt*
+*.mtc*
+*.mlf*
+*.maf
+*.lot
+*.gz
 
