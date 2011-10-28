@@ -1,0 +1,821 @@
+\documentclass[10pt, conference, compsocconf]{IEEEtran}
+
+\usepackage{url}
+\usepackage{cite}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{verbatim}
+\usepackage{eurosym}
+\usepackage{amsfonts}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{pifont} % for the cross symbol
+\usepackage[a4paper, pdftex, bookmarks, colorlinks,citecolor=darkblue,linkcolor=darkblue,urlcolor=darkblue,filecolor=darkblue]{hyperref}
+
+\usepackage[cmex10]{amsmath}
+\usepackage{fixltx2e}
+\usepackage{stfloats}
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+% BEGIN: DOT related imports
+\usepackage[autosize]{dot2texi}
+\usepackage{tikz}
+
+\usetikzlibrary{shapes,decorations,shadows}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{decorations.shapes}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{decorations.footprints}
+\usetikzlibrary{decorations.fractals}
+\usetikzlibrary{shapes.gates.logic.IEC}
+\usetikzlibrary{shapes.gates.logic.US}
+\usetikzlibrary{fit,chains}
+\usetikzlibrary{positioning}
+\usepgflibrary{shapes}
+\usetikzlibrary{scopes}
+% END: DOT related imports
+
+\definecolor{darkblue}{rgb}{0,0.1,0.5}
+
+\lstdefinelanguage{codeTT}
+{
+        basicstyle=\ttfamily\footnotesize,
+        sensitive=true,
+        showstringspaces=false,
+        numberblanklines=true,
+        showspaces=false,
+        breaklines=true,
+        showtabs=false
+}
+
+\lstnewenvironment{code}{\lstset{language=codeTT}}{}
+\newcommand{\xunit}{\textit{xUnit}}
+\newcommand{\checkK}{\color{ForestGreen}\checkmark}
+\newcommand{\cross}{\color{red}\hspace{-3pt}\ding{55}}
+\newcommand{\bigexclaim}{\color{Dandelion}$\bigtriangleup$\hspace{-5.6pt}!}
+
+\begin{document}
+
+\title{Title}
+
+\author{
+\IEEEauthorblockN{Ulisses Costa}
+\IEEEauthorblockA{Department of Informatics\\
+University of Minho\\
+Braga, Portugal\\
+ucosta@visionspacetech.com}
+\and
+\IEEEauthorblockN{Daniela da Cruz}
+\IEEEauthorblockA{Department of Informatics\\
+University of Minho\\
+Braga, Portugal\\
+danieladacruz@gmail.com}
+\and
+\IEEEauthorblockN{Pedro Rangel Henriques}
+\IEEEauthorblockA{Department of Informatics\\
+University of Minho\\
+Braga, Portugal\\
+pedrorangelhenriques@gmail.com}
+}
+
+% conference papers do not typically use \thanks and this command
+% is locked out in conference mode. If really needed, such as for
+% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+% after \documentclass
+
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+% 
+%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+%Homer Simpson\IEEEauthorrefmark{2},
+%James Kirk\IEEEauthorrefmark{3}, 
+%Montgomery Scott\IEEEauthorrefmark{3} and
+%Eldon Tyrell\IEEEauthorrefmark{4}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+
+\maketitle
+
+\begin{abstract}
+ESA (European Space Agency) uses a big engine to perform tests in the
+Ground Segment infrastructure, specially the Operational Simulator.
+This engine uses many different tools to ensure the development of
+regression testing infrastructure and these tests perform black-box
+testing to the C++ simulator implementation.
+VST (Vision Space Technologies) is one of the companies that provides
+these services to ESA and they need a tool to instead of writing
+manually scripts to perform tests, it should try to automatically
+infer tests from the existing C++ code.
+There are many approaches trying to tackle this problem and therefore
+many tools were developed. Here we will present a study on the most
+recent tools that uses: Model-based testing, Specification-based
+testing, Constraint-based generation, Random generation and
+Grammar-based generation for the most used languages - C, JAVA and C\#.
+
+Automated Test Case Generation tools give support for creating test
+cases and at the same time ensure test case coverage methodically. The
+main goal of this tools is extract information from the program on how
+to generate executable test cases.
+Using manual written tests is tedious, time consuming and error-prone.
+Lots of functions/methods need full code coverage and this technique
+leaves to incomplete test suites and is hard to create tests that
+cover specific code paths potentially leaving many hidden bugs.
+Besides that, software is not a static artifact and is constantly
+evolving, so a test generation technique could be a more suitable
+mechanism in the development process.
+Furthermore in this paper we show a brief study on how to start resolving this specific problem by inferring UML+OCL from the existing C++ code.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Automatic Test Generation; White-box testing; UML/OCL;
+
+\end{IEEEkeywords}
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+\section{Introduction}
+Since ever, industry use methods to discover problems in early stages of development process and improve
+the quality of their product and software industry is not an exception. Miller\cite{miller} describe the utility
+of software testing as:
+
+\begin{quotation}
+The general aim of testing is to affirm the quality of software systems by systematically
+exercising the software in carefully controlled circumstances.
+\end{quotation}
+
+In the most recent period of software history the integration of software testing as a important step in the process of
+software development opened up to the appearance of \xunit\cite{xunit} tools and Agile software development.
+Also, companies start to use manual written tests as a part of their software development processes.\\
+Using  manual written tests is tedious, time consuming and error-prone. Lots of functions/methods need full code coverage and this technique leaves
+to incomplete test suites and is hard to create tests that cover specific code paths potentially leaving many hidden bugs. Many times a supervision leaded by the developer
+is needed to assure the right paths in the code are being tested, specially regarding black-box testing.\\
+\indent Nowadays we start to observe a rapid increase in the automatic test generation field, this paper intends to be a study regarding the most studied techniques
+and the tools that implement them. We will start to discuss the White-box testing vs. Black-box testing and we will from there to the automatic generation techniques.\\
+
+Two different techniques emerge for different proposes, Structural techniques and Functional techniques,
+White-box testing and Black-box\cite{black} testing respectively.
+
+\subsection{White-box testing}
+In White-box testing the tester needs to understand the internals of the code to be able to write tests for it.
+The goal of selecting test cases that tests specific parts of the code is to cause the execution of specific spots in the software, such as statements, branches or
+paths. This technique consists of analyzing statically a program, by reading the program code and using symbolic execution techniques to simulate abstract program
+executions in order to attempt to compute inputs to drive the program along specific execution paths or branches, without ever executing the program.
+On the other hand,
+
+%\begin{description}
+% Code Coverage Analysis:
+% http://www.bullseye.com/coverage.html
+% Software Testing and Quality Assurance - Control Flow:
+% https://docs.google.com/viewer?a=v&q=cache:6QvcPxmUFyUJ:www.swen.uwaterloo.ca/~knaik/MYBOOK1/Ch4-ControlFlowTesting.ppt+control+flow+testing&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESh9osuIe2hmQ-r6YXXHBvwps_E1zdNH3zVghGKe4tIHwN3GUXagUUQmKqnleoE0SiirRrVfC6mV16yaLTecr1z0OoKa1B9MELI7KR5ir8CsZ4DMTam3y86AfecwaXPUL--y1Qg3&sig=AHIEtbRivm5nl9TBdhUyoQYAkQ42z1uQqA
+\subsubsection{Control Flow based testing} analyzes all the possible paths in the code and write unit tests to cover multiple paths regarding our criteria.
+We generate the CFG (Control Flow Graph) of the program, we select different paths regarding our criteria:
+Select all paths, Select paths to achieve complete statement coverage\cite{stt,Ntafos:1988:CST:630792.631017},
+Select paths to achieve complete branch coverage\cite{Roper1994,stt}
+or Select paths to achieve predicate coverage\cite{stt,Ntafos:1988:CST:630792.631017}.
+And we generate the test inputs to make any path execute (exist input so the path can be executed, also called feasible path).
+To be able to accomplish this we must generate input data that satisfy all the conditions on the path.\\
+But we may have a problem, we may find infeasible paths (paths for which there is no input to the system that can cause that path to be executed)
+and we today that a general-purpose algorithm for identifying infeasible paths has been proven to be impossible\cite{infeasible} so, full path coverage
+is mathematically impossible. Even if we were able to compute all the possible paths.\\
+To avoid this problem we may apply a path selection strategy, an heuristic like: Select as many short paths as possible or Choose longer paths.
+
+% Data Flow Testing:
+% https://docs.google.com/viewer?a=v&q=cache:XxIB25uhkaoJ:www.cs.swan.ac.uk/~csmarkus/CS339/dissertations/NewM.pdf+Data+flow+testing+papers&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEEShlAvKZrR7h-XK0DgCkyl3AY_A7rpAsNopgLImb9ekkezxf9-I-g4vq74BTi87q5xozI8WJnMKlsu45y-f-aN3LtSKKt5r2zCsplRbbyMkVVq6-ZtbY6CF2u2h8K-mF8-UJbsOe&sig=AHIEtbRRDyhXAUaZ7aIXqRVx4JcgCV61FQ
+% Software Testing and Quality Assurance - Data Flow:
+% https://docs.google.com/viewer?a=v&q=cache:64LCfXP-LdAJ:www.swen.uwaterloo.ca/~knaik/MYBOOK1/Ch5-DataFlowTesting.ppt+Data+flow+testing&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESgnbadiCY2oGJ0rJ6Q_aEqO5srxsIeapB7rcE78Hyb7f2gU8N8a9oEqRPzHQ_eaerJoMt3IJmEC2uzhpA8YUVZVB7ehh-farOJU11xIzbsOpKZMQK77ImKc_wF1L2zukfBRBX0R&sig=AHIEtbRFefrgxnAcEDcypTYbwwnOf_YSiQ
+\subsubsection{Data Flow testing} select test cases according to CFG of software programs. Also looks at the life cycle (creation, usage and destruction)
+of a particular piece of data and observes how it is used along the CFG, this ensures that the number of paths are always finite\cite{dataflow}.\\
+Data Flow ca be performed at two conceptual levels, static and dynamic data flow testing. With statical data flow we are able to identify potential
+defects (aka data flow anomaly) and analyze the source code. On the other hand dynamic data flow involves actual program execution and bears similarity with control flow testing
+since we identify paths to execute them and paths are identified based on data flow testing criteria.\\
+The increased level of complexity in modern software systems can result in errors within programs, references may be made to variables that don't exist,
+or the value of variables may have changed in an unexpected and undesired manner. A more problematic decision in software testing when to stop testing,
+and an \textit{adequacy criterion}\cite{Frankl:1988:AFD:53064.53075} notion was created to be able to determine whether a program has been testes "enough".\\
+In more detail Data Flow testing define/use testing paths of the program CFG, this paths link variables, represented as nodes\cite{dataflow}.
+Associated with this are a set of test coverage metrics, also defined by Sandra Rapps and Elaine Weyuker in \cite{dataflow}.
+The metrics are a set of criteria, essentially – allow the tester to select sets of paths through the program, where "the number of paths selected
+is always finite, and chosen in a systematic and intelligent manner in order to
+help us uncover errors".
+
+\subsection{Black-box testing}
+Opposed to White-box testing, Black-box testing is based on functionality, so the tester observes a system based in their functional contracts and writes the
+pairs of inputs and the expected outputs for a given system and this is used from unit testing of single methods/functions to integration testing
+of combinations of the methods/functions to system testing of the final system.
+We execute the program starting with some given or random concrete inputs, gathering symbolic constraints on inputs at conditional statements along the execution,
+and then using a constraint solver to infer variants of the previous inputs in order to steer the next execution of the program
+towards an alternative program branch; this process can be repeated with the goal of systematically executing all (or as many as possible) feasible program paths.\\
+The positive aspect of this approach is the functional specification-based testing
+regardless of the final implementation and it consequent randomness of $input \times output$ pairs, that is very interesting to catch crashes or failures in the system.\\
+In fact there a recent tool - csmith\footnote{See more at: \url{http://embed.cs.utah.edu/csmith/}} that can generate random C programs and have already proved
+the power of stress-testing compilers, static analyzers, and other tools that process C code\cite{Yang:2011:FUB:1993316.1993532}.\\
+The downside of this technique, e.g., for a algorithmically non-trivial implementation it could be impossible to give a good test coverage.
+Imagine any traversal or search algorithm over a graph, it is very difficult to generate a good coverage of test cases without the knowledge of the algorithm.
+
+\section{Testing Tools Approaches}
+% Practical Model-Based Testing: A Tools Approach
+% http://www.cs.waikato.ac.nz/research/mbt/
+% MODEL BASED TEST GENERATION TOOLS
+% http://www.geocities.com/model_based_testing/
+% http://www.agedis.de/documents/ModelBasedTestGenerationTools_cs.pdf
+% Wikipedia
+% http://en.wikipedia.org/wiki/Model-based_testing
+% Microsoft Spec# model-based presentation (for dummies)
+% https://docs.google.com/viewer?a=v&q=cache:PVdrO7s75ScJ:www.sasqag.org/pastmeetings/harryr.ppt+model+based+testing&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESjsdNheYbIWtyBYEfgNss2mRQuVcH0Kh8nejgxYwFMSSoPDuEgtZbxdchxcNXENujrMXaIeDr4Q17lpB1Kk8073iuk76o6G66sppEYAq8wGbUKnNtbOx4eHlT_P2boklZ_DwiO&sig=AHIEtbTECVDePxriKz0fNYbhSo56Ktgvww
+%\subsection{Model-based Testing}
+%Predicates as specifications (Alloy is related to OCL (Object Constraint Language) for UML)
+
+% Specification Based Testing:
+% http://cs.union.edu/~barrv/Testing/Labs/lab9.html
+% Video:
+% http://www.youtube.com/watch?v=caElFKbceP0
+% Program Veriﬁcation - Automated Test Case Generation, Part I
+% https://docs.google.com/viewer?a=v&q=cache:xNINgGyegt8J:www.cs.uiowa.edu/~tinelli/classes/181/Spring08/Notes/10-ATCG-1.pdf+automatic+testcase+generation+-gui+-uml+-web&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESg65_S-6rwRNXFWJZjChW3x1J4oIldqfY6feMxBYdluY2LkCivOB8fs19Wtg6z1fhTpvrOQYBiIIyUv_3aRnJS3rzZSBjtnuHvtz3fx48xdJW6Jfj66_YvsMcaInpcw3xmO8t0Z&sig=AHIEtbTkPm7QVWO3evlUquwqV8LT-PvtBA
+% http://cs.gmu.edu/~offutt/rsrch/spec.html
+\subsection{Specification-based Testing}
+Specification Based Testing, also referred as model-based testing, refers to the process of testing a program based on what its specification says its behavior should be.
+In particular, we can develop test cases based on the specification of the program's behavior, without seeing an implementation of the program. So this clearly a
+way of Black-box testing.\\
+With this technique we can even start the testing phase and development phase in parallel, because we don't need the implementation
+to start the developing test cases. The only thing we need is the functional contracts, $input \times output$ sets for each function/method.
+
+Since the 90's there have been some effort into using specifications to try to generate test cases such as Z specifications
+\cite{Horcher95improvingsoftware,Stocks:1996:FST:239916.239918},
+UML statecharts\cite{Offutt:1999:GTU:1767297.1767341} and ADL specifications\cite{Sankar94specifyingand}.
+These specifications typically do not consider structurally complex inputs and these tools do not generate junit test cases.
+Nowadays there are some tools out there that can perform Specification-based Testing approach namely:
+
+%S. A. Khalek, G. Yang, L. Zhang, D. Marinov, and S. Khurshid
+%TestEra: A tool for testing JAVA programs using Alloy specifications
+%26th IEEE/ACM International Conference On Automated Software Engineering, Tool Demonstrations Track
+%(ASE Demo 2011), pages TO-APPEAR, Lawrence, KS, Nov. 2011
+\subsubsection{\textbf{TestEra}\cite{testera}}
+that can be used to perform automated specification-based testing of
+JAVA programs. This framework requires as input a JAVA method, a formal specification\footnote{Specifications are first-order logic formulae.}
+of the pre and post-conditions of that method, and
+a bound that limits the size of the test cases to be generated.\\
+With the pre-condition it automatically generates all nonisomorphic test inputs up to the given bound.
+It executes the method on each test input, and uses the method postcondition as an oracle to check the correctness of each output. This tool
+uses Alloy's\footnote{Alloy is a first-order declarative language based on sets and relations. The Alloy Analyzer is a fully
+automatic tool that finds instances of Alloy specifications: an instance
+assigns values to the sets and relations in the specification such that
+all formulae in the specification evaluate to true.}
+SAT system to analyze first-order  formulae.
+The authors claim that have used TestEra to check several JAVA programs including an architecture for
+dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods from the JAVA Collection Framework.\\
+\textit{This too have some years already and we don't find the tool available online.}
+
+\subsubsection{\textbf{Spec Explorer}} is a Microsoft model-based testing that uses two software modeling languages:
+AsmL (Abstract State Machine Language) that provides the foundations of the Spec Explorer\footnote{Can be found at: \url{http://research.microsoft.com/en-us/projects/specexplorer/}} tool
+and Spec\# that is a formal language for API contracts (influenced by JML, AsmL, and Eiffel), which extends C\# with constructs for non-null types,
+preconditions, postconditions, and object invariants\footnote{Can be found at: \url{http://research.microsoft.com/en-us/projects/specsharp/}}.
+This tool is already available to users and is a very mature phase.\\
+
+The user of Spec Explorer writes a model of the system and sets the possible values for some properties in his code, furthermore the user also provides a scenario.
+This scenarios are simple sets of calls to methods without its parameters (remember that this is Spec Explorer job).
+Then Spec Explorer will generate a visual graph on each node represents a state of the system and the arrows represent a call to some method.
+It searches throw all possible sequences of methods invocation that not violate the contracts (pre, pos conditions) and
+that are relevant to a user-specified set of test properties. After that we can generate from this visual graphs the unit tests (the arrows) and the
+test cases (a graph).
+
+% https://docs.google.com/viewer?a=v&q=cache:RdzKZBkZYWsJ:www.cs.ucf.edu/~leavens/JML-seminar/talks/jml-and-unit-testing.pdf+JMLUnit,&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESgMkxE0oy7rIqRi8Hd5wTFEEYdmbGXN0ILWMv-t1tpNK47zu1o12Y_GAJHRymOSDxr1rJ8bL9ERGcVyl28_P0iPSSxATu4IBZTT5LgbBxWWuZn3qmQ-dV3APKgxumAtmIMQOcYg&sig=AHIEtbS1dlYdhVZ9bp99rLFWI5T6s-YBhw
+\subsubsection{\textbf{JMLUnit}\cite{Cheon04thejml}} is a tool that automates the generation of oracles for JAVA testing classes. This tool
+monitor the specified behavior of the method being tested to decide whether the test passed or failed.
+This monitoring is done using the formal specification language runtime assertion checker.
+The main idea behind this tools is to translate the pre- and postconditions methods into the code of the testing method.\\
+The preconditions became the criteria for selecting test inputs, and the postconditions provided the properties to check for
+test results. So, the postconditions became the test oracles\footnote{A test oracle determines whether or not the results of a test
+execution are correct\cite{Peters95generatinga}.}.\\
+This tool uses the JML\cite{Burdy03anoverview} specification language to annotate JAVA methods code with pre- and postconditions and
+automatically generate JUnit test classes from JML specifications.
+
+%Consider the following specification for a program:
+%Write a program that simulates a pocket calculator. The input is an arithmetic expression that contains only integers and the arithmetic
+%operators $+, -, *, /, \%$, and $**$ (exponentiation). Assume that the input is written in infix notation. Report an error if the input contains characters other than those mentioned above. The expression may be as long as 1,000 characters and as short as 3 characters (e.g., 3+2). The program reads input entered at the terminal and prints the expression's value.
+%Without writing a program to solve this problem (you don't really know enough C yet to do it), based only on the specification given, and without knowing anything about the ultimate implementation, generate a set of test data that you think would be sufficient to test a program that would be written in accordance with this specification. If you think the specification is incomplete in anyway, state what assumptions you are making about how it should be completed or clarified.
+%Remember that a test case consists of the input data and the expected result for that input data.
+
+%\subsection{Constraint-based Generation Testing}
+
+\subsubsection{\textbf{Korat}\cite{Boyapati02korat:automated}}
+is a mature framework for automated testing structurally complex inputs of JAVA programs.
+Given a formal specification for a method, Korat\footnote{Can be found at: \url{http://korat.sourceforge.net/}} uses the method precondition
+to automatically generate all (nonisomorphic) test cases up to a given small size.
+Korat then executes the method on each test case, and uses the method postcondition as a test oracle to check the correctness of each output.\\
+To be able to generate test cases for a method, Korat uses a predicate and a bound on the size of its inputs,
+Korat generates all (nonisomorphic) inputs for which the predicate returns $true$.
+Korat generates all the possible input spaces regarding the predicate and monitor the predicate's executions to be able to prune large portions of the search space.\\
+
+The writing of a predicate is done using JAVA language and in most cases we can write the first thing that cames to our heads to restrict the input space.
+But for more complex structures it is better to understand how the matching algorithm work to be able to write a fast verifiable predicate.\\
+Unfortunately the test derivation tool using korat (that also uses JML) is not available to the public.
+
+\subsubsection{\textbf{Pex}\cite{Tillmann:2008:PWB:1792786.1792798}} is an automatic white-box test generation tool for .NET. Starting from a method that takes parameters, Pex performs path-bounded model-checking
+by repeatedly executing the program and solving constraint systems to obtain inputs that will steer the program along different execution paths.
+This uses the idea of dynamic symbolic execution\cite{Tillmann06unittests}. Pex uses the theorem prover and
+constraint solver Z3\footnote{See more at: \url{http://research.microsoft.com/en-us/um/redmond/projects/z3/}} to reason about the feasibility of execution paths, and
+to obtain ground models for constraint systems.\\
+Pex came with Moles that helps to generate unit tests. This tools together are able to understand the input (by analyzing branches in the code:
+declarations, all exceptions throws operations, if statements, asserts and .net Contracts). With this information Pex uses Z3 constraint solver to
+produce new test inputs which exercise diferent program behavior.\\
+The result is an automatically generated small test suite which often achieves high code coverage.\\
+
+Pex can be used in a project, class or method (which make it a very helpful and versatile tool). After the analysis process we can see in "Pex Explorarion Results"
+the $input \times output$ pairs selected for each test case for our method, we also get a percentage of the test coverage.
+
+\subsection{Grammar-based Generation Testing}
+In this approach inputs to a system under test are defined by a context-free grammar. The language of the grammar contains all possible test cases.
+Using this approach to describe the syntax of the input to the system under test proves to be very helpful to test
+network protocols\cite{tal:syntax-based,kaksonen2001functional} and parsers and compilers\cite{1994-burgess,Burgess_Saidi_1996}.
+
+\subsubsection{\textbf{ASTGen}\cite{Daniel:2007:ATR:1287624.1287651}} Is a JAVA framework that automates testing of refactoring engines: generation of test inputs
+and checking of test outputs. The main technique is an iterative generation of structurally complex test inputs.
+ASTGen\footnote{See more at: \url{http://mir.cs.illinois.edu/astgen/}} allows developers to write imperative generators whose executions
+produce input programs for refactoring engines. More precisely, ASTGen
+offers a library of generic, reusable, and composable generators that produce abstract syntax trees (ASTs).\\
+So, ASTGen ensures the production of test inputs instead of the developer produce them. The developer needs to write a generator whose execution
+produces thousands of programs with structural properties that are relevant for the specific refactoring being tested. This tool has found
+21 bugs in Eclipse and 26 bugs in Netbeans applications.
+
+\subsection{Random Generation Testing}
+In the random testing approach, test inputs are selected randomly from the input domain of the system.
+To have a random testing suite first we must identify the input domain, after that select test inputs independently from the domain,
+then the system under test is executed on these inputs, the results are compared to the system specification, an oracle.\\
+Random testing gives us an advantage of easily estimating software reliability from test outcomes.
+Test inputs are randomly generated according to an operational profile, and failure times are recorded.
+The data obtained from random testing can then be used to find bugs or non expected behaviors.\\
+
+The main problem regarding random generation is the problem of the coverage, it is possible that will not be broad enough. And furthermore it can be
+too sparse to actually test specifics in the program. Either way, this this technique proves to be very effective testing compilers.
+
+\subsubsection{\textbf{csmith}\cite{Yang:2011:FUB:1993316.1993532}} is a black-box random testing generator. That is able to generate C programs
+conform to the C99\footnote{See more at: \url{http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf}} standard. This is a very recent tool that already discover
+more than 195 bugs in LLVM and 79 bugs in GCC. With csmith we are able to generate random programs with unambiguous meanings (undefined behavior or 
+unspecified behavior). Does not attempt to generate terminating program, so they use timeouts for long time consuming generated programs.
+And the main supported features right now are: Arithmetic, logical, and bit operations on integers, Loops, Conditionals, Function calls, Const and volatile,
+Structs and Bitfields, Pointers and arrays, Goto, Break and continue. The generation of code regarding this features can be tuned using the command line program.
+
+\section{Using the tools}
+After introducing the theory and the techniques that support each tool we will demonstrate some of the tools in action, regarding small but illustrative examples
+on how each tool can help us find good test cases.
+
+\subsection{Pex}
+Regarding a simple implementation of a 2D $Point$ class we will create a program that has a special behaviour, under a certain condition
+$x \times y \equiv 42$ it is supposed to throw an exception, imagine we found a bug when this property evaluates to $true$.
+
+\begin{code}
+public class Point  {
+  public readonly int X, Y;
+  public Point(int x, int y) { X = x; Y = y; }
+}
+
+public class Program {
+  public static void Puzzle(Point p) {
+    if (p.X * p.Y == 42)
+        throw new Exception("hidden bug!");
+  }
+}
+\end{code}
+
+So, as we describe earlier, Pex will try to generate such input as it is possible (in an given amount of time) to traverse all the paths inside the code.
+This is the output table, with the inputs and outputs that Pex found more interesting.\\
+
+\begin{table}[!h]
+\renewcommand{\arraystretch}{1.3}
+\caption{An Example of a Table}
+\centering
+\noindent \begin{tabular}{|c|c|c|c|}\hline
+Result & p & Output/Exception & Error Message\\\hline
+ &  &  & Object ref. not set \\
+\cross & null  & NullReferenceException & to an instance \\
+ &  &  & of an object.\\\hline
+\checkK & new Point{X=0,Y=0} & &\\\hline
+\cross & new Point{X=3,Y=14} & Exception & hidden bug!\\\hline
+\end{tabular}
+\end{table}
+
+As you can see Pex was successful to reach the $Exception$ path inside the code. Of course this is not always possible, since sometimes the functions
+inside the $if$ statement does not have inverse function.\\
+
+Pex can also be very helpful checking assertions and contracts in .net code. Here we write a binary search algorithm and we have an assertion in
+the middle of our code.
+
+\begin{code}
+public class Program {
+  public static int Puzzle(int x, int n) {
+    return BinarySearch(x, i=>i, 0, n);
+  }
+  static int BinarySearch(int x, Func<int, int> f, int lo, int hi) {
+    while (lo < hi) {
+      int mid = (lo+hi)/2;
+      Debug.Assert(mid >= lo && mid < hi);
+      if (x < f(mid)) { hi = mid; } else { lo = mid+1; }
+    }
+    return lo;
+  }
+}
+\end{code}
+
+This is the results provided by Pex: it was able to generate an input that could not pass in the assertion inerted in our code.\\
+
+\begin{table}[!h]
+\renewcommand{\arraystretch}{1.3}
+\caption{An Example of a Table}
+\centering
+\noindent \begin{tabular}{|c|c|c|c|c|}\hline
+Result & x & n & result & Output/Exception \\\hline
+\checkK & 0 & 0 & 0      & \\\hline
+\checkK & 0 & 1 & 1      & \\\hline
+\checkK & 0 & 3 & 1      & \\\hline
+\cross & 1073741888 & 1719676992 & & TraceAssertionException \\\hline
+\checkK & 1 & 6 & 2      & \\\hline
+\checkK & 50 & 96 & 51      &\\\hline
+\end{tabular}
+\end{table}
+
+Now we have another example, a function that verifies if a given day since 1980 belongs to a leap year or not. Pex was able to generate
+some important test cases, but it has reached the limit amount of time to calculate interesting paths in the code.
+
+\begin{code}
+public class Program {
+  private static bool IsLeapYear(int year) {
+    return (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0));
+  }
+  public static void Puzzle(int day, out int year) {
+    year = 1980;
+    while (day > 365) {
+      if (IsLeapYear(year)) {
+        if (day > 366) {
+          day -= 366;
+          year += 1;
+        }
+      } else {
+        day -= 365;
+        year += 1;
+      }
+    }
+  }
+}
+\end{code}
+
+And this is the results:\\
+
+\begin{table}[!h]
+\renewcommand{\arraystretch}{1.3}
+\caption{An Example of a Table}
+\centering
+\noindent \begin{tabular}{|c|c|c|c|c|}\hline
+Result & day & out year & Output/Exception\\\hline
+\checkK & 0 & 1980 & \\\hline
+\checkK & 367 & 1981 & \\\hline
+\bigexclaim & 366 & & path bounds exceeded\\\hline
+\checkK & 1023 & 1982 &\\\hline
+\checkK & 2561 & 1987 & \\\hline
+\checkK & 7874 & 2001 & \\\hline
+\bigexclaim &  7671 & & path bounds exceeded\\\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Testing a class using Pex:}
+As we saw before, Pex can easily give a full coverage on our methods (even the more complex ones). Now let's see about the generated code
+for testing entires implementations of a class.\\
+We will use regarding this example an implementation for generic Linked Lists in C\#.\\
+
+So, we consider a $LinkedListElement$ parametrized with type $T$ to be the type of the element we want to preserve and two more $LinkedListElement$, one to keep
+tracking of previous element and the other for the next.
+
+\begin{code}
+public class LinkedListElement<T> {
+  public T Data;
+  public LinkedListElement<T> Prev;
+  public LinkedListElement<T> Next;
+
+  public LinkedListElement(T data) {
+    Data = data;
+  }
+}
+\end{code}
+
+In order to keep track of both head and tail of my linked list I will have two variables of type $LinkedListElement$ in my linked list implementation.
+
+\begin{code}
+public class LinkedList<T> {
+  public LinkedListElement<T> Head;
+  public LinkedListElement<T> Tail;
+
+  public LinkedList(T element) {
+    Head = null;
+    Tail = null;
+    Add(element);
+  }
+\end{code}
+
+I will also add a few methods to manage this data structure: $Add$, $Next$ to jump to the next element on the list,
+$Prev$ to accomplish the same effect but for the previous element, $Remove$ and $Find$.
+
+\begin{code}
+  public void Add(T element) {
+    LinkedListElement<T> Listelement = new LinkedListElement<T>(element);
+    if (Head == null) {
+      Head = Listelement;
+    }
+    else {
+      Listelement.Prev = Tail;
+      Tail.Next = Listelement;
+    }
+    Tail = Listelement;
+  }
+
+  public static LinkedListElement<T> Next(LinkedListElement<T> element) {
+    if (element == null)
+      throw new Exception("Next: element is null");
+
+    return element.Next;
+  }
+
+  public static LinkedListElement<T> Prev(LinkedListElement<T> element) {
+    if (element == null)
+      throw new NullReferenceException("Prev: element is null");
+    
+    return element.Prev;
+  }
+
+  public void Remove(LinkedListElement<T> element) {
+    if (element == null)
+      return;
+
+    if (element == Head)
+      Head = element.Next;
+    if (element == Tail)
+      Tail = element.Prev;
+
+    if (element.Prev != null) {
+      LinkedListElement<T> prev = element.Prev;
+      prev.Next = element.Next;
+    }
+    if (element.Next != null) {
+      LinkedListElement<T> next = element.Next;
+      next.Prev = element.Prev;
+    }
+  }
+
+  public LinkedListElement<T> Find(T needle) {
+    return Find(needle, Head);
+  }
+
+  public LinkedListElement<T> Find(T needle, LinkedListElement<T> start) {
+    LinkedListElement<T> iterator = start;
+    while (iterator != null) {
+      if (iterator.Data.Equals(needle)) return iterator;
+      iterator = iterator.Next;
+    }
+    return null;
+  }
+}
+\end{code}
+
+To avoid more verbosity I will now explain the generated code for each method and explain the changes we need to do to accomplish a full test coverage
+for this class.
+
+\begin{code}
+[TestClass]
+public partial class LinkedListTTest {
+  [PexMethod]
+  public void Remove<T>([PexAssumeUnderTest]LinkedList<T> target, LinkedListElement<T> element) {
+    PexAssume.IsTrue(target.Find(element.Data) == null, "complex reason");
+    PexAssume.IsNotNull((object)element, "element");
+    try {
+      target.Remove(element);
+    } catch (Exception) {
+      if (element == null) PexAssert.IsTrue(true);
+    }
+
+    LinkedListElement<T> linkedListElement = target.Find(element.Data);
+    PexAssert.IsTrue(linkedListElement == null);
+  }
+\end{code}
+
+% https://docs.google.com/viewer?a=v&q=cache:n1iv3bIgPt4J:asa.iti.kit.edu/downloads/korat.pdf+koratsearch+method&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEEShqAe4m4a6eyvCLDJb1tJ1N8n4qXUOqQRfdMIs8G-7vUXjlpir2Y6xecTu5l25hjU0i8GFnts5sZdQIUtNZajlw6FTZhc8MLNbkm-lrgwMoPOjUWZThNbxLMRbniFz8o0WovIsl&sig=AHIEtbRDAmtti5JRTj8n5K-gjl0S5eC2Hg
+\subsection{Korat}
+As we explain before, Korat generates a graphical representation of the structure instances that validates the property we define using JAVA code, $repOK$ method.\\
+Imagine we have a simple definition of a Binary Tree structure in JAVA.
+
+\begin{code}
+public class BinaryTree {
+  public static class Node {
+    Node left;
+    Node right;
+  }
+  private Node root;
+  private int size;
+}
+\end{code}
+
+Now we must define the predicate method.
+This predicate method will check that the tree doesn't have any cycles and that the number of nodes traversed from root matches the value of the field size.
+Note that we using short-circuiting, so we return $false$ as soon as we can. This way Korat will be able to generate a baster solution.
+
+\begin{code}
+  public boolean repOK() {
+    if (root == null)
+      return size == 0;
+    // checks that tree has no cycle
+    Set visited = new HashSet();
+    visited.add(root);
+    LinkedList workList = new LinkedList();
+    workList.add(root);
+    while (!workList.isEmpty()) {
+      Node current = (Node) workList.removeFirst();
+      if (current.left != null) {
+        if (!visited.add(current.left))
+          return false;
+        workList.add(current.left);
+      }
+      if (current.right != null) {
+        if (!visited.add(current.right))
+          return false;
+        workList.add(current.right);
+      }
+    }
+    // checks that size is consistent
+    return (visited.size() == size);
+  }
+\end{code}
+
+The last step is to define the finitization method, this way we tell Korat how to bound the input space.
+
+\begin{code}
+  public static IFinitization finBinaryTree(int nodesNum, int minSize, int maxSize) {
+    IFinitization f = FinitizationFactory.create(BinaryTree.class);
+    IObjSet nodes = f.createObjSet(Node.class, nodesNum, true);
+    f.set("root", nodes);
+    f.set("Node.left", nodes);
+    f.set("Node.right", nodes);
+    IIntSet sizes = f.createIntSet(minSize, maxSize);
+    f.set("size", sizes);
+    return f;
+  }
+\end{code}
+
+Using this specification we were able to generate the following 2 structures: One with a root node and this node with two children.
+
+\begin{figure}[!h]
+\centering
+\begin{dot2tex}[neato,options=-tmath]
+digraph "graph" {
+graph [fontname="LucidaGrande", fontsize=12]
+node [fontname="LucidaGrande", fontsize=12]
+edge [fontname="LucidaGrande", fontsize=12]
+rankdir=TB;
+"N0" -> "N1" [color = "black", fontcolor = "black", style = "solid", label = "left", dir = "forward", weight = "0"]
+"N0" -> "N2" [color = "black", fontcolor = "black", style = "solid", label = "right", dir = "forward", weight = "0"]
+"N3" -> "N0" [color = "black", fontcolor = "black", style = "solid", label = "root", dir = "forward", weight = "0"]
+"N0" [label="Node0", color="black", fontcolor = "black", shape = "box"]
+"N1" [label="Node1", color="black", fontcolor = "black", shape = "box"]
+"N2" [label="Node2", color="black", fontcolor = "black", shape = "box"]
+"N3" [label="BinaryTree0 : 3", color="black", fontcolor = "black"]
+}
+\end{dot2tex}
+\caption{bababa}
+\end{figure}
+
+And the other with the behavior of a list, the root node as only one child, and this child has another one.
+
+\begin{figure}[!h]
+\centering
+\begin{dot2tex}[]
+digraph "graph" {
+graph [fontname="LucidaGrande", fontsize=12]
+node [fontname="LucidaGrande", fontsize=12]
+edge [fontname="LucidaGrande", fontsize=12]
+rankdir=TB;
+"N0" -> "N1" [color = "black", fontcolor = "black", style = "solid", label = "right", dir = "forward", weight = "0"]
+"N1" -> "N2" [color = "black", fontcolor = "black", style = "solid", label = "right", dir = "forward", weight = "0"]
+"N3" -> "N0" [color = "black", fontcolor = "black", style = "solid", label = "root", dir = "forward", weight = "0"]
+"N0" [label="Node0",  fontcolor = "black", shape = "box"]
+"N1" [label="Node1", fontcolor = "black", shape = "box"]
+"N2" [label="Node2",  fontcolor = "black", shape = "box"]
+"N3" [label="BinaryTree0 : 3", color="black", fontcolor = "black"]
+}
+\end{dot2tex}
+\caption{BLBLBLB}
+\end{figure}
+
+
+% An example of a floating figure using the graphicx package.
+% Note that \label must occur AFTER (or within) \caption.
+% For figures, \caption should occur after the \includegraphics.
+% Note that IEEEtran v1.7 and later has special internal code that
+% is designed to preserve the operation of \label within \caption
+% even when the captionsoff option is in effect. However, because
+% of issues like this, it may be the safest practice to put all your
+% \label just after \caption rather than within \caption{}.
+%
+% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% option should be used if it is desired that the figures are to be
+% displayed while in draft mode.
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{myfigure}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+%\caption{Simulation Results}
+%\label{fig_sim}
+%\end{figure}
+
+% Note that IEEE typically puts floats only at the top, even when this
+% results in a large percentage of a column being occupied by floats.
+
+
+% An example of a double column floating figure using two subfigures.
+% (The subfig.sty package must be loaded for this to work.)
+% The subfigure \label commands are set within each subfloat command, the
+% \label for the overall figure must come after \caption.
+% \hfil must be used as a separator to get equal spacing.
+% The subfigure.sty package works much the same way, except \subfigure is
+% used instead of \subfloat.
+%
+%\begin{figure*}[!t]
+%\centerline{\subfloat[Case I]\includegraphics[width=2.5in]{subfigcase1}%
+%\label{fig_first_case}}
+%\hfil
+%\subfloat[Case II]{\includegraphics[width=2.5in]{subfigcase2}%
+%\label{fig_second_case}}}
+%\caption{Simulation results}
+%\label{fig_sim}
+%\end{figure*}
+%
+% Note that often IEEE papers with subfigures do not employ subfigure
+% captions (using the optional argument to \subfloat), but instead will
+% reference/describe all of them (a), (b), etc., within the main caption.
+
+
+% An example of a floating table. Note that, for IEEE style tables, the 
+% \caption command should come BEFORE the table. Table text will default to
+% \footnotesize as IEEE normally uses this smaller font for tables.
+% The \label must come after \caption as always.
+%
+%\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+%\caption{An Example of a Table}
+%\label{table_example}
+%\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+%\begin{tabular}{|c||c|}
+%\hline
+%One & Two\\
+%\hline
+%Three & Four\\
+%\hline
+%\end{tabular}
+%\end{table}
+
+
+% Note that IEEE does not put floats in the very first column - or typically
+% anywhere on the first page for that matter. Also, in-text middle ("here")
+% positioning is not used. Most IEEE journals/conferences use top floats
+% exclusively. Note that, LaTeX2e, unlike IEEE journals/conferences, places
+% footnotes above bottom floats. This can be corrected via the \fnbelowfloat
+% command of the stfloats package.
+
+
+
+\section{Conclusion}
+The conclusion goes here. this is more of the conclusion
+
+\section*{Acknowledgment}
+The authors would like to thank...
+more thanks here
+
+\bibliographystyle{IEEEtran}
+%\bibliography{IEEEfull,icst12}
+\bibliography{IEEEabrv,icst12}
+
+\end{document}
+
