@@ -87,7 +87,7 @@ pedrorangelhenriques@gmail.com}
 \maketitle
 
 \begin{abstract}
-ESA (European Space Agency) uses a big engine to perform tests in the
+ESA (European Space Agency) uses an engine to perform tests in the
 Ground Segment infrastructure, specially the Operational Simulator.
 This engine uses many different tools to ensure the development of
 regression testing infrastructure and these tests perform black-box
@@ -123,8 +123,8 @@ Automatic Test Generation; White-box testing; UML/OCL;
 \IEEEpeerreviewmaketitle
 
 \section{Introduction}
-Since ever, industry use methods to discover problems in early stages of development process and improve
-the quality of their product and software industry is not an exception. Miller\cite{miller} describe the utility
+Since ever, every industry use testing methods to discover problems in early stages of development process to improve
+the products quality and software industry is not an exception. Miller\cite{miller} describe the utility
 of software testing as:
 
 \begin{quotation}
@@ -134,22 +134,26 @@ exercising the software in carefully controlled circumstances.
 
 In the most recent period of software history the integration of software testing as a important step in the process of
 software development opened up to the appearance of \xunit\cite{xunit} tools and Agile software development.
-Also, companies start to use manual written tests as a part of their software development processes.\\
+Also, ESA start to use manual written tests as a part of their software development processes.\\
 Using  manual written tests is tedious, time consuming and error-prone. Lots of functions/methods need full code coverage and this technique leaves
 to incomplete test suites and is hard to create tests that cover specific code paths potentially leaving many hidden bugs. Many times a supervision leaded by the developer
-is needed to assure the right paths in the code are being tested, specially regarding black-box testing.\\
-\indent Nowadays we start to observe a rapid increase in the automatic test generation field, this paper intends to be a study regarding the most studied techniques
-and the tools that implement them. We will start to discuss the White-box testing vs. Black-box testing and we will from there to the automatic generation techniques.\\
-
-Two different techniques emerge for different proposes, Structural techniques and Functional techniques,
-White-box testing and Black-box\cite{black} testing respectively.
+is needed to assure that the right paths in the code are being tested, specially regarding black-box testing.\\
+Nowadays we start to observe a rapid increase in the automatic test generation field, this paper intends to be a study regarding the most studied techniques
+and the tools that implement them in order to choose the best set of suitable techniques to incorporate in a automatic testing generator to the
+Ground Segment infrastructure, specially the Operational Simulator at ESA.\\
+Two different techniques emerge for different proposes, Structural Techniques and Functional Techniques,
+White-box testing and Black-box\cite{black} testing respectively. Functional testing is the most common at ESA, because of the calculation complexity
+behind the Operational Simulators.\\
+We will start to discuss the White-box testing vs. Black-box testing and from there we will explain in more detail some automatic generation techniques.\\
+\indent Since no other testing tool used by ESA makes any use of a formal model we decide to start by infer the UML model from the existing C++
+code and explore the generation of Object Constraint Language specifications from C++ code and UML diagrams.
+The idea is to capture the requirements properties about the code, and from this beef up the white-box automatic test generation.
 
 \subsection{White-box testing}
 In White-box testing the tester needs to understand the internals of the code to be able to write tests for it.
 The goal of selecting test cases that tests specific parts of the code is to cause the execution of specific spots in the software, such as statements, branches or
 paths. This technique consists of analyzing statically a program, by reading the program code and using symbolic execution techniques to simulate abstract program
 executions in order to attempt to compute inputs to drive the program along specific execution paths or branches, without ever executing the program.
-On the other hand,
 
 %\begin{description}
 % Code Coverage Analysis:
@@ -162,9 +166,9 @@ Select all paths, Select paths to achieve complete statement coverage\cite{stt,N
 Select paths to achieve complete branch coverage\cite{Roper1994,stt}
 or Select paths to achieve predicate coverage\cite{stt,Ntafos:1988:CST:630792.631017}.
 And we generate the test inputs to make any path execute (exist input so the path can be executed, also called feasible path).
-To be able to accomplish this we must generate input data that satisfy all the conditions on the path.\\
-But we may have a problem, we may find infeasible paths (paths for which there is no input to the system that can cause that path to be executed)
-and we today that a general-purpose algorithm for identifying infeasible paths has been proven to be impossible\cite{infeasible} so, full path coverage
+To be able to accomplish this goal we must generate input data that satisfy all the conditions on the path.\\
+\indent We may have a problem and find paths for which there is no input to the system that can cause that path to be executed (infeasible paths)
+and we know today that a general-purpose algorithm for identifying infeasible paths has been proven to be impossible\cite{infeasible} so, full path coverage
 is mathematically impossible. Even if we were able to compute all the possible paths.\\
 To avoid this problem we may apply a path selection strategy, an heuristic like: Select as many short paths as possible or Choose longer paths.
 
@@ -174,17 +178,18 @@ To avoid this problem we may apply a path selection strategy, an heuristic like:
 % https://docs.google.com/viewer?a=v&q=cache:64LCfXP-LdAJ:www.swen.uwaterloo.ca/~knaik/MYBOOK1/Ch5-DataFlowTesting.ppt+Data+flow+testing&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESgnbadiCY2oGJ0rJ6Q_aEqO5srxsIeapB7rcE78Hyb7f2gU8N8a9oEqRPzHQ_eaerJoMt3IJmEC2uzhpA8YUVZVB7ehh-farOJU11xIzbsOpKZMQK77ImKc_wF1L2zukfBRBX0R&sig=AHIEtbRFefrgxnAcEDcypTYbwwnOf_YSiQ
 \subsubsection{Data Flow testing} select test cases according to CFG of software programs. Also looks at the life cycle (creation, usage and destruction)
 of a particular piece of data and observes how it is used along the CFG, this ensures that the number of paths are always finite\cite{dataflow}.\\
-Data Flow ca be performed at two conceptual levels, static and dynamic data flow testing. With statical data flow we are able to identify potential
-defects (aka data flow anomaly) and analyze the source code. On the other hand dynamic data flow involves actual program execution and bears similarity with control flow testing
-since we identify paths to execute them and paths are identified based on data flow testing criteria.\\
-The increased level of complexity in modern software systems can result in errors within programs, references may be made to variables that don't exist,
-or the value of variables may have changed in an unexpected and undesired manner. A more problematic decision in software testing when to stop testing,
-and an \textit{adequacy criterion}\cite{Frankl:1988:AFD:53064.53075} notion was created to be able to determine whether a program has been testes "enough".\\
+Data Flow can be performed at two conceptual levels, static and dynamic data flow testing. With statical data flow we are able to identify potential
+defects (data flow anomaly) when analyzing the source code. On the other hand dynamic data flow involves actual program execution and bears similarity
+with control flow testing since we identify paths to execute them and paths are identified based on data flow testing criteria.\\
+
+%\indent The increased level of complexity in modern software systems can result in errors within programs, references may be made to variables that don't exist,
+%or the value of variables may have changed in an unexpected and undesired manner.
+A more problematic decision in automated software testing is when to stop testing, and an \textit{adequacy criterion}\cite{Frankl:1988:AFD:53064.53075} notion
+is needed to be able to determine whether a program has been tested "enough".\\
 In more detail Data Flow testing define/use testing paths of the program CFG, this paths link variables, represented as nodes\cite{dataflow}.
 Associated with this are a set of test coverage metrics, also defined by Sandra Rapps and Elaine Weyuker in \cite{dataflow}.
 The metrics are a set of criteria, essentially – allow the tester to select sets of paths through the program, where "the number of paths selected
-is always finite, and chosen in a systematic and intelligent manner in order to
-help us uncover errors".
+is always finite, and chosen in a systematic and intelligent manner in order to help us uncover errors".
 
 \subsection{Black-box testing}
 Opposed to White-box testing, Black-box testing is based on functionality, so the tester observes a system based in their functional contracts and writes the
@@ -201,6 +206,14 @@ The downside of this technique, e.g., for a algorithmically non-trivial implemen
 Imagine any traversal or search algorithm over a graph, it is very difficult to generate a good coverage of test cases without the knowledge of the algorithm.
 
 \section{Testing Tools Approaches}
+
+% Specification Based Testing:
+% http://cs.union.edu/~barrv/Testing/Labs/lab9.html
+% Video:
+% http://www.youtube.com/watch?v=caElFKbceP0
+% Program Veriﬁcation - Automated Test Case Generation, Part I
+% https://docs.google.com/viewer?a=v&q=cache:xNINgGyegt8J:www.cs.uiowa.edu/~tinelli/classes/181/Spring08/Notes/10-ATCG-1.pdf+automatic+testcase+generation+-gui+-uml+-web&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESg65_S-6rwRNXFWJZjChW3x1J4oIldqfY6feMxBYdluY2LkCivOB8fs19Wtg6z1fhTpvrOQYBiIIyUv_3aRnJS3rzZSBjtnuHvtz3fx48xdJW6Jfj66_YvsMcaInpcw3xmO8t0Z&sig=AHIEtbTkPm7QVWO3evlUquwqV8LT-PvtBA
+% http://cs.gmu.edu/~offutt/rsrch/spec.html
 % Practical Model-Based Testing: A Tools Approach
 % http://www.cs.waikato.ac.nz/research/mbt/
 % MODEL BASED TEST GENERATION TOOLS
@@ -210,56 +223,25 @@ Imagine any traversal or search algorithm over a graph, it is very difficult to 
 % http://en.wikipedia.org/wiki/Model-based_testing
 % Microsoft Spec# model-based presentation (for dummies)
 % https://docs.google.com/viewer?a=v&q=cache:PVdrO7s75ScJ:www.sasqag.org/pastmeetings/harryr.ppt+model+based+testing&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESjsdNheYbIWtyBYEfgNss2mRQuVcH0Kh8nejgxYwFMSSoPDuEgtZbxdchxcNXENujrMXaIeDr4Q17lpB1Kk8073iuk76o6G66sppEYAq8wGbUKnNtbOx4eHlT_P2boklZ_DwiO&sig=AHIEtbTECVDePxriKz0fNYbhSo56Ktgvww
-%\subsection{Model-based Testing}
 %Predicates as specifications (Alloy is related to OCL (Object Constraint Language) for UML)
-
-% Specification Based Testing:
-% http://cs.union.edu/~barrv/Testing/Labs/lab9.html
-% Video:
-% http://www.youtube.com/watch?v=caElFKbceP0
-% Program Veriﬁcation - Automated Test Case Generation, Part I
-% https://docs.google.com/viewer?a=v&q=cache:xNINgGyegt8J:www.cs.uiowa.edu/~tinelli/classes/181/Spring08/Notes/10-ATCG-1.pdf+automatic+testcase+generation+-gui+-uml+-web&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESg65_S-6rwRNXFWJZjChW3x1J4oIldqfY6feMxBYdluY2LkCivOB8fs19Wtg6z1fhTpvrOQYBiIIyUv_3aRnJS3rzZSBjtnuHvtz3fx48xdJW6Jfj66_YvsMcaInpcw3xmO8t0Z&sig=AHIEtbTkPm7QVWO3evlUquwqV8LT-PvtBA
-% http://cs.gmu.edu/~offutt/rsrch/spec.html
 \subsection{Specification-based Testing}
-Specification Based Testing, also referred as model-based testing, refers to the process of testing a program based on what its specification says its behavior should be.
-In particular, we can develop test cases based on the specification of the program's behavior, without seeing an implementation of the program. So this clearly a
+Specification Based Testing also known as Model Based Testing refers to the process of testing a program based on what its specification or model says its behavior should be.
+In particular, we can generate test cases based on the specification of the program's behavior, without seeing an implementation of the program. So this clearly a
 way of Black-box testing.\\
-With this technique we can even start the testing phase and development phase in parallel, because we don't need the implementation
-to start the developing test cases. The only thing we need is the functional contracts, $input \times output$ sets for each function/method.
-
+With this technique we can even start the testing phase and development phase in parallel, we don't need the implementation
+to start the developing test cases. The only thing we need is the functional contracts and/or oracles for each function/method.\\
 Since the 90's there have been some effort into using specifications to try to generate test cases such as Z specifications
-\cite{Horcher95improvingsoftware,Stocks:1996:FST:239916.239918},
-UML statecharts\cite{Offutt:1999:GTU:1767297.1767341} and ADL specifications\cite{Sankar94specifyingand}.
+\cite{Horcher95improvingsoftware,Stocks:1996:FST:239916.239918}, UML statecharts\cite{Offutt:1999:GTU:1767297.1767341},VDM\cite{Aichernig99automatedblack-box}
+or ADL specifications\cite{Sankar94specifyingand}.
 These specifications typically do not consider structurally complex inputs and these tools do not generate junit test cases.
-Nowadays there are some tools out there that can perform Specification-based Testing approach namely:
+Nowadays there are some tools out there that can perform Specification-based Testing approach, we will talk about the most relevant ones.
 
-%S. A. Khalek, G. Yang, L. Zhang, D. Marinov, and S. Khurshid
-%TestEra: A tool for testing JAVA programs using Alloy specifications
-%26th IEEE/ACM International Conference On Automated Software Engineering, Tool Demonstrations Track
-%(ASE Demo 2011), pages TO-APPEAR, Lawrence, KS, Nov. 2011
-\subsubsection{\textbf{TestEra}\cite{testera}}
-that can be used to perform automated specification-based testing of
-JAVA programs. This framework requires as input a JAVA method, a formal specification\footnote{Specifications are first-order logic formulae.}
-of the pre and post-conditions of that method, and
-a bound that limits the size of the test cases to be generated.\\
-With the pre-condition it automatically generates all nonisomorphic test inputs up to the given bound.
-It executes the method on each test input, and uses the method postcondition as an oracle to check the correctness of each output. This tool
-uses Alloy's\footnote{Alloy is a first-order declarative language based on sets and relations. The Alloy Analyzer is a fully
-automatic tool that finds instances of Alloy specifications: an instance
-assigns values to the sets and relations in the specification such that
-all formulae in the specification evaluate to true.}
-SAT system to analyze first-order  formulae.
-The authors claim that have used TestEra to check several JAVA programs including an architecture for
-dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods from the JAVA Collection Framework.\\
-\textit{This too have some years already and we don't find the tool available online.}
-
-\subsubsection{\textbf{Spec Explorer}} is a Microsoft model-based testing that uses two software modeling languages:
-AsmL (Abstract State Machine Language) that provides the foundations of the Spec Explorer\footnote{Can be found at: \url{http://research.microsoft.com/en-us/projects/specexplorer/}} tool
+\subsubsection{\textbf{Spec Explorer}} is a Microsoft model-based testing that uses one software modeling languages, the AsmL (Abstract State Machine Language).
+This modeling language provides the foundations of the Spec Explorer\footnote{Can be found at: \url{http://research.microsoft.com/en-us/projects/specexplorer/}} tool
 and Spec\# that is a formal language for API contracts (influenced by JML, AsmL, and Eiffel), which extends C\# with constructs for non-null types,
 preconditions, postconditions, and object invariants\footnote{Can be found at: \url{http://research.microsoft.com/en-us/projects/specsharp/}}.
 This tool is already available to users and is a very mature phase.\\
-
-The user of Spec Explorer writes a model of the system and sets the possible values for some properties in his code, furthermore the user also provides a scenario.
+\indent The user of Spec Explorer writes a model of the system and sets the possible values for some properties in his code, furthermore the user also provides a scenario.
 This scenarios are simple sets of calls to methods without its parameters (remember that this is Spec Explorer job).
 Then Spec Explorer will generate a visual graph on each node represents a state of the system and the arrows represent a call to some method.
 It searches throw all possible sequences of methods invocation that not violate the contracts (pre, pos conditions) and
@@ -283,7 +265,23 @@ automatically generate JUnit test classes from JML specifications.
 %Without writing a program to solve this problem (you don't really know enough C yet to do it), based only on the specification given, and without knowing anything about the ultimate implementation, generate a set of test data that you think would be sufficient to test a program that would be written in accordance with this specification. If you think the specification is incomplete in anyway, state what assumptions you are making about how it should be completed or clarified.
 %Remember that a test case consists of the input data and the expected result for that input data.
 
-%\subsection{Constraint-based Generation Testing}
+%S. A. Khalek, G. Yang, L. Zhang, D. Marinov, and S. Khurshid
+%TestEra: A tool for testing JAVA programs using Alloy specifications
+%26th IEEE/ACM International Conference On Automated Software Engineering, Tool Demonstrations Track
+%(ASE Demo 2011), pages TO-APPEAR, Lawrence, KS, Nov. 2011
+\subsubsection{\textbf{TestEra}\cite{testera}}
+can be used to perform automated specification-based testing of
+JAVA programs. This framework requires as input a JAVA method, a formal specification\footnote{Specifications are first-order logic formulae.}
+of the pre and post-conditions of that method, and a bound that limits the size of the test cases to be generated.\\
+With the pre-condition it automatically generates all nonisomorphic test inputs up to the given bound.
+It executes the method on each test input, and uses the method postcondition as an oracle to check the correctness of each output. This tool
+uses Alloy's\footnote{Alloy is a first-order declarative language based on sets and relations. The Alloy Analyzer is a fully
+automatic tool that finds instances of Alloy specifications: an instance
+assigns values to the sets and relations in the specification such that
+all formulae in the specification evaluate to true.} SAT system to analyze first-order  formulae.
+The authors claim that have used TestEra to check several JAVA programs including an architecture for
+dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods from the JAVA Collection Framework.
+%\textit{This too have some years already and we don't find the tool available online.}
 
 \subsubsection{\textbf{Korat}\cite{Boyapati02korat:automated}}
 is a mature framework for automated testing structurally complex inputs of JAVA programs.
@@ -293,12 +291,19 @@ Korat then executes the method on each test case, and uses the method postcondit
 To be able to generate test cases for a method, Korat uses a predicate and a bound on the size of its inputs,
 Korat generates all (nonisomorphic) inputs for which the predicate returns $true$.
 Korat generates all the possible input spaces regarding the predicate and monitor the predicate's executions to be able to prune large portions of the search space.\\
-
-The writing of a predicate is done using JAVA language and in most cases we can write the first thing that cames to our heads to restrict the input space.
+\indent The writing of a predicate is done using JAVA language and in most cases we can write the first thing that cames to our heads to restrict the input space.
 But for more complex structures it is better to understand how the matching algorithm work to be able to write a fast verifiable predicate.\\
 Unfortunately the test derivation tool using korat (that also uses JML) is not available to the public.
 
-\subsubsection{\textbf{Pex}\cite{Tillmann:2008:PWB:1792786.1792798}} is an automatic white-box test generation tool for .NET. Starting from a method that takes parameters, Pex performs path-bounded model-checking
+\subsection{Constraint-based Generation Testing}
+Constraint Based Testing\cite{DeMillo91constraint-basedautomatic} can be used to select test cases satisfying specific constraints by
+solving a set of constraints over a set of variables. The system is described using constraints and these can be solved by SAT solvers.\\
+Constraint programming can be combined with symbolic execution, regarding this approach a program is executed symbolically,
+collecting data constraints over different paths in the CFG, and then solving the constraints and producing test cases from there.
+This is clearly a White-box testing approach.
+
+\subsubsection{\textbf{Pex}\cite{Tillmann:2008:PWB:1792786.1792798}} is an automatic white-box test generation tool for .NET. Starting from a
+method that takes parameters, Pex performs path-bounded model-checking
 by repeatedly executing the program and solving constraint systems to obtain inputs that will steer the program along different execution paths.
 This uses the idea of dynamic symbolic execution\cite{Tillmann06unittests}. Pex uses the theorem prover and
 constraint solver Z3\footnote{See more at: \url{http://research.microsoft.com/en-us/um/redmond/projects/z3/}} to reason about the feasibility of execution paths, and
@@ -331,8 +336,7 @@ then the system under test is executed on these inputs, the results are compared
 Random testing gives us an advantage of easily estimating software reliability from test outcomes.
 Test inputs are randomly generated according to an operational profile, and failure times are recorded.
 The data obtained from random testing can then be used to find bugs or non expected behaviors.\\
-
-The main problem regarding random generation is the problem of the coverage, it is possible that will not be broad enough. And furthermore it can be
+\indent The main problem regarding random generation is the problem of the coverage, it is possible that will not be broad enough. And furthermore it can be
 too sparse to actually test specifics in the program. Either way, this this technique proves to be very effective testing compilers.
 
 \subsubsection{\textbf{csmith}\cite{Yang:2011:FUB:1993316.1993532}} is a black-box random testing generator. That is able to generate C programs
