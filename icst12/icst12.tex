@@ -16,8 +16,7 @@
 \usepackage[cmex10]{amsmath}
 \usepackage{fixltx2e}
 \usepackage{stfloats}
-
-\hyphenation{op-tical net-works semi-conduc-tor}
+\usepackage[caption=false,font=footnotesize]{subfig}
 
 % BEGIN: DOT related imports
 \usepackage[autosize]{dot2texi}
@@ -96,11 +95,6 @@ VST (Vision Space Technologies) is one of the companies that provides
 these services to ESA and they need a tool to instead of writing
 manually scripts to perform tests, it should try to automatically
 infer tests from the existing C++ code.
-There are many approaches trying to tackle this problem and therefore
-many tools were developed. Here we will present a study on the most
-recent tools that uses: Model-based testing, Specification-based
-testing, Constraint-based generation, Random generation and
-Grammar-based generation for the most used languages - C, JAVA and C\#.
 
 Automated Test Case Generation tools give support for creating test
 cases and at the same time ensure test case coverage methodically. The
@@ -113,6 +107,12 @@ cover specific code paths potentially leaving many hidden bugs.
 Besides that, software is not a static artifact and is constantly
 evolving, so a test generation technique could be a more suitable
 mechanism in the development process.
+
+There are many approaches trying to tackle this problem and therefore
+many tools were developed. Here we will present a study on the most
+recent tools that uses: Model-based testing, Specification-based
+testing, Constraint-based generation, Random generation and
+Grammar-based generation for the most used languages - C, JAVA and C\#.
 Furthermore in this paper we show a brief study on how to start resolving this specific problem by inferring UML+OCL from the existing C++ code.
 \end{abstract}
 
@@ -386,8 +386,8 @@ Result & p & Output/Exception & Error Message\\\hline
 \end{tabular}
 \end{table}
 
-As you can see Pex was successful to reach the $Exception$ path inside the code. Of course this is not always possible, since sometimes the functions
-inside the $if$ statement does not have inverse function.\\
+Pex was successful to reach the $Exception$ path inside the code. Of course this is not always possible, since sometimes the functions inside
+the $if$ statement does not have inverse function.\\
 
 Pex can also be very helpful checking assertions and contracts in .net code. Here we write a binary search algorithm and we have an assertion in
 the middle of our code.
@@ -428,7 +428,8 @@ Result & x & n & result & Output/Exception \\\hline
 
 Now we have a more complex example, a function that returns the year where the $n^{th}$ day occurred since 1980.
 Pex was able to generate some important test cases, but it has reached the limit amount of time to calculate interesting paths in the code,
-this boundary prevents Pex from getting stuck when the program goes into an infinite loop\footnote{In this particular case we could increment the number of $MaxConditions$: $[PexMethod(MaxConditions=10000)]$}.
+this boundary prevents Pex from getting stuck when the program goes into
+an infinite loop.
 
 \begin{code}
 public class Program {
@@ -452,7 +453,10 @@ public class Program {
 }
 \end{code}
 
-After Pex run we discover \ref{tab:leap}
+After Pex run we discover that this tool was unable to discover the year for day $366$ and $7671$ as we can see in Table \ref{tab:leap}.
+This problem occurred because Pex by default has a maximum number of conditions, this avoids never ending functions and still has a result from Pex.
+In this particular case we could increment the number of $MaxConditions$: $[PexMethod(MaxConditions=10000)]$.
+
 
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
@@ -471,124 +475,124 @@ Result & day & out year & Output/Exception\\\hline
 \end{tabular}
 \end{table}
 
-\subsubsection{Testing a class using Pex}
-As we saw before, Pex can easily give a full coverage on our methods (even the more complex ones). Now let's see about the generated code
-for testing entires implementations of a class.\\
-We will use regarding this example an implementation for generic Linked Lists in C\#.\\
-
-So, we consider a $LinkedListElement$ parametrized with type $T$ to be the type of the element we want to preserve and two more $LinkedListElement$, one to keep
-tracking of previous element and the other for the next.
-
-\begin{code}
-public class LinkedListElement<T> {
-  public T Data;
-  public LinkedListElement<T> Prev;
-  public LinkedListElement<T> Next;
-
-  public LinkedListElement(T data) {
-    Data = data;
-  }
-}
-\end{code}
-
-In order to keep track of both head and tail of my linked list I will have two variables of type $LinkedListElement$ in my linked list implementation.
-
-\begin{code}
-public class LinkedList<T> {
-  public LinkedListElement<T> Head;
-  public LinkedListElement<T> Tail;
-
-  public LinkedList(T element) {
-    Head = null;
-    Tail = null;
-    Add(element);
-  }
-\end{code}
-
-I will also add a few methods to manage this data structure: $Add$, $Next$ to jump to the next element on the list,
-$Prev$ to accomplish the same effect but for the previous element, $Remove$ and $Find$.
-
-\begin{code}
-  public void Add(T element) {
-    LinkedListElement<T> Listelement = new LinkedListElement<T>(element);
-    if (Head == null) {
-      Head = Listelement;
-    }
-    else {
-      Listelement.Prev = Tail;
-      Tail.Next = Listelement;
-    }
-    Tail = Listelement;
-  }
-
-  public static LinkedListElement<T> Next(LinkedListElement<T> element) {
-    if (element == null)
-      throw new Exception("Next: element is null");
-
-    return element.Next;
-  }
-
-  public static LinkedListElement<T> Prev(LinkedListElement<T> element) {
-    if (element == null)
-      throw new NullReferenceException("Prev: element is null");
-    
-    return element.Prev;
-  }
-
-  public void Remove(LinkedListElement<T> element) {
-    if (element == null)
-      return;
-
-    if (element == Head)
-      Head = element.Next;
-    if (element == Tail)
-      Tail = element.Prev;
-
-    if (element.Prev != null) {
-      LinkedListElement<T> prev = element.Prev;
-      prev.Next = element.Next;
-    }
-    if (element.Next != null) {
-      LinkedListElement<T> next = element.Next;
-      next.Prev = element.Prev;
-    }
-  }
-
-  public LinkedListElement<T> Find(T needle) {
-    return Find(needle, Head);
-  }
-
-  public LinkedListElement<T> Find(T needle, LinkedListElement<T> start) {
-    LinkedListElement<T> iterator = start;
-    while (iterator != null) {
-      if (iterator.Data.Equals(needle)) return iterator;
-      iterator = iterator.Next;
-    }
-    return null;
-  }
-}
-\end{code}
-
-To avoid more verbosity I will now explain the generated code for each method and explain the changes we need to do to accomplish a full test coverage
-for this class.
-
-\begin{code}
-[TestClass]
-public partial class LinkedListTTest {
-  [PexMethod]
-  public void Remove<T>([PexAssumeUnderTest]LinkedList<T> target, LinkedListElement<T> element) {
-    PexAssume.IsTrue(target.Find(element.Data) == null, "complex reason");
-    PexAssume.IsNotNull((object)element, "element");
-    try {
-      target.Remove(element);
-    } catch (Exception) {
-      if (element == null) PexAssert.IsTrue(true);
-    }
-
-    LinkedListElement<T> linkedListElement = target.Find(element.Data);
-    PexAssert.IsTrue(linkedListElement == null);
-  }
-\end{code}
+%\subsubsection{Testing a class using Pex}
+%As we saw before, Pex can easily give a full coverage on our methods (even the more complex ones). Now let's see about the generated code
+%for testing entires implementations of a class.\\
+%We will use regarding this example an implementation for generic Linked Lists in C\#.\\
+%
+%So, we consider a $LinkedListElement$ parametrized with type $T$ to be the type of the element we want to preserve and two more $LinkedListElement$, one to keep
+%tracking of previous element and the other for the next.
+%
+%\begin{code}
+%public class LinkedListElement<T> {
+%  public T Data;
+%  public LinkedListElement<T> Prev;
+%  public LinkedListElement<T> Next;
+%
+%  public LinkedListElement(T data) {
+%    Data = data;
+%  }
+%}
+%\end{code}
+%
+%In order to keep track of both head and tail of my linked list I will have two variables of type $LinkedListElement$ in my linked list implementation.
+%
+%\begin{code}
+%public class LinkedList<T> {
+%  public LinkedListElement<T> Head;
+%  public LinkedListElement<T> Tail;
+%
+%  public LinkedList(T element) {
+%    Head = null;
+%    Tail = null;
+%    Add(element);
+%  }
+%\end{code}
+%
+%I will also add a few methods to manage this data structure: $Add$, $Next$ to jump to the next element on the list,
+%$Prev$ to accomplish the same effect but for the previous element, $Remove$ and $Find$.
+%
+%\begin{code}
+%  public void Add(T element) {
+%    LinkedListElement<T> Listelement = new LinkedListElement<T>(element);
+%    if (Head == null) {
+%      Head = Listelement;
+%    }
+%    else {
+%      Listelement.Prev = Tail;
+%      Tail.Next = Listelement;
+%    }
+%    Tail = Listelement;
+%  }
+%
+%  public static LinkedListElement<T> Next(LinkedListElement<T> element) {
+%    if (element == null)
+%      throw new Exception("Next: element is null");
+%
+%    return element.Next;
+%  }
+%
+%  public static LinkedListElement<T> Prev(LinkedListElement<T> element) {
+%    if (element == null)
+%      throw new NullReferenceException("Prev: element is null");
+%    
+%    return element.Prev;
+%  }
+%
+%  public void Remove(LinkedListElement<T> element) {
+%    if (element == null)
+%      return;
+%
+%    if (element == Head)
+%      Head = element.Next;
+%    if (element == Tail)
+%      Tail = element.Prev;
+%
+%    if (element.Prev != null) {
+%      LinkedListElement<T> prev = element.Prev;
+%      prev.Next = element.Next;
+%    }
+%    if (element.Next != null) {
+%      LinkedListElement<T> next = element.Next;
+%      next.Prev = element.Prev;
+%    }
+%  }
+%
+%  public LinkedListElement<T> Find(T needle) {
+%    return Find(needle, Head);
+%  }
+%
+%  public LinkedListElement<T> Find(T needle, LinkedListElement<T> start) {
+%    LinkedListElement<T> iterator = start;
+%    while (iterator != null) {
+%      if (iterator.Data.Equals(needle)) return iterator;
+%      iterator = iterator.Next;
+%    }
+%    return null;
+%  }
+%}
+%\end{code}
+%
+%To avoid more verbosity I will now explain the generated code for each method and explain the changes we need to do to accomplish a full test coverage
+%for this class.
+%
+%\begin{code}
+%[TestClass]
+%public partial class LinkedListTTest {
+%  [PexMethod]
+%  public void Remove<T>([PexAssumeUnderTest]LinkedList<T> target, LinkedListElement<T> element) {
+%    PexAssume.IsTrue(target.Find(element.Data) == null, "complex reason");
+%    PexAssume.IsNotNull((object)element, "element");
+%    try {
+%      target.Remove(element);
+%    } catch (Exception) {
+%      if (element == null) PexAssert.IsTrue(true);
+%    }
+%
+%    LinkedListElement<T> linkedListElement = target.Find(element.Data);
+%    PexAssert.IsTrue(linkedListElement == null);
+%  }
+%\end{code}
 
 % https://docs.google.com/viewer?a=v&q=cache:n1iv3bIgPt4J:asa.iti.kit.edu/downloads/korat.pdf+koratsearch+method&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEEShqAe4m4a6eyvCLDJb1tJ1N8n4qXUOqQRfdMIs8G-7vUXjlpir2Y6xecTu5l25hjU0i8GFnts5sZdQIUtNZajlw6FTZhc8MLNbkm-lrgwMoPOjUWZThNbxLMRbniFz8o0WovIsl&sig=AHIEtbRDAmtti5JRTj8n5K-gjl0S5eC2Hg
 \subsection{Korat}
@@ -652,48 +656,20 @@ The last step is to define the finitization method, this way we tell Korat how t
   }
 \end{code}
 
-Using this specification we were able to generate the following 2 structures: One with a root node and this node with two children.
+Using this specification we were able to generate the 2 structures showed in Figure \ref{fig:insts}. In Figure \ref{fig:inst1} a root node and this node with two children
+and in Figure \ref{fig:inst2} a root node with a child and this child with another one, a more alike Linked List construction.
 
 \begin{figure}[!ht]
-\centering
-\begin{dot2tex}[neato,options=-tmath]
-digraph "graph" {
-graph [fontname="LucidaGrande", fontsize=12]
-node [fontname="LucidaGrande", fontsize=12]
-edge [fontname="LucidaGrande", fontsize=12]
-rankdir=TB;
-"N0" -> "N1" [color = "black", fontcolor = "black", style = "solid", label = "left", dir = "forward", weight = "0"]
-"N0" -> "N2" [color = "black", fontcolor = "black", style = "solid", label = "right", dir = "forward", weight = "0"]
-"N3" -> "N0" [color = "black", fontcolor = "black", style = "solid", label = "root", dir = "forward", weight = "0"]
-"N0" [label="Node0", color="black", fontcolor = "black", shape = "box"]
-"N1" [label="Node1", color="black", fontcolor = "black", shape = "box"]
-"N2" [label="Node2", color="black", fontcolor = "black", shape = "box"]
-"N3" [label="BinaryTree0 : 3", color="black", fontcolor = "black"]
+\centerline{
+\subfloat[Instance 1 for $BinaryTree$]{
+\includegraphics[width=.3\textwidth]{img/btree1}
+\label{fig:inst1}
 }
-\end{dot2tex}
-\caption{bababa}
-\end{figure}
-
-And the other with the behavior of a list, the root node as only one child, and this child has another one.
-
-\begin{figure}[!ht]
-\centering
-\begin{dot2tex}[]
-digraph "graph" {
-graph [fontname="LucidaGrande", fontsize=12]
-node [fontname="LucidaGrande", fontsize=12]
-edge [fontname="LucidaGrande", fontsize=12]
-rankdir=TB;
-"N0" -> "N1" [color = "black", fontcolor = "black", style = "solid", label = "right", dir = "forward", weight = "0"]
-"N1" -> "N2" [color = "black", fontcolor = "black", style = "solid", label = "right", dir = "forward", weight = "0"]
-"N3" -> "N0" [color = "black", fontcolor = "black", style = "solid", label = "root", dir = "forward", weight = "0"]
-"N0" [label="Node0",  fontcolor = "black", shape = "box"]
-"N1" [label="Node1", fontcolor = "black", shape = "box"]
-"N2" [label="Node2",  fontcolor = "black", shape = "box"]
-"N3" [label="BinaryTree0 : 3", color="black", fontcolor = "black"]
-}
-\end{dot2tex}
-\caption{BLBLBLB}
+\subfloat[Instance 2 for $BinaryTree$]{
+\includegraphics[width=.15\textwidth]{img/btree2}
+\label{fig:inst2}}}
+\caption{Examples of generated instances from Korat for $BinaryTree$ class.}
+\label{fig:insts}
 \end{figure}
 
 \section{Conclusion}
