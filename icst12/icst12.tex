@@ -1,21 +1,21 @@
 \documentclass[10pt, conference, compsocconf]{IEEEtran}
 
 \usepackage{url}
+\usepackage{flushend}
+\ifCLASSOPTIONcompsoc
+% requires cite.sty v4.0 or later (November 2003)
+\usepackage[nocompress]{cite}
+\else
 \usepackage{cite}
+\fi
 \usepackage{listings}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-\usepackage{float}
-\usepackage{verbatim}
-\usepackage{eurosym}
 \usepackage{amsfonts}
 \usepackage[usenames,dvipsnames]{color}
-\usepackage{pifont} % for the cross symbol
+\usepackage{pifont} % for \cross symbol newcommand
 \usepackage[a4paper, pdftex, bookmarks, colorlinks,citecolor=darkblue,linkcolor=darkblue,urlcolor=darkblue,filecolor=darkblue]{hyperref}
 
-\usepackage[cmex10]{amsmath}
-\usepackage{fixltx2e}
-\usepackage{stfloats}
 \usepackage[caption=false,font=footnotesize]{subfig}
 
 % BEGIN: DOT related imports
@@ -52,6 +52,20 @@
         showtabs=false
 }
 \lstnewenvironment{code}{\lstset{language=codeTT}}{}
+\lstdefinelanguage{codeTTN}
+{
+        basicstyle=\ttfamily\footnotesize,
+        sensitive=true,
+        showstringspaces=false,
+        numberblanklines=true,
+        showspaces=false,
+        breaklines=true,
+        showtabs=false,
+		numbers=left,
+		numberstyle=\footnotesize,
+		xleftmargin=15pt,
+}
+\lstnewenvironment{codeN}{\lstset{language=codeTTN}}{}
 
 % New commands
 \newcommand{\xunit}{\textit{xUnit}}
@@ -86,33 +100,22 @@ pedrorangelhenriques@gmail.com}
 \maketitle
 
 \begin{abstract}
-ESA (European Space Agency) uses an engine to perform tests in the
-Ground Segment infrastructure, specially the Operational Simulator.
-This engine uses many different tools to ensure the development of
-regression testing infrastructure and these tests perform black-box
-testing to the C++ simulator implementation.
-VST (Vision Space Technologies) is one of the companies that provides
-these services to ESA and they need a tool to instead of writing
-manually scripts to perform tests, it should try to automatically
-infer tests from the existing C++ code.
+ESA (European Space Agency) uses an engine to perform tests in the Ground Segment infrastructure, specially the Operational Simulator.
+This engine uses many different tools to ensure the development of regression testing infrastructure and
+these tests perform black-box testing to the C++ simulator implementation.
+VST (Vision Space Technologies) is one of the companies that provides these services to ESA and they need a tool to
+instead of writing manually scripts to perform tests, it should try to automatically infer tests from the existing C++ code.
 
-Automated Test Case Generation tools give support for creating test
-cases and at the same time ensure test case coverage methodically. The
-main goal of this tools is extract information from the program on how
-to generate executable test cases.
+Automated Test Case Generation tools give support for creating test cases and at the same time ensure test case coverage methodically.
+The main goal of this tools is extract information from the program on how to generate executable test cases.
 Using manual written tests is tedious, time consuming and error-prone.
-Lots of functions/methods need full code coverage and this technique
-leaves to incomplete test suites and is hard to create tests that
-cover specific code paths potentially leaving many hidden bugs.
-Besides that, software is not a static artifact and is constantly
-evolving, so a test generation technique could be a more suitable
-mechanism in the development process.
+Lots of functions/methods need full code coverage and this technique leaves to incomplete test suites and is hard to
+create tests that cover specific code paths potentially leaving many hidden bugs.
+Besides that, software is not a static artifact and is constantly evolving, so a test generation technique could be a more suitable mechanism in the development process.
 
-There are many approaches trying to tackle this problem and therefore
-many tools were developed. Here we will present a study on the most
-recent tools that uses: Model-based testing, Specification-based
-testing, Constraint-based generation, Random generation and
-Grammar-based generation for the most used languages - C, JAVA and C\#.
+There are many approaches trying to tackle this problem and therefore many tools were developed. Here we will present a study on the most
+recent tools that uses: Specification-based testing, Constraint-based generation, Random-based generation and Grammar-based generation
+for the most used languages - C, JAVA and C\#.
 Furthermore in this paper we show a brief study on how to start resolving this specific problem by inferring UML+OCL from the existing C++ code.
 \end{abstract}
 
@@ -224,7 +227,7 @@ Imagine any traversal or search algorithm over a graph, it is very difficult to 
 % Microsoft Spec# model-based presentation (for dummies)
 % https://docs.google.com/viewer?a=v&q=cache:PVdrO7s75ScJ:www.sasqag.org/pastmeetings/harryr.ppt+model+based+testing&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESjsdNheYbIWtyBYEfgNss2mRQuVcH0Kh8nejgxYwFMSSoPDuEgtZbxdchxcNXENujrMXaIeDr4Q17lpB1Kk8073iuk76o6G66sppEYAq8wGbUKnNtbOx4eHlT_P2boklZ_DwiO&sig=AHIEtbTECVDePxriKz0fNYbhSo56Ktgvww
 %Predicates as specifications (Alloy is related to OCL (Object Constraint Language) for UML)
-\subsection{Specification-based Testing}
+\subsection{Specification-based Generation Testing}
 Specification Based Testing also known as Model Based Testing refers to the process of testing a program based on what its specification or model says its behavior should be.
 In particular, we can generate test cases based on the specification of the program's behavior, without seeing an implementation of the program. So this clearly a
 way of Black-box testing.\\
@@ -315,6 +318,11 @@ The result is an automatically generated small test suite which often achieves h
 Pex can be used in a project, class or method (which make it a very helpful and versatile tool). After the analysis process we can see in "Pex Explorarion Results"
 the $input \times output$ pairs selected for each test case for our method, we also get a percentage of the test coverage.
 
+\subsubsection{\textbf{pathCrawler}\cite{Williams05pathcrawler:automatic}} is an academic tool based on dynamic and statical analysis, 
+it uses constraint logic programming to generate the Test-cases. pathCrawler executes an instrumented function for each function under test
+with the generated inputs, it preserves this information to not cover the same path.\\
+This tool supports assertions in any point in the code and pre-conditions regarding the input values.
+
 \subsection{Grammar-based Generation Testing}
 In this approach inputs to a system under test are defined by a context-free grammar. The language of the grammar contains all possible test cases.
 Using this approach to describe the syntax of the input to the system under test proves to be very helpful to test
@@ -329,7 +337,7 @@ So, ASTGen ensures the production of test inputs instead of the developer produc
 produces thousands of programs with structural properties that are relevant for the specific refactoring being tested. This tool has found
 21 bugs in Eclipse and 26 bugs in Netbeans applications.
 
-\subsection{Random Generation Testing}
+\subsection{Random-based Generation Testing}
 In the random testing approach, test inputs are selected randomly from the input domain of the system.
 To have a random testing suite first we must identify the input domain, after that select test inputs independently from the domain,
 then the system under test is executed on these inputs, the results are compared to the system specification, an oracle.\\
@@ -349,6 +357,93 @@ Structs and Bitfields, Pointers and arrays, Goto, Break and continue. The genera
 \section{Using the tools}
 After introducing the theory and the techniques that support each tool we will demonstrate some of the tools in action, regarding small but illustrative examples
 on how each tool can help us find good test cases.
+
+\subsection{PathCrawler}
+\begin{code}
+typedef struct s {
+    int x;
+    int y;
+}Point;
+
+int Multiply(Point p) {
+    if(p.x * p.y == 42) return 1;
+    else return 0;
+}
+\end{code}
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{10pt}
+\caption{Output Table for $Multiply$ function}
+\label{tab:mul}
+\centering
+\noindent \begin{tabular}{|c|c|c|}\hline
+Result & p & return value\\\hline
+\checkK & Point\{x=1,y=42\} & 1 \\\hline
+\checkK & Point\{x=177407,y=109471\} & 0 \\\hline
+\end{tabular}
+\end{table}
+
+\begin{codeN}
+int BSearch(int x, int n) {
+    return BinarySearch(x, 0, n); 
+}
+	
+int BinarySearch(int x, int lo, int hi) {
+    while (lo < hi) {
+        int mid = (lo+hi)/2;
+        pathcrawler_assert(mid >= lo && mid < hi);
+        if (x < (mid >= mid)) { hi = mid; }
+		else { lo = mid+1; }
+    }
+    return lo; 
+}
+\end{codeN}
+
+The results we get were interesting: 2 covered paths, 2 infeasible paths and 1 path untreated by pathCrawler.
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{1.3}
+\caption{Output Table for $BSearch$ function}
+\label{tab:bsearch}
+\centering
+\noindent \begin{tabular}{|c|c|c|c|}\hline
+Result & x & n & return value \\\hline
+\checkK & 157819 & 0 & 0 \\\hline
+\bigexclaim & 157819 & 97040 & (empty) subsumed \\\hline
+\end{tabular}
+\end{table}
+
+PathCrawler was successful identifying the path: $6-8-8b$ as infeasible and consequently all the path $6-8$ as infeasible too.
+Unfortunately pathCrawler is not ready yet to trace the path $6-8-8b-9$, so the result for this path was $untreated$.\\
+As you can see in Table \ref{tab:bsearch} the only two tests generated where very trivial, the first one when the $While$ condition fails
+and the second one never changes the returning variable inside the loop, so pathCrawler return the result $subsumed$, meaning that this path was already generated.\\
+
+We submit pathCrawler to a the following function that calculates the year of the $n^{th}$ day since 1980.
+
+\begin{code}
+int IsLeapYear(int year) {
+  return (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0));
+}
+int FromDayToYear(int day) {
+  int year = 1980;
+
+  while (day > 365) {
+    if (IsLeapYear(year)) {
+      if (day > 366) {
+        day -= 366;
+        year += 1;
+      }
+    } else {
+      day -= 365;
+      year += 1;
+    }
+  }
+  return year;
+}
+\end{code}
+
+The result was just $unknown$. pathCrawler was unable to trace even one path in our code, we increased the number of paths - $k$-path but with no success.
 
 \subsection{Pex}
 Regarding a simple implementation of a 2D $Point$ class we will create a program that has a special behaviour, under a certain condition
@@ -373,6 +468,7 @@ The output table can be seen in Table \ref{tab:point}, with the inputs and outpu
 
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{1pt}
 \caption{Output Table for $Point$ class}
 \label{tab:point}
 \centering
@@ -381,8 +477,8 @@ Result & p & Output/Exception & Error Message\\\hline
  &  &  & Object ref. not set \\
 \cross & null  & NullReferenceException & to an instance \\
  &  &  & of an object.\\\hline
-\checkK & new Point{X=0,Y=0} & &\\\hline
-\cross & new Point{X=3,Y=14} & Exception & hidden bug!\\\hline
+\checkK & new Point\{X=0,Y=0\} & &\\\hline
+\cross & new Point\{X=3,Y=14\} & Exception & hidden bug!\\\hline
 \end{tabular}
 \end{table}
 
@@ -412,6 +508,7 @@ Pex was able to generate an input that could not pass in the assertion inerted i
 
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{1pt}
 \caption{Output Table for $BinarySearch$ class}
 \label{tab:binary}
 \centering
@@ -679,8 +776,8 @@ The conclusion goes here. this is more of the conclusion
 The authors would like to thank...
 
 \bibliographystyle{IEEEtran}
-%\bibliography{IEEEfull,icst12}
-\bibliography{IEEEabrv,icst12}
+\bibliography{IEEEfull,icst12}
+%\bibliography{IEEEabrv,icst12}
 
 \end{document}
 
