@@ -2,6 +2,7 @@
 
 \usepackage{url}
 \usepackage{flushend}
+\usepackage{mdwlist} % description itemize
 \ifCLASSOPTIONcompsoc
 % requires cite.sty v4.0 or later (November 2003)
 \usepackage[nocompress]{cite}
@@ -237,12 +238,25 @@ Since the 90's there have been some effort into using specifications to try to g
 \cite{Horcher95improvingsoftware,Stocks:1996:FST:239916.239918}, UML statecharts\cite{Offutt:1999:GTU:1767297.1767341},VDM\cite{Aichernig99automatedblack-box}
 or ADL specifications\cite{Sankar94specifyingand}.
 These specifications typically do not consider structurally complex inputs and these tools do not generate junit test cases.
-Nowadays there are some tools out there that can perform Specification-based Testing approach, we will talk about the most relevant ones.
+Nowadays there are some tools out there that can perform Specification-based Testing approach:
+
+\begin{basedescript}{\desclabelstyle{\pushlabel}}
+\item[Conformiq] is a commercial Tool Suite that generates
+human-readable test plans and executable test scripts from Java code, state charts and UML\footnote{See more at: \url{http://www.conformiq.com/products.php}}.
+\item[MaTeLo] stands for Markov Test Logic and is a commercial tool
+that generates test sequences from a collection of states, transitions, classes of equivalence, types, sequences, global variables and test oracles
+using their user interface\footnote{See more at: \url{http://www.all4tec.net/index.php/All4tec/matelo-product.html}}.
+\item[Smartesting CertifyIt] is a commercial tool that generates test cases from a functional model, as UML\footnote{See more at: \url{http://www.smartesting.com/index.php/cms/en/product/certify-it}}.
+\item[T-Vec] is a commercial tool that generates test cases from modeling tools available from T-VEC or third-party vendors\footnote{See more at: \url{http://www.t-vec.com/}}.
+\item[Rational Tau] is an IBM commercial tool that provides automated error checking, rules-based model checking, and a model-based explorer using
+UML\footnote{See more at: \url{http://www-01.ibm.com/software/awdtools/tau/}}.
+\end{basedescript}
+We will talk about the most relevant ones or the more recent open-source ones.
 
 \subsubsection{\textbf{Spec Explorer}} is a Microsoft model-based testing that uses one software modeling languages, the AsmL (Abstract State Machine Language).
-This modeling language provides the foundations of the Spec Explorer\footnote{Can be found at: \url{http://research.microsoft.com/en-us/projects/specexplorer/}} tool
+This modeling language provides the foundations of the Spec Explorer\footnote{See more at: \url{http://research.microsoft.com/en-us/projects/specexplorer/}} tool
 and Spec\# that is a formal language for API contracts (influenced by JML, AsmL, and Eiffel), which extends C\# with constructs for non-null types,
-preconditions, postconditions, and object invariants\footnote{Can be found at: \url{http://research.microsoft.com/en-us/projects/specsharp/}}.
+preconditions, postconditions, and object invariants\footnote{See more at: \url{http://research.microsoft.com/en-us/projects/specsharp/}}.
 This tool is already available to users and is a very mature phase.\\
 \indent The user of Spec Explorer writes a model of the system and sets the possible values for some properties in his code, furthermore the user also provides a scenario.
 This scenarios are simple sets of calls to methods without its parameters (remember that this is Spec Explorer job).
@@ -288,7 +302,7 @@ dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods f
 
 \subsubsection{\textbf{Korat}\cite{Boyapati02korat:automated}}
 is a mature framework for automated testing structurally complex inputs of JAVA programs.
-Given a formal specification for a method, Korat\footnote{Can be found at: \url{http://korat.sourceforge.net/}} uses the method precondition
+Given a formal specification for a method, Korat\footnote{See more at: \url{http://korat.sourceforge.net/}} uses the method precondition
 to automatically generate all (nonisomorphic) test cases up to a given small size.
 Korat then executes the method on each test case, and uses the method postcondition as a test oracle to check the correctness of each output.\\
 To be able to generate test cases for a method, Korat uses a predicate and a bound on the size of its inputs,
@@ -304,6 +318,15 @@ solving a set of constraints over a set of variables. The system is described us
 Constraint programming can be combined with symbolic execution, regarding this approach a program is executed symbolically,
 collecting data constraints over different paths in the CFG, and then solving the constraints and producing test cases from there.
 This is clearly a White-box testing approach.
+There are some tools out there, like:
+
+\begin{basedescript}{\desclabelstyle{\pushlabel}}
+\item[Euclide] for verifying safety properties over C code using ACSL annotations, CPBPV for program verification.
+\item[OSMOSE] a tool that uses concolic execution and path-based techniques over machine code.
+\item[GATeL] for Lustre language to generate test sequences\footnote{See more at: \url{http://www-list.cea.fr/labos/gb/LSL/test/gatel/index.html}}.
+\end{basedescript}
+
+We will explain just two tools, one proprietary and other academic.
 
 \subsubsection{\textbf{Pex}\cite{Tillmann:2008:PWB:1792786.1792798}} is an automatic white-box test generation tool for .NET. Starting from a
 method that takes parameters, Pex performs path-bounded model-checking
@@ -319,7 +342,7 @@ Pex can be used in a project, class or method (which make it a very helpful and 
 the $input \times output$ pairs selected for each test case for our method, we also get a percentage of the test coverage.
 
 \subsubsection{\textbf{pathCrawler}\cite{Williams05pathcrawler:automatic}} is an academic tool based on dynamic and statical analysis, 
-it uses constraint logic programming to generate the Test-cases. pathCrawler executes an instrumented function for each function under test
+it uses constraint logic programming to generate the Test-cases. pathCrawler\footnote{See more at: \url{http://www-list.cea.fr/labos/gb/LSL/test/pathcrawler/index.html}} executes an instrumented function for each function under test
 with the generated inputs, it preserves this information to not cover the same path.\\
 This tool supports assertions in any point in the code and pre-conditions regarding the input values.
 
