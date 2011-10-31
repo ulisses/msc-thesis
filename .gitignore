@@ -31,3 +31,7 @@
 *.lot
 *.gz
 *.pdf
+
+# codeing stuff
+*.o
+
