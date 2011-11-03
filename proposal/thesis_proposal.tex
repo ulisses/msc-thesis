@@ -4,6 +4,9 @@
 \usepackage[english]{babel}
 \usepackage{a4wide}
 \usepackage[utf8]{inputenc}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[pdftex, bookmarks, colorlinks,citecolor=darkblue,linkcolor=darkblue,urlcolor=darkblue,filecolor=darkblue]{hyperref}
+\definecolor{darkblue}{rgb}{0,0.1,0.5}
 
 \parindent=0pt
 \parskip=1pt
@@ -22,7 +25,7 @@
 \title{\huge \bigskip
 {\LARGE University of Minho}\\[13pt]
 {\large Master Thesis Proposal}\\[13pt]
-{\large Academic Year 2009/2010}
+{\large Academic Year 2011/2012}
 }\author{}\date{}
 \begin{document}
 
@@ -30,61 +33,95 @@
 \pagenumbering{arabic}
 
 \section*{\Large Identification}
-\textbf{Title} Perl ANTLR Backend.\\[6pt]
-\textbf{Student} Hugo Miguel dos Santos Areias (\emph{hugomsareias@gmail.com}).\\[6pt]
-\textbf{Main Supervisor} Alberto Manuel Simões, from Instituto Politécnico do Porto.\\[6pt]
-\textbf{Co-Supervisor} Professor Pedro Rangel Henriques, from Universidade do Minho.\\[6pt]
+\textbf{Title} Automatic Test Generation for Space.\\[6pt]
+\textbf{Student} Mário Ulisses Pires Araújo Costa (\emph{ulissesaraujocosta@gmail.com}).\\[6pt]
+\textbf{Main Supervisor} Professor Pedro Rangel Henriques, from University of Minho.\\[6pt]
+\textbf{Co-Supervisor} Professor Daniela Carneiro da Cruz, from University of Minho.\\[6pt]
 \textbf{Work Location} University of Minho, at Informatics Department, as member of the gEPL (Language Specification and Processing Group).\\[6pt]
 \textbf{ECTS} 45 ECTS.\\[12pt]
 
 \begin{abstract}
-In the scope of the second year in master's degree, this document presents a proposal for a master thesis in computer engineering in the areas of language processing and compilers generation based on attribute grammars.\\[6pt]
-This thesis will focus on the study of the relevance of parser generators like \emph{ANTLR}\footnote[1]{ANother Tool for Language Recognition}, and the need to retargeting (generating) processors in different languages. It will also be performed an analysis of some of the already existent backends for \emph{ANTLR}, mainly the \emph{Python} one. At the end, a backend \emph{Perl} for \emph{ANTLR} will be developed based on the performed studies in order to draw some conclusions. The main goal of this tool is to automatically generate parsers in \emph{Perl} using \emph{ANTLR} assistance. 
+In the scope of the second year in master's degree, this document presents a proposal for a master thesis in computer engineering in
+the areas of automated test generation and language processing.\\[6pt]
+This thesis will focus on the study of two testing approaches: White-box testing
+(namely Control Flow based Testing\cite{stt} and Data Flow based Testing\cite{dataflow})
+and Black-box testing\cite{black}.
+It will also be performed an analysis of some of the already existent testing techniques like
+Specification-based Generation Testing\cite{Offutt:1999:GTU:1767297.1767341,Horcher95improvingsoftware,Stocks:1996:FST:239916.239918},
+Constraint-based Generation Testing\cite{DeMillo91constraint-basedautomatic},
+Grammar-based Generation Testing\cite{1994-burgess,Burgess_Saidi_1996}
+and Random-based Generation Testing.
+Then will be studied the generation of UML diagrams from OO (Object Oriented) code and the inference of OCL annotations from OO code.
+
+At the end, a automatic test generation tool for C++ will be developed based on the performed studies in order to draw some conclusions.
+The main goal of this tool is to automatically generate testcases in C++ using the existing C++ implementation and UML mdels and OCL annotations.
 \end{abstract}
 
-\newpage
-
 \section{\Large Context}
-
-\emph{ANTLR} is a language tool that automates the construction of compilers and parsers based on LL(*) grammars with support to predicates, and also translation to a considerable list of target languages where figure languages like \emph{C}, \emph{C++}, \emph{Java} and \emph{Python}. There are already some parser generators tools besides \emph{ANTLR} so why use it?\\[6pt]
-Usually, parsing tools are mainly focused on the language recognition, ignoring other important tasks such as, among others, the interaction with scanners (lexical analysis) and the construction of AST (\emph{Abstract Syntax Trees}), also programmers tend to seek powerful and ease of use tools to solve their problems, that provide understandable mechanisms and some functionalities to speed up the process like the automation of redundant and tedious tasks, and that generate output that is easily folded into their applications \cite{PQ95}. \emph{ANTLR} satisfies all these criteria, which makes it a widely-used parser generator.
-Despite the fact that LR or LALR, such as \emph{YACC}, are more powerful parsing algorithms than LL, programmers still choose recursive-descent parsers in order to gain more flexibility, better error handling and recovery, since LL based recursive-descent parsers are more intuitive and ease to understand, and also because they usually fit with how humans tend to think about parsing data \cite{Wai90}.\\[6pt]
-\emph{ANTLR} has been reckon as a versatile tool on the construction of recognisers in many different languages such as \emph{C}, \emph{Python} and \emph{Java}.
-Unfortunately, a \emph{Perl} backend hasn't been developed for some time, and no progresses have been known in the last few years, reason why this tool is far from being useful. The purpose of this thesis is to analyse some existing backends and develop a similar one with \emph{Perl} as the language target, based on attribute grammars.\\[6pt]
-One of the main advantages of attribute grammars it's the abstraction level of the execution order of productions or computations, making easier the design process of a grammar. In case changes happen, it's not totally necessary to reorder the productions, only their relations. In a comparative matter, parsers based on attribute grammars have a similar performance and theirs specifications size are considerably less than a hand-written compiler.
+ESA (European Space Agency) uses an engine to perform tests in the Ground Segment infrastructure, specially the Operational Simulator.
+This engine uses many different tools to ensure the development of regression testing infrastructure and
+these tests perform black-box testing to the C++ simulator implementation.
+VST (Vision Space Technologies) is one of the companies that provides these services to ESA and they need a tool to
+instead of writing manually scripts to perform tests, it should try to automatically infer tests from the existing C++ code.
+Automated Test Case Generation tools give support for creating test cases and at the same time ensure test case coverage methodically.
+The main goal of this tools is extract information from the program on how to generate executable test cases.
+Using manual written tests is tedious, time consuming and error-prone.
+Lots of functions/methods need full code coverage and this technique leaves to incomplete test suites and is hard to
+create tests that cover specific code paths potentially leaving many hidden bugs.
+Besides that, software is not a static artifact and is constantly evolving, so a test generation technique could be a more suitable mechanism in the development process.
+There are many approaches trying to tackle this problem and therefore many tools were developed. This thesis will also present a study on the most
+recent tools that uses: Specification-based testing, Constraint-based generation, Grammar-based generation and Random-based generation
+for the most used languages - C, JAVA and C\#.
+Furthermore the author will implement a program to generate OCL specifications from C++ code and UML models. Later on the author will integrate the
+existing white-box techniques in a tool to be able to generate testcases based on C++ code.
 
 \section{\Large Goals}
 This master work is divided into two main components, a strong theoretical component and a more practical component.\\[6pt]
 The goals for this master thesis are the following:
 \begin{itemize}
-\item Analyse and study approaches to generate parsers based on attribute grammars;
-\item Develop a functional \emph{Perl} backend for \emph{ANTLR};
-\item Study and automatise a suite of tests, allowing an agile and secure development.
+\item Analyse and study the current methods used by ESA Ground Segment infrastructure team to write testcases, specially how expressive tests are and how they are created for the Operational Simulator;
+\item Analyse and study approaches to generate testcases based on OO code, annotations (pre-pos conditions) and UML+OCL;
+\item Develop an automatic test generator for the Operational Simulator;
 \end{itemize}
 \section{\Large Methods}
 The methodology that will be followed in this master work is composed by the following steps:
 
 \begin{itemize}
+\item Understanding and gathering of information about the requirements of the Operational Simulator;
 \item Bibliographic search;
-\item Reading and synthesis of the bibliography selected;
-\item Development of a backend for a parser generator tool;
+\item Reading and synthesis of the selected bibliography;
+\item Development of an automatic test generator for the Operational Simulator;
 \item Evaluation of the tool, validation and discussion of the results.\\[6pt]
-The evaluation process is not yet defined, but the base idea focus on the tool usage and on the comparison between the developed tool and other similar systems.
+The evaluation process is not yet defined, but the base idea focus on the tool usage and on the comparison between the developed tool, the similar tools
+and the system currently used.
 \end{itemize}
 
 \section{\Large Schedule}
 This master work has an estimated duration of one year.\\[6pt]
-Although the goals being well defined, there is no proper way to forecast the required time to complete each one of them, therefore the year time will be divided into four phases to work on the different components of this thesis.\\[6pt]
+Although the goals being well defined, there is no proper way to forecast the required time to complete each one of them,
+therefore the year time will be divided into four phases to work on the different components of this thesis.\\[6pt]
 The thesis report will be written in parallel with the following phases:
 \begin{description}
-\item[Month $1^{st}$ to $2^{nd}$:] The first two months period will be mainly used to do theory research about parser generators \cite{WC93,WG84a,GHea90b} based on attribute grammars \cite{ASU86a,Wai90} and their importance. Also during this period, a revision of the basic bibliography will be made and at the end of this process an article will be written based on the knowledge acquired.
-\item[Month $3^{rd}$ to $6^{th}$:] In this second period will be performed a reverse engineering process over \emph{ANTLR}, a well known parser generator \cite{Par07}, and therefore an analysis of its functioning, architecture, functional specification and the inside structure of a parser generated by \emph{ANTLR} \cite{Par07,PQ95}. Also during this period, an already existent similar solution will be analysed for comparison ends, with the main goal of helping on the implementation process. The \emph{Python Code Generator} for \emph{ANTLR} will be the target solution. At the end of this period it's expected the start of the development of the tool proposed in the objectives. Bibliographic revision will be continued and an article will be written for publishing intermediate conclusions.
-\item[Month $7^{th}$ to $10^{th}$:] This period will be exclusively devoted to the development of the proposed tool. Will be expected the tool to be finished at the end of this four months period.
-\item[Month $11^{th}$:] This month will be mainly devoted to evaluate and validate the tool results, guaranteeing that everything proposed has been done correctly and efficiently. Bugs will be fixed and the results of the tests will be revised, and intermediate conclusions will be drawn from the outcome results.
-\item[Month $12^{th}$:] At the last month will be drawn conclusions relating the outcomes from the latter evaluation and the studies done within the last months. At the end, all conclusions about the work done will be written and the thesis document will be reviewed.
+\item[Month $1^{st}$ to $2^{nd}$:] The first two months period will be mainly used to do theory research about
+automatic test generators and their importance.
+Also during this period, a revision of the basic bibliography will be made and at the end of this process an article will be written based on the knowledge acquired.
+\item[Month $3^{rd}$ to $6^{th}$:] In this second period will be performed a deep study and experimentation
+of the state of the art tools and therefore an analysis of its functioning, architecture, functional specification and the inside structure
+of test generation generation tools.
+Also during this period, an already existent similar solution will be analysed for comparison ends, with the main goal of helping on the implementation process.
+The Pex\cite{Tillmann:2008:PWB:1792786.1792798} for C\#, pathCrawler\cite{Williams05pathcrawler:automatic} for C and Korat\cite{Boyapati02korat:automated}
+for Java will be the target solutions.
+At the end of this period it's expected the start of the development of the tool proposed in the objectives.
+Bibliographic revision will be continued and an article will be written for publishing intermediate conclusions.
+\item[Month $7^{th}$ to $10^{th}$:] This period will be exclusively devoted to the development of the proposed tool.
+Will be expected the tool to be finished at the end of this four months period.
+\item[Month $11^{th}$:] This month will be mainly devoted to evaluate and validate the tool results, guaranteeing that everything proposed has
+been done correctly and efficiently. Bugs will be fixed and the results of the tests will be revised, and intermediate conclusions will be drawn from the outcome results.
+\item[Month $12^{th}$:] At the last month will be drawn conclusions relating the outcomes from the latter evaluation and the studies done within
+the last months. At the end, all conclusions about the work done will be written and the thesis document will be reviewed.
 \end{description}
 
 \bibliographystyle{alpha}
-\bibliography{mythesis}
+\bibliography{thesisBib}
 
 \end{document}
