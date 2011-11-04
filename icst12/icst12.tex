@@ -75,7 +75,8 @@ Braga, Portugal\\
 ucosta@visionspacetech.com}
 \and
 \IEEEauthorblockN{Daniela da Cruz}
-\IEEEauthorblockA{Department of Informatics\\
+\IEEEauthorblockA{
+Department of Informatics\\
 University of Minho\\
 Braga, Portugal\\
 danieladacruz@gmail.com}
@@ -319,7 +320,7 @@ Korat generates all (nonisomorphic) inputs for which the predicate returns $true
 Korat generates all the possible input spaces regarding the predicate and monitor the predicate's executions to be able to prune large portions of the search space.\\
 \indent The writing of a predicate is done using JAVA language and in most cases we can write the first thing that cames to our heads to restrict the input space.
 But for more complex structures it is better to understand how the matching algorithm work to be able to write a fast verifiable predicate.\\
-Unfortunately the test derivation tool using korat (that also uses JML) is not available to the public.
+Unfortunately the test derivation tool using Korat (that also uses JML) is not available to the public.
 
 \subsection{Constraint-based Generation Testing}
 Constraint Based Testing\cite{DeMillo91constraint-basedautomatic} can be used to select test cases satisfying specific constraints by
@@ -738,79 +739,101 @@ Result & day & out year & Output/Exception\\\hline
 
 % https://docs.google.com/viewer?a=v&q=cache:n1iv3bIgPt4J:asa.iti.kit.edu/downloads/korat.pdf+koratsearch+method&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEEShqAe4m4a6eyvCLDJb1tJ1N8n4qXUOqQRfdMIs8G-7vUXjlpir2Y6xecTu5l25hjU0i8GFnts5sZdQIUtNZajlw6FTZhc8MLNbkm-lrgwMoPOjUWZThNbxLMRbniFz8o0WovIsl&sig=AHIEtbRDAmtti5JRTj8n5K-gjl0S5eC2Hg
 \subsection{Korat}
-As we explain before, Korat generates a graphical representation of the structure instances that validates the property we define using JAVA code, $repOK$ method.\\
-Imagine we have a simple definition of a Binary Tree structure in JAVA.
+As we explain before, Korat generates a graphical representation of the structure instances that validates the property $repOK$ we define using JAVA code.\\
+Because the freely available Korat version validate instances of complex data structures, we have defined a Doubled Linked List structure in JAVA.
 
 \begin{code}
-public class BinaryTree {
-  public static class Node {
-    Node left;
-    Node right;
+public class LinkedList<T> {
+  public static class LinkedListElement<T> {
+    public T Data;
+    public LinkedListElement<T> Prev;
+    public LinkedListElement<T> Next;
   }
-  private Node root;
-  private int size;
+  private LinkedListElement<T> Head;
+  private LinkedListElement<T> Tail;
+  private int size; 
 }
 \end{code}
 
 Now we must define the predicate method.
 This predicate method will check that the tree doesn't have any cycles and that the number of nodes traversed from root matches the value of the field size.
+First we have defined the properties about this data structure. The most relevant ones are the property \ref{eq:linked} that ensures the structure and
+\ref{eq:uniq} that ensures our doubly linked list does not have repeated elements.\\
+Consider $e,e_1,e_2 \in LinkedListElement$ and $i$ the index function: $i : LinkedListElement \rightarrow int$, that receives an element of $LinkedList$ and
+returns the position of that element in the structure.
+
+\def\t#1#2#3#4{\langle#1 \ #2 : #3 \ : #4 \ \rangle}
+\def\d#1#2#3{\langle#1 \ #2 :: #3 \ \rangle}
+
+\begin{IEEEeqnarray}{C}
+Head \equiv null \vee Tail \equiv null \Leftrightarrow size \equiv 0\\
+Tail.Next \equiv null\\
+Head.Prev \equiv null\\
+size \equiv 1 \Leftrightarrow Head \equiv Tail\\
+\d \forall {e_1,e_2} {\d \exists {e} {e_1.Next \equiv e \wedge e_2.Prev \equiv e}}\label{eq:linked}\\
+\d \forall {e_1,e_2} {e_1 \equiv e_2 \Rightarrow i(e_1) \equiv i(e_2)}\label{eq:uniq}
+\end{IEEEeqnarray}
+
+We took this properties and use them to restrict the generation of structures as you can see in the following Java implementation.
 Note that we using short-circuiting, so we return $false$ as soon as we can. This way Korat will be able to generate a baster solution.
 
 \begin{code}
-  public boolean repOK() {
-    if (root == null)
-      return size == 0;
-    // checks that tree has no cycle
-    Set visited = new HashSet();
-    visited.add(root);
-    LinkedList workList = new LinkedList();
-    workList.add(root);
-    while (!workList.isEmpty()) {
-      Node current = (Node) workList.removeFirst();
-      if (current.left != null) {
-        if (!visited.add(current.left))
-          return false;
-        workList.add(current.left);
-      }
-      if (current.right != null) {
-        if (!visited.add(current.right))
-          return false;
-        workList.add(current.right);
-      }
+public boolean repOK() {
+  if(Head == null || Tail == null)
+    return size == 0;
+  if(size == 1) return Head == Tail;
+  if(Head.Prev != null) return false;
+  if(Tail.Next != null) return false;
+  LinkedListElement<T> last = Head;
+  Set visited = new HashSet();
+  LinkedList workList = new LinkedList();
+  visited.add(Head);
+  workList.add(Head);
+  while (!workList.isEmpty()) {
+    LinkedListElement<T> current = (LinkedListElement<T>) workList.removeFirst();
+    if (current.Next != null) {
+      if (!visited.add(current.Next))
+	    return false;
+      workList.add(current.Next);
+      if(current.Next.Prev != current) return false;
+      last = current.Next;
     }
-    // checks that size is consistent
-    return (visited.size() == size);
   }
+  if(last != Tail)
+    return false;
+  return (visited.size() == size);
+}
 \end{code}
 
-The last step is to define the finitization method, this way we tell Korat how to bound the input space.
+The last step was define the finitization method, this way we tell Korat how to bound the input space.
 
 \begin{code}
-  public static IFinitization finBinaryTree(int nodesNum, int minSize, int maxSize) {
-    IFinitization f = FinitizationFactory.create(BinaryTree.class);
-    IObjSet nodes = f.createObjSet(Node.class, nodesNum, true);
-    f.set("root", nodes);
-    f.set("Node.left", nodes);
-    f.set("Node.right", nodes);
-    IIntSet sizes = f.createIntSet(minSize, maxSize);
-    f.set("size", sizes);
-    return f;
-  }
+public static IFinitization finLL(int nodesNum, int minSize, int maxSize) {
+  IFinitization f = FinitizationFactory.create(LL.class);
+  IObjSet nodes = f.createObjSet(LinkedListElement.class, nodesNum, true);
+  f.set("Head", nodes);
+  f.set("Tail", nodes);
+  f.set("size", f.createIntSet(minSize, maxSize));
+  f.set("LinkedListElement.Next", nodes);
+  f.set("LinkedListElement.Prev", nodes);
+  return f;
+}
 \end{code}
 
-Using this specification we were able to generate the 2 structures showed in Figure \ref{fig:insts}. In Figure \ref{fig:inst1} a root node and this node with two children
-and in Figure \ref{fig:inst2} a root node with a child and this child with another one, a more alike Linked List construction.
+Using this specification we were able to generate the 2 structures showed in Figure \ref{fig:insts}. In Figure \ref{fig:inst1} with $2$ elements
+and in Figure \ref{fig:inst2} an instance with $5$ elements.
 
 \begin{figure}[!ht]
 \centerline{
-\subfloat[Instance 1 for $BinaryTree$]{
-\includegraphics[width=.3\textwidth]{img/btree1}
+\subfloat[Instance with $2$ elements for $LinkedList$]{
+\includegraphics[width=.2\textwidth]{img/ll1}
 \label{fig:inst1}
 }
-\subfloat[Instance 2 for $BinaryTree$]{
-\includegraphics[width=.15\textwidth]{img/btree2}
+\hfil
+\subfloat[Instance with $5$ elements for $LinkedList$]{
+\includegraphics[width=.2\textwidth]{img/ll2}
 \label{fig:inst2}}}
-\caption{Examples of generated instances from Korat for $BinaryTree$ class.}
+\caption{Examples of generated instances from Korat for $LinkedList$ class.}
 \label{fig:insts}
 \end{figure}
 
