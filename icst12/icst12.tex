@@ -94,17 +94,17 @@ ESA (European Space Agency) uses an engine to perform tests in the Ground Segmen
 This engine uses many different tools to ensure the development of regression testing infrastructure and
 these tests perform black-box testing to the C++ simulator implementation.
 VST (Vision Space Technologies) is one of the companies that provides these services to ESA and they need a tool to
-instead of writing manually scripts to perform tests, it should try to automatically infer tests from the existing C++ code.
-Automated Test Case Generation tools give support for creating test cases and at the same time ensure test case coverage methodically.
-The main goal of this tools is extract information from the program on how to generate executable test cases.
+automatically infer tests from the existing C++ code, instead of writing manually scripts to perform the tests.
+Automated Test Case Generation tools give support for creating test cases and at the same time ensure methodically test case coverage.
+The main goal of such tools is to extract information from the program on how to generate executable test cases.
 Using manual written tests is tedious, time consuming and error-prone.
-Lots of functions/methods need full code coverage and this technique leaves to incomplete test suites and is hard to
-create tests that cover specific code paths potentially leaving many hidden bugs.
-Besides that, software is not a static artifact and is constantly evolving, so a test generation technique could be a more suitable mechanism in the development process.
-Furthermore we will suggest an architecture to use some of the white-box techniques described here to generate tests from UML+OCL models.
-There are many approaches trying to tackle this problem and therefore many tools were developed. In this paper we will also present a study on the most
-recent tools that uses: Specification-based testing, Constraint-based generation, Grammar-based generation and Random-based generation
-for the most used languages - C, JAVA and C\#.
+Lots of functions/methods need full code coverage and this manual technique leads to incomplete test suites;
+it is hard to create tests that cover specific code paths, potentially leaving many hidden bugs.
+%Besides that, software is not a static artifact and is constantly evolving, so a test generation technique could be a more suitable mechanism in the development process.
+In this paper we suggest an architecture to use some  white-box techniques  to generate tests from UML+OCL models.
+There are many approaches trying to tackle the automatic test generation problem and therefore many tools were developed.
+So and as support to the envisaged proposal, we will also present a study on the most recent tools that uses
+Specification-based testing, Constraint-based generation, Grammar-based generation and Random-based generation for the most used languages - C, JAVA and C\#.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -154,13 +154,13 @@ And we generate the test inputs to make any path execute (exist input so the pat
 We can also have Data Flow Testing where we look at the life cycle (creation, usage and destruction) of a particular piece of data and observes how it is used along the CFG,
 this ensures that the number of paths are always finite\cite{dataflow}.\\
 
-Opposed to White-box testing, Black-box testing is based on functionality, so the system observes a system based in their functional contracts and writes the
+Opposed to White-box testing, Black-box testing is based on functionality, so the system observes a program based in their functional contracts and writes the
 pairs of inputs and the expected outputs for a given system and this is used from unit testing of single methods/functions to integration testing
 of combinations of the methods/functions to system testing of the final system.
 An automatic system can execute the program starting with some given or random concrete inputs, gathering symbolic constraints
 on inputs at conditional statements along the execution, and then using a constraint solver to infer variants of the previous inputs in order
 to steer the next execution of the program towards an alternative program branch; this process can be repeated with
-the goal of systematically executing all (or as many as possible) feasible program paths.\\
+the goal of systematically executing all (or as many as possible) feasible program paths.
 
 %\subsection{White-box testing}
 %In White-box testing the tester needs to understand the internals of the code to be able to write tests for it.
@@ -350,8 +350,8 @@ The result is an automatically generated small test suite which often achieves h
 Pex can be used in a project, class or method (which make it a very helpful and versatile tool). After the analysis process we can see in "Pex Explorarion Results"
 the $input \times output$ pairs selected for each test case for our method, we also get a percentage of the test coverage.
 
-\subsubsection{\textbf{pathCrawler}\cite{Williams05pathcrawler:automatic}} is an academic tool based on dynamic and statical analysis, 
-it uses constraint logic programming to generate the Test-cases. pathCrawler\footnote{See more at: \url{http://www-list.cea.fr/labos/gb/LSL/test/pathcrawler/index.html}} executes an instrumented function for each function under test
+\subsubsection{\textbf{PathCrawler}\cite{Williams05pathcrawler:automatic}} is an academic tool based on dynamic and statical analysis, 
+it uses constraint logic programming to generate the Test-cases. PathCrawler\footnote{See more at: \url{http://www-list.cea.fr/labos/gb/LSL/test/pathcrawler/index.html}} executes an instrumented function for each function under test
 with the generated inputs, it preserves this information to not cover the same path.\\
 This tool supports assertions in any point in the code and pre-conditions regarding the input values.
 
@@ -388,9 +388,12 @@ Structs and Bitfields, Pointers and arrays, Goto, Break and continue. The genera
 
 \section{Using the tools}
 After introducing the theory and the techniques that support each tool we will demonstrate some of the tools in action, regarding small but illustrative examples
-on how each tool can help us find good test cases.
+on how each tool can help us find good test cases.\\
+We will use three examples for all the tested tools: a simple example based on a function/method that uses a multiplication, creating a simple branche on the code,
+a function that performs a binary search in order to find if a number is between two ranges and a function that calculates the year of the $n^{th}$ day since 1980.
 
 \subsection{PathCrawler}
+We tried to use pointers instead of coping the structure as a parameter to $Multiply$ function, but PathCrawler was not able to run.
 \begin{code}
 typedef struct s {
     int x;
@@ -403,10 +406,12 @@ int Multiply(Point p) {
 }
 \end{code}
 
+Nevertheless, PathCrawler was able to give a full coverage for this simple function as you can see in Table \ref{tab:mul}.
+
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
 \setlength{\tabcolsep}{10pt}
-\caption{Output Table for $Multiply$ function}
+\caption{Output Table for $Multiply$ function using PathCrawler}
 \label{tab:mul}
 \centering
 \noindent \begin{tabular}{|c|c|c|}\hline
@@ -415,6 +420,10 @@ Result & p & return value\\\hline
 \checkK & Point\{x=177407,y=109471\} & 0 \\\hline
 \end{tabular}
 \end{table}
+
+Regarding our second example, we have used a function that PathCrawler give to us: $pathcrawler\_assert$, this function can be used at any location in the
+program under test, and will force PathCrawler to generate test cases to cover both the case where its argument is true and the case where it is is false.
+This feature may be seen as another way to write an oracle.
 
 \begin{code}
 int BSearch(int x, int n) {
@@ -425,33 +434,35 @@ int BinarySearch(int x, int lo, int hi) {
     while (lo < hi) {
         int mid = (lo+hi)/2;
         pathcrawler_assert(mid >= lo && mid < hi);
-        if (x < (mid >= mid)) { hi = mid; }
+        if (x < mid) { hi = mid; }
 		else { lo = mid+1; }
     }
     return lo; 
 }
 \end{code}
 
-The results we get were interesting: 2 covered paths, 2 infeasible paths and 1 path untreated by pathCrawler.
+The results we get were interesting: 31 covered paths and 44 infeasible paths and the test as interrupted by PathCrawler,
+because we reach the maximal test session time (we can increase this number, but we leave the default value).\\
+A further analysis of the results demonstrated that 28 out of the 44 infeasible paths discovered appeared when PathCrawler tried to
+do the assertion in line 8. We didn't have written any pre-condition, so PathCrawler does not know that this is a pre-condition
+for $BinarySearch$ function:  $lo\leq~x<hi$. In Table \ref{tab:bsearch} we will show some os the test inputs generated for this example.
 
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
-\caption{Output Table for $BSearch$ function}
+\caption{Output Table for $BSearch$ function using PathCrawler}
 \label{tab:bsearch}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|}\hline
 Result & x & n & return value \\\hline
+\checkK & -189424 & -140714 & 0 \\\hline
 \checkK & 157819 & 0 & 0 \\\hline
-\bigexclaim & 157819 & 97040 & (empty) subsumed \\\hline
+\checkK & 1 & 1610612736 & 2 \\\hline
+\checkK & 2 & 805306368 & 3 \\\hline
+\checkK & 11 & 1610612736 & 12 \\\hline
 \end{tabular}
 \end{table}
 
-PathCrawler was successful identifying the path: $6-8-8b$ as infeasible and consequently all the path $6-8$ as infeasible too.
-Unfortunately pathCrawler is not ready yet to trace the path $6-8-8b-9$, so the result for this path was $untreated$.\\
-As you can see in Table \ref{tab:bsearch} the only two tests generated where very trivial, the first one when the $While$ condition fails
-and the second one never changes the returning variable inside the loop, so pathCrawler return the result $subsumed$, meaning that this path was already generated.\\
-
-We submit pathCrawler to a the following function that calculates the year of the $n^{th}$ day since 1980.
+We submit PathCrawler to the following function that calculates the year of the $n^{th}$ day since 1980.
 
 \begin{code}
 int IsLeapYear(int year) {
@@ -475,20 +486,23 @@ int FromDayToYear(int day) {
 }
 \end{code}
 
-The result was just $unknown$. pathCrawler was unable to trace even one path in our code, we increased the number of paths - $k$-path but with no success.
+The result was unexpectedly $unknown$. PathCrawler was unable to trace even one path in our code, we increased the number of paths - $k$-path but with no success.
 
 \subsection{Pex}
-Regarding a simple implementation of a 2D $Point$ class we will create a program that has a special behaviour, under a certain condition
-$x \times y \equiv 42$ it is supposed to throw an exception, imagine we found a bug when this property evaluates to $true$.
+Regarding Pex we will use the same examples showed previously but we will adapt them to C\# language.
+Because C\# is a more expressive language than C we will improve our examples with some other OO and C\# specific features like Expections and Debug.Assert calls.
+In fact Pex can also support a lot more features that are present in C\# language like pre-post conditions and many more.\\
+This is the simple implementation of a 2D $Point$ class that we create to have special behaviour, under a certain condition
+$x \times y \equiv 42$ it is supposed to throw an exception.
 
 \begin{code}
-public class Point  {
+public class Point {
   public readonly int X, Y;
   public Point(int x, int y) { X = x; Y = y; }
 }
 
-public class Program {
-  public static void Puzzle(Point p) {
+public class Multiply {
+  public static void multiply(Point p) {
     if (p.X * p.Y == 42)
         throw new Exception("hidden bug!");
   }
@@ -501,7 +515,7 @@ The output table can be seen in Table \ref{tab:point}, with the inputs and outpu
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
 \setlength{\tabcolsep}{1pt}
-\caption{Output Table for $Point$ class}
+\caption{Output Table for $multiply$ method using Pex}
 \label{tab:point}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|}\hline
@@ -522,14 +536,14 @@ the middle of our code.
 
 \begin{code}
 public class Program {
-  public static int Puzzle(int x, int n) {
-    return BinarySearch(x, i=>i, 0, n);
+  public static int BSearch(int x, int n) {
+    return BinarySearch(x, 0, n);
   }
-  static int BinarySearch(int x, Func<int, int> f, int lo, int hi) {
+  static int BinarySearch(int x, int lo, int hi) {
     while (lo < hi) {
       int mid = (lo+hi)/2;
       Debug.Assert(mid >= lo && mid < hi);
-      if (x < f(mid)) { hi = mid; } else { lo = mid+1; }
+      if (x < mid) { hi = mid; } else { lo = mid+1; }
     }
     return lo;
   }
@@ -541,7 +555,7 @@ Pex was able to generate an input that could not pass in the assertion inerted i
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
 \setlength{\tabcolsep}{1pt}
-\caption{Output Table for $BinarySearch$ class}
+\caption{Output Table for $BSearch$ method using Pex}
 \label{tab:binary}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|c|}\hline
@@ -565,7 +579,7 @@ public class Program {
   private static bool IsLeapYear(int year) {
     return (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0));
   }
-  public static void Puzzle(int day, out int year) {
+  public static void FromDayToYear(int day, out int year) {
     year = 1980;
     while (day > 365) {
       if (IsLeapYear(year)) {
@@ -582,14 +596,13 @@ public class Program {
 }
 \end{code}
 
-After Pex run we discover that this tool was unable to discover the year for day $366$ and $7671$ as we can see in Table \ref{tab:leap}.
+Pex was unable to discover the year for day $366$ and $7671$ as we can see in Table \ref{tab:leap}.
 This problem occurred because Pex by default has a maximum number of conditions, this avoids never ending functions and still has a result from Pex.
 In this particular case we could increment the number of $MaxConditions$: $[PexMethod(MaxConditions=10000)]$.
 
-
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
-\caption{Output Table for $IsLeapYear$ method}
+\caption{Output Table for $FromDayToYear$ method using Pex}
 \label{tab:leap}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|c|}\hline
