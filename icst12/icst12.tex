@@ -492,7 +492,7 @@ The result was unexpectedly $unknown$. PathCrawler was unable to trace even one 
 \subsection{Pex}
 Regarding Pex we will use the same examples showed previously but we will adapt them to C\# language.
 Because C\# is a more expressive language than C we will improve our examples with some other OO and C\# specific features like Expections and Debug.Assert calls.
-In fact Pex can also support a lot more features that are present in C\# language like pre-post conditions and many more.\\
+In fact Pex can also support a lot more features that are present in C\# language like .NET Contracts and many more.\\
 This is the simple implementation of a 2D $Point$ class that we create to have special behaviour, under a certain condition
 $x \times y \equiv 42$ it is supposed to throw an exception.
 
@@ -755,27 +755,45 @@ public class LinkedList<T> {
 }
 \end{code}
 
-Now we must define the predicate method.
-This predicate method will check that the tree doesn't have any cycles and that the number of nodes traversed from root matches the value of the field size.
-First we have defined the properties about this data structure. The most relevant ones are the property \ref{eq:linked} that ensures the structure and
-\ref{eq:uniq} that ensures our doubly linked list does not have repeated elements.\\
-Consider $e,e_1,e_2 \in LinkedListElement$ and $i$ the index function: $i : LinkedListElement \rightarrow int$, that receives an element of $LinkedList$ and
-returns the position of that element in the structure.
-
 \def\t#1#2#3#4{\langle#1 \ #2 : #3 \ : #4 \ \rangle}
 \def\d#1#2#3{\langle#1 \ #2 :: #3 \ \rangle}
+\newcommand{\subseteqL}{\mathbin{\subseteq\mkern-4mu\subseteq}}
+\newcommand{\inL}{\mathbin{\in\mkern-4mu\in}}
 
+Now we must define the predicate method.
+This predicate method will check that the tree doesn't have any cycles and that the number of nodes traversed from root matches the value of the field size.
+First we have defined the properties about this data structure. The most relevant ones are the property \ref{eq:linked} in Figure \ref{fig:formulae} that
+ensures the structure and \ref{eq:uniq} that ensures our doubly linked list does not have repeated elements.\\
+Consider $e,e_1,e_2 \in LinkedListElement$ and $i$ the index function: $i : LinkedListElement \rightarrow int$, that receives an element of $LinkedList$ and
+returns the position of that element in the structure. Consider also three new functions:
+\begin{enumerate}
+\item $Head(l)$ being $l$ of type $LinkedList$ and meaning in Java code $l.Head$.
+\item $Tail(l)$ being $l$ of type $LinkedList$ and meaning in Java code $l.Tail$.
+\item $size(l)$ being $l$ of type $LinkedList$ and meaning in Java code $l.size$.
+\end{enumerate}
+
+As a matter of avoiding verbosity we define two new symbols:
+\begin{enumerate}
+\item $a \inL l$ being $a$ of type $LinkedListElement$ and meaning that $a$ is an element of the $LinkedList$ $l$.
+\item $\{a,\ldots,z\} \subseteqL l$ meaning $a \inL l \wedge \ldots \wedge z \inL l$.
+\end{enumerate}
+
+
+\begin{figure*}[!Ht]
 \begin{IEEEeqnarray}{C}
-Head \equiv null \vee Tail \equiv null \Leftrightarrow size \equiv 0\\
-Tail.Next \equiv null\\
-Head.Prev \equiv null\\
-size \equiv 1 \Leftrightarrow Head \equiv Tail\\
-\d \forall {e_1,e_2} {\d \exists {e} {e_1.Next \equiv e \wedge e_2.Prev \equiv e}}\label{eq:linked}\\
-\d \forall {e_1,e_2} {e_1 \equiv e_2 \Rightarrow i(e_1) \equiv i(e_2)}\label{eq:uniq}
+\t \forall {l} {l \in LinkedList} {Head(l) \equiv null \vee Tail(l) \equiv null \Leftrightarrow size(l) \equiv 0}\\
+\t \forall {l} {l \in LinkedList} {Tail(l).Next \equiv null}\\
+\t \forall {l} {l \in LinkedList} {Head(l).Prev \equiv null}\\
+\t \forall {l} {l \in LinkedList} {size(l) \equiv 1 \Leftrightarrow Head(l) \equiv Tail(l)}\\
+\t \forall {l} {l \in LinkedList} {\t \forall {e_1,e_2} {\{e_1,e_2\} \subseteqL l} {\t \exists {e} {e \inL l} {e_1.Next \equiv e \wedge e_2.Prev \equiv e}}\label{eq:linked}}\\
+\t \forall {l} {l \in LinkedList} {\t \forall {e_1,e_2} {\{e_1,e_2\} \subseteqL l} {e_1 \equiv e_2 \Rightarrow i(e_1) \equiv i(e_2)}\label{eq:uniq}}
 \end{IEEEeqnarray}
+\caption{Invariants for class $LinkedList$}
+\label{fig:formulae}
+\end{figure*}
 
 We took this properties and use them to restrict the generation of structures as you can see in the following Java implementation.
-Note that we using short-circuiting, so we return $false$ as soon as we can. This way Korat will be able to generate a baster solution.
+Note that we using short-circuiting, so we return $false$ as soon as we can. This way Korat will be able to generate faster the instances matching our criteria.
 
 \begin{code}
 public boolean repOK() {
@@ -805,7 +823,7 @@ public boolean repOK() {
 }
 \end{code}
 
-The last step was define the finitization method, this way we tell Korat how to bound the input space.
+The last step was defining the finitization method, this way we tell Korat how to bound the input space.
 
 \begin{code}
 public static IFinitization finLL(int nodesNum, int minSize, int maxSize) {
@@ -843,11 +861,9 @@ The conclusion goes here. this is more of the conclusion
 \section*{Acknowledgment}
 The authors would like to thank...
 
-\nocite{*}
-\newcommand{\BIBdecl}{\footnotesize{\setlength{\itemsep}{-\baselineskip}}}
+%\newcommand{\BIBdecl}{\footnotesize{\setlength{\itemsep}{-\baselineskip}}}
 \bibliographystyle{IEEEtran}
-\bibliography{IEEEfull,icst12}
-%\bibliography{IEEEabrv,icst12}
+\bibliography{IEEEabrv,icst12}
 
 \end{document}
 
