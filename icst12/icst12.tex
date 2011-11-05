@@ -102,7 +102,7 @@ Using manual written tests is tedious, time consuming and error-prone.
 Lots of functions/methods need full code coverage and this manual technique leads to incomplete test suites;
 it is hard to create tests that cover specific code paths, potentially leaving many hidden bugs.
 %Besides that, software is not a static artifact and is constantly evolving, so a test generation technique could be a more suitable mechanism in the development process.
-In this paper we suggest an architecture to use some  white-box techniques  to generate tests from UML+OCL models.
+In this paper we suggest an architecture to use some white-box techniques to generate tests from UML+OCL models.
 There are many approaches trying to tackle the automatic test generation problem and therefore many tools were developed.
 So and as support to the envisaged proposal, we will also present a study on the most recent tools that uses
 Specification-based testing, Constraint-based generation, Grammar-based generation and Random-based generation for the most used languages - C, JAVA and C\#.
@@ -855,11 +855,59 @@ and in Figure \ref{fig:inst2} an instance with $5$ elements.
 \label{fig:insts}
 \end{figure}
 
-\section{Conclusion}
-The conclusion goes here. this is more of the conclusion
+\subsection{Conclusions}
+We find out that PathCrawler and Pex have different approaches regarding testcase generation. PathCrawler seems to be a very efficient tool to discover multiple
+infeasible paths in C code, because it uses a mix between static and dynamic analysis, when it finds a suitable input for a function it tries to execute
+collecting all the executed paths in the code.
+Pex on the other side just uses static execution and it is very efficient discovering all the feasible paths in C\# methods. We have also used Pex
+to perform testcase generation in C\# classes, but the generated instances are too simple to perform more interesting tests. We have written the $LinkedList$ class
+in C\# with many management methods implemented (Add, Remove, Find,\ldots). Pex generated very simple $LinkedList$'s structures to perform automatic test generation
+for each implemented method. The problem is that the generated structures does not meet the properties about Doubly Linked Lists as you can see in Figure \ref{fig:pexG}
+\begin{figure}[!ht]
+\centerline{
+\subfloat[Example of Pex generated $LinkedList$ instance to test $Remove$ method]{
+\includegraphics[width=.21\textwidth]{img/pex1}
+\label{fig:pexinst1}
+}
+\hfil
+\subfloat[Example of Pex generated $LinkedList$ instance to test $Find$ method]{
+\includegraphics[width=.21\textwidth]{img/pex2}
+\label{fig:pexinst2}}}
+\caption{Examples of generated instances from Pex for $LinkedList$ class.}
+\label{fig:pexG}
+\end{figure}
+We weren't really expecting Pex to generate valid instances based only on code analysis. In fact Pex has proved to be a very powerful tool trying to
+give full coverage. Which was bit a disappointment was the lack of generation of calling methods sequence. With Microsoft's SpecExplorer we can already
+manually call sequences of methods, maybe a combination of this feature with Pex would make Pex a perfect all-in-one testing tool regarding .NET automatic testing tools.\\
+Regarding Korat, this is a The tool to generate complex data structures. The freely available part of Korat show potential in expressing rules to hedge
+the automatic generation of data structures. The expected step is just write the invariants for a class instead of the $repOK$ method, or maybe infer these invariants 
+from the existing code. Writing the $repOK$ method for very complex data structures calls for some previous experience with Korat, but we think
+this is not a weakness, since it quickly gets used to write the $repOK$ method in Korat. The only problem is that right now we can not fully automate the process
+without human help.\\
 
-\section*{Acknowledgment}
-The authors would like to thank...
+Regarding the studied tools and thinking about a full automated test generation tool, a mix between Pex to ensure the maximum possible coverage, 
+Korat to generate all the valid data structures and an automatic tool to generate calls to methods combinations would be the perfect tool.
+
+\section{Generate Tests from Code+OCL}
+Since the Operational Simulator code is not familiar to us, we decided to start solving this problem by inferring the UML+OCL from the existing code
+to be able to work on a more abstract level rather than the implementation. Our idea is from the generated OCL extract tests using the Partition Analysis described
+in \cite{Benattou02generatingtest} and at the same time generate tests directly from the code, using static analysis methods - symbolic execution to complement
+the specification-based generation from OCL. The main goal is to extract as many tests as possible from a model prospective and from the implementation prospective
+to be able to feed a feedback loop\cite{Xie03mutuallyenhancing} generation testing framework with two tests prospectives: functional and structural and from there
+be able to get a more refined set of tests.\\
+We will develop a mixture between the symbolic execution from Pex and use the complex data generation from Korat to be able to generate a more interesting inputs for
+the methods under testing.
+
+\section{Future Work and Conclusion}
+This is a work in progress, with this paper we finish our first milestone regarding the study of the state-of-the-art methods and some tools that
+implement them. We have discussed some of the tested tools and present a mixture between some of them to be able to generate a more suitable
+set of tests for each method/class. In the end we presented a brief idea on a Code+OCL method to infer tests from, based on some of the studied methods.\\
+Regarding this idea of OCL inference from code we know that the solution is not done yet and we will work on a tool to do it, based on what we know nowadays
+regarding Frama-C is possible to infer pre-post-conditions\cite{moy} and interesting safety conditions from code.\\
+%\indent So, our work is beginning and we
+
+%\section*{Acknowledgment}
+%The authors would like to thank...
 
 %\newcommand{\BIBdecl}{\footnotesize{\setlength{\itemsep}{-\baselineskip}}}
 \bibliographystyle{IEEEtran}
