@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<alloy>
+<instance filename="" command="LL">
+
+  <sig name="LinkedListElement" extends="Object">
+    <atom name="LinkedListElement0"/>
+    <atom name="LinkedListElement1"/>
+    <atom name="LinkedListElement2"/>
+    <atom name="LinkedListElement3"/>
+    <atom name="LinkedListElement4"/>
+    <atom name="LinkedListElement5"/>
+  </sig>
+  <sig name="LL" extends="Object">
+    <atom name="LL0"/>
+  </sig>
+  <sig name="Int" extends="univ">
+    <atom name="1"/>
+  </sig>
+  <sig name="Object" extends="univ">
+    <atom name="LL0"/>
+    <atom name="LinkedListElement0"/>
+    <atom name="LinkedListElement1"/>
+    <atom name="LinkedListElement2"/>
+    <atom name="LinkedListElement3"/>
+    <atom name="LinkedListElement4"/>
+    <atom name="LinkedListElement5"/>
+  </sig>
+
+  <field name="Head">
+    <type>
+      <sig name="LL"/>
+      <sig name="LinkedListElement"/>
+    </type>
+    <tuple>
+      <atom name="LL0"/>
+      <atom name="LinkedListElement0"/>
+    </tuple>
+  </field>
+  <field name="Tail">
+    <type>
+      <sig name="LL"/>
+      <sig name="LinkedListElement"/>
+    </type>
+    <tuple>
+      <atom name="LL0"/>
+      <atom name="LinkedListElement0"/>
+    </tuple>
+  </field>
+  <field name="size">
+    <type>
+      <sig name="LL"/>
+      <sig name="Int"/>
+    </type>
+    <tuple>
+      <atom name="LL0"/>
+      <atom name="1"/>
+    </tuple>
+  </field>
+  <field name="Prev">
+    <type>
+      <sig name="LinkedListElement"/>
+      <sig name="LinkedListElement"/>
+    </type>
+    <tuple>
+      <atom name="LinkedListElement0"/>
+      <atom name="LinkedListElement1"/>
+    </tuple>
+  </field>
+  <field name="Prev">
+    <type>
+      <sig name="LinkedListElement"/>
+      <sig name="LinkedListElement"/>
+    </type>
+    <tuple>
+      <atom name="LinkedListElement1"/>
+      <atom name="LinkedListElement2"/>
+    </tuple>
+  </field>
+  <field name="Prev">
+    <type>
+      <sig name="LinkedListElement"/>
+      <sig name="LinkedListElement"/>
+    </type>
+    <tuple>
+      <atom name="LinkedListElement2"/>
+      <atom name="LinkedListElement3"/>
+    </tuple>
+  </field>
+  <field name="Prev">
+    <type>
+      <sig name="LinkedListElement"/>
+      <sig name="LinkedListElement"/>
+    </type>
+    <tuple>
+      <atom name="LinkedListElement3"/>
+      <atom name="LinkedListElement4"/>
+    </tuple>
+  </field>
+  <field name="Next">
+    <type>
+      <sig name="LinkedListElement"/>
+      <sig name="LinkedListElement"/>
+    </type>
+    <tuple>
+      <atom name="LinkedListElement3"/>
+      <atom name="LinkedListElement3"/>
+    </tuple>
+  </field>
+  <field name="Prev">
+    <type>
+      <sig name="LinkedListElement"/>
+      <sig name="LinkedListElement"/>
+    </type>
+    <tuple>
+      <atom name="LinkedListElement4"/>
+      <atom name="LinkedListElement5"/>
+    </tuple>
+  </field>
+  <field name="Next">
+    <type>
+      <sig name="LinkedListElement"/>
+      <sig name="LinkedListElement"/>
+    </type>
+    <tuple>
+      <atom name="LinkedListElement4"/>
+      <atom name="LinkedListElement5"/>
+    </tuple>
+  </field>
+  <field name="Prev">
+    <type>
+      <sig name="LinkedListElement"/>
+      <sig name="LinkedListElement"/>
+    </type>
+    <tuple>
+      <atom name="LinkedListElement5"/>
+      <atom name="LinkedListElement3"/>
+    </tuple>
+  </field>
+  <field name="Next">
+    <type>
+      <sig name="LinkedListElement"/>
+      <sig name="LinkedListElement"/>
+    </type>
+    <tuple>
+      <atom name="LinkedListElement5"/>
+      <atom name="LinkedListElement3"/>
+    </tuple>
+  </field>
+
+</instance>
+</alloy>
