@@ -114,7 +114,7 @@ Automatic Test Generation; White-box testing; UML/OCL;
 
 \IEEEpeerreviewmaketitle
 
-\section{Introduction}
+\section{Introduction}\label{introd}
 Since ever, every industry use testing methods to discover problems in early stages of development process to improve
 the products quality and software industry is not an exception. Miller\cite{miller} describe the utility
 of software testing as:
@@ -124,44 +124,88 @@ The general aim of testing is to affirm the quality of software systems by syste
 exercising the software in carefully controlled circumstances.
 \end{quotation}
 
-In the most recent period of software history the integration of software testing as a important step in the process of
-software development opened up to the appearance of \xunit\cite{xunit} tools and Agile software development.
-Also, ESA start to use manual written tests as a part of their software development processes.\\
-Using  manual written tests is tedious, time consuming and error-prone. Lots of functions/methods need full code coverage and this technique leaves
-to incomplete test suites and is hard to create tests that cover specific code paths potentially leaving many hidden bugs. Many times a supervision leaded by the developer
-is needed to assure that the right paths in the code are being tested, specially regarding black-box testing.\\
-Nowadays we start to observe a rapid increase in the automatic test generation field, this paper intends to be a study regarding the most studied techniques
-and the tools that implement them in order to choose the best set of suitable techniques to incorporate in a automatic testing generator to the
-Ground Segment infrastructure, specially the Operational Simulator at ESA.\\
-Two different techniques emerge for different proposes, Structural Techniques and Functional Techniques,
-White-box testing and Black-box\cite{black} testing respectively. Functional testing is the most common at ESA, because of the calculation complexity
-behind the Operational Simulators.\\
-We will start to discuss briefly White-box testing vs. Black-box testing and from there we will explain in more detail some automatic generation techniques.\\
-\indent Since no other testing tool used by ESA makes any use of a formal model we decide to start by infer the UML model from the existing C++
-code and explore the generation of Testcases using OCL (Object Constraint Language) specifications, UML diagrams and C++ code.
-The idea is to capture the requirements properties about the code, and from this beef up the white-box automatic test generation by generating tests from OCL.
+In the most recent period of software history the integration of
+software testing as an important step in the process of
+software development opened up to the origin of \xunit\cite{xunit}
+tools and Agile software development.
+Also, ESA started to use manual written tests as a part of their
+software development processes.\\
+Using  manual written tests is tedious, time consuming and error-prone.
+Lots of functions/methods need full code coverage and this technique
+leads to incomplete test suites;
+as it is hard to create tests that cover specific code paths, many
+hidden bugs can be left.
+Many times a supervision leaded by the developer
+is needed to assure that the right paths in the code are being tested,
+specially regarding black-box testing.\\
+Nowadays we start to observe a rapid increase in the automatic test
+generation field.
+In this paper we review the most studied techniques
+and the tools that implement them in order to choose the best set of
+suitable techniques to incorporate in a automatic
+testing generator to the Ground Segment infrastructure, specially the
+Operational Simulator at ESA.\\
+Two different techniques emerge for different purposes, Structural
+Techniques and Functional Techniques,
+known respectively as White-box testing and Black-box\cite{black} testing.
+Functional testing is the most common at ESA, because of the
+calculation complexity behind the Operational Simulators.\\
+We will start to discuss briefly White-box testing vs. Black-box
+testing and from there we will explain in more detail some automatic
+generation techniques.\\
+\indent Since no other testing tool used by ESA makes any use of a
+formal model we decide to start by infer the UML model
+from the existing C++
+code and explore the generation of Testcases using OCL (Object
+Constraint Language) specifications, UML diagrams and C++ code.
+The idea is to capture the requirement properties about the code, and
+from this beef up the white-box automatic test generation by
+generating tests from OCL.
 
 \subsection{White-box vs Black-box testing}
-In White-box testing the tester needs to understand the internals of the code to be able to write tests for it.
-The goal of selecting test cases that tests specific parts of the code is to cause the execution of specific spots in the software, such as statements, branches or
-paths. This technique consists of analyzing statically a program, by reading the program code and using symbolic execution techniques to simulate abstract program
-executions in order to attempt to compute inputs to drive the program along specific execution paths or branches, without ever executing the program.\\
-We can have a Control Flow based testing approach to analyzes all the possible paths in the code and write unit tests to cover multiple paths regarding our criteria.
-We generate the CFG (Control Flow Graph) of the program, we select different paths regarding our criteria:
-Select all paths, Select paths to achieve complete statement coverage\cite{stt,Ntafos:1988:CST:630792.631017},
-Select paths to achieve complete branch coverage\cite{Roper1994,stt}
-or Select paths to achieve predicate coverage\cite{stt,Ntafos:1988:CST:630792.631017}.
-And we generate the test inputs to make any path execute (exist input so the path can be executed, also called feasible path).\\
-We can also have Data Flow Testing where we look at the life cycle (creation, usage and destruction) of a particular piece of data and observes how it is used along the CFG,
-this ensures that the number of paths are always finite\cite{dataflow}.\\
+In White-box testing the tester needs to understand the internals of
+the code to be able to write tests for it.
+The goal of selecting test cases that test specific parts of the code
+is to cause the execution of specific spots in the software, such as
+statements, branches or
+paths.
+This technique consists in analyzing statically a program, by reading
+the program code and using symbolic execution techniques to simulate
+abstract program
+executions in order to attempt to compute inputs to drive the program
+along specific execution paths or branches, without ever executing the
+program.\\
+We can have a Control Flow based testing approach to analyze all the
+possible paths in the code and write unit tests
+to cover multiple paths.
+We build the CFG (Control Flow Graph) of the program, and generate
+test inputs to make any path execute
+regarding a given criterion:
+Select all paths;
+ Select paths to achieve complete statement
+ coverage\cite{stt,Ntafos:1988:CST:630792.631017};
+ Select paths to achieve complete branch coverage\cite{Roper1994,stt};
+ or Select paths to achieve predicate
+ coverage\cite{stt,Ntafos:1988:CST:630792.631017}.
 
-Opposed to White-box testing, Black-box testing is based on functionality, so the system observes a program based in their functional contracts and writes the
-pairs of inputs and the expected outputs for a given system and this is used from unit testing of single methods/functions to integration testing
-of combinations of the methods/functions to system testing of the final system.
-An automatic system can execute the program starting with some given or random concrete inputs, gathering symbolic constraints
-on inputs at conditional statements along the execution, and then using a constraint solver to infer variants of the previous inputs in order
-to steer the next execution of the program towards an alternative program branch; this process can be repeated with
-the goal of systematically executing all (or as many as possible) feasible program paths.
+ We can also have Data Flow Testing where we look at the life cycle
+ (creation, usage and destruction) of a particular
+ piece of data and observe how it is used along the CFG, this ensures
+ that the number of paths are always finite\cite{dataflow}.\\
+
+ Opposite to White-box testing, Black-box testing is based on
+ functionality, so the tester observes a system based
+ on its functional contracts and writes the pairs of inputs and the
+ expected outputs.
+ This approach is used for unit testing of single methods/functions,
+ integration testing
+ of combinations of the methods/functions, or even final system testing.
+
+
+%An automatic system can execute the program starting with some given or random concrete inputs, gathering symbolic constraints
+%on inputs at conditional statements along the execution, and then using a constraint solver to infer variants of the previous inputs in order
+%to steer the next execution of the program towards an alternative program branch; this process can be repeated with
+%the goal of systematically executing all (or as many as possible) feasible program paths.
 
 %\subsection{White-box testing}
 %In White-box testing the tester needs to understand the internals of the code to be able to write tests for it.
@@ -219,7 +263,19 @@ the goal of systematically executing all (or as many as possible) feasible progr
 %The downside of this technique, e.g., for a algorithmically non-trivial implementation it could be impossible to give a good test coverage.
 %Imagine any traversal or search algorithm over a graph, it is very difficult to generate a good coverage of test cases without the knowledge of the algorithm.
 
-\section{Testing Tools Approaches}
+The paper is organized as follows.
+In Section~\ref{testingapproaches} the important testing approaches in
+use---Specification-based testing, Constraint-based generation,
+Grammar-based generation and Random-based generation---are briefly
+revisited and, for each one,  the most relevant
+tools are identified.
+In Section~\ref{testingtools} some of the tools referred are
+experimented in order to be compared.
+Our proposal for a test generation system is introduced in
+Section~\ref{proposal}.
+The paper is concluded in Section~\ref{Concl}.
+
+\section{Testing Tools Approaches}\label{testingapproaches}
 
 % Specification Based Testing:
 % http://cs.union.edu/~barrv/Testing/Labs/lab9.html
@@ -387,11 +443,12 @@ unspecified behavior). Does not attempt to generate terminating program, so they
 And the main supported features right now are: Arithmetic, logical, and bit operations on integers, Loops, Conditionals, Function calls, Const and volatile,
 Structs and Bitfields, Pointers and arrays, Goto, Break and continue. The generation of code regarding this features can be tuned using the command line program.
 
-\section{Using the tools}
+\section{Using the tools}\label{testingtools}
 After introducing the theory and the techniques that support each tool we will demonstrate some of the tools in action, regarding small but illustrative examples
 on how each tool can help us find good test cases.\\
 We will use three examples for all the tested tools: a simple example based on a function/method that uses a multiplication, creating a simple branche on the code,
-a function that performs a binary search in order to find if a number is between two ranges and a function that calculates the year of the $n^{th}$ day since 1980.
+a function that performs a binary search in order to find if a number is in a given range (between two bounds)
+and a function that calculates the year of the $n^{th}$ day after 1980-01-01.
 
 \subsection{PathCrawler}
 We tried to use pointers instead of coping the structure as a parameter to $Multiply$ function, but PathCrawler was not able to run.
@@ -463,7 +520,7 @@ Result & x & n & return value \\\hline
 \end{tabular}
 \end{table}
 
-We submit PathCrawler to the following function that calculates the year of the $n^{th}$ day since 1980.
+We submit PathCrawler to the following function that calculates the year of the $n^{th}$ day after 1980-01-01.
 
 \begin{code}
 int IsLeapYear(int year) {
@@ -570,7 +627,7 @@ Result & x & n & result & Output/Exception \\\hline
 \end{tabular}
 \end{table}
 
-Now we have a more complex example, a function that returns the year where the $n^{th}$ day occurred since 1980.
+Now we have a more complex example, a function that returns the year of the $n^{th}$ day after 1980-01-01.
 Pex was able to generate some important test cases, but it has reached the limit amount of time to calculate interesting paths in the code,
 this boundary prevents Pex from getting stuck when the program goes into
 an infinite loop.
@@ -879,16 +936,16 @@ for each implemented method. The problem is that the generated structures does n
 We weren't really expecting Pex to generate valid instances based only on code analysis. In fact Pex has proved to be a very powerful tool trying to
 give full coverage. Which was bit a disappointment was the lack of generation of calling methods sequence. With Microsoft's SpecExplorer we can already
 manually call sequences of methods, maybe a combination of this feature with Pex would make Pex a perfect all-in-one testing tool regarding .NET automatic testing tools.\\
-Regarding Korat, this is a The tool to generate complex data structures. The freely available part of Korat show potential in expressing rules to hedge
-the automatic generation of data structures. The expected step is just write the invariants for a class instead of the $repOK$ method, or maybe infer these invariants 
-from the existing code. Writing the $repOK$ method for very complex data structures calls for some previous experience with Korat, but we think
+Regarding Korat, this is The tool to generate complex data structures. The freely available part of Korat show potential in expressing rules to hedge
+the automatic generation of data structures. The expected step is just to write the invariants for a class instead of the $repOK$ method, or maybe infer these invariants 
+from the existing code. Writing the $repOK$ method for very complex data structures requires for some previous experience with Korat, but we think
 this is not a weakness, since it quickly gets used to write the $repOK$ method in Korat. The only problem is that right now we can not fully automate the process
 without human help.\\
 
 Regarding the studied tools and thinking about a full automated test generation tool, a mix between Pex to ensure the maximum possible coverage, 
 Korat to generate all the valid data structures and an automatic tool to generate calls to methods combinations would be the perfect tool.
 
-\section{Generate Tests from Code+OCL}
+\section{Generate Tests from Code+OCL}\label{proposal}
 Since the Operational Simulator code is not familiar to us, we decided to start solving this problem by inferring the UML+OCL from the existing code
 to be able to work on a more abstract level rather than the implementation. Our idea is from the generated OCL extract tests using the Partition Analysis described
 in \cite{Benattou02generatingtest} and at the same time generate tests directly from the code, using static analysis methods - symbolic execution to complement
@@ -898,13 +955,15 @@ be able to get a more refined set of tests.\\
 We will develop a mixture between the symbolic execution from Pex and use the complex data generation from Korat to be able to generate a more interesting inputs for
 the methods under testing.
 
-\section{Future Work and Conclusion}
-This is a work in progress, with this paper we finish our first milestone regarding the study of the state-of-the-art methods and some tools that
+\section{Future Work and Conclusion}\label{Concl}
+With this paper we finish our first milestone regarding the study of the state-of-the-art methods and some tools that
 implement them. We have discussed some of the tested tools and present a mixture between some of them to be able to generate a more suitable
 set of tests for each method/class. In the end we presented a brief idea on a Code+OCL method to infer tests from, based on some of the studied methods.\\
-Regarding this idea of OCL inference from code we know that the solution is not done yet and we will work on a tool to do it, based on what we know nowadays
-regarding Frama-C is possible to infer pre-post-conditions\cite{moy} and interesting safety conditions from code.\\
-%\indent So, our work is beginning and we
+Concerning the OCL inference from code, we know that the solution is
+not yet done and we will work on a tool to do it.
+From Frama-C study we learned that it is possible to infer
+pre-post-conditions\cite{moy} and interesting safety conditions from
+code.\\
 
 %\section*{Acknowledgment}
 %The authors would like to thank...
