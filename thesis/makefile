@@ -1,13 +1,13 @@
-UNAME := $(shell uname -s)
+UNAME=$(shell uname -s)
 REL=thesis
 PDF=$(REL).pdf
 TEX=$(REL).tex
+TEXS=$(shell find . -iname "*.tex")
 
 all:$(PDF)
 
 # Compile the PDF file
-$(PDF):$(TEX)
-	make clean
+$(PDF):$(TEXS)
 ifeq ($(UNAME),Darwin)
 	latexmk -e '$$pdflatex=q/pdflatex --shell-escape -synctex=1 %T/' -pdf $(TEX)
 endif
@@ -17,7 +17,6 @@ endif
 
 # open PDF file
 open:
-	make clean
 	make $(PDF)
 ifeq ($(UNAME),Darwin)
 	open $(PDF)
