@@ -1,5 +1,9 @@
 \documentclass[mistar]{acmtrans2m}
 
+%\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel}
+
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage[usenames,dvipsnames]{color}
@@ -7,6 +11,8 @@
 \usepackage{pifont} % for \cross symbol newcommand
 \usepackage{amsfonts}
 \usepackage{url}
+
+\definecolor{darkblue}{rgb}{0,0.1,0.5}
 
 \lstdefinelanguage{codeTTN}
 {
@@ -45,7 +51,7 @@
 \author{Ulisses Araújo Costa\\University of Minho}
 
 \begin{abstract}
-ESA (European Space Agency) uses a big engine to perform tests in the
+The European Space Agency (ESA) uses an engine to perform tests in the
 Ground Segment infrastructure, specially the Operational Simulator.
 This engine uses many different tools to ensure the development of
 regression testing infrastructure and these tests perform black-box
@@ -70,17 +76,11 @@ cover specific code paths potentially leaving many hidden bugs.
 Besides that, software is not a static artifact and is constantly
 evolving, so a test generation technique could be a more suitable
 mechanism in the development process.
-We will be mainly focused on the white-box automatic test generation techniques.
-
-%Since no other testing tool used by ESA makes any use of a formal
-%model we decide to start by infer the UML model from the existing C++
-%code and try to explore the generation of Object Constraint Language specifications
-%from C++ code and UML diagrams. The idea is to capture the requirements properties about the code, and from this beef up the white-box automatic test generation.
 \end{abstract}
 
 %Categorize o artigo conforme as categorias da ACM.
 %Alguns exemplos de categorias.
-\category{D.2.7}{Software Engineering}{Distribution and Maintenance}
+\category{}{}{}
 %\category{I.3.1}{Computer Graphics}{Hardware Architecture}
 %\category{I.3.7}{Computer Graphics}{Three-Dimensional Graphics and Realism}
 
@@ -143,15 +143,7 @@ Functional testing is the most common at ESA, because of the
 calculation complexity behind the Operational Simulators.\\
 We will start to discuss briefly White-box testing vs. Black-box
 testing and from there we will explain in more detail some automatic
-generation techniques.\\
-%\indent Since no other testing tool used by ESA makes any use of a
-%formal model we decide to start by infer the UML model
-%from the existing C++
-%code and explore the generation of Testcases using OCL (Object
-%Constraint Language) specifications, UML diagrams and C++ code.
-%The idea is to capture the requirement properties about the code, and
-%from this beef up the white-box automatic test generation by
-%generating tests from OCL.
+generation techniques. Furthermore we will show the potential of the described tools.
 
 \subsection{White-box vs Black-box testing}
 In White-box testing the tester needs to understand the internals of
@@ -173,26 +165,26 @@ We build the CFG (Control Flow Graph) of the program, and generate
 test inputs to make any path execute
 regarding a given criterion:
 Select all paths;
- Select paths to achieve complete statement
- coverage\cite{stt,Ntafos:1988:CST:630792.631017};
- Select paths to achieve complete branch coverage\cite{Roper1994,stt};
- or Select paths to achieve predicate
- coverage\cite{stt,Ntafos:1988:CST:630792.631017}.
+Select paths to achieve complete statement
+coverage\cite{stt,Ntafos:1988:CST:630792.631017};
+Select paths to achieve complete branch coverage\cite{Roper1994,stt};
+or Select paths to achieve predicate
+coverage\cite{stt,Ntafos:1988:CST:630792.631017}.
 
- We can also have Data Flow Testing where we look at the life cycle
- (creation, usage and destruction) of a particular
- piece of data and observe how it is used along the CFG, this ensures
- that the number of paths are always finite\cite{dataflow}.\\
+We can also have Data Flow Testing where we look at the life cycle
+(creation, usage and destruction) of a particular
+piece of data and observe how it is used along the CFG, this ensures
+that the number of paths are always finite\cite{dataflow}.\\
 
- Opposite to White-box testing, Black-box testing is based on
- functionality, so the tester observes a system based
- on its functional contracts and writes the pairs of inputs and the
- expected outputs.
- This approach is used for unit testing of single methods/functions,
- integration testing
- of combinations of the methods/functions, or even final system testing.
+Opposite to White-box testing, Black-box testing is based on
+functionality, so the tester observes a system based
+on its functional contracts and writes the pairs of inputs and the
+expected outputs.
+This approach is used for unit testing of single methods/functions,
+integration testing
+of combinations of the methods/functions, or even final system testing.\\
 
-The paper is organized as follows.
+This paper is organized as follows.
 In Section~\ref{testingapproaches} the important testing approaches in
 use---Specification-based testing and Constraint-based generation---are briefly
 revisited and, for each one,  the most relevant

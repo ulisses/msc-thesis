@@ -1482,6 +1482,8 @@ MACRO {toois} {"ACM Trans. Office Inf. Syst."}
 
 MACRO {toplas} {"ACM Trans. Program. Lang. Syst."}
 
+MACRO {tocl} {"ACM Trans. On Comp. Logic"}
+
 MACRO {tcs} {"Theor. Comput. Sci."}	% jtb: was Theor. Comp. Sci.
 
 MACRO {tr} {"Tech. Rep."}
