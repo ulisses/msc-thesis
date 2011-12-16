@@ -288,12 +288,9 @@ This tool supports assertions in any point in the code and pre-conditions regard
 \section{Using the tools}\label{testingtools}
 After introducing the theory and the techniques that support each tool we will demonstrate some of the tools in action, regarding small but illustrative examples
 on how each tool can help us find good test cases.\\
-We will use three examples for all the tested tools: a simple example based on a function/method that uses a multiplication, creating a simple branche on the code,
-a function that performs a binary search in order to find if a number is in a given range (between two bounds)
-and a function that calculates the year of the $n^{th}$ day after 1980-01-01.
 
 \subsection{PathCrawler}
-We tried to use pointers instead of coping the structure as a parameter to $Multiply$ function, but PathCrawler was not able to run.
+Concerning the first case we use a simple example based on a function that uses a multiplication, creating a simple branche on the code.
 \begin{code}
 typedef struct s {
     int x;
@@ -305,6 +302,7 @@ int Multiply(Point p) {
     else return 0;
 }
 \end{code}
+We have tried to use pointers instead of coping the structure as a parameter to $Multiply$ function, but PathCrawler was not able to run.
 
 Nevertheless, PathCrawler was able to give a full coverage for this simple function as you can see in Table \ref{tab:mul}.
 
@@ -321,9 +319,7 @@ Result & p & return value\\\hline
 \end{tabular}
 \end{table}
 
-Regarding our second example, we have used a function that PathCrawler give to us: $pathcrawler\_assert$, this function can be used at any location in the
-program under test, and will force PathCrawler to generate test cases to cover both the case where its argument is true and the case where it is is false.
-This feature may be seen as another way to write an oracle.
+Regarding our second example a function that performs a binary search in order to find if a number is in a given range (between two bounds).
 
 \begin{code}
 int BSearch(int x, int n) {
@@ -340,11 +336,13 @@ int BinarySearch(int x, int lo, int hi) {
     return lo; 
 }
 \end{code}
-
-The results we get were interesting: 31 covered paths and 44 infeasible paths and the test as interrupted by PathCrawler,
+We have used a function that PathCrawler give to us: $pathcrawler\_assert$, this function can be used at any location in the
+program under test, and will force PathCrawler to generate test cases to cover both the case where its argument is true and the case where it is is false.
+This feature may be seen as another way to write an oracle.\\
+The results we got were interesting: 31 covered paths and 44 infeasible paths and the test as interrupted by PathCrawler,
 because we reach the maximal test session time (we can increase this number, but we leave the default value).\\
 A further analysis of the results demonstrated that 28 out of the 44 infeasible paths discovered appeared when PathCrawler tried to
-do the assertion in line 8. We didn't have written any pre-condition, so PathCrawler does not know that this is a pre-condition
+do the assertion in line 8. We did not written any pre-condition, so PathCrawler does not know that this is a pre-condition
 for $BinarySearch$ function:  $lo\leq~x<hi$. In Table \ref{tab:bsearch} we will show some os the test inputs generated for this example.
 
 \begin{table}[!ht]
@@ -390,7 +388,7 @@ The result was unexpectedly $unknown$. PathCrawler was unable to trace even one 
 
 \subsection{Pex}
 Regarding Pex we will use the same examples showed previously but we will adapt them to C\# language.
-Because C\# is a more expressive language than C we will improve our examples with some other OO and C\# specific features like Expections and Debug.Assert calls.
+Because C\# is a more expressive language than C we will improve our examples with some other OO and C\# specific features like Exceptions and Debug.Assert calls.
 In fact Pex can also support a lot more features that are present in C\# language like .NET Contracts and many more.\\
 This is the simple implementation of a 2D $Point$ class that we create to have special behaviour, under a certain condition
 $x \times y \equiv 42$ it is supposed to throw an exception.
@@ -409,7 +407,7 @@ public class Multiply {
 }
 \end{code}
 
-So, as we describe earlier, Pex will try to generate such input as it is possible (in an given amount of time) to traverse all the paths inside the code.
+So, as we describe earlier, Pex will try to generate such input as it is possible (in a given amount of time) to traverse all the paths inside the code.
 The output table can be seen in Table \ref{tab:point}, with the inputs and outputs that Pex found to ensure a full coverage of the code.
 
 \begin{table}[!ht]
@@ -450,7 +448,7 @@ public class Program {
 }
 \end{code}
 
-Pex was able to generate an input that could not pass in the assertion inerted in our code as we can seen in Table \ref{tab:binary}.
+Pex was able to generate an input that could not pass in the assertion inerted in our code, as we can seen in Table \ref{tab:binary}.
 
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
@@ -493,8 +491,8 @@ public class LinkedList<T> {
 
 Now we must define the predicate method.
 This predicate method will check that the tree doesn't have any cycles and that the number of nodes traversed from root matches the value of the field size.
-First we have defined the properties about this data structure. The most relevant ones are the property \ref{eq:linked} in Figure \ref{fig:formulae} that
-ensures the structure and \ref{eq:uniq} that ensures our doubly linked list does not have repeated elements.\\
+First we have defined the properties about this data structure. The most relevant ones are property \ref{eq:linked} in Figure \ref{fig:formulae} that
+ensures the structure and property \ref{eq:uniq} that ensures our doubly linked list does not have repeated elements.\\
 Consider $e,e_1,e_2 \in LinkedListElement$ and $i$ the index function: $i : LinkedListElement \rightarrow int$, that receives an element of $LinkedList$ and
 returns the position of that element in the structure. Consider also three new functions:
 \begin{enumerate}
@@ -530,12 +528,12 @@ and in Figure \ref{fig:inst2} an instance with $5$ elements.
 \begin{figure}[!ht]
 \centerline{
 \subfloat[Instance with $2$ elements for $LinkedList$]{
-\includegraphics[width=.2\textwidth]{img/ll1}
+\includegraphics[width=.3\textwidth]{img/ll1}
 \label{fig:inst1}
 }
 \hfil
 \subfloat[Instance with $5$ elements for $LinkedList$]{
-\includegraphics[width=.2\textwidth]{img/ll2}
+\includegraphics[width=.3\textwidth]{img/ll2}
 \label{fig:inst2}}}
 \caption{Examples of generated instances from Korat for $LinkedList$ class.}
 \label{fig:insts}
@@ -548,16 +546,16 @@ collecting all the executed paths in the code.
 Pex on the other side just uses static execution and it is very efficient discovering all the feasible paths in C\# methods. We have also used Pex
 to perform testcase generation in C\# classes, but the generated instances are too simple to perform more interesting tests. We have written the $LinkedList$ class
 in C\# with many management methods implemented (Add, Remove, Find,\ldots). Pex generated very simple $LinkedList$'s structures to perform automatic test generation
-for each implemented method. The problem is that the generated structures does not meet the properties about Doubly Linked Lists as you can see in Figure \ref{fig:pexG}
+for each implemented method. The problem is that the generated structures does not meet the properties about Doubly Linked Lists as you can see in Figure \ref{fig:pexG}.
 \begin{figure}[!ht]
 \centerline{
 \subfloat[Example of Pex generated $LinkedList$ instance to test $Remove$ method]{
-\includegraphics[width=.21\textwidth]{img/pex1}
+\includegraphics[width=.3\textwidth]{img/pex1}
 \label{fig:pexinst1}
 }
 \hfil
 \subfloat[Example of Pex generated $LinkedList$ instance to test $Find$ method]{
-\includegraphics[width=.21\textwidth]{img/pex2}
+\includegraphics[width=.3\textwidth]{img/pex2}
 \label{fig:pexinst2}}}
 \caption{Examples of generated instances from Pex for $LinkedList$ class.}
 \label{fig:pexG}
