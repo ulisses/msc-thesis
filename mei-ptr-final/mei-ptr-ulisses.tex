@@ -60,32 +60,24 @@ VST (Visionspace Technologies) is one of the companies that provides
 these services to ESA and they need a tool to instead of writing
 manually scripts to perform tests, it should try to automatically
 infer tests from the existing C++ code.
-There are many approaches trying to tackle this problem and therefore
-many tools were developed. Here we will present a study on the most
-recent tools that uses: Specification-based testing and
-Constraint-based generation for the most used languages - C, JAVA and C\#.
 
-Automated Test Case Generation tools give support for creating test
-cases and at the same time ensure test case coverage methodically. The
-main goal of this tools is extract information from the program on how
-to generate executable test cases.
-Using manual written tests is tedious, time consuming and error-prone.
-Lots of functions/methods need full code coverage and this technique
-leaves to incomplete test suites and is hard to create tests that
-cover specific code paths potentially leaving many hidden bugs.
-Besides that, software is not a static artifact and is constantly
-evolving, so a test generation technique could be a more suitable
-mechanism in the development process.
+%There are many approaches trying to tackle this problem and therefore
+%many tools were developed.
+%Automated Test Case Generation tools give support for creating test
+%cases and at the same time ensure test case coverage methodically. The
+%main goal of this tools is extract information from the program on how
+%to generate executable test cases.
+%Using manual written tests is tedious, time consuming and error-prone.
+%Lots of functions/methods need full code coverage and this technique
+%leaves to incomplete test suites and is hard to create tests that
+%cover specific code paths potentially leaving many hidden bugs.
+%Besides that, software is not a static artifact and is constantly
+%evolving, so a test generation technique could be a more suitable
+%mechanism in the development process.
 \end{abstract}
 
-%Categorize o artigo conforme as categorias da ACM.
-%Alguns exemplos de categorias.
 \category{D.2.5}{Software Engineering}{Testing and Debugging}
-%\category{I.3.1}{Computer Graphics}{Hardware Architecture}
-%\category{I.3.7}{Computer Graphics}{Three-Dimensional Graphics and Realism}
 
-%Insira um, ou mais, dos seguintes termos em \terms
-%Algorithms; Design; Documentation; Economics; Experimentation; Human factors; Languages; Legal aspects; Management; Measurement; Performance; Reliability; Security; Standardization; Theory; Veri?cation;
 \terms{Languages, Verification}
 
  %palavras chaves
@@ -131,7 +123,9 @@ is needed to assure that the right paths in the code are being tested,
 specially regarding black-box testing.\\
 Nowadays we start to observe a rapid increase in the automatic test
 generation field.
-In this paper we review the most studied techniques
+
+\subsection{Goals}
+This document reviews the most studied techniques
 and the tools that implement them in order to choose the best set of
 suitable techniques to incorporate in a automatic
 testing generator to the Ground Segment infrastructure, specially the
@@ -141,9 +135,9 @@ Techniques and Functional Techniques,
 known respectively as White-box testing and Black-box\cite{black} testing.
 Functional testing is the most common at ESA, because of the
 calculation complexity behind the Operational Simulators.\\
-We will start to discuss briefly White-box testing vs. Black-box
-testing and from there we will explain in more detail some automatic
-generation techniques. Furthermore we will show the potential of the described tools.
+A briefly discussion will be presented regarding White-box testing vs. Black-box
+testing and from there will be explained in more detail some automatic
+generation techniques. Furthermore will be shown the potential of the described tools.
 
 \subsection{White-box vs Black-box testing}
 In White-box testing the tester needs to understand the internals of
@@ -158,12 +152,10 @@ abstract program
 executions in order to attempt to compute inputs to drive the program
 along specific execution paths or branches, without ever executing the
 program.\\
-We can have a Control Flow based testing approach to analyze all the
-possible paths in the code and write unit tests
-to cover multiple paths.
-We build the CFG (Control Flow Graph) of the program, and generate
-test inputs to make any path execute
-regarding a given criterion:
+Control Flow based testing approach can be useful to analyze all the
+possible paths in the code and write unit tests to cover multiple paths.
+CFG (Control Flow Graph) of the program can be built,
+test inputs can be generated to make any path execute regarding a given criterion:
 Select all paths;
 Select paths to achieve complete statement
 coverage\cite{stt,Ntafos:1988:CST:630792.631017};
@@ -171,7 +163,7 @@ Select paths to achieve complete branch coverage\cite{Roper1994,stt};
 or Select paths to achieve predicate
 coverage\cite{stt,Ntafos:1988:CST:630792.631017}.
 
-We can also have Data Flow Testing where we look at the life cycle
+Data Flow Testing is designed into looking at the life cycle
 (creation, usage and destruction) of a particular
 piece of data and observe how it is used along the CFG, this ensures
 that the number of paths are always finite\cite{dataflow}.\\
@@ -184,7 +176,7 @@ This approach is used for unit testing of single methods/functions,
 integration testing
 of combinations of the methods/functions, or even final system testing.\\
 
-This paper is organized as follows.
+This document is organized as follows.
 In Section~\ref{testingapproaches} the important testing approaches in
 use---Specification-based testing and Constraint-based generation---are briefly
 revisited and, for each one,  the most relevant
@@ -193,9 +185,11 @@ In Section~\ref{testingtools} some of the tools referred are
 experimented in order to be compared.
 Our proposal for a test generation system is introduced in
 Section~\ref{proposal}.
-The paper is concluded in Section~\ref{Concl}.
+The document is concluded in Section~\ref{Concl}.
 
 \section{Testing Tools Approaches}\label{testingapproaches}
+Here will be presented a study on the most recent tools that uses: Specification-based testing and
+Constraint-based generation for the most used languages - C, JAVA and C\#.
 
 % Specification Based Testing:
 % http://cs.union.edu/~barrv/Testing/Labs/lab9.html
@@ -216,10 +210,10 @@ The paper is concluded in Section~\ref{Concl}.
 %Predicates as specifications (Alloy is related to OCL (Object Constraint Language) for UML)
 \subsection{Specification-based Generation Testing}
 Specification Based Testing also known as Model Based Testing refers to the process of testing a program based on what its specification or model says its behavior should be.
-In particular, we can generate test cases based on the specification of the program's behavior, without seeing an implementation of the program. So this clearly a
+In particular, can be generated test cases based on the specification of the program's behavior, without seeing an implementation of the program. So this clearly a
 way of Black-box testing.\\
-With this technique we can even start the testing phase and development phase in parallel, we don't need the implementation
-to start the developing test cases. The only thing we need is the functional contracts and/or oracles for each function/method.\\
+With this technique the testing phase and development phase can be started in parallel, don't need the implementation
+to start the development of test cases. The only thing needed is the functional contracts and/or oracles for each function/method.\\
 Since the 90's there have been some effort into using specifications to try to generate test cases such as Z specifications
 \cite{Horcher95improvingsoftware,Stocks:1996:FST:239916.239918}, UML statecharts\cite{Offutt:1999:GTU:1767297.1767341},VDM\cite{Aichernig99automatedblack-box}
 or ADL specifications\cite{Sankar94specifyingand}.
@@ -237,7 +231,7 @@ using their user interface\footnote{See more at: \url{http://www.all4tec.net/ind
 \item[Rational Tau] is an IBM commercial tool that provides automated error checking, rules-based model checking, and a model-based explorer using
 UML\footnote{See more at: \url{http://www-01.ibm.com/software/awdtools/tau/}}.
 \end{description}
-We will talk about the most relevant ones or the more recent open-source ones.
+The most relevant ones or the more recent open-source ones will be discussed.
 
 \subsubsection{Korat}
 Korat\cite{Boyapati02korat:automated} is a mature framework for automated testing structurally complex inputs of JAVA programs.
@@ -247,7 +241,7 @@ Korat then executes the method on each test case, and uses the method postcondit
 To be able to generate test cases for a method, Korat uses a predicate and a bound on the size of its inputs,
 Korat generates all (nonisomorphic) inputs for which the predicate returns $true$.
 Korat generates all the possible input spaces regarding the predicate and monitor the predicate's executions to be able to prune large portions of the search space.\\
-\indent The writing of a predicate is done using JAVA language and in most cases we can write the first thing that cames to our heads to restrict the input space.
+\indent The writing of a predicate is done using JAVA language and in most cases can be written the first thing that cames to programmer's head to restrict the input space.
 But for more complex structures it is better to understand how the matching algorithm work to be able to write a fast verifiable predicate.\\
 Unfortunately the test derivation tool using Korat (that also uses JML) is not available to the public.
 
@@ -265,7 +259,7 @@ There are some tools out there, like:
 \item[GATeL] for Lustre language to generate test sequences\footnote{See more at: \url{http://www-list.cea.fr/labos/gb/LSL/test/gatel/index.html}}.
 \end{description}
 
-We will explain just two tools, one proprietary and other academic.
+Here two tools will be explained, one proprietary and other academic.
 
 \subsubsection{Pex} Pex\cite{Tillmann:2008:PWB:1792786.1792798} is an automatic white-box test generation tool for .NET. Starting from a
 method that takes parameters, Pex performs path-bounded model-checking
@@ -277,8 +271,8 @@ Pex came with Moles that helps to generate unit tests. This tools together are a
 declarations, all exceptions throws operations, if statements, asserts and .net Contracts). With this information Pex uses Z3 constraint solver to
 produce new test inputs which exercise diferent program behavior.\\
 The result is an automatically generated small test suite which often achieves high code coverage.\\
-Pex can be used in a project, class or method (which make it a very helpful and versatile tool). After the analysis process we can see in "Pex Explorarion Results"
-the $input \times output$ pairs selected for each test case for our method, we also get a percentage of the test coverage.
+Pex can be used in a project, class or method (which make it a very helpful and versatile tool). After the analysis process the "Pex Explorarion Results" shows
+the $input \times output$ pairs selected for each test case for the method, here it also shows the percentage of the test coverage.
 
 \subsubsection{PathCrawler} This is an academic tool based on dynamic and statical analysis\cite{Williams05pathcrawler:automatic}, 
 it uses constraint logic programming to generate the Test-cases. PathCrawler\footnote{See more at: \url{http://www-list.cea.fr/labos/gb/LSL/test/pathcrawler/index.html}} executes an instrumented function for each function under test
@@ -286,11 +280,11 @@ with the generated inputs, it preserves this information to not cover the same p
 This tool supports assertions in any point in the code and pre-conditions regarding the input values.
 
 \section{Using the tools}\label{testingtools}
-After introducing the theory and the techniques that support each tool we will demonstrate some of the tools in action, regarding small but illustrative examples
+After introducing the theory and the techniques that support each tool will be demonstrated some of the tools in action, regarding small but illustrative examples
 on how each tool can help us find good test cases.\\
 
 \subsection{PathCrawler}
-Concerning the first case we use a simple example based on a function that uses a multiplication, creating a simple branche on the code.
+Concerning the first case will be used a simple example based on a function that uses a multiplication, creating a simple branche on the code.
 \begin{code}
 typedef struct s {
     int x;
@@ -302,7 +296,7 @@ int Multiply(Point p) {
     else return 0;
 }
 \end{code}
-We have tried to use pointers instead of coping the structure as a parameter to $Multiply$ function, but PathCrawler was not able to run.
+Pointers were tried instead of coping the structure as a parameter to $Multiply$ function, but PathCrawler was not able to run.
 
 Nevertheless, PathCrawler was able to give a full coverage for this simple function as you can see in Table \ref{tab:mul}.
 
@@ -336,14 +330,14 @@ int BinarySearch(int x, int lo, int hi) {
     return lo; 
 }
 \end{code}
-We have used a function that PathCrawler give to us: $pathcrawler\_assert$, this function can be used at any location in the
+A function that PathCrawler give to us has been used: $pathcrawler\_assert$, this function can be used at any location in the
 program under test, and will force PathCrawler to generate test cases to cover both the case where its argument is true and the case where it is is false.
 This feature may be seen as another way to write an oracle.\\
-The results we got were interesting: 31 covered paths and 44 infeasible paths and the test as interrupted by PathCrawler,
-because we reach the maximal test session time (we can increase this number, but we leave the default value).\\
+The results were interesting: 31 covered paths and 44 infeasible paths and the test as interrupted by PathCrawler,
+because PathCrawler reach the maximal test session time (the user can increase this number, but for this example is left the default value).\\
 A further analysis of the results demonstrated that 28 out of the 44 infeasible paths discovered appeared when PathCrawler tried to
-do the assertion in line 8. We did not written any pre-condition, so PathCrawler does not know that this is a pre-condition
-for $BinarySearch$ function:  $lo\leq~x<hi$. In Table \ref{tab:bsearch} we will show some os the test inputs generated for this example.
+do the assertion in line 8. Was not written any pre-condition, so PathCrawler does not know that this is a pre-condition
+for $BinarySearch$ function:  $lo\leq~x<hi$. In Table \ref{tab:bsearch} is shown some of the test inputs generated for this example.
 
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
@@ -360,7 +354,7 @@ Result & x & n & return value \\\hline
 \end{tabular}
 \end{table}
 
-We submit PathCrawler to the following function that calculates the year of the $n^{th}$ day after 1980-01-01.
+PathCrawler was tried with the following function that calculates the year of the $n^{th}$ day after 1980-01-01.
 
 \begin{code}
 int IsLeapYear(int year) {
@@ -384,13 +378,14 @@ int FromDayToYear(int day) {
 }
 \end{code}
 
-The result was unexpectedly $unknown$. PathCrawler was unable to trace even one path in our code, we increased the number of paths - $k$-path but with no success.
+The result was unexpectedly $unknown$. PathCrawler was unable to trace even one path in our code, the number of $k$-path's could
+be increased but with no success for this example.
 
 \subsection{Pex}
-Regarding Pex we will use the same examples showed previously but we will adapt them to C\# language.
-Because C\# is a more expressive language than C we will improve our examples with some other OO and C\# specific features like Exceptions and Debug.Assert calls.
+Regarding Pex is used the same examples showed previously adapted to C\# language.
+Because C\# is a more expressive language than C our examples will be improved with some other OO and C\# specific features like Exceptions and Debug.Assert calls.
 In fact Pex can also support a lot more features that are present in C\# language like .NET Contracts and many more.\\
-This is the simple implementation of a 2D $Point$ class that we create to have special behaviour, under a certain condition
+This is the simple implementation of a 2D $Point$ class that has been created to have special behavior, under a certain condition
 $x \times y \equiv 42$ it is supposed to throw an exception.
 
 \begin{code}
@@ -407,7 +402,7 @@ public class Multiply {
 }
 \end{code}
 
-So, as we describe earlier, Pex will try to generate such input as it is possible (in a given amount of time) to traverse all the paths inside the code.
+So, as was described earlier, Pex will try to generate such input as it is possible (in a given amount of time) to traverse all the paths inside the code.
 The output table can be seen in Table \ref{tab:point}, with the inputs and outputs that Pex found to ensure a full coverage of the code.
 
 \begin{table}[!ht]
@@ -429,7 +424,7 @@ Result & p & Output/Exception & Error Message\\\hline
 Pex was successful to reach the $Exception$ path inside the code. Of course this is not always possible, since sometimes the functions inside
 the $if$ statement does not have inverse function.\\
 
-Pex can also be very helpful checking assertions and contracts in .net code. Here we write a binary search algorithm and we have an assertion in
+Pex can also be very helpful checking assertions and contracts in .net code. A binary search algorithm was written and an assertion was also written in
 the middle of our code.
 
 \begin{code}
@@ -448,7 +443,7 @@ public class Program {
 }
 \end{code}
 
-Pex was able to generate an input that could not pass in the assertion inerted in our code, as we can seen in Table \ref{tab:binary}.
+Pex was able to generate an input that could not pass in the assertion inerted in our code, as can be seen in Table \ref{tab:binary}.
 
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
@@ -468,8 +463,8 @@ Result & x & n & result & Output/Exception \\\hline
 \end{table}
 
 \subsection{Korat}
-As we explain before, Korat generates a graphical representation of the structure instances that validates the property $repOK$ we define using JAVA code.\\
-Because the freely available Korat version validate instances of complex data structures, we have defined a Doubled Linked List structure in JAVA.
+Like was explained before, Korat generates a graphical representation of the structure instances that validates the property $repOK$. This property was written using JAVA code.\\
+In order to test the freelly available version of Korat, a Doubly Linked List structure was created in JAVA.
 
 \begin{code}
 public class LinkedList<T> {
@@ -489,9 +484,9 @@ public class LinkedList<T> {
 \newcommand{\subseteqL}{\mathbin{\subseteq\mkern-4mu\subseteq}}
 \newcommand{\inL}{\mathbin{\in\mkern-4mu\in}}
 
-Now we must define the predicate method.
+Now the $repOK$ predicate method must be defined.
 This predicate method will check that the tree doesn't have any cycles and that the number of nodes traversed from root matches the value of the field size.
-First we have defined the properties about this data structure. The most relevant ones are property \ref{eq:linked} in Figure \ref{fig:formulae} that
+First was defined the properties about this data structure. The most relevant ones are property \ref{eq:linked} in Figure \ref{fig:formulae} that
 ensures the structure and property \ref{eq:uniq} that ensures our doubly linked list does not have repeated elements.\\
 Consider $e,e_1,e_2 \in LinkedListElement$ and $i$ the index function: $i : LinkedListElement \rightarrow int$, that receives an element of $LinkedList$ and
 returns the position of that element in the structure. Consider also three new functions:
@@ -501,7 +496,7 @@ returns the position of that element in the structure. Consider also three new f
 \item $size(l)$ being $l$ of type $LinkedList$ and meaning in Java code $l.size$.
 \end{enumerate}
 
-As a matter of avoiding verbosity we define two new symbols:
+As a matter of avoiding verbosity two symbols were defined:
 \begin{enumerate}
 \item $a \inL l$ being $a$ of type $LinkedListElement$ and meaning that $a$ is an element of the $LinkedList$ $l$.
 \item $\{a,\ldots,z\} \subseteqL l$ meaning $a \inL l \wedge \ldots \wedge z \inL l$.
@@ -520,9 +515,9 @@ As a matter of avoiding verbosity we define two new symbols:
 \label{fig:formulae}
 \end{figure*}
 
-We took properties in Fig. \ref{fig:formulae} and use them to restrict the generation of structures using Java. So we define the $repOK$ method that receives
-a $LinkedList$ structure and returns $Bool$ whenever this structure follows the invariants in \ref{fig:formulae}.
-Using this specification we were able to generate the 2 structures showed in Figure \ref{fig:insts}. In Figure \ref{fig:inst1} with $2$ elements
+The properties in Fig. \ref{fig:formulae} were taken and used to restrict the generation of structures using Java. So the $repOK$ method that receives
+a $LinkedList$ structure and returns $Bool$ whenever this structure follows the invariants in \ref{fig:formulae} was defined.
+Using this specification Korat generated the 2 structures showed in Figure \ref{fig:insts}. In Figure \ref{fig:inst1} with $2$ elements
 and in Figure \ref{fig:inst2} an instance with $5$ elements.
 
 \begin{figure}[!ht]
@@ -539,12 +534,12 @@ and in Figure \ref{fig:inst2} an instance with $5$ elements.
 \label{fig:insts}
 \end{figure}
 
-\subsection{Conclusions}
-We find out that PathCrawler and Pex have different approaches regarding testcase generation. PathCrawler seems to be a very efficient tool to discover multiple
+\subsection{Summary}
+Was found that PathCrawler and Pex have different approaches regarding testcase generation. PathCrawler seems to be a very efficient tool to discover multiple
 infeasible paths in C code, because it uses a mix between static and dynamic analysis, when it finds a suitable input for a function it tries to execute
 collecting all the executed paths in the code.
-Pex on the other side just uses static execution and it is very efficient discovering all the feasible paths in C\# methods. We have also used Pex
-to perform testcase generation in C\# classes, but the generated instances are too simple to perform more interesting tests. We have written the $LinkedList$ class
+Pex on the other side just uses static execution and it is very efficient discovering all the feasible paths in C\# methods. Pex was also used
+to perform testcase generation in C\# classes, but the generated instances are too simple to perform more interesting tests. The $LinkedList$ class was written
 in C\# with many management methods implemented (Add, Remove, Find,\ldots). Pex generated very simple $LinkedList$'s structures to perform automatic test generation
 for each implemented method. The problem is that the generated structures does not meet the properties about Doubly Linked Lists as you can see in Figure \ref{fig:pexG}.
 \begin{figure}[!ht]
@@ -560,7 +555,7 @@ for each implemented method. The problem is that the generated structures does n
 \caption{Examples of generated instances from Pex for $LinkedList$ class.}
 \label{fig:pexG}
 \end{figure}
-We weren't really expecting Pex to generate valid instances based only on code analysis. In fact Pex has proved to be a very powerful tool trying to
+Pex has proved to be a very powerful tool trying to
 give full coverage. Which was bit a disappointment was the lack of generation of calling methods sequence. With Microsoft's SpecExplorer we can already
 manually call sequences of methods, maybe a combination of this feature with Pex would make Pex a perfect all-in-one testing tool regarding .NET automatic testing tools.\\
 Regarding Korat, this is The tool to generate complex data structures. The freely available part of Korat show potential in expressing rules to hedge
@@ -573,24 +568,22 @@ Regarding the studied tools and thinking about a full automated test generation 
 Korat to generate all the valid data structures and an automatic tool to generate calls to methods combinations would be the perfect tool.
 
 \section{Generate Tests from Code+OCL}\label{proposal}
-Since the Operational Simulator code is not familiar to us, we decided to start solving this problem by inferring the UML+OCL from the existing code
+Since the Operational Simulator code is not familiar to us, was decided to start solving this problem by inferring the UML+OCL from the existing code
 to be able to work on a more abstract level rather than the implementation. Our idea is from the generated OCL extract tests using the Partition Analysis described
 in \cite{Benattou02generatingtest} and at the same time generate tests directly from the code, using static analysis methods - symbolic execution to complement
 the specification-based generation from OCL. The main goal is to extract as many tests as possible from a model prospective and from the implementation prospective
 to be able to feed a feedback loop\cite{Xie03mutuallyenhancing} generation testing framework with two tests prospectives: functional and structural and from there
 be able to get a more refined set of tests.\\
-We will develop a mixture between the symbolic execution from Pex and use the complex data generation from Korat to be able to generate a more interesting inputs for
+A mixture between the symbolic execution from Pex and use the complex data generation from Korat will be developed
+to be able to generate a more interesting inputs for
 the methods under testing.
 
-\section{Future Work and Conclusion}\label{Concl}
-With this paper we finish our first milestone regarding the study of the state-of-the-art methods and some tools that
+\section{Conclusion}\label{Concl}
+With this document the first milestone is finished regarding the study of the state-of-the-art methods and some tools that
 implement them. We have discussed some of the tested tools and present a mixture between some of them to be able to generate a more suitable
-set of tests for each method/class. In the end we presented a brief idea on a Code+OCL method to infer tests from, based on some of the studied methods.\\
-Concerning the OCL inference from code, we know that the solution is
-not yet done and we will work on a tool to do it.
-From Frama-C study we learned that it is possible to infer
-pre-post-conditions\cite{moy} and interesting safety conditions from
-code.\\
+set of tests for each method/class. In the end is presented a brief idea on a Code+OCL method to infer tests from, based on some of the studied methods.\\
+Concerning the OCL inference from code, the solution is not yet done and work will be done on a tool that will be able to do it.
+Is already known that is possible to infer pre-post-conditions\cite{moy} and interesting safety conditions using Frama-C.\\
 %Bibliografia
 \bibliography{mei-ptr-ulisses}%substituir o parâmetro "bibtext" pelo nome do ficheiro (sem extensão) que contém a bibliografia BibTex
 \bibliographystyle{acmtrans}
