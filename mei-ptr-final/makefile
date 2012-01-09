@@ -20,7 +20,7 @@ ifeq ($(UNAME),Darwin)
 	open $(PDF)
 endif
 ifeq ($(UNAME),Linux)
-	xpdf $(PDF)
+	evince $(PDF)
 endif
 
 # Clean rules
