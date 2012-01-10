@@ -57,9 +57,8 @@ This engine uses many different tools to ensure the development of
 regression testing infrastructure and these tests perform black-box
 testing to the C++ simulator implementation.
 VST (Visionspace Technologies) is one of the companies that provides
-these services to ESA and they need a tool to instead of writing
-manually scripts to perform tests, it should try to automatically
-infer tests from the existing C++ code.
+these services to ESA and they need a tool to  infer automatically tests from the existing C++ code, instead of writing manually scripts to perform tests.
+With this motivation in mind, this paper explores automatic testing approaches and tools in order to propose a system that satisfies with VST needs.
 
 %There are many approaches trying to tackle this problem and therefore
 %many tools were developed.
@@ -125,7 +124,9 @@ Nowadays we start to observe a rapid increase in the automatic test
 generation field.
 
 \subsection{Goals}
-This document reviews the most studied techniques
+This document correspond to the first milestone in the author's MSc. Dissertation, trying to produce
+a tool that is able to automatically generate interesting testcases for the C++ ESA's Operational Simulator.\\
+Here will be shown reviews of the most studied techniques
 and the tools that implement them in order to choose the best set of
 suitable techniques to incorporate in a automatic
 testing generator to the Ground Segment infrastructure, specially the
@@ -135,9 +136,10 @@ Techniques and Functional Techniques,
 known respectively as White-box testing and Black-box\cite{black} testing.
 Functional testing is the most common at ESA, because of the
 calculation complexity behind the Operational Simulators.\\
-A briefly discussion will be presented regarding White-box testing vs. Black-box
+A brief discussion will be presented regarding White-box testing vs. Black-box
 testing and from there will be explained in more detail some automatic
-generation techniques. Furthermore will be shown the potential of the described tools.
+generation techniques. Furthermore the potential of the described tools will be explained, and how can they help
+solve the problem VST has nowadays.
 
 \subsection{White-box vs Black-box testing}
 In White-box testing the tester needs to understand the internals of
