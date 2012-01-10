@@ -542,6 +542,9 @@ Pex on the other side just uses static execution and it is very efficient discov
 to perform testcase generation in C\# classes, but the generated instances are too simple to perform more interesting tests. The $LinkedList$ class was written
 in C\# with many management methods implemented (Add, Remove, Find,\ldots). Pex generated very simple $LinkedList$'s structures to perform automatic test generation
 for each implemented method. The problem is that the generated structures does not meet the properties about Doubly Linked Lists as you can see in Figure \ref{fig:pexG}.
+\\
+Regarding Korat, this is The tool to generate complex data structures. The freely available part of Korat show potential in expressing rules to hedge
+the automatic generation of data structures.
 \begin{figure}[!ht]
 \centerline{
 \subfloat[Example of Pex generated $LinkedList$ instance to test $Remove$ method]{
@@ -555,17 +558,6 @@ for each implemented method. The problem is that the generated structures does n
 \caption{Examples of generated instances from Pex for $LinkedList$ class.}
 \label{fig:pexG}
 \end{figure}
-Pex has proved to be a very powerful tool trying to
-give full coverage. Which was bit a disappointment was the lack of generation of calling methods sequence. With Microsoft's SpecExplorer we can already
-manually call sequences of methods, maybe a combination of this feature with Pex would make Pex a perfect all-in-one testing tool regarding .NET automatic testing tools.\\
-Regarding Korat, this is The tool to generate complex data structures. The freely available part of Korat show potential in expressing rules to hedge
-the automatic generation of data structures. The expected step is just to write the invariants for a class instead of the $repOK$ method, or maybe infer these invariants 
-from the existing code. Writing the $repOK$ method for very complex data structures requires for some previous experience with Korat, but we think
-this is not a weakness, since it quickly gets used to write the $repOK$ method in Korat. The only problem is that right now we can not fully automate the process
-without human help.\\
-
-Regarding the studied tools and thinking about a full automated test generation tool, a mix between Pex to ensure the maximum possible coverage, 
-Korat to generate all the valid data structures and an automatic tool to generate calls to methods combinations would be the perfect tool.
 
 \section{Generate Tests from Code+OCL}\label{proposal}
 Since the Operational Simulator code is not familiar to us, was decided to start solving this problem by inferring the UML+OCL from the existing code
@@ -575,14 +567,22 @@ the specification-based generation from OCL. The main goal is to extract as many
 to be able to feed a feedback loop\cite{Xie03mutuallyenhancing} generation testing framework with two tests prospectives: functional and structural and from there
 be able to get a more refined set of tests.\\
 A mixture between the symbolic execution from Pex and use the complex data generation from Korat will be developed
-to be able to generate a more interesting inputs for
-the methods under testing.
+to be able to generate a more interesting inputs for the methods under testing.
 
 \section{Conclusion}\label{Concl}
+Pex has proved to be a very powerful tool trying to
+give full coverage. Which was bit a disappointment was the lack of generation of calling methods sequence. With Microsoft's SpecExplorer we can already
+manually call sequences of methods, maybe a combination of this feature with Pex would make Pex a perfect all-in-one testing tool regarding .NET automatic testing tools.\\
+Regarding Korat, the expected step is just to write the invariants for a class instead of the $repOK$ method, or maybe infer these invariants 
+from the existing code. Writing the $repOK$ method for very complex data structures requires for some previous experience with Korat, but we think
+this is not a weakness, since it quickly gets used to write the $repOK$ method in Korat. The only problem is that right now we can not fully automate the process
+without human help.\\
+\indent Regarding the studied tools and thinking about a full automated test generation tool, a mix between Pex to ensure the maximum possible coverage, 
+Korat to generate all the valid data structures and an automatic tool to generate calls to methods combinations would be the perfect tool.
 With this document the first milestone is finished regarding the study of the state-of-the-art methods and some tools that
 implement them. We have discussed some of the tested tools and present a mixture between some of them to be able to generate a more suitable
 set of tests for each method/class. In the end is presented a brief idea on a Code+OCL method to infer tests from, based on some of the studied methods.\\
-Concerning the OCL inference from code, the solution is not yet done and work will be done on a tool that will be able to do it.
+\indent Concerning the OCL inference from code, the solution is not yet done and work will be done on a tool that will be able to do it.
 Is already known that is possible to infer pre-post-conditions\cite{moy} and interesting safety conditions using Frama-C.\\
 %Bibliografia
 \bibliography{mei-ptr-ulisses}%substituir o parâmetro "bibtext" pelo nome do ficheiro (sem extensão) que contém a bibliografia BibTex
