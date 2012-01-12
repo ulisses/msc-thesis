@@ -233,7 +233,7 @@ using their user interface\footnote{See more at: \url{http://www.all4tec.net/ind
 \item[Rational Tau] is an IBM commercial tool that provides automated error checking, rules-based model checking, and a model-based explorer using
 UML\footnote{See more at: \url{http://www-01.ibm.com/software/awdtools/tau/}}.
 \end{description}
-The most relevant ones or the more recent open-source ones will be discussed.
+The relevant ones or the recent open-source ones will be discussed.
 
 \subsubsection{Korat}
 Korat\cite{Boyapati02korat:automated} is a mature framework for automated testing structurally complex inputs of JAVA programs.
@@ -282,7 +282,7 @@ with the generated inputs, it preserves this information to not cover the same p
 This tool supports assertions in any point in the code and pre-conditions regarding the input values.
 
 \section{Using the tools}\label{testingtools}
-After introducing the theory and the techniques that support each tool will be demonstrated some of the tools in action, regarding small but illustrative examples
+After introducing the theory and the techniques that support each tool will be demonstrated some of the tools in action, resorting to small but illustrative examples
 on how each tool can help us find good test cases.\\
 
 \subsection{PathCrawler}
@@ -537,7 +537,8 @@ and in Figure \ref{fig:inst2} an instance with $5$ elements.
 \end{figure}
 
 \subsection{Summary}
-Was found that PathCrawler and Pex have different approaches regarding testcase generation. PathCrawler seems to be a very efficient tool to discover multiple
+After the experimental study of the selected tools, reported in the previous subsections, it was found that PathCrawler and Pex have different
+approaches regarding testcase generation. PathCrawler seems to be a very efficient tool to discover multiple
 infeasible paths in C code, because it uses a mix between static and dynamic analysis, when it finds a suitable input for a function it tries to execute
 collecting all the executed paths in the code.
 Pex on the other side just uses static execution and it is very efficient discovering all the feasible paths in C\# methods. Pex was also used
@@ -562,32 +563,37 @@ the automatic generation of data structures.
 \end{figure}
 
 \section{Generate Tests from Code+OCL}\label{proposal}
-Since the Operational Simulator code is not familiar to us, was decided to start solving this problem by inferring the UML+OCL from the existing code
-to be able to work on a more abstract level rather than the implementation. Our idea is from the generated OCL extract tests using the Partition Analysis described
-in \cite{Benattou02generatingtest} and at the same time generate tests directly from the code, using static analysis methods - symbolic execution to complement
-the specification-based generation from OCL. The main goal is to extract as many tests as possible from a model prospective and from the implementation prospective
-to be able to feed a feedback loop\cite{Xie03mutuallyenhancing} generation testing framework with two tests prospectives: functional and structural and from there
+Since the Operational Simulator code is not familiar to us, it was decided to start solving this problem by inferring the UML+OCL from the existing code
+to be able to work on a more abstract level rather than the implementation.
+The idea is to extract tests from the inferred OCL, using the Partition Analysis described
+in \cite{Benattou02generatingtest} and at the same time generate tests directly from the code, using symbolic execution to complement
+the specification-based generation from OCL. The main goal is to extract as many tests as possible from a model and from the implementation 
+to provide information to feedback loop\cite{Xie03mutuallyenhancing} generation testing framework with two test prespectives: functional and structural and from there
 be able to get a more refined set of tests.\\
-A mixture between the symbolic execution from Pex and use the complex data generation from Korat will be developed
-to be able to generate a more interesting inputs for the methods under testing.
+The combination of both symbolic execution from Pex and complex data generation from Korat will be developed
+to generate more interesting inputs for the methods under testing.
 
 \section{Conclusion}\label{Concl}
-Pex has proved to be a very powerful tool trying to
-give full coverage. Which was bit a disappointment was the lack of generation of calling methods sequence. With Microsoft's SpecExplorer we can already
-manually call sequences of methods, maybe a combination of this feature with Pex would make Pex a perfect all-in-one testing tool regarding .NET automatic testing tools.\\
+Looking for an efficient solution to automatically generate complete test sets for complex and critical C++ software, the state-of-the-art approaches in the area were studied and along the paper some tools were introduced from methodological and experimental perspectives.
+Pex has proved to be a very powerful tool, aimed at offering a full coverage. However, the uncapability for generating calling-methods sequences was a bit disappointing. 
+With Microsoft's SpecExplorer we can already
+manually call sequences of methods; maybe a combination of this feature with Pex would make Pex a perfect all-in-one testing tool regarding .NET automatic testing tools.\\
+
+
 Regarding Korat, the expected step is just to write the invariants for a class instead of the $repOK$ method, or maybe infer these invariants 
 from the existing code. Writing the $repOK$ method for very complex data structures requires for some previous experience with Korat, but we think
 this is not a weakness, since it quickly gets used to write the $repOK$ method in Korat. The only problem is that right now we can not fully automate the process
 without human help.\\
 \indent Regarding the studied tools and thinking about a full automated test generation tool, a mix between Pex to ensure the maximum possible coverage, 
 Korat to generate all the valid data structures and an automatic tool to generate calls to methods combinations would be the perfect tool.
-With this document the first milestone is finished regarding the study of the state-of-the-art methods and some tools that
-implement them. We have discussed some of the tested tools and present a mixture between some of them to be able to generate a more suitable
+
+We have discussed some of the tested tools and present a mixture between some of them to be able to generate a more suitable
 set of tests for each method/class. In the end is presented a brief idea on a Code+OCL method to infer tests from, based on some of the studied methods.\\
-\indent Concerning the OCL inference from code, the solution is not yet done and work will be done on a tool that will be able to do it.
-Is already known that is possible to infer pre-post-conditions\cite{moy} and interesting safety conditions using Frama-C.\\
-%Bibliografia
-\bibliography{mei-ptr-ulisses}%substituir o parâmetro "bibtext" pelo nome do ficheiro (sem extensão) que contém a bibliografia BibTex
+
+\indent Concerning the OCL inference from C++ code, work will now be done on a tool that implements it.
+For that purpose, Frama-C will be explored, as it is well known that this tool is able to infer pre- and postconditions\cite{moy} and interesting safety conditions from C source code.
+
+\bibliography{mei-ptr-ulisses}
 \bibliographystyle{acmtrans}
 
 
