@@ -137,8 +137,9 @@ known respectively as White-box testing and Black-box\cite{black} testing.
 Functional testing is the most common at ESA, because of the
 calculation complexity behind the Operational Simulators.\\
 A brief discussion will be presented regarding White-box testing vs. Black-box
-testing and then will be discussed in more detail some automatic
-generation techniques. Furthermore the potential of the described tools will be explained, and how they can help
+testing
+and then some automatic generation techniques will be discussed in more detail.
+Furthermore the potential of the described tools will be explained, and how they can help
 on solving the problem VST has nowadays.
 
 \subsection{White-box vs Black-box testing}
@@ -153,8 +154,7 @@ the program code and using symbolic execution techniques to simulate
 abstract program
 executions in order to attempt to compute inputs to drive the program
 along specific execution paths or branches, without ever executing the
-program.\\
-Control Flow based testing approach can be useful to analyze all the
+program. Control Flow based testing approach can be useful to analyze all the
 possible paths in the code and write unit tests to cover multiple paths.
 CFG (Control Flow Graph) of the program can be built,
 test inputs can be generated to make any path execute regarding a given criterion:
@@ -190,8 +190,8 @@ Section~\ref{proposal}.
 The document is concluded in Section~\ref{Concl}.
 
 \section{Testing Tools Approaches}\label{testingapproaches}
-Here will be presented a study on the most recent tools that uses: Specification-based or Constraint-based tests generation
-approaches for the most popular languages - C, JAVA and C\#.
+Here a study of the most recent tools that uses Specification-based or Constraint-based tests generation
+approaches for the most popular languages - C, JAVA and C\# will be presented.
 
 % Specification Based Testing:
 % http://cs.union.edu/~barrv/Testing/Labs/lab9.html
@@ -282,7 +282,7 @@ with the generated inputs, it preserves this information to not cover the same p
 This tool supports assertions in any point in the code and pre-conditions regarding the input values.
 
 \section{Using the tools}\label{testingtools}
-After introducing the theory and the techniques that support each tool, will be demonstrated some of the tools in action, resorting to small but illustrative examples
+After introducing the theory and the techniques that support each tool, some of the tools will be demonstrated in action, resorting to small but illustrative examples
 on how each tool can help us find good test cases.\\
 
 \subsection{PathCrawler}
@@ -545,7 +545,6 @@ Pex on the other side just uses static execution and it is very efficient discov
 to perform testcase generation in C\# classes, but the generated instances are too simple to perform more interesting tests. The $LinkedList$ class was written
 in C\# with many management methods implemented (Add, Remove, Find,\ldots). Pex generated very simple $LinkedList$'s structures to perform automatic test generation
 for each implemented method. The problem is that the generated structures does not meet the properties about Doubly Linked Lists as you can see in Figure \ref{fig:pexG}.
-\\
 Regarding Korat, this is The tool to generate complex data structures. The freely available part of Korat show potential in expressing rules to hedge
 the automatic generation of data structures.
 \begin{figure}[!ht]
@@ -568,26 +567,25 @@ to be able to work on a more abstract level rather than the implementation.
 The idea is to extract tests from the inferred OCL, using the Partition Analysis described
 in \cite{Benattou02generatingtest} and at the same time generate tests directly from the code, using symbolic execution to complement
 the specification-based generation from OCL. The main goal is to extract as many tests as possible from a model and from the implementation 
-to provide information to feedback loop\cite{Xie03mutuallyenhancing} generation testing framework with two test prespectives: functional and structural and from there
-be able to get a more refined set of tests.\\
-The combination of both symbolic execution from Pex and complex data generation from Korat will be developed
-to generate more interesting inputs for the methods under testing.
+to provide information to feedback loop\cite{Xie03mutuallyenhancing}
+test generation framework with two test prespectives, functional and structural, and from there be able to get a more refined set of tests.\\
+A combination of both, symbolic execution from Pex and complex data generation from Korat, will be designed and implemented to
+generate more interesting inputs for the methods under testing.
 
 \section{Conclusion}\label{Concl}
 Looking for an efficient solution to automatically generate complete test sets for complex and critical C++ software,
 the state-of-the-art approaches in the area were studied and along the document some tools were introduced from methodological and experimental perspectives.
 Pex has proved to be a very powerful tool, aimed at offering a full coverage. However, the uncapability for generating calling-methods sequences was a bit disappointing. 
 With Microsoft's SpecExplorer we can already
-manually call sequences of methods; maybe a combination of this feature with Pex would make Pex a perfect all-in-one testing tool regarding .NET automatic testing tools.\\
-Regarding Korat, the expected step is just to write the invariants for a class instead of the $repOK$ method, or maybe infer these invariants 
-from the existing code. Writing the $repOK$ method for very complex data structures requires for some previous experience with Korat, but we think
-this is not a weakness, since it quickly gets used to write the $repOK$ method in Korat. The only problem is that right now we can not fully automate the process
+manually call sequences of methods; maybe a combination of this feature with Pex would make Pex a perfect all-in-one testing tool regarding .NET automatic testing tools.
+Concerning Korat, the expected improvement is just to write the invariants for a class instead of the $repOK$ method, or maybe infer these invariants 
+from the existing code. Writing the $repOK$ method for very complex data structures requires some previous experience with Korat, but we think
+this is not a weakness, since the tester quickly gets used to write the $repOK$ method in Korat. The only problem is that right now we can not fully automate the process
 without human help.\\
-\indent Regarding the studied tools and thinking about a full automated test generation tool, a mix between Pex to ensure the maximum possible coverage, 
+\indent Considering the studied tools and thinking about a full automated test generation tool, a clever composition among between Pex to ensure the maximum possible coverage, 
 Korat to generate all the valid data structures and an automatic tool to generate calls to methods combinations would be the perfect tool.\\
 
-We have discussed some of the tested tools and present a mixture between some of them to be able to generate a more suitable
-set of tests for each method/class. In the end is presented a brief idea on a Code+OCL method to infer tests from, based on some of the studied methods.\\
+At the end, it was proposed  an approach based on the inference of tests from a Code+OCL.
 \indent Concerning the OCL inference from C++ code, work will now be done on a tool that implements it.
 For that purpose, Frama-C will be explored, as it is well known that this tool is able to infer pre- and postconditions\cite{moy}
 and interesting safety conditions from C source code.
