@@ -190,7 +190,7 @@ Section~\ref{proposal}.
 The document is concluded in Section~\ref{Concl}.
 
 \section{Testing Tools Approaches}\label{testingapproaches}
-Here a study of the most recent tools that uses Specification-based or Constraint-based tests generation
+In this section, a study of the most recent tools that use Specification-based or Constraint-based tests generation
 approaches for the most popular languages - C, JAVA and C\# will be presented.
 
 % Specification Based Testing:
@@ -283,10 +283,10 @@ This tool supports assertions in any point in the code and pre-conditions regard
 
 \section{Using the tools}\label{testingtools}
 After introducing the theory and the techniques that support each tool, some of the tools will be demonstrated in action, resorting to small but illustrative examples
-on how each tool can help us find good test cases.\\
+on how each tool can help us to find good test cases.\\
 
 \subsection{PathCrawler}
-Concerning the first case will be used a simple example based on a function that uses a multiplication, creating a simple branch on the code.
+Concerning the first case it will be used a simple example based on a function that performs a multiplication, creating a simple branch on the code.
 \begin{code}
 typedef struct s {
     int x;
@@ -539,13 +539,13 @@ and in Figure \ref{fig:inst2} an instance with $5$ elements.
 \subsection{Summary}
 After the experimental study of the selected tools, reported in the previous subsections, it was found that PathCrawler and Pex have different
 approaches regarding testcase generation. PathCrawler seems to be a very efficient tool to discover multiple
-infeasible paths in C code, because it uses a mix between static and dynamic analysis, when it finds a suitable input for a function it tries to execute
+infeasible paths in C code, because it uses a mix between static and dynamic analysis. When it finds a suitable input for a function it tries to execute
 collecting all the executed paths in the code.
 Pex on the other side just uses static execution and it is very efficient discovering all the feasible paths in C\# methods. Pex was also used
 to perform testcase generation in C\# classes, but the generated instances are too simple to perform more interesting tests. The $LinkedList$ class was written
 in C\# with many management methods implemented (Add, Remove, Find,\ldots). Pex generated very simple $LinkedList$'s structures to perform automatic test generation
-for each implemented method. The problem is that the generated structures does not meet the properties about Doubly Linked Lists as you can see in Figure \ref{fig:pexG}.
-Regarding Korat, this is The tool to generate complex data structures. The freely available part of Korat show potential in expressing rules to hedge
+for each implemented method. The problem is that the generated structures does not meet the properties about Doubly Linked Lists as it can be seen in Figure \ref{fig:pexG}.
+Concerning Korat, this is The tool to generate complex data structures. The freely available part of Korat show potential in expressing rules to hedge
 the automatic generation of data structures.
 \begin{figure}[!ht]
 \centerline{
@@ -567,9 +567,9 @@ to be able to work on a more abstract level rather than the implementation.
 The idea is to extract tests from the inferred OCL, using the Partition Analysis described
 in \cite{Benattou02generatingtest} and at the same time generate tests directly from the code, using symbolic execution to complement
 the specification-based generation from OCL. The main goal is to extract as many tests as possible from a model and from the implementation 
-to provide information to feedback loop\cite{Xie03mutuallyenhancing}
+to provide information to a feedback loop\cite{Xie03mutuallyenhancing}
 test generation framework with two test prespectives, functional and structural, and from there be able to get a more refined set of tests.\\
-A combination of both, symbolic execution from Pex and complex data generation from Korat, will be designed and implemented to
+A combination of both, symbolic execution from Pex and complex data generation from Korat, it will be designed and implemented to
 generate more interesting inputs for the methods under testing.
 
 \section{Conclusion}\label{Concl}
