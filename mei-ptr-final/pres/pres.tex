@@ -1,0 +1,186 @@
+\documentclass{beamer}
+
+\mode<presentation>
+{
+   \usetheme{EEng}
+  \setbeamercovered{transparent}
+  \setbeamercolor{background canvas}{bg=black!0}
+}
+
+\usepackage{movie15}
+\usepackage{enumerate}
+\usepackage{array}
+\usepackage{graphics}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{xcolor}
+\usepackage{url}
+
+\title{HoneyPot}
+\author{Ulisses Costa}
+\date{\today}
+
+\begin{document}
+\begin{frame}
+   \titlepage
+\end{frame}
+
+\title{Delusion\\
+\small{The biggest defense is deception}}
+\author{Ulisses Costa}
+\date{\today}
+
+\begin{frame}
+   \titlepage
+\end{frame}
+
+\begin{frame}\frametitle{Who am I?}
+\begin{description}
+  \item[2005-2007] System Administrator, CAOS
+  \item[] (LEI student)
+  \item[2007-2008] Vice President, CAOS
+  \item[2008-2008] DB2 Student Ambassador, IBM
+  \item[] (MFES, CSSI student)
+  \item[2009-2010] Intern Software Engineer, Cisco Systems Inc.
+  \item[2010-Present] Computer Graphics Engineer, Biopixel
+  \item[] (EL student)
+  \item[2008-Present] Open Source Developer, Security Lover
+\end{description}
+\end{frame}
+
+\begin{frame}\frametitle{Industry}
+\begin{center}
+\textbf{Security industry is huge}
+\end{center}
+\begin{description}
+  \item[Barracuda Network] Anti Spam, Virus Firewall
+  \item[Fireeye] Web Security, Email Security, Malware Protection
+  \item[Cisco IronPort] Email Security, Web Security
+  \item[Qualys] Web Application Security
+  \item[Sourcefire] Anti Malware
+  \item[CA Technologies] Anti Spyware, Anti Virus
+  \item[Sophos] Web Security, Email Security
+\end{description}
+\ldots
+\end{frame}
+
+\begin{frame}\frametitle{Industry - Translation}
+\begin{center}
+\textbf{Security industry is huge}
+\end{center}
+\begin{description}
+  \item[Barracuda Network] {\color{red}Anti} Spam, Virus {\color{red}Firewall}
+  \item[Fireeye] Web {\color{red}Security}, Email {\color{red}Security}, Malware {\color{red}Protection}
+  \item[Cisco IronPort] Email {\color{red}Security}, Web {\color{red}Security}
+  \item[Qualys] Web Application {\color{red}Security}
+  \item[Sourcefire] {\color{red}Anti} Malware
+  \item[CA Technologies] {\color{red}Anti} Spyware, {\color{red}Anti} Virus
+  \item[Sophos] Web {\color{red}Security}, Email {\color{red}Security}
+\end{description}
+\ldots
+\end{frame}
+
+\begin{frame}\frametitle{Industry - Translation}
+\begin{center}
+\textbf{Let's call it Anti-Firewall-Security oriented}
+\end{center}
+\begin{description}
+  \item[{\color{white}Barracuda Network}] {\color{red}Anti} {\color{white}Spam,} {\color{white}Virus} {\color{red}Firewall}
+  \item[{\color{white}Fireeye}] {\color{white}Web} {\color{red}Security} {\color{white}, Email} {\color{red}Security} {\color{white}, Malware} {\color{red}Protection}
+  \item[{\color{white}Cisco IronPort}] {\color{white}Email} {\color{red}Security} {\color{white}, Web} {\color{red}Security}
+  \item[{\color{white}Qualys}] {\color{white}Web Application} {\color{red}Security}
+  \item[{\color{white}Sourcefire}] {\color{red}Anti} {\color{white}Malware}
+  \item[{\color{white}CA Technologies}] {\color{red}Anti} {\color{white}Spyware,} {\color{red}Anti} {\color{white}Virus}
+  \item[{\color{white}Sophos}] {\color{white}Web} {\color{red}Security} {\color{white}, Email} {\color{red}Security}
+\end{description}
+\begin{center}
+\onslide+<2> \textbf{{\color{teal}tu}{\color{blue}tti} {\color{orange}fru}{\color{cyan}tti} for short}
+\end{center}
+\end{frame}
+
+\begin{frame}\frametitle{Project Idea}
+\begin{block}{}
+\begin{description}
+  \item[Security] {\color{teal}tu}{\color{blue}tti} {\color{orange}fru}{\color{cyan}tti} system
+  \item[Deception] High Interaction Honeypot
+\end{description}
+\end{block}
+\end{frame}
+
+\begin{frame}\frametitle{Project Idea - Security System}
+\begin{itemize}
+  \item Firewall (iptables, pfSense)
+  \item IPS - Intrusion Prevention System (Snort)
+  \item Anti SPAM (ASSP)
+  \item Vulnerability Scanner (Nmap, OpenVAS)
+  \item \ldots
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Project Idea - Security System}
+Web interface to bring together all systems and:
+\begin{itemize}
+  \item Configure
+  \item Manage
+  \item Analyze
+  \item Troubleshoot
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Project Idea - Deception System}
+\textbf{Honeypot:} is a trap set to detect, deflect, or in some manner counteract attempts at unauthorized use of information systems.
+\begin{description}
+  \item[Low Interaction]\onslide+<2-> \textbf{simulated} systems that \textbf{imitate} a varieties of vulnerable services
+  \item[]\onslide+<3-> Been There, Done That, Bought the T-shirt
+  \item[High Interaction]\onslide+<4> \textbf{real} systems that \textbf{host} a varieties of vulnerable services
+\end{description}
+\end{frame}
+
+\begin{frame}\frametitle{Project Idea - Deception System}
+High Interaction Honeypot that is able to collect information about \textbf{real} attacks
+  \begin{itemize}
+	\item Virtualization - QEMU
+	\item File Verification System
+	\item Understand the Attack
+  \end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Skillset Needed}
+\begin{block}{}
+  \begin{itemize}
+	\item Interest in Security
+	\item RoR, PHP, \ldots
+	\item Network Administrators
+	\item Systems Administrators (Linux, bash)
+	\item C, JAVA, Perl
+  \end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}\frametitle{Skillset Needed}
+  \begin{center}
+    \Huge{Motivated People}
+  \end{center}
+\end{frame}
+
+\begin{frame}\frametitle{Motivation and Demystification}
+\begin{block}{Linux History}
+\begin{quote}
+Linus wanted Unix on his 386, so he wrote the kernel
+\end{quote}
+\end{block}
+\onslide+<2>
+\begin{block}{Linux \textbf{Real} History}
+\begin{quote}
+Linus intended to learn about multitasking by learning how the 386 did it.
+Unfortunately, he also got a copy of the computer game Prince of Persia.\footnote{Linux at 20, some personal memories: http://liw.fi/linux20/}
+\end{quote}
+\end{block}
+\end{frame}
+
+\end{document}
+
