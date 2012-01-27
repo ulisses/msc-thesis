@@ -32,13 +32,13 @@
 \begin{frame}\frametitle{Contexto}
 \begin{block}{Problema}
 A VST (Visionspace Technologies) presta serviços relacionados com teste para a ESA (Agência Espacial Europeia) e pretende automatizar
-a parte de geração de testes para a plataforma em que trabalha, o Operational Simulator da Ground Segment Infrastructure.
+a parte de geração de testes para a plataforma em que trabalha, o \textit{Operational Simulator} da \textit{Ground Segment Infrastructure}.
 \end{block}{}
 
-Esta dissertação tem como objectivos:
+A tese de mestrado, no âmbito da qual esta apresentação se enquadra tem como objectivos:
 \begin{itemize}
-\item Gerar testes de forma automática para Operational Simulator
-\item Conseguir gerar testes unitários para a linguagem em que o Operational Simulator está escrito, C++
+\item Gerar testes de forma automática para \textit{Operational Simulator}
+\item Conseguir gerar testes unitários para a linguagem em que o \textit{Operational Simulator} está escrito, C++
 \item Parametrizar o tamanho das estruturas de dados geradas e outros atributos
 \end{itemize}
 \end{frame}
@@ -46,46 +46,55 @@ Esta dissertação tem como objectivos:
 \begin{frame}\frametitle{Motivação}
 Proposta:
 \begin{itemize}
-\item Extrair UML e OCL apartir do código
-\item Extrair testes apartir do código
+\item Extrair UML e OCL a partir do código
+\item Extrair testes a partir do código
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Inferir OCL}
+OCL é uma linguagem onde é possivel descrever propriedades sobre modelos UML, regra geral são invriantes.\\
+\begin{itemize}
+\item Gerar diagrama de UML para o código existente (fácil)
+\item Inferir Invariantes do código (difícil)
+\item Relacionar os Invariantes descobertos com os diagramas
 \end{itemize}
 \end{frame}
 
 \begin{frame}\frametitle{White vs. Black Box Testing}
-\begin{block}{Tipos de testes relativamente ao conhcimento do código}
+\begin{block}{Tipos de testes relativamente ao conhecimento do código}
 \begin{description}
 \item[White Box], há conhecimento do código fonte e este é usado para a tarefa de teste.
 \item[Black Box], há conhecimento apenas dos requisitos funcionais do código e de como cada componente do código deverá comportar-se.
 \end{description}
 \end{block}
-%\begin{block}{Técnicas de White Box}
-%\begin{description}
-%\item[Symbolic execution],
-%\item[], 
-%\end{itemize}
-%\end{block}
 \end{frame}
 
-\begin{frame}\frametitle{Abordagens}
+\begin{frame}\frametitle{Abordagens 1/2}
 \begin{description}
-\item[Specification-based Generation Testing], aka Model Based Testing consiste em testar um programa baseando-se na especificação ou no modelo do programa.
-Em especifico podem ser gerados testcases baseados na especificação do comportamento do programa, sem ser necessário a implementação do programa.
-\item[Constraint-based Generation Testing], pode ser usado para seleccionar testcases que satisfaçam determinadas restrições sobre um conjunto de variaveis.
-Pode ser combinado com symbolic execution, portanto o programa pode ser executado simbolicamente, colectando restrições ao longo dos diferentes caminhos no CFG
-e posteriormente resolver estas restrições e produzir testcases apartir daí.
+\item[Specification-based Generation Testing], \textit{aka Model Based Testing} consiste em testar um programa baseando-se na especificação ou no modelo do programa.
+Em especifico podem ser gerados \textit{testcases} baseados na especificação do comportamento do programa, sem ser necessário a implementação do programa.
 \end{description}
+\end{frame}
+
+\begin{frame}\frametitle{Abordagens 2/2}
+\begin{description}
+\item[Constraint-based Generation Testing], pode ser usado para seleccionar \textit{testcases} que satisfaçam restrições sobre um conjunto de variaveis.
+Quando combinado com \textit{symbolic execution}, portanto o programa é executado simbolicamente, coleccta restrições ao longo dos diferentes caminhos no \textit{CFG}.
+Posteriormente é possivel resolver estas restrições e produzir \textit{testcases} a partir daí.
+\end{description}
+Outras foram estudadas, para mais informação consultar o paper.
 \end{frame}
 
 \begin{frame}\frametitle{Estado actual}
 Até agora foram estudadas várias ferramentas, as mais importantes e mais desenvolvidas:
 \begin{itemize}
 \item Korat, é uma framework madura paar construir automaticamente estruturas complexas em JAVA
-\item Pex, é uma ferramenta automatica da Microsoft de White-box testing que garante full coverage
+\item Pex, é uma ferramenta automatica da Microsoft de \textit{White-box testing} que garante \textit{full coverage}
 \end{itemize}
 
 \begin{block}{Sumário}
-Pex usa execução estática e é muito eficiente em descobrir todos os feasible paths em métodos C\#.
-Pex tambem foi utilizado para gerar testcases das classes, mas as instâncias geradas não mantinham os invariantes das estruturas de dados.\\
+O Pex usa análise estática e é muito eficiente em descobrir todos os \textit{feasible paths} em métodos C\#.
+O Pex tambem pode ser utilizado para gerar testcases das classes, mas as instâncias geradas não mantém os invariantes das estruturas de dados.\\
 
 Por outro lado o Korat é a ferramenta ideal para a tarefa de gerar estruturas que cumpram os invariantes pedidos.
 \end{block}
