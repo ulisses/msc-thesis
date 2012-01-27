@@ -15,7 +15,7 @@ ifeq ($(UNAME),Darwin)
 	open $(PRESPDF)
 endif
 ifeq ($(UNAME),Linux)
-	xpdf $(PRESPDF)
+	evince $(PRESPDF)
 endif
 
 clean:
