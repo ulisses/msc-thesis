@@ -11,7 +11,7 @@ ifeq ($(UNAME),Darwin)
 	latexmk -e '$$pdflatex=q/pdflatex -synctex=1 %T/' -pdf $(TEX)
 endif
 ifeq ($(UNAME),Linux)
-	latexmk -pdf $(TEX)
+	latexmk -e '$$pdflatex=q/pdflatex -f %T/' -pdf $(TEX)
 endif
 
 # open PDF file

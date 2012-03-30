@@ -1,13 +1,8 @@
 \documentclass[a4paper,UKenglish]{oasics}
 
-\usepackage{microtype}%if unwanted, comment out or use option "draft"
-%\usepackage[latin1]{inputenc}
-%\usepackage[T1]{fontenc}
-
 \usepackage{pifont} % for \cross symbol newcommand
 
-\definecolor{darkblue}{rgb}{0,0.1,0.5}
-
+\bibliographystyle{plain}% the recommended bibstyle
 \lstdefinelanguage{codeTTN}
 {
         basicstyle=\ttfamily\footnotesize,
@@ -23,17 +18,13 @@
 }
 \lstnewenvironment{code}{\lstset{language=codeTTN}}{}
 
-\newcommand{\checkK}{\color{green} v}
-\newcommand{\cross}{\color{red} x}
-\newcommand{\bigexclaim}{\color{yellow} !}
-
-%\newcommand{\checkK}{\color{ForestGreen}\checkmark}
-%\newcommand{\cross}{\color{red}\hspace{-3pt}\ding{55}}
-%\newcommand{\bigexclaim}{\color{Dandelion}$\bigtriangleup$\hspace{-5.6pt}!}
+\newcommand{\checkK}{\color{green}\checkmark}
+\newcommand{\cross}{\color{red}\hspace{-3pt}\ding{55}}
+\newcommand{\bigexclaim}{\color{yellow}$\bigtriangleup$\hspace{-5.6pt}!}
 
 \title{Automatic Test Generation for Space}
 
-\author[1]{Ulisses Araújo Costa}
+\author[1]{Ulisses Ara\' ujo Costa}
 \author[2]{Daniela da Cruz}
 \author[3]{Pedro Rangel Henriques}
 \affil[1]{VisionSpace Technologies\\
@@ -48,7 +39,7 @@
 \authorrunning{U. A. Costa et. al}%optional. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et. al.'
 
 \Copyright[nc-nd]%choose "nd" or "nc-nd"
-          {John Q. Open and Joan R. Access}
+          {Ulisses Ara\' ujo Costa and Daniela da Cruz and Pedro Rangel Henriques}
 
 \subjclass{D.2.5 - Software Engineering, Testing and Debugging}
 \keywords{Automatic Test Generation, UML/OCL, White-box testing, Black-box testing}
@@ -173,7 +164,7 @@ Section~\ref{proposal}.
 The document is concluded in Section~\ref{Concl}.
 
 \section{Testing Tools Approaches}\label{testingapproaches}
-In this section, a study of the most recent tools that use Specification-based or Constraint-based tests generation
+In this section, a study of the most recent tools that use Specification-based, Constraint-based, Grammar-based and Random-based tests generation
 approaches for the most popular languages - C, JAVA and C\# will be presented.
 
 % Specification Based Testing:
@@ -194,7 +185,7 @@ approaches for the most popular languages - C, JAVA and C\# will be presented.
 % https://docs.google.com/viewer?a=v&q=cache:PVdrO7s75ScJ:www.sasqag.org/pastmeetings/harryr.ppt+model+based+testing&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESjsdNheYbIWtyBYEfgNss2mRQuVcH0Kh8nejgxYwFMSSoPDuEgtZbxdchxcNXENujrMXaIeDr4Q17lpB1Kk8073iuk76o6G66sppEYAq8wGbUKnNtbOx4eHlT_P2boklZ_DwiO&sig=AHIEtbTECVDePxriKz0fNYbhSo56Ktgvww
 %Predicates as specifications (Alloy is related to OCL (Object Constraint Language) for UML)
 \subsection{Specification-based Generation Testing}
-Specification Based Testing also known as Model Based Testing refers to the process of testing a program based on what its specification or model says its behavior should be.
+Specification Based Testing refers to the process of testing a program based on what its specification or model says its behavior should be.
 In particular, can be generated test cases based on the specification of the program's behavior, without seeing an implementation of the program. So this clearly a
 way of Black-box testing.\\
 With this technique the testing phase and development phase can be started in parallel, don't need the implementation
@@ -217,6 +208,46 @@ using their user interface\footnote{See more at: \url{http://www.all4tec.net/ind
 UML\footnote{See more at: \url{http://www-01.ibm.com/software/awdtools/tau/}}.
 \end{description}
 The relevant ones or the recent open-source ones will be discussed.
+
+%%% NEW
+\subsubsection{Spec Explorer}
+This is a Microsoft model-based testing that uses one software modeling languages, the AsmL (Abstract State Machine Language).
+This modeling language provides the foundations of the Spec Explorer\footnote{See more at: \url{http://research.microsoft.com/en-us/projects/specexplorer/}} tool
+and Spec\# that is a formal language for API contracts (influenced by JML, AsmL, and Eiffel), which extends C\# with constructs for non-null types,
+preconditions, postconditions, and object invariants\footnote{See more at: \url{http://research.microsoft.com/en-us/projects/specsharp/}}.
+This tool is already available to users and is a very mature phase.\\
+\indent The user of Spec Explorer writes a model of the system and sets the possible values for some properties in his code, furthermore the user also provides a scenario.
+This scenarios are simple sets of calls to methods without its parameters (remember that this is Spec Explorer job).
+Then Spec Explorer will generate a visual graph on each node represents a state of the system and the arrows represent a call to some method.
+It searches throw all possible sequences of methods invocation that not violate the contracts (pre, pos conditions) and
+that are relevant to a user-specified set of test properties. After that we can generate from this visual graphs the unit tests (the arrows) and the
+test cases (a graph).
+
+% https://docs.google.com/viewer?a=v&q=cache:RdzKZBkZYWsJ:www.cs.ucf.edu/~leavens/JML-seminar/talks/jml-and-unit-testing.pdf+JMLUnit,&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESgMkxE0oy7rIqRi8Hd5wTFEEYdmbGXN0ILWMv-t1tpNK47zu1o12Y_GAJHRymOSDxr1rJ8bL9ERGcVyl28_P0iPSSxATu4IBZTT5LgbBxWWuZn3qmQ-dV3APKgxumAtmIMQOcYg&sig=AHIEtbS1dlYdhVZ9bp99rLFWI5T6s-YBhw
+\subsubsection{JMLUnit}
+JMLUnit\cite{Cheon04thejml} is a tool that automates the generation of oracles for JAVA testing classes. This tool
+monitor the specified behavior of the method being tested to decide whether the test passed or failed.
+This monitoring is done using the formal specification language runtime assertion checker.
+The main idea behind this tools is to translate the pre- and postconditions methods into the code of the testing method.\\
+The preconditions became the criteria for selecting test inputs, and the postconditions provided the properties to check for
+test results. So, the postconditions became the test oracles\footnote{A test oracle determines whether or not the results of a test
+execution are correct\cite{Peters95generatinga}.}.\\
+This tool uses the JML\cite{Burdy03anoverview} specification language to annotate JAVA methods code with pre- and postconditions and
+automatically generate JUnit test classes from JML specifications.
+
+\subsubsection{TestEra}
+TestEra\cite{testera} can be used to perform automated specification-based testing of
+JAVA programs. This framework requires as input a JAVA method, a formal specification\footnote{Specifications are first-order logic formulae.}
+of the pre and post-conditions of that method, and a bound that limits the size of the test cases to be generated.\\
+With the pre-condition it automatically generates all nonisomorphic test inputs up to the given bound.
+It executes the method on each test input, and uses the method postcondition as an oracle to check the correctness of each output. This tool
+uses Alloy's\footnote{Alloy is a first-order declarative language based on sets and relations. The Alloy Analyzer is a fully
+automatic tool that finds instances of Alloy specifications: an instance
+assigns values to the sets and relations in the specification such that
+all formulae in the specification evaluate to true.} SAT system to analyze first-order  formulae.
+The authors claim that have used TestEra to check several JAVA programs including an architecture for
+dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods from the JAVA Collection Framework.
+%%% NEW
 
 \subsubsection{Korat}
 Korat\cite{Boyapati02korat:automated} is a mature framework for automated testing structurally complex inputs of JAVA programs.
@@ -263,6 +294,41 @@ the $input \times output$ pairs selected for each test case for the method, here
 it uses constraint logic programming to generate the Test-cases. PathCrawler\footnote{See more at: \url{http://www-list.cea.fr/labos/gb/LSL/test/pathcrawler/index.html}} executes an instrumented function for each function under test
 with the generated inputs, it preserves this information to not cover the same path.\\
 This tool supports assertions in any point in the code and pre-conditions regarding the input values.
+
+%%% NEW
+\subsection{Grammar-based Generation Testing}
+In this approach inputs to a system under test are defined by a context-free grammar. The language of the grammar contains all possible test cases.
+Using this approach to describe the syntax of the input to the system under test proves to be very helpful to test
+network protocols\cite{tal:syntax-based,kaksonen2001functional} and parsers and compilers\cite{1994-burgess,Burgess_Saidi_1996}.
+
+\subsubsection{ASTGen}
+ASTGen\cite{Daniel:2007:ATR:1287624.1287651} Is a JAVA framework that automates testing of refactoring engines: generation of test inputs
+and checking of test outputs. The main technique is an iterative generation of structurally complex test inputs.
+ASTGen\footnote{See more at: \url{http://mir.cs.illinois.edu/astgen/}} allows developers to write imperative generators whose executions
+produce input programs for refactoring engines. More precisely, ASTGen
+offers a library of generic, reusable, and composable generators that produce abstract syntax trees (ASTs).\\
+So, ASTGen ensures the production of test inputs instead of the developer produce them. The developer needs to write a generator whose execution
+produces thousands of programs with structural properties that are relevant for the specific refactoring being tested. This tool has found
+21 bugs in Eclipse and 26 bugs in Netbeans applications.
+
+\subsection{Random-based Generation Testing}
+In the random testing approach, test inputs are selected randomly from the input domain of the system.
+To have a random testing suite first we must identify the input domain, after that select test inputs independently from the domain,
+then the system under test is executed on these inputs, the results are compared to the system specification, an oracle.\\
+Random testing gives us an advantage of easily estimating software reliability from test outcomes.
+Test inputs are randomly generated according to an operational profile, and failure times are recorded.
+The data obtained from random testing can then be used to find bugs or non expected behaviors.\\
+\indent The main problem regarding random generation is the problem of the coverage, it is possible that will not be broad enough. And furthermore it can be
+too sparse to actually test specifics in the program. Either way, this this technique proves to be very effective testing compilers.
+
+\subsubsection{csmith}
+csmith\cite{Yang:2011:FUB:1993316.1993532} is a black-box random testing generator. That is able to generate C programs
+conform to the C99\footnote{See more at: \url{http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf}} standard. This is a very recent tool that already discover
+more than 195 bugs in LLVM and 79 bugs in GCC. With csmith we are able to generate random programs with unambiguous meanings (undefined behavior or 
+unspecified behavior). Does not attempt to generate terminating program, so they use timeouts for long time consuming generated programs.
+And the main supported features right now are: Arithmetic, logical, and bit operations on integers, Loops, Conditionals, Function calls, Const and volatile,
+Structs and Bitfields, Pointers and arrays, Goto, Break and continue. The generation of code regarding this features can be tuned using the command line program.
+%%% NEW
 
 \section{Using the tools}\label{testingtools}
 After introducing the theory and the techniques that support each tool, some of the tools will be demonstrated in action, resorting to small but illustrative examples
@@ -447,6 +513,56 @@ Result & x & n & result & Output/Exception \\\hline
 \end{tabular}
 \end{table}
 
+%%%NEW
+Now we have a more complex example, a function that returns the year of the $n^{th}$ day after 1980-01-01.
+Pex was able to generate some important test cases, but it has reached the limit amount of time to calculate interesting paths in the code,
+this boundary prevents Pex from getting stuck when the program goes into
+an infinite loop.
+
+\begin{code}
+public class Program {
+  private static bool IsLeapYear(int year) {
+    return (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0));
+  }
+  public static void FromDayToYear(int day, out int year) {
+    year = 1980;
+    while (day > 365) {
+      if (IsLeapYear(year)) {
+        if (day > 366) {
+          day -= 366;
+          year += 1;
+        }
+      } else {
+        day -= 365;
+        year += 1;
+      }
+    }
+  }
+}
+\end{code}
+
+Pex was unable to discover the year for day $366$ and $7671$ as we can see in Table \ref{tab:leap}.
+This problem occurred because Pex by default has a maximum number of conditions, this avoids never ending functions and still has a result from Pex.
+In this particular case we could increment the number of $MaxConditions$: $[PexMethod(MaxConditions=10000)]$.
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{1.3}
+\caption{Output Table for $FromDayToYear$ method using Pex}
+\label{tab:leap}
+\centering
+\noindent \begin{tabular}{|c|c|c|c|c|}\hline
+Result & day & out year & Output/Exception\\\hline
+\checkK & 0 & 1980 & \\\hline
+\checkK & 367 & 1981 & \\\hline
+\bigexclaim & 366 & & path bounds exceeded\\\hline
+\checkK & 1023 & 1982 &\\\hline
+\checkK & 2561 & 1987 & \\\hline
+\checkK & 7874 & 2001 & \\\hline
+\bigexclaim &  7671 & & path bounds exceeded\\\hline
+\end{tabular}
+\end{table}
+%%%NEW
+
 \subsection{Korat}
 Like was explained before, Korat generates a graphical representation of the structure instances that validates the property $repOK$. This property was written using JAVA code.\\
 In order to test the freelly available version of Korat, a Doubly Linked List structure was created in JAVA.
@@ -500,7 +616,56 @@ As a matter of avoiding verbosity two symbols were defined:
 \label{fig:formulae}
 \end{figure*}
 
-The properties in Fig. \ref{fig:formulae} were taken and used to restrict the generation of structures using Java. So the $repOK$ method that receives
+%%%NEW
+We took the properties described in Figure \ref{fig:formulae} and use them to restrict the generation of structures as we can see in the following Java implementation code.
+Note that we using short-circuiting, so we return $false$ as soon as we can. This way Korat will be able to generate faster the instances matching our criteria.
+
+\begin{code}
+public boolean repOK() {
+  if(Head == null || Tail == null)
+    return size == 0;
+  if(size == 1) return Head == Tail;
+  if(Head.Prev != null) return false;
+  if(Tail.Next != null) return false;
+  LinkedListElement<T> last = Head;
+  Set visited = new HashSet();
+  LinkedList workList = new LinkedList();
+  visited.add(Head);
+  workList.add(Head);
+  while (!workList.isEmpty()) {
+    LinkedListElement<T> current = (LinkedListElement<T>) workList.removeFirst();
+    if (current.Next != null) {
+      if (!visited.add(current.Next))
+	    return false;
+      workList.add(current.Next);
+      if(current.Next.Prev != current) return false;
+      last = current.Next;
+    }
+  }
+  if(last != Tail)
+    return false;
+  return (visited.size() == size);
+}
+\end{code}
+
+The last step was defining the finitization method, this way we tell Korat how to bound the input space.
+
+\begin{code}
+public static IFinitization finLL(int nodesNum, int minSize, int maxSize) {
+  IFinitization f = FinitizationFactory.create(LL.class);
+  IObjSet nodes = f.createObjSet(LinkedListElement.class, nodesNum, true);
+  f.set("Head", nodes);
+  f.set("Tail", nodes);
+  f.set("size", f.createIntSet(minSize, maxSize));
+  f.set("LinkedListElement.Next", nodes);
+  f.set("LinkedListElement.Prev", nodes);
+  return f;
+}
+\end{code}
+
+%%%NEW
+
+The properties in Figure \ref{fig:formulae} were taken and used to restrict the generation of structures using Java. So the $repOK$ method that receives
 a $LinkedList$ structure and returns $Bool$ whenever this structure follows the invariants in \ref{fig:formulae} was defined.
 Using this specification Korat generated the 2 structures showed in Figure \ref{fig:insts}. In Figure \ref{fig:inst1} with $2$ elements
 and in Figure \ref{fig:inst2} an instance with $5$ elements.
@@ -574,7 +739,6 @@ For that purpose, Frama-C will be explored, as it is well known that this tool i
 and interesting safety conditions from C source code.
 
 \bibliography{slate12-ulisses}
-\bibliographystyle{plain}% the recommended bibstyle
 
 \end{document}
 
