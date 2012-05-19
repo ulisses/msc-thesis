@@ -1,6 +1,6 @@
 UNAME := $(shell uname -s)
 PRESTEX := pres.tex
-PRESPDF := pres.pdf
+PRESPDF := SUB07_SES05.pdf
 
 $(PRESPDF):*.tex
 ifeq ($(UNAME),Darwin)
