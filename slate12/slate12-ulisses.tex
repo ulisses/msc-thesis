@@ -29,7 +29,7 @@
 \author[3]{Pedro Rangel Henriques}
 \affil[1]{VisionSpace Technologies\\
   Rua Alfredo Cunha, 37, Matosinhos, Portugal\\
-  \texttt{ucosta@visionspacetech.com}}
+  \texttt{ucosta@visionspace.com}}
 \affil[2]{Department of Informatics, University of Minho\\
   Campus de Gualtar, 4710-057, Braga, Portugal\\
   \texttt{danieladacruz@gmail.com}}
@@ -65,14 +65,14 @@ Ground Segment infrastructure, specially the Operational Simulator.
 This engine uses many different tools to ensure the development of
 regression testing infrastructure and these tests perform black-box
 testing to the C++ simulator implementation.
-VST (Visionspace Technologies) is one of the companies that provides
+VST (VisionSpace Technologies) is one of the companies that provides
 these services to ESA and they need a tool to  infer automatically tests from the existing C++ code, instead of writing manually scripts to perform tests.
 With this motivation in mind, this paper explores automatic testing approaches and tools in order to propose a system that satisfies VST needs.
 \end{abstract}
 
 \section{Introduction}\label{introd}
-Since ever, every industry use testing methods to discover problems in early stages of development process to improve
-the products quality and software industry is not an exception. Miller\cite{miller} describe the utility
+Since ever, every industry use testing methods to discover problems in early stages of the development process to improve
+the products quality, and software industry is not an exception. Miller\cite{miller} describe the utility
 of software testing as:
 
 \begin{quotation}
@@ -87,7 +87,7 @@ tools and Agile software development.
 Also, ESA started to use manual written tests as a part of their
 software development processes.\\
 Using  manual written tests is tedious, time consuming and error-prone.
-Lots of functions/methods need full code coverage and this technique
+Lots of functions/methods need full code coverage and this practice
 leads to incomplete test suites;
 as it is hard to create tests that cover specific code paths, many
 hidden bugs can be left.
@@ -102,7 +102,7 @@ This document correspond to the first milestone in the author's dissertation (de
 that is able to automatically generate interesting testcases for the C++ ESA's Operational Simulator.\\
 This document reviews the most studied techniques
 and the tools that implement them in order to choose the best set of
-suitable techniques to incorporate in a automatic
+suitable techniques to incorporate in an automatic
 testing generator to the Ground Segment infrastructure, specially the
 Operational Simulator at ESA.\\
 Two different techniques emerge for different purposes, Structural
@@ -111,8 +111,7 @@ known respectively as White-box testing and Black-box\cite{black} testing.
 Functional testing is the most common at ESA, because of the
 calculation complexity behind the Operational Simulators.\\
 A brief discussion will be presented regarding White-box testing vs. Black-box
-testing
-and then some automatic generation techniques will be discussed in more detail.
+testing and then some automatic generation techniques will be discussed in more detail.
 Furthermore the potential of the described tools will be explained, and how they can help
 on solving the problem VST has nowadays.
 
@@ -130,7 +129,7 @@ executions in order to attempt to compute inputs to drive the program
 along specific execution paths or branches, without ever executing the
 program. Control Flow based testing approach can be useful to analyze all the
 possible paths in the code and write unit tests to cover multiple paths.
-CFG (Control Flow Graph) of the program can be built,
+The CFG (Control Flow Graph) of the program can be built,
 test inputs can be generated to make any path execute regarding a given criterion:
 Select all paths;
 Select paths to achieve complete statement
@@ -142,7 +141,7 @@ coverage\cite{stt,Ntafos:1988:CST:630792.631017}.
 Data Flow Testing is designed into looking at the life cycle
 (creation, usage and destruction) of a particular
 piece of data and observe how it is used along the CFG, this ensures
-that the number of paths are always finite\cite{dataflow}.\\
+that the number of paths is always finite\cite{dataflow}.\\
 
 Opposite to White-box testing, Black-box testing is based on
 functionality, so the tester observes a system based
@@ -155,8 +154,7 @@ of combinations of the methods/functions, or even final system testing.\\
 This document is organized as follows.
 In Section~\ref{testingapproaches} the important testing approaches in
 use---Specification-based testing and Constraint-based generation---are briefly
-revisited and, for each one,  the most relevant
-tools are identified.
+revisited and, for each one,  the most relevant tools are identified.
 In Section~\ref{testingtools} some of the tools referred are
 experimented in order to be compared.
 Our proposal for a test generation system is introduced in
@@ -188,12 +186,12 @@ approaches for the most popular languages - C, JAVA and C\# will be presented.
 Specification Based Testing refers to the process of testing a program based on what its specification or model says its behavior should be.
 In particular, can be generated test cases based on the specification of the program's behavior, without seeing an implementation of the program. So this clearly a
 way of Black-box testing.\\
-With this technique the testing phase and development phase can be started in parallel, don't need the implementation
-to start the development of test cases. The only thing needed is the functional contracts and/or oracles for each function/method.\\
+With this technique the testing phase and development phase can be started in parallel, we do not need the implementation
+to start the development of test cases. The only thing needed is the functional contracts and/or oracles\footnote{A test oracle determines whether or not the results of a test execution are correct\cite{Peters95generatinga}.} for each function/method.\\
 Since the 90's there have been some effort into using specifications to try to generate test cases such as Z specifications
 \cite{Horcher95improvingsoftware,Stocks:1996:FST:239916.239918}, UML statecharts\cite{Offutt:1999:GTU:1767297.1767341},VDM\cite{Aichernig99automatedblack-box}
 or ADL specifications\cite{Sankar94specifyingand}.
-These specifications typically do not consider structurally complex inputs and these tools do not generate junit test cases.
+These specifications typically do not consider structurally complex inputs and these tools do not generate JUnit test cases.
 Nowadays there are some tools out there that can perform Specification-based Testing approach:
 
 \begin{description}
@@ -214,33 +212,32 @@ The relevant ones or the recent open-source ones will be discussed.
 This is a Microsoft model-based testing that uses one software modeling languages, the AsmL (Abstract State Machine Language).
 This modeling language provides the foundations of the Spec Explorer\footnote{See more at: \url{http://research.microsoft.com/en-us/projects/specexplorer/}} tool
 and Spec\# that is a formal language for API contracts (influenced by JML, AsmL, and Eiffel), which extends C\# with constructs for non-null types,
-preconditions, postconditions, and object invariants\footnote{See more at: \url{http://research.microsoft.com/en-us/projects/specsharp/}}.
-This tool is already available to users and is a very mature phase.\\
+pre-conditions, post-conditions, and object invariants\footnote{See more at: \url{http://research.microsoft.com/en-us/projects/specsharp/}}.
+These tool is already available to users and is in a very mature phase.\\
 \indent The user of Spec Explorer writes a model of the system and sets the possible values for some properties in his code, furthermore the user also provides a scenario.
-This scenarios are simple sets of calls to methods without its parameters (remember that this is Spec Explorer job).
-Then Spec Explorer will generate a visual graph on each node represents a state of the system and the arrows represent a call to some method.
-It searches throw all possible sequences of methods invocation that not violate the contracts (pre, pos conditions) and
+These scenarios are simple sets of calls to methods without their parameters (remember that this is Spec Explorer job).
+Then Spec Explorer will generate a visual graph where each node represents a state of the system and the arrows represent a call to some method.
+It searches throw all possible sequences of methods invocation that do not violate the contracts (pre, pos conditions) and
 that are relevant to a user-specified set of test properties. After that we can generate from this visual graphs the unit tests (the arrows) and the
 test cases (a graph).
 
 % https://docs.google.com/viewer?a=v&q=cache:RdzKZBkZYWsJ:www.cs.ucf.edu/~leavens/JML-seminar/talks/jml-and-unit-testing.pdf+JMLUnit,&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESgMkxE0oy7rIqRi8Hd5wTFEEYdmbGXN0ILWMv-t1tpNK47zu1o12Y_GAJHRymOSDxr1rJ8bL9ERGcVyl28_P0iPSSxATu4IBZTT5LgbBxWWuZn3qmQ-dV3APKgxumAtmIMQOcYg&sig=AHIEtbS1dlYdhVZ9bp99rLFWI5T6s-YBhw
 \subsubsection{JMLUnit}
 JMLUnit\cite{Cheon04thejml} is a tool that automates the generation of oracles for JAVA testing classes. This tool
-monitor the specified behavior of the method being tested to decide whether the test passed or failed.
+monitors the specified behavior of the method being tested to decide whether the test passed or failed.
 This monitoring is done using the formal specification language runtime assertion checker.
-The main idea behind this tools is to translate the pre- and postconditions methods into the code of the testing method.\\
-The preconditions became the criteria for selecting test inputs, and the postconditions provided the properties to check for
-test results. So, the postconditions became the test oracles\footnote{A test oracle determines whether or not the results of a test
-execution are correct\cite{Peters95generatinga}.}.\\
-This tool uses the JML\cite{Burdy03anoverview} specification language to annotate JAVA methods code with pre- and postconditions and
+The main idea behind these tools is to translate the pre- and post-conditions methods into the code of the testing method.\\
+The pre-conditions became the criteria for selecting test inputs, and the post-conditions provided the properties to check for
+test results. So, the post-conditions became the test oracles.\\
+This tool uses the JML\cite{Burdy03anoverview} specification language to annotate JAVA methods code with pre- and post-conditions and
 automatically generate JUnit test classes from JML specifications.
 
 \subsubsection{TestEra}
 TestEra\cite{testera} can be used to perform automated specification-based testing of
 JAVA programs. This framework requires as input a JAVA method, a formal specification\footnote{Specifications are first-order logic formulae.}
 of the pre and post-conditions of that method, and a bound that limits the size of the test cases to be generated.\\
-With the pre-condition it automatically generates all nonisomorphic test inputs up to the given bound.
-It executes the method on each test input, and uses the method postcondition as an oracle to check the correctness of each output. This tool
+With the pre-condition it automatically generates all non-isomorphic test inputs up to the given bound.
+It executes the method on each test input, and uses the method post-condition as an oracle to check the correctness of each output. This tool
 uses Alloy's\footnote{Alloy is a first-order declarative language based on sets and relations. The Alloy Analyzer is a fully
 automatic tool that finds instances of Alloy specifications: an instance
 assigns values to the sets and relations in the specification such that
@@ -251,11 +248,11 @@ dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods f
 
 \subsubsection{Korat}
 Korat\cite{Boyapati02korat:automated} is a mature framework for automated testing structurally complex inputs of JAVA programs.
-Given a formal specification for a method, Korat\footnote{See more at: \url{http://korat.sourceforge.net/}} uses the method precondition
-to automatically generate all (nonisomorphic) test cases up to a given small size.
-Korat then executes the method on each test case, and uses the method postcondition as a test oracle to check the correctness of each output.\\
+Given a formal specification for a method, Korat\footnote{See more at: \url{http://korat.sourceforge.net/}} uses the method pre-condition
+to automatically generate all (non-isomorphic) test cases up to a given small size.
+Korat then executes the method on each test case, and uses the method post-condition as a test oracle to check the correctness of each output.\\
 To be able to generate test cases for a method, Korat uses a predicate and a bound on the size of its inputs,
-Korat generates all (nonisomorphic) inputs for which the predicate returns $true$.
+Korat generates all (non-isomorphic) inputs for which the predicate returns $true$.
 Korat generates all the possible input spaces regarding the predicate and monitor the predicate's executions to be able to prune large portions of the search space.\\
 \indent The writing of a predicate is done using JAVA language and in most cases can be written the first thing that cames to programmer's head to restrict the input space.
 But for more complex structures it is better to understand how the matching algorithm work to be able to write a fast verifiable predicate.\\
@@ -283,14 +280,14 @@ by repeatedly executing the program and solving constraint systems to obtain inp
 This uses the idea of dynamic symbolic execution\cite{Tillmann06unittests}. Pex uses the theorem prover and
 constraint solver Z3\footnote{See more at: \url{http://research.microsoft.com/en-us/um/redmond/projects/z3/}} to reason about the feasibility of execution paths, and
 to obtain ground models for constraint systems.\\
-Pex came with Moles that helps to generate unit tests. This tools together are able to understand the input (by analyzing branches in the code:
+Pex came with Moles that helps to generate unit tests. These tools together are able to understand the input (by analyzing branches in the code:
 declarations, all exceptions throws operations, if statements, asserts and .net Contracts). With this information Pex uses Z3 constraint solver to
 produce new test inputs which exercise diferent program behavior.\\
 The result is an automatically generated small test suite which often achieves high code coverage.\\
-Pex can be used in a project, class or method (which make it a very helpful and versatile tool). After the analysis process the "Pex Explorarion Results" shows
+Pex can be used in a project, class or method (which makes it a very helpful and versatile tool). After the analysis process the "Pex Explorarion Results" shows
 the $input \times output$ pairs selected for each test case for the method, here it also shows the percentage of the test coverage.
 
-\subsubsection{PathCrawler} This is an academic tool based on dynamic and statical analysis\cite{Williams05pathcrawler:automatic}, 
+\subsubsection{PathCrawler} This is an academic tool based on dynamic and static analysis\cite{Williams05pathcrawler:automatic}, 
 it uses constraint logic programming to generate the Test-cases. PathCrawler\footnote{See more at: \url{http://www-list.cea.fr/labos/gb/LSL/test/pathcrawler/index.html}} executes an instrumented function for each function under test
 with the generated inputs, it preserves this information to not cover the same path.\\
 This tool supports assertions in any point in the code and pre-conditions regarding the input values.
@@ -302,7 +299,7 @@ Using this approach to describe the syntax of the input to the system under test
 network protocols\cite{tal:syntax-based,kaksonen2001functional} and parsers and compilers\cite{1994-burgess,Burgess_Saidi_1996}.
 
 \subsubsection{ASTGen}
-ASTGen\cite{Daniel:2007:ATR:1287624.1287651} Is a JAVA framework that automates testing of refactoring engines: generation of test inputs
+ASTGen\cite{Daniel:2007:ATR:1287624.1287651} is a JAVA framework that automates testing of refactoring engines: generation of test inputs
 and checking of test outputs. The main technique is an iterative generation of structurally complex test inputs.
 ASTGen\footnote{See more at: \url{http://mir.cs.illinois.edu/astgen/}} allows developers to write imperative generators whose executions
 produce input programs for refactoring engines. More precisely, ASTGen
@@ -318,13 +315,13 @@ then the system under test is executed on these inputs, the results are compared
 Random testing gives us an advantage of easily estimating software reliability from test outcomes.
 Test inputs are randomly generated according to an operational profile, and failure times are recorded.
 The data obtained from random testing can then be used to find bugs or non expected behaviors.\\
-\indent The main problem regarding random generation is the problem of the coverage, it is possible that will not be broad enough. And furthermore it can be
-too sparse to actually test specifics in the program. Either way, this this technique proves to be very effective testing compilers.
+\indent The main problem regarding random generation is the problem of the coverage, it is possible that it will not be broad enough. And furthermore it can be
+too sparse to actually test specifics parts of the program. Either way, this technique proves to be very effective for testing compilers.
 
-\subsubsection{csmith}
-csmith\cite{Yang:2011:FUB:1993316.1993532} is a black-box random testing generator. That is able to generate C programs
+\subsubsection{Csmith}
+Csmith\cite{Yang:2011:FUB:1993316.1993532} is a black-box random tests generator that is able to generate C programs
 conform to the C99\footnote{See more at: \url{http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf}} standard. This is a very recent tool that already discover
-more than 195 bugs in LLVM and 79 bugs in GCC. With csmith we are able to generate random programs with unambiguous meanings (undefined behavior or 
+more than 195 bugs in LLVM and 79 bugs in GCC. With Csmith we are able to generate random programs with unambiguous meanings (undefined behavior or 
 unspecified behavior). Does not attempt to generate terminating program, so they use timeouts for long time consuming generated programs.
 And the main supported features right now are: Arithmetic, logical, and bit operations on integers, Loops, Conditionals, Function calls, Const and volatile,
 Structs and Bitfields, Pointers and arrays, Goto, Break and continue. The generation of code regarding this features can be tuned using the command line program.
@@ -335,7 +332,7 @@ After introducing the theory and the techniques that support each tool, some of 
 on how each tool can help us to find good test cases.\\
 
 \subsection{PathCrawler}
-Concerning the first case it will be used a simple example based on a function that performs a multiplication, creating a simple branch on the code.
+Concerning the first case  a simple example will be used based on a function that performs a multiplication, creating a simple branch on the code.
 \begin{code}
 typedef struct s {
     int x;
@@ -381,13 +378,13 @@ int BinarySearch(int x, int lo, int hi) {
     return lo; 
 }
 \end{code}
-A function that PathCrawler give to us has been used: $pathcrawler\_assert$, this function can be used at any location in the
-program under test, and will force PathCrawler to generate test cases to cover both the case where its argument is true and the case where it is is false.
+A function that PathCrawler gives to us has been used: $pathcrawler\_assert$, this function can be used at any location in the
+program under test, and will force PathCrawler to generate test cases to cover both the case where its argument is true and the case where it is false.
 This feature may be seen as another way to write an oracle.\\
-The results were interesting: 31 covered paths and 44 infeasible paths and the test as interrupted by PathCrawler,
+The results were interesting: 31 covered paths and 44 infeasible paths and the test was interrupted by PathCrawler,
 because PathCrawler reach the maximal test session time (the user can increase this number, but for this example is left the default value).\\
 A further analysis of the results demonstrated that 28 out of the 44 infeasible paths discovered appeared when PathCrawler tried to
-do the assertion in line 8. Was not written any pre-condition, so PathCrawler does not know that this is a pre-condition
+do the assertion in line 8. No pre-condition was written, so PathCrawler does not know that this is a pre-condition
 for $BinarySearch$ function:  $lo\leq~x<hi$. In Table \ref{tab:bsearch} is shown some of the test inputs generated for this example.
 
 \begin{table}[!ht]
@@ -433,7 +430,7 @@ The result was unexpectedly $unknown$. PathCrawler was unable to trace even one 
 be increased but with no success for this example.
 
 \subsection{Pex}
-Regarding Pex is used the same examples showed previously adapted to C\# language.
+Regarding Pex, we used the same examples shown previously adapted to C\# language.
 Because C\# is a more expressive language than C our examples will be improved with some other OO and C\# specific features like Exceptions and Debug.Assert calls.
 In fact Pex can also support a lot more features that are present in C\# language like .NET Contracts and many more.\\
 This is the simple implementation of a 2D $Point$ class that has been created to have special behavior, under a certain condition
@@ -597,7 +594,7 @@ returns the position of that element in the structure. Consider also three new f
 \item $size(l)$ being $l$ of type $LinkedList$ and meaning in Java code $l.size$.
 \end{enumerate}
 
-As a matter of avoiding verbosity two symbols were defined:
+As a matter of avoiding verbosity two symbols were defined ($\inL$ and $\subseteqL$, these symbols are used to define the $LinkedList$ invariants in Figure \ref{fig:formulae}):
 \begin{enumerate}
 \item $a \inL l$ being $a$ of type $LinkedListElement$ and meaning that $a$ is an element of the $LinkedList$ $l$.
 \item $\{a,\ldots,z\} \subseteqL l$ meaning $a \inL l \wedge \ldots \wedge z \inL l$.
@@ -667,7 +664,7 @@ public static IFinitization finLL(int nodesNum, int minSize, int maxSize) {
 
 The properties in Figure \ref{fig:formulae} were taken and used to restrict the generation of structures using Java. So the $repOK$ method that receives
 a $LinkedList$ structure and returns $Bool$ whenever this structure follows the invariants in \ref{fig:formulae} was defined.
-Using this specification Korat generated the 2 structures showed in Figure \ref{fig:insts}. In Figure \ref{fig:inst1} with $2$ elements
+Using this specification Korat generated the 2 structures shown in Figure \ref{fig:insts}. In Figure \ref{fig:inst1} with $2$ elements
 and in Figure \ref{fig:inst2} an instance with $5$ elements.
 
 \begin{figure}[!ht]
@@ -735,7 +732,7 @@ Korat to generate all the valid data structures and an automatic tool to generat
 
 At the end, it was proposed  an approach based on the inference of tests from a Code+OCL.
 \indent Concerning the OCL inference from C++ code, work will now be done on a tool that implements it.
-For that purpose, Frama-C will be explored, as it is well known that this tool is able to infer pre- and postconditions\cite{moy}
+For that purpose, Frama-C will be explored, as it is well known that this tool is able to infer pre- and post-conditions\cite{moy}
 and interesting safety conditions from C source code.
 
 \bibliography{slate12-ulisses}
