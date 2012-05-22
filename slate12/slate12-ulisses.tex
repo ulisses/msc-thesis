@@ -115,6 +115,46 @@ testing and then some automatic generation techniques will be discussed in more 
 Furthermore the potential of the described tools will be explained, and how they can help
 on solving the problem VST has nowadays.
 
+\subsection{Operational Simulator Infrastructure}
+ESA's Operational Simulator called Simulation Infrastructure for the Modeling of SATellites (SIMSAT) is a satellite simulator that model and simulate
+the behavior of satellites in order to allow operators\footnote{Operators are responsible for the operation of the satellite after its launch.} train more effectively 
+and help them to define the satellites' operational processes.
+
+The simulator consists of operational models of the various internal components of the satellite from their main computer to its payload (instruments aboard the satellite),
+which interact with each other and thus define the behavior of the satellite.
+VST has participated in the development of tests to validate the operational simulator.
+The development of these simulators is based on operating rules simulation of
+ESA -- Simulation Model Portability (SMP
+%http://en.wikipedia.org/wiki/E-40-07
+)\footnote{SMP is based on the ideas of component-based design and Model Driven Architecture (MDA)
+as promoted by the Object Management Group (OMG) and is based on the open standards of UML and XML.
+One of the basic principles is the separation of the platform specific and platform independent aspects of the simulation model.
+This protects the investments in the model from changes in technology by defining the model in a platform independent way, which can then be mapped into different technologies.
+Further the SMP specification provides standardised interfaces between the simulation models and the simulation run-time environment for common simulation services as well as a number of mechanisms to support inter-model communication.}, as well as in infrastructure SIMSAT simulation.
+As this standard and infrastructure agnostic of any specific space can be used for any other needs of simulation in other markets such as defense,
+transport, energy, etc.
+
+\begin{description}
+\item[SIMSAT Kernel] this is a generic simulation infrastructure providing the framework for the running of space systems simulators.
+\item[SIMSAT Man-Machine Interface (MMI)] this is a generic Graphical User Interface enabling the user interaction with the simulator's components.
+\item[Ground Models] this is a family of SIMSAT compatible models enabling a realistic simulations of all ground systems between the spacecraft (or spacecraft model) and the control centre at European Space Operations Centre (ESOC).
+\item[Emulator Suite] On-board Processor Emulators support the execution in satellite simulators of the real flight software.
+\item[Generic Models] a set of generic space models that ease the developments of the spacecraft models used in operational simulators.
+\item[Ground Systems Test and Validation Applications (GSTV)] this is a family of test simulators that are based on the generic simulators infrastructure components listed above and are able to support the different levels of testing of ground infrastructure systems.
+\end{description}
+
+Moreover the SIMSAT Kernel is made up of several components:
+\begin{description}
+\item[Scheduler] is responsible for the co-ordination and processing of all events within the Simulation Kernel. An event on the schedule identifies an action that needs to be performed at a specified point in simulated time.
+\item[Mode Manager] is the simulation state machine. The Simulation has a number of operational modes, which control the operation of the simulation.
+\item[Time-Manager] is responsible for maintaining and providing models and the MMI with the correct simulation-Time. It provides time in four formats, Simulation-Time, Epoch-Time, Zulu-Time and Correlated Zulu-Time. this is a family of SIMSAT compatible models enabling a realistic simulations
+\item[Logger] supports the recording of Kernel or model events that occur during a simulation. The log in which the current simulation messages are written is called the active log. The logger also provides a view of the simulation event history in an MMI during a simulation session.
+\item[Visualization manager] is responsible for making the values of both model and Kernel data items available for display in an MMI.
+\item[State-vector manager] is responsible for the saving and restoring of the state of the simulation. Its main purpose is to allow the Simulation State, at any point in the simulation, to be saved. This allows the user to return to an earlier simulation scenario.
+\item[Command handler] is responsible for the reception and execution of Kernel and user defined commands.a set of generic space models that ease the developments of the spacecraft models used in operational.
+\item[Command procedure] interpreter is responsible for the interpretation of command procedures. A command procedure contains Kernel and User defined simulator commands and supports a procedural language to control the flow of these commands. The execution of command procedures is controlled directly from the MMI.
+\end{description}
+
 \subsection{White-box vs Black-box testing}
 In White-box testing the tester needs to understand the internals of
 the code to be able to write tests for it.
