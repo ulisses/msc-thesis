@@ -1,6 +1,7 @@
 \documentclass[a4paper,UKenglish]{oasics}
 
 \usepackage{pifont} % for \cross symbol newcommand
+\usepackage{float}
 
 \bibliographystyle{plain}% the recommended bibstyle
 \lstdefinelanguage{codeTTN}
@@ -107,13 +108,13 @@ testing generator to the Ground Segment infrastructure, specially the
 Operational Simulator at ESA.\\
 Two different techniques emerge for different purposes, Structural
 Techniques and Functional Techniques,
-known respectively as White-box testing and Black-box\cite{black} testing.
+known respectively as White-box\cite{stt} testing and Black-box\cite{black} testing.
 Functional testing is the most common at ESA, because of the
 calculation complexity behind the Operational Simulators.\\
 A brief discussion will be presented regarding White-box testing vs. Black-box
 testing and then some automatic generation techniques will be discussed in more detail.
 Furthermore the potential of the described tools will be explained, and how they can help
-on solving the problem VST has nowadays.
+on solving the problem VST has nowadays. First of all an explanation about the Operational Simulator Infrastructure will be provided.
 
 \subsection{Operational Simulator Infrastructure}
 ESA's Operational Simulator called Simulation Infrastructure for the Modeling of SATellites (SIMSAT) is a satellite simulator that model and simulate
@@ -124,17 +125,15 @@ The simulator consists of operational models of the various internal components 
 which interact with each other and thus define the behavior of the satellite.
 VST has participated in the development of tests to validate the operational simulator.
 The development of these simulators is based on operating rules simulation of
-ESA -- Simulation Model Portability (SMP
-%http://en.wikipedia.org/wiki/E-40-07
-)\footnote{SMP is based on the ideas of component-based design and Model Driven Architecture (MDA)
+ESA -- Simulation Model Portability (SMP)\footnote{SMP is based on the ideas of component-based design and Model Driven Architecture (MDA)
 as promoted by the Object Management Group (OMG) and is based on the open standards of UML and XML.
 One of the basic principles is the separation of the platform specific and platform independent aspects of the simulation model.
 This protects the investments in the model from changes in technology by defining the model in a platform independent way, which can then be mapped into different technologies.
 Further the SMP specification provides standardised interfaces between the simulation models and the simulation run-time environment for common simulation services as well as a
 number of mechanisms to support inter-model communication.\cite{1A,2A,3A,4A,5A}}, as well as in infrastructure SIMSAT simulation.
-As this standard and infrastructure agnostic of any specific space can be used for any other needs of simulation in other markets such as defense,
-transport, energy, etc.
+This standard is infrastructure agnostic of any space specific model, so any other needs of simulation can be used, such as defense, transport, energy, etc.\\
 
+Here is a brief description of each component in SIMSAT\footnote{More information in: http://www.egos.esa.int/portal/egos-web/products/Simulators/simsat/intro-sim.html}:
 \begin{description}
 \item[SIMSAT Kernel] this is a generic simulation infrastructure providing the framework for the running of space systems simulators.
 \item[SIMSAT Man-Machine Interface (MMI)] this is a generic Graphical User Interface enabling the user interaction with the simulator's components.
@@ -144,7 +143,7 @@ transport, energy, etc.
 \item[Ground Systems Test and Validation Applications (GSTV)] this is a family of test simulators that are based on the generic simulators infrastructure components listed above and are able to support the different levels of testing of ground infrastructure systems.
 \end{description}
 
-Moreover the SIMSAT Kernel is made up of several components:
+Moreover the SIMSAT Kernel is made up of several components\footnote{More information in: http://www.egos.esa.int/portal/egos-web/products/Simulators/SIMSAT/}:
 \begin{description}
 \item[Scheduler] is responsible for the co-ordination and processing of all events within the Simulation Kernel. An event on the schedule identifies an action that needs to be performed at a specified point in simulated time.
 \item[Mode Manager] is the simulation state machine. The Simulation has a number of operational modes, which control the operation of the simulation.
@@ -156,7 +155,14 @@ Moreover the SIMSAT Kernel is made up of several components:
 \item[Command procedure] interpreter is responsible for the interpretation of command procedures. A command procedure contains Kernel and User defined simulator commands and supports a procedural language to control the flow of these commands. The execution of command procedures is controlled directly from the MMI.
 \end{description}
 
+Right now, to be able to perform tests in the Operational Simulator, in order to validate SIMSAT, VST Engineers need to write scripts that
+perform simulations and validate the results using GUI interfaces (SIMSAT MMI). This job can be tedious and difficult to replicate.\\
+So a first solution will have to go through a preliminary study of the tools
+that currently exist with which we can generate tests automatically.
+By studding these tools we do not hope to find the perfect solution, but combine techniques to obtain an optimal solution to improve VST work.
+
 \subsection{White-box vs Black-box testing}
+In this subsection is discussed the two most common approaches for testing: White-box and Black-box testing.\\
 In White-box testing the tester needs to understand the internals of
 the code to be able to write tests for it.
 The goal of selecting test cases that test specific parts of the code
@@ -206,23 +212,6 @@ The document is concluded in Section~\ref{Concl}.
 In this section, a study of the most recent tools that use Specification-based, Constraint-based, Grammar-based and Random-based tests generation
 approaches for the most popular languages - C, JAVA and C\# will be presented.
 
-% Specification Based Testing:
-% http://cs.union.edu/~barrv/Testing/Labs/lab9.html
-% Video:
-% http://www.youtube.com/watch?v=caElFKbceP0
-% Program Veri¿cation - Automated Test Case Generation, Part I
-% https://docs.google.com/viewer?a=v&q=cache:xNINgGyegt8J:www.cs.uiowa.edu/~tinelli/classes/181/Spring08/Notes/10-ATCG-1.pdf+automatic+testcase+generation+-gui+-uml+-web&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESg65_S-6rwRNXFWJZjChW3x1J4oIldqfY6feMxBYdluY2LkCivOB8fs19Wtg6z1fhTpvrOQYBiIIyUv_3aRnJS3rzZSBjtnuHvtz3fx48xdJW6Jfj66_YvsMcaInpcw3xmO8t0Z&sig=AHIEtbTkPm7QVWO3evlUquwqV8LT-PvtBA
-% http://cs.gmu.edu/~offutt/rsrch/spec.html
-% Practical Model-Based Testing: A Tools Approach
-% http://www.cs.waikato.ac.nz/research/mbt/
-% MODEL BASED TEST GENERATION TOOLS
-% http://www.geocities.com/model_based_testing/
-% http://www.agedis.de/documents/ModelBasedTestGenerationTools_cs.pdf
-% Wikipedia
-% http://en.wikipedia.org/wiki/Model-based_testing
-% Microsoft Spec# model-based presentation (for dummies)
-% https://docs.google.com/viewer?a=v&q=cache:PVdrO7s75ScJ:www.sasqag.org/pastmeetings/harryr.ppt+model+based+testing&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESjsdNheYbIWtyBYEfgNss2mRQuVcH0Kh8nejgxYwFMSSoPDuEgtZbxdchxcNXENujrMXaIeDr4Q17lpB1Kk8073iuk76o6G66sppEYAq8wGbUKnNtbOx4eHlT_P2boklZ_DwiO&sig=AHIEtbTECVDePxriKz0fNYbhSo56Ktgvww
-%Predicates as specifications (Alloy is related to OCL (Object Constraint Language) for UML)
 \subsection{Specification-based Generation Testing}
 Specification Based Testing refers to the process of testing a program based on what its specification or model says its behavior should be.
 In particular, can be generated test cases based on the specification of the program's behavior, without seeing an implementation of the program. So this clearly a
@@ -248,7 +237,6 @@ UML\footnote{See more at: \url{http://www-01.ibm.com/software/awdtools/tau/}}.
 \end{description}
 The relevant ones or the recent open-source ones will be discussed.
 
-%%% NEW
 \subsubsection{Spec Explorer}
 This is a Microsoft model-based testing that uses one software modeling languages, the AsmL (Abstract State Machine Language).
 This modeling language provides the foundations of the Spec Explorer\footnote{See more at: \url{http://research.microsoft.com/en-us/projects/specexplorer/}} tool
@@ -262,7 +250,6 @@ It searches throw all possible sequences of methods invocation that do not viola
 that are relevant to a user-specified set of test properties. After that we can generate from this visual graphs the unit tests (the arrows) and the
 test cases (a graph).
 
-% https://docs.google.com/viewer?a=v&q=cache:RdzKZBkZYWsJ:www.cs.ucf.edu/~leavens/JML-seminar/talks/jml-and-unit-testing.pdf+JMLUnit,&hl=pt-PT&gl=pt&pid=bl&srcid=ADGEESgMkxE0oy7rIqRi8Hd5wTFEEYdmbGXN0ILWMv-t1tpNK47zu1o12Y_GAJHRymOSDxr1rJ8bL9ERGcVyl28_P0iPSSxATu4IBZTT5LgbBxWWuZn3qmQ-dV3APKgxumAtmIMQOcYg&sig=AHIEtbS1dlYdhVZ9bp99rLFWI5T6s-YBhw
 \subsubsection{JMLUnit}
 JMLUnit\cite{Cheon04thejml} is a tool that automates the generation of oracles for JAVA testing classes. This tool
 monitors the specified behavior of the method being tested to decide whether the test passed or failed.
@@ -285,7 +272,6 @@ assigns values to the sets and relations in the specification such that
 all formulae in the specification evaluate to true.} SAT system to analyze first-order  formulae.
 The authors claim that have used TestEra to check several JAVA programs including an architecture for
 dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods from the JAVA Collection Framework.
-%%% NEW
 
 \subsubsection{Korat}
 Korat\cite{Boyapati02korat:automated} is a mature framework for automated testing structurally complex inputs of JAVA programs.
@@ -304,7 +290,6 @@ Constraint Based Testing\cite{DeMillo91constraint-basedautomatic} can be used to
 solving a set of constraints over a set of variables. The system is described using constraints and these can be solved by SAT solvers.\\
 Constraint programming can be combined with symbolic execution, regarding this approach a program is executed symbolically,
 collecting data constraints over different paths in the CFG, and then solving the constraints and producing test cases from there.
-This is clearly a White-box testing approach.
 There are some tools out there, like:
 
 \begin{description}
@@ -333,7 +318,6 @@ it uses constraint logic programming to generate the Test-cases. PathCrawler\foo
 with the generated inputs, it preserves this information to not cover the same path.\\
 This tool supports assertions in any point in the code and pre-conditions regarding the input values.
 
-%%% NEW
 \subsection{Grammar-based Generation Testing}
 In this approach inputs to a system under test are defined by a context-free grammar. The language of the grammar contains all possible test cases.
 Using this approach to describe the syntax of the input to the system under test proves to be very helpful to test
@@ -366,7 +350,12 @@ more than 195 bugs in LLVM and 79 bugs in GCC. With Csmith we are able to genera
 unspecified behavior). Does not attempt to generate terminating program, so they use timeouts for long time consuming generated programs.
 And the main supported features right now are: Arithmetic, logical, and bit operations on integers, Loops, Conditionals, Function calls, Const and volatile,
 Structs and Bitfields, Pointers and arrays, Goto, Break and continue. The generation of code regarding this features can be tuned using the command line program.
-%%% NEW
+
+\subsubsection{QuickCheck for JAVA}
+QuickCheck was originally a combinator library for the Haskell\footnote{See more at haskell.org} programming language\cite{Claessen:2000:QLT:357766.351266}.
+Later on QuickCheck philosophy spread to other programming languages like: JAVA, Erlang, Perl, Ruby and JavaScript.\\
+QuickCheck works by generating high amounts of data (within the method domain) and checking it against a given property,
+it is expected to create a wide range of the input domain, thus increasing the chances of giving more test coverage.
 
 \section{Using the tools}\label{testingtools}
 After introducing the theory and the techniques that support each tool, some of the tools will be demonstrated in action, resorting to small but illustrative examples
@@ -551,7 +540,6 @@ Result & x & n & result & Output/Exception \\\hline
 \end{tabular}
 \end{table}
 
-%%%NEW
 Now we have a more complex example, a function that returns the year of the $n^{th}$ day after 1980-01-01.
 Pex was able to generate some important test cases, but it has reached the limit amount of time to calculate interesting paths in the code,
 this boundary prevents Pex from getting stuck when the program goes into
@@ -599,7 +587,6 @@ Result & day & out year & Output/Exception\\\hline
 \bigexclaim &  7671 & & path bounds exceeded\\\hline
 \end{tabular}
 \end{table}
-%%%NEW
 
 \subsection{Korat}
 Like was explained before, Korat generates a graphical representation of the structure instances that validates the property $repOK$. This property was written using JAVA code.\\
@@ -641,7 +628,7 @@ As a matter of avoiding verbosity two symbols were defined ($\inL$ and $\subsete
 \item $\{a,\ldots,z\} \subseteqL l$ meaning $a \inL l \wedge \ldots \wedge z \inL l$.
 \end{enumerate}
 
-\begin{figure*}[!Ht]
+\begin{figure*}[!Hb]
 \begin{eqnarray}
 \t \forall {l} {l \in LinkedList} {Head(l) \equiv null \vee Tail(l) \equiv null \Leftrightarrow size(l) \equiv 0}\\
 \t \forall {l} {l \in LinkedList} {Tail(l).Next \equiv null}\\
@@ -654,7 +641,6 @@ As a matter of avoiding verbosity two symbols were defined ($\inL$ and $\subsete
 \label{fig:formulae}
 \end{figure*}
 
-%%%NEW
 We took the properties described in Figure \ref{fig:formulae} and use them to restrict the generation of structures as we can see in the following Java implementation code.
 Note that we using short-circuiting, so we return $false$ as soon as we can. This way Korat will be able to generate faster the instances matching our criteria.
 
@@ -701,8 +687,6 @@ public static IFinitization finLL(int nodesNum, int minSize, int maxSize) {
 }
 \end{code}
 
-%%%NEW
-
 The properties in Figure \ref{fig:formulae} were taken and used to restrict the generation of structures using Java. So the $repOK$ method that receives
 a $LinkedList$ structure and returns $Bool$ whenever this structure follows the invariants in \ref{fig:formulae} was defined.
 Using this specification Korat generated the 2 structures shown in Figure \ref{fig:insts}. In Figure \ref{fig:inst1} with $2$ elements
@@ -732,7 +716,21 @@ to perform testcase generation in C\# classes, but the generated instances are t
 in C\# with many management methods implemented (Add, Remove, Find,\ldots). Pex generated very simple $LinkedList$'s structures to perform automatic test generation
 for each implemented method. The problem is that the generated structures does not meet the properties about Doubly Linked Lists as it can be seen in Figure \ref{fig:pexG}.
 Concerning Korat, this is The tool to generate complex data structures. The freely available part of Korat show potential in expressing rules to hedge
-the automatic generation of data structures.
+the automatic generation of data structures.\\
+In Table \ref{tab:tabcmp} we can see a brief comparison between all the experimented and mentioned tools, a more detailed conclusion is addressed in Chapter \ref{Concl}.
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{|m{2cm}|m{2cm}|m{2cm}|m{2cm}|m{2cm}|m{2cm}|}\hline
+Name & Target Language & Black/White-box & Additional Input & Output & Comments\\\hline
+\textbf{PathCrawler} & C & White-box (symbolic execution) & Test vectors & Constraints about the executed paths & Too Complex\\\hline
+\textbf{Pex} & C\# & White-box (symbolic execution) & -- & Unit Tests & Poor generated data instances (objects)\\\hline
+\textbf{Korat} & JAVA & Black-box & Invariants written in JAVA & Graphical form of data structures (using Alloy-GraphViz) & Powerful generating valid data instances\\\hline
+\end{tabular}
+\caption{Comparison of experimented and mentioned tools}
+\label{tab:tabcmp}
+\end{table}
+
 \begin{figure}[!ht]
 \centerline{
 \subfloat[Example of Pex generated $LinkedList$ instance to test $Remove$ method]{
@@ -748,7 +746,7 @@ the automatic generation of data structures.
 \end{figure}
 
 \section{Generate Tests from Code+OCL}\label{proposal}
-Since the Operational Simulator code is not familiar to us, it was decided to start solving this problem by inferring the UML+OCL from the existing code
+Since the Operational Simulator code is not familiar to us, regarding its implementation, it was decided to start solving this problem by inferring the UML+OCL from the existing code
 to be able to work on a more abstract level rather than the implementation.
 The idea is to extract tests from the inferred OCL, using the Partition Analysis described
 in \cite{Benattou02generatingtest} and at the same time generate tests directly from the code, using symbolic execution to complement
@@ -761,7 +759,7 @@ generate more interesting inputs for the methods under testing.
 \section{Conclusion}\label{Concl}
 Looking for an efficient solution to automatically generate complete test sets for complex and critical C++ software,
 the state-of-the-art approaches in the area were studied and along the document some tools were introduced from methodological and experimental perspectives.
-Pex has proved to be a very powerful tool, aimed at offering a full coverage. However, the uncapability for generating calling-methods sequences was a bit disappointing. 
+Pex has proved to be a very powerful tool, aimed at offering a full coverage. However, the incapability for generating calling-methods sequences was a bit disappointing. 
 With Microsoft's SpecExplorer we can already
 manually call sequences of methods; maybe a combination of this feature with Pex would make Pex a perfect all-in-one testing tool regarding .NET automatic testing tools.
 Concerning Korat, the expected improvement is just to write the invariants for a class instead of the $repOK$ method, or maybe infer these invariants 
