@@ -32,6 +32,8 @@
             filecolor=darkblue,%
             linkcolor=darkblue,%
             pdftex,bookmarks,colorlinks,a4paper]{hyperref}
+\usepackage{pifont} % for \cross symbol newcommand
+\usepackage{float}
 
 \definecolor{darkblue}{rgb}{0,0,0.6}
 %\renewcommand\familydefault{\sfdefault}% usar font sem serifas
@@ -39,9 +41,27 @@
 \pdfpageheight=\paperheight
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstdefinelanguage{codeTTN}
+{
+        basicstyle=\ttfamily\footnotesize,
+        sensitive=true,
+        showstringspaces=false,
+        numberblanklines=true,
+        showspaces=false,
+        breaklines=true,
+        showtabs=false,
+		numbers=left,
+		numberstyle=\footnotesize,
+		xleftmargin=15pt
+}
+\lstnewenvironment{code}{\lstset{language=codeTTN}}{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\checkK}{\color{green}\checkmark}
+\newcommand{\cross}{\color{red}\hspace{-3pt}\ding{55}}
+\newcommand{\bigexclaim}{\color{yellow}$\bigtriangleup$\hspace{-5.6pt}!}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% first reset the headers and footers
+
 \fancyhead{}
 \fancyfoot{}
 %% make the odd pages have the section name on the top right
@@ -66,19 +86,19 @@
 \pdfpageheight=\paperheight
 
 \pagestyle{fancy}
-%\lhead{}
-%\rhead{}
+%%\lhead{}
+%%\rhead{}
 
 %% now redefine the plain style pages (chapter pages, contents pages)
 %% to have the same page number stuff on the bottom
-\fancypagestyle{plain}{
-	\fancyhf{}
-	\fancyfoot[RO]{\psboxit{box 1 setgray fill}
-	{\hspace{\textwidth}\psboxit{box 0.8 setgray fill}
-	{\framebox[10mm][c]{\rule{0cm}{4mm}\color{black}{\bfseries \thepage}}}}}
-	\renewcommand{\headrulewidth}{0pt}
-	\renewcommand{\footrulewidth}{0.5pt}
-}
+\fancypagestyle{plain}{}
+%	\fancyhf{}
+%	\fancyfoot[RO]{\psboxit{box 1 setgray fill}
+%	{\hspace{\textwidth}\psboxit{box 0.8 setgray fill}
+%	{\framebox[10mm][c]{\rule{0cm}{4mm}\color{black}{\bfseries \thepage}}}}}
+%	\renewcommand{\headrulewidth}{0pt}
+%	\renewcommand{\footrulewidth}{0.5pt}
+%}
 
 %% this next section (till \makeatother) makes sure that blank pages
 %% are actually completely blank, cause they're not usually
@@ -90,8 +110,8 @@
 	\newpage
 	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
 \makeatother
-%\parindent=0pt
-%\parskip=4pt
+%%\parindent=0pt
+%%\parskip=4pt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -107,23 +127,29 @@
 %                    conteudos  figuras  tabelas
 % \newenvironment{mtc}{\minitoc\minilof\minilot}{\pagebreak}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\blankpage}
+	{
+		\thispagestyle{empty}
+		\phantom{}
+		\vfill
+		\begin{center}{\centering This page intentionally left blank}\end{center}
+		\vfill
+		\newpage
+		\addtocounter{page}{-1}
+	}
 
 \begin{document}
 
 \pagenumbering{roman}
 \include{cover}
+\include{acknowledgements}
 \include{abstract}
 \dominitoc 
 \dominilof
 \dominilot
-\newpage \tableofcontents
-\addcontentsline{toc}{chapter}{\contentsname}
-\newpage \listoffigures
-\addcontentsline{toc}{section}{\listfigurename}
-\newpage \listoftables
-\addcontentsline{toc}{section}{\listtablename}
-\include{acknowledgements}
-
+\tableofcontents \addcontentsline{toc}{chapter}{\contentsname}
+\listoffigures   \addcontentsline{toc}{section}{\listfigurename}
+\listoftables    \addcontentsline{toc}{section}{\listtablename}
 % start the thesis
 \pagenumbering{arabic}
 \addtocounter{mtc}{+1}
