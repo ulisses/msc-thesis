@@ -127,6 +127,10 @@
 %                    conteudos  figuras  tabelas
 % \newenvironment{mtc}{\minitoc\minilof\minilot}{\pagebreak}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A Black page with a message in the middle: "This page intentionally left blank"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\blankpage}
 	{
 		\thispagestyle{empty}
@@ -144,9 +148,9 @@
 \include{cover}
 \include{acknowledgements}
 \include{abstract}
-\dominitoc 
-\dominilof
-\dominilot
+%\dominilof
+%\dominilot
+%\dominitoc
 \tableofcontents \addcontentsline{toc}{chapter}{\contentsname}
 \listoftables    \addcontentsline{toc}{section}{\listtablename}
 \listoffigures   \addcontentsline{toc}{section}{\listfigurename}
