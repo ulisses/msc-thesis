@@ -146,17 +146,20 @@
 
 \pagenumbering{roman}
 \include{cover}
+\blankpage
 \include{acknowledgements}
+\include{resumo}
 \include{abstract}
-%\dominilof
-%\dominilot
-%\dominitoc
 \tableofcontents \addcontentsline{toc}{chapter}{\contentsname}
 \listoffigures   \addcontentsline{toc}{section}{\listfigurename}
 \listoftables    \addcontentsline{toc}{section}{\listtablename}
+\dominilof
+\dominilot
+\dominitoc
 % start the thesis
+\newpage
 \pagenumbering{arabic}
-\addtocounter{mtc}{+1}
+\addtocounter{mtc}{+1} %fix the minitoc numbering
 \include{introduction}
 \include{background}
 \include{future}
@@ -165,3 +168,4 @@
 \bibliography{thesisBib}
 
 \end{document}
+
