@@ -2,7 +2,7 @@
 
 \mode<presentation>
 {
-   \usetheme{EEng}
+  \usetheme{EEng}
   \setbeamercovered{transparent}
   \setbeamercolor{background canvas}{bg=black!0}
 }
@@ -57,67 +57,68 @@ VST (Visionspace Technologies) provides services related to testing for ESA and 
 the test generation for the Operational Simulator platform.
 \end{block}
 
-A tese de mestrado, no âmbito da qual esta apresentação se enquadra tem como objectivos:
+This master's thesis, under which falls this presentation aims to:
 \begin{itemize}
-\item Gerar testes de forma automática para \textit{Operational Simulator}
-\item Gerar testes unitários para a linguagem em que o \textit{Operational Simulator} está escrito, C++
-\item Parametrizar o tamanho das estruturas de dados geradas e outros atributos
+\item Automatically generate tests for the \textit{Operational Simulator}
+\item Generate unit tests for the \textit{Operational Simulator} language -- C++
+\item Parametrize the size of the generated data structures and be able to configure other attributes
 \end{itemize}
 \end{frame}
 
-\begin{frame}\frametitle{Motivação}
-Proposta:
+\begin{frame}\frametitle{Motivation}
+Suggestion:
 \begin{itemize}
-\item Extrair UML e OCL a partir do código
-\item Extrair testes a partir do código
+\item Extract UML and OCL from the existing code
+\item Extract tests from the existing code
 \end{itemize}
 \end{frame}
 
-\begin{frame}\frametitle{Inferir OCL}
-OCL é uma linguagem para descrever propriedades lógicas sobre modelos UML, tipicamente na forma de invariantes que tem de ser respeitados durante todo o tempo de execução.\\
+\begin{frame}\frametitle{OCL Inference}
+OCL is a language used to describe logic properties about UML models, topically in the form of invariants.
 
-Numa primeira fase é importante abstrair da implementação para descobrir "regras" a mas alto nível.
+The first step is extract interesting invariants from the code and match them with code requirements.
 \begin{itemize}
-\item Gerar diagrama de UML para o código existente (fácil)
-\item Inferir Invariantes do código (difícil)
-\item Relacionar os Invariantes descobertos com os diagramas
+\item Generate UML diagrams from the existing code (easy)
+\item Infer code invariants (hard)
+\item Relate the discovered invariants with the UML diagrams
+\item Relate the discovered diagrams with requirements
 \end{itemize}
 \end{frame}
 
 \begin{frame}\frametitle{White vs. Black Box Testing}
-\begin{block}{Tipos de testes relativamente ao conhecimento do código}
+\begin{block}{Types of tests regarding the knowledge about the code}
 \begin{description}
-\item[White Box], há conhecimento do código fonte e este é usado para a tarefa de teste.
-\item[Black Box], há conhecimento apenas dos requisitos funcionais do código e de como cada componente do código deverá comportar-se.
+\item[White Box], there are knowledge about the code, and these is used to perform the test generation.
+\item[Black Box], there are only knowledge about the requirements and about each component should behave.
 \end{description}
 \end{block}
 \end{frame}
 
-\begin{frame}\frametitle{Abordagens 1/2}
+\begin{frame}\frametitle{Approaches 1/2}
 \begin{description}
-\item[Specification-based Generation Testing], \textit{aka Model Based Testing} consiste em testar um programa baseando-se na especificação ou no modelo do programa.
-Em especifico pode-se gerar uma bateria de casos para teste diretamente a partir da especificação do comportamento do programa, sem considerar o código do programa.
+\item[Specification-based Generation Testing], \textit{aka Model Based Testing} consists in testing a program based on the program specification or the program model.
+We can generate tests cases from the specification, without consider the code.
 \end{description}
 \end{frame}
 
-\begin{frame}\frametitle{Abordagens 2/2}
+\begin{frame}\frametitle{Approaches 2/2}
 \begin{description}
-\item[Constraint-based Generation Testing], pode ser usado para seleccionar baterias de casos para teste que satisfaçam restrições sobre um conjunto de variaveis.
-Quando combinado com execução simbólica, coleccta restrições ao longo dos diferentes caminhos no \textit{CFG}.
-Posteriormente é possivel resolver estas restrições e produzir baterias de casos para teste a partir daí.
+\item[Constraint-based Generation Testing], can be used to select test cases that meet some variable restrictions.
+When combined with symbolic execution, gathers restrictions along the different paths in the \textit{CFG}.
+It is possible to solve this restrictions and generate test cases.
 \end{description}
-Outras foram estudadas, para mais informação consultar o paper.
+Other approaches were studied, for more information please consult the paper.
 \end{frame}
 
-\begin{frame}\frametitle{Estado actual}
-Até agora foram estudadas várias ferramentas, as mais importantes e mais desenvolvidas:
+\begin{frame}\frametitle{Current state}
+By now, we studied different approaches and tools, the more important to our goal are:
 \begin{itemize}
-\item Korat, é uma framework madura para construir automaticamente estruturas complexas em JAVA
-\item Pex, é uma ferramenta automatica da Microsoft de \textit{White-box testing} que garante cobertura total
+\item Korat, is a mature framework to automatically construct complex structures for JAVA
+\item Pex is a \textit{White-box testing framework} from Microsoft tool that tries to give total code coverage
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile] \frametitle{Ferramentas Estudadas - Pex}
+\begin{frame}[fragile] \frametitle{Studied Tools - Pex}
 \begin{code}
 public class Program {
   public static int BSearch(int x, int n) {
@@ -151,7 +152,7 @@ Result & x & n & result & Output/Exception \\\hline
 \newcommand{\subseteqL}{\mathbin{\subseteq\mkern-4mu\subseteq}}
 \newcommand{\inL}{\mathbin{\in\mkern-4mu\in}}
 
-\begin{frame}[fragile]\frametitle{Ferramentas Estudadas - Korat}
+\begin{frame}[fragile]\frametitle{Studied Tools - Korat}
 \begin{code}
 public class LinkedList<T> {
   public static class LinkedListElement<T> {
@@ -164,7 +165,7 @@ public class LinkedList<T> {
   private int size; 
 }
 \end{code}
-Invariantes da classe $LinkedList$ (lista duplamente ligada circular):
+$LinkedList$ class invariants (circular doubly linked list):
 {\tiny
 \begin{eqnarray}
 \t \forall {l} {l \in LinkedList} {Head(l) \equiv null \vee Tail(l) \equiv null \Leftrightarrow size(l) \equiv 0}\\
@@ -177,54 +178,54 @@ Invariantes da classe $LinkedList$ (lista duplamente ligada circular):
 }
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Ferramentas Estudadas - Pex - $LinkedList$}
+\begin{frame}[fragile]\frametitle{Studied Tools - Pex - $LinkedList$}
 \begin{figure}[!ht]
 \centerline{
-\subfloat[Instância de $LinkedList$ instance gerada pelo pex para testar o método $Remove$]{
+\subfloat[$LinkedList$ instance generated by Pex to test the method $Remove$]{
 \includegraphics[width=.3\textwidth]{img/pex1}
 }
 \hfil
-\subfloat[Instância de $LinkedList$ instance gerada pelo pex para testar o método $Find$]{
+\subfloat[$LinkedList$ instance generated by Pex to test the method $Find$]{
 \includegraphics[width=.3\textwidth]{img/pex2}
 \label{fig:pexinst2}}}
-\caption{Exemplos de instâncias geradas pelo pex para a classe $LinkedList$.}
+\caption{Examples of instances generated by Pex to the $LinkedList$ class.}
 \label{fig:pexG}
 \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Ferramentas Estudadas - Korat - $LinkedList$}
+\begin{frame}[fragile]\frametitle{Studied Tools - Korat - $LinkedList$}
 \begin{figure}[!ht]
 \centerline{
-\subfloat[Instância de $LinkedList$ com $2$ elementos]{
+\subfloat[$LinkedList$ instance with $2$ elements]{
 \includegraphics[width=.2\textwidth]{img/ll1}
 }
 \hfil
-\subfloat[Instância de $LinkedList$ com $5$ elementos]{
+\subfloat[$LinkedList$ instance with $5$ elements]{
 \includegraphics[width=.2\textwidth]{img/ll2}
 }}
 \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Ferramentas Estudadas - Sumário}
-\begin{block}{Sumário}
-O Pex usa análise estática e é muito eficiente em descobrir todos os caminhos de execução possíveis em métodos C\#.
-O Pex tambem pode ser utilizado para gerar testcases das classes, mas as instâncias geradas não mantém os invariantes das estruturas de dados.\\
+\begin{frame}[fragile]\frametitle{Studied Tools - Summary}
+\begin{block}{Summary}
+Pex uses static analysis and is very efficient in discovering all the possible execution paths in C\# methods.
+Pex can also be used to generate classes testcases, but the generated instances does not keep the invariants of data structures.\\
 
-Por outro lado o Korat é a ferramenta ideal para a tarefa de gerar estruturas que cumpram os invariantes pedidos.
+On the other hand, Korat is the ideal tool to generate data structures that meet the invariants.
 \end{block}
 \end{frame}
 
-\begin{frame} \frametitle{Conclusão e Trabalho Futuro}
+\begin{frame} \frametitle{Conclusion and Future work}
 \begin{itemize}
-\item Pex provou ser uma ferramenta poderosa a dar cobertura total
-\item Korat mostrou ser uma ferramenta muito útil para gerar estruturas complexas
+\item Pex has proved to be a powerful tool regarding full coverage.
+\item Korat is a very useful tool to generate complex data structures.
 \end{itemize}
-A mistura entre a análise estática do Pex com a capacidade de gerar estruturas úteis do Korat é o caminho que vamos seguir.\\
+A mix between the static analysis of Pex with Korat's capability to generate useful data structures is the path we will follow.\\
 
-Será estudado a inferência de pre- pos condições e invariantes[Moy 2009] para conseguir inferir OCL.
+The study of pre- pos conditions inference using static analysis [Moy 2009] will be useful to infer OCL rules.
 \end{frame}
 
-\begin{frame}[fragile] \frametitle{Método $repOK$ do Korat para $LinkedList$}
+\begin{frame}[fragile] \frametitle{Korat $repOK$ method for $LinkedList$}
 \begin{code}
 public boolean repOK() {
   if(Head == null || Tail == null)
