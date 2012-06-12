@@ -53,20 +53,20 @@
 
 \begin{frame}\frametitle{Context}
 \begin{block}{Problem}
-VST (Visionspace Technologies) provides services related to testing for ESA and want to automate
+VST (Visionspace Technologies) provides services related to testing for ESA and wants to automate
 the test generation for the Operational Simulator platform.
 \end{block}
 
-This master's thesis, under which falls this presentation aims to:
+This presentation appears in the context of a master's thesis that aims at:
 \begin{itemize}
-\item Automatically generate tests for the \textit{Operational Simulator}
+\item Generate automatically tests for the \textit{Operational Simulator}
 \item Generate unit tests for the \textit{Operational Simulator} language -- C++
 \item Parametrize the size of the generated data structures and be able to configure other attributes
 \end{itemize}
 \end{frame}
 
 \begin{frame}\frametitle{Motivation}
-Suggestion:
+To:
 \begin{itemize}
 \item Extract UML and OCL from the existing code
 \item Extract tests from the existing code
@@ -74,9 +74,9 @@ Suggestion:
 \end{frame}
 
 \begin{frame}\frametitle{OCL Inference}
-OCL is a language used to describe logic properties about UML models, topically in the form of invariants.
+OCL is a language used to describe logic properties about UML models, typically in the form of invariants.
 
-The first step is extract interesting invariants from the code and match them with code requirements.
+The first step is to extract interesting invariants from the code and match them with requirements.
 \begin{itemize}
 \item Generate UML diagrams from the existing code (easy)
 \item Infer code invariants (hard)
@@ -88,16 +88,16 @@ The first step is extract interesting invariants from the code and match them wi
 \begin{frame}\frametitle{White vs. Black Box Testing}
 \begin{block}{Types of tests regarding the knowledge about the code}
 \begin{description}
-\item[White Box], there are knowledge about the code, and these is used to perform the test generation.
-\item[Black Box], there are only knowledge about the requirements and about each component should behave.
+\item[White Box], there is knowledge about the code, and this is used to perform the test generation.
+\item[Black Box], there is only knowledge about the requirements and about how each component should behave.
 \end{description}
 \end{block}
 \end{frame}
 
 \begin{frame}\frametitle{Approaches 1/2}
 \begin{description}
-\item[Specification-based Generation Testing], \textit{aka Model Based Testing} consists in testing a program based on the program specification or the program model.
-We can generate tests cases from the specification, without consider the code.
+\item[Specification-based Generation Testing], \textit{aka Model Based Testing} consists in testing a program based on the program specification or on the program model.
+Test cases can be generated from the specification, without consider the code.
 \end{description}
 \end{frame}
 
@@ -105,9 +105,8 @@ We can generate tests cases from the specification, without consider the code.
 \begin{description}
 \item[Constraint-based Generation Testing], can be used to select test cases that meet some variable restrictions.
 When combined with symbolic execution, gathers restrictions along the different paths in the \textit{CFG}.
-It is possible to solve this restrictions and generate test cases.
+It is possible to solve these restrictions and generate test cases.
 \end{description}
-Other approaches were studied, for more information please consult the paper.
 \end{frame}
 
 \begin{frame}\frametitle{Current state}
