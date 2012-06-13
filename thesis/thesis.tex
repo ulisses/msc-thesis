@@ -142,6 +142,11 @@
 		\addtocounter{page}{-1}
 	}
 
+% Author notes
+\def\note#1{
+{\noindent {\color{red}\textbf{NOTA:} #1}}
+}
+
 \begin{document}
 
 \pagenumbering{roman}
@@ -159,7 +164,9 @@
 \pagenumbering{arabic}
 \addtocounter{mtc}{+1} %fix the minitoc numbering
 \include{introduction}
-\include{background}
+\include{testing}
+\include{ocl}
+\include{work}
 \include{future}
 
 \bibliographystyle{alpha}

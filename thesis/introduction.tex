@@ -17,6 +17,92 @@
 \chapter{Introduction}
 \minitoc
 
-\section{Background}
-\section{Motivation}
+Since ever, every industry use testing methods to discover problems in early stages of the development process to improve
+the products quality, and software industry is not an exception. Miller\cite{miller} describe the utility
+of software testing as:
+
+\begin{quotation}
+The general aim of testing is to affirm the quality of software systems by systematically
+exercising the software in carefully controlled circumstances.
+\end{quotation}
+
+In the most recent period of software history the integration of
+software testing as an important step in the process of
+software development opened up to the origin of \textit{xUnit}\cite{xunit}
+tools and Agile software development.
+Also, ESA started to use manual written tests as a part of their
+software development processes.\\
+Using  manual written tests is tedious, time consuming and error-prone.
+Lots of functions/methods need full code coverage and this practice
+leads to incomplete test suites;
+as it is hard to create tests that cover specific code paths, many
+hidden bugs can be left.
+Many times a supervision leaded by the developer
+is needed to assure that the right paths in the code are being tested,
+specially regarding black-box testing.\\
+Nowadays we start to observe a rapid increase in the automatic test
+generation field.
+
+\section{Operational Simulator Infrastructure}
+ESA's Operational Simulator called Simulation Infrastructure for the Modeling of SATellites (SIMSAT) is a satellite simulator that model and simulate
+the behavior of satellites in order to allow operators\footnote{Operators are responsible for the operation of the satellite after its launch.} train more effectively 
+and help them to define the satellites' operational processes.
+
+The simulator consists of operational models of the various internal components of the satellite from their main computer to its payload (instruments aboard the satellite),
+which interact with each other and thus define the behavior of the satellite.
+VST has participated in the development of tests to validate the operational simulator.
+The development of these simulators is based on operating rules simulation of
+ESA -- Simulation Model Portability (SMP)\footnote{SMP is based on the ideas of component-based design and Model Driven Architecture (MDA)
+as promoted by the Object Management Group (OMG) and is based on the open standards of UML and XML.
+One of the basic principles is the separation of the platform specific and platform independent aspects of the simulation model.
+This protects the investments in the model from changes in technology by defining the model in a platform independent way, which can then be mapped into different technologies.
+Further the SMP specification provides standardised interfaces between the simulation models and the simulation run-time environment for common simulation services as well as a
+number of mechanisms to support inter-model communication.\cite{1A,2A,3A,4A,5A}}, as well as in infrastructure SIMSAT simulation.
+This standard is infrastructure agnostic of any space specific model, so any other needs of simulation can be used, such as defense, transport, energy, etc.\\
+
+Here is a brief description of each component in SIMSAT\footnote{More information in: http://www.egos.esa.int/portal/egos-web/products/Simulators/simsat/intro-sim.html}:
+\begin{description}
+\item[SIMSAT Kernel] this is a generic simulation infrastructure providing the framework for the running of space systems simulators.
+\item[SIMSAT Man-Machine Interface (MMI)] this is a generic Graphical User Interface enabling the user interaction with the simulator's components.
+\item[Ground Models] this is a family of SIMSAT compatible models enabling a realistic simulations of all ground systems between the spacecraft (or spacecraft model) and the control centre at European Space Operations Centre (ESOC).
+\item[Emulator Suite] On-board Processor Emulators support the execution in satellite simulators of the real flight software.
+\item[Generic Models] a set of generic space models that ease the developments of the spacecraft models used in operational simulators.
+\item[Ground Systems Test and Validation Applications (GSTV)] this is a family of test simulators that are based on the generic simulators infrastructure components listed above and are able to support the different levels of testing of ground infrastructure systems.
+\end{description}
+
+Moreover the SIMSAT Kernel is made up of several components\footnote{More information in: http://www.egos.esa.int/portal/egos-web/products/Simulators/SIMSAT/}:
+\begin{description}
+\item[Scheduler] is responsible for the co-ordination and processing of all events within the Simulation Kernel. An event on the schedule identifies an action that needs to be performed at a specified point in simulated time.
+\item[Mode Manager] is the simulation state machine. The Simulation has a number of operational modes, which control the operation of the simulation.
+\item[Time-Manager] is responsible for maintaining and providing models and the MMI with the correct simulation-Time. It provides time in four formats, Simulation-Time, Epoch-Time, Zulu-Time and Correlated Zulu-Time. this is a family of SIMSAT compatible models enabling a realistic simulations
+\item[Logger] supports the recording of Kernel or model events that occur during a simulation. The log in which the current simulation messages are written is called the active log. The logger also provides a view of the simulation event history in an MMI during a simulation session.
+\item[Visualization manager] is responsible for making the values of both model and Kernel data items available for display in an MMI.
+\item[State-vector manager] is responsible for the saving and restoring of the state of the simulation. Its main purpose is to allow the Simulation State, at any point in the simulation, to be saved. This allows the user to return to an earlier simulation scenario.
+\item[Command handler] is responsible for the reception and execution of Kernel and user defined commands.a set of generic space models that ease the developments of the spacecraft models used in operational.
+\item[Command procedure] interpreter is responsible for the interpretation of command procedures. A command procedure contains Kernel and User defined simulator commands and supports a procedural language to control the flow of these commands. The execution of command procedures is controlled directly from the MMI.
+\end{description}
+
+Right now, to be able to perform tests in the Operational Simulator, in order to validate SIMSAT, VST Engineers need to write scripts that
+perform simulations and validate the results using GUI interfaces (SIMSAT MMI). This job can be tedious and difficult to replicate.\\
+So a first solution will have to go through a preliminary study of the tools
+that currently exist with which we can generate tests automatically.
+By studding these tools we do not hope to find the perfect solution, but combine techniques to obtain an optimal solution to improve VST work.
+\section{Goals}
+This document correspond to the first milestone in the author's dissertation (developed under a partnership agreement between UM and VST) aimed at producing a tool
+that is able to automatically generate interesting testcases for the C++ ESA's Operational Simulator.\\
+This document reviews the most studied techniques
+and the tools that implement them in order to choose the best set of
+suitable techniques to incorporate in an automatic
+testing generator to the Ground Segment infrastructure, specially the
+Operational Simulator at ESA.\\
+Two different techniques emerge for different purposes, Structural
+Techniques and Functional Techniques,
+known respectively as White-box\cite{stt} testing and Black-box\cite{black} testing.
+Functional testing is the most common at ESA, because of the
+calculation complexity behind the Operational Simulators.\\
+A brief discussion will be presented regarding White-box testing vs. Black-box
+testing and then some automatic generation techniques will be discussed in more detail.
+Furthermore the potential of the described tools will be explained, and how they can help
+on solving the problem VST has nowadays. First of all an explanation about the Operational Simulator Infrastructure will be provided.
+
 
