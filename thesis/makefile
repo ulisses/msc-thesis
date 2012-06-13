@@ -1,5 +1,5 @@
 UNAME=$(shell uname -s)
-REL=thesis
+REL=ulisses-thesis
 PDF=$(REL).pdf
 TEX=$(REL).tex
 TEXS=$(shell find . -iname "*.tex")
