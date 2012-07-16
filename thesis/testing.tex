@@ -2,6 +2,33 @@
 \minitoc
 
 \note{falar mais sobre testing no geral, antes de comecar a falar de white vs black}
+\section{Code Coverage}
+\cite{ecss-q-st-80c}
+
+\begin{description}
+\item[Level A] Software that if not executed, or if not correctly executed, or whose anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Catastrophic consequences};
+\item[Level B] Software that if not executed, or if not correctly executed, or whose anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Critical consequences};
+\item[Level C] Software that if not executed, or if not correctly executed, or whose anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Major consequences};
+\item[Level D] Software that if not executed, or if not correctly executed, or whose anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Minor or Negligible consequences}.
+\end{description}
+
+\begin{table}[!ht]
+\centering
+\noindent \begin{tabular}{|m{6cm}|c|c|c|c|}
+\hline
+\textbf{Code Coverage vs. Criticality} & A & B & C & D \\\hline
+Source code statement coverage & 100\% & 100\% & AM & AM \\\hline
+Source code decision coverage & 100\% & 100\% & AM & AM \\\hline
+Source code modified condition and decision coverage & 100\% & AM & AM & AM \\\hline
+\multicolumn{5}{|m{14cm}|}{
+NOTE: "AM" means that the value is agreed with the customer and measured for:
+unit level testing; integration level testing and validation against the
+technical specification and validation against the requirements baseline
+as in \cite{ecss-q-st-80c} at clause 6.3.5.2.
+}\\\hline
+\end{tabular}
+\caption{ECSS - Code Coverage vs. Criticality}\label{tab:ccoverage}
+\end{table}
 
 \section{White-box vs Black-box testing}
 %In this section is discussed the two most common approaches for testing: White-box and Black-box testing.\\
