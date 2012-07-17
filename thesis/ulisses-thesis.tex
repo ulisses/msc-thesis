@@ -1,6 +1,7 @@
 \documentclass[a4paper,11pt, twoside]{report}
 \usepackage[left=2.5cm,right=2cm,top=3cm,bottom=3cm]{geometry}
 
+%\usepackage[printonlyused,withpage]{acronym}
 \usepackage[english]{babel}
 \usepackage{amssymb, amsmath} %math functions
 \usepackage[T1]{fontenc}
@@ -34,6 +35,7 @@
             pdftex,bookmarks,colorlinks,a4paper]{hyperref}
 \usepackage{pifont} % for \cross symbol newcommand
 \usepackage{float}
+\usepackage[acronym,shortcuts]{glossaries} \makeglossaries
 
 \definecolor{darkblue}{rgb}{0,0,0.6}
 %\renewcommand\familydefault{\sfdefault}% usar font sem serifas
@@ -146,10 +148,12 @@
 \def\note#1{
 {\noindent {\color{red}\textbf{NOTA:} #1}}
 }
+% New Content
+\newcommand{\new}[1]{{\color{blue}#1}}
 
 \begin{document}
-
 \pagenumbering{roman}
+\include{acronyms}
 \include{cover}
 \cleardoublepage
 \include{acknowledgements}
@@ -159,6 +163,8 @@
 \tableofcontents \addcontentsline{toc}{chapter}{\contentsname}
 \listoftables    \addcontentsline{toc}{section}{\listtablename}
 \listoffigures   \addcontentsline{toc}{section}{\listfigurename}
+\printglossary[type=\acronymtype,style=long]
+\addcontentsline{toc}{section}{Acronyms}
 \newpage
 % start the thesis
 \pagenumbering{arabic}

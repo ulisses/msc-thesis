@@ -1,9 +1,11 @@
 \chapter{Testing}
 \minitoc
 
-\note{falar mais sobre testing no geral, antes de comecar a falar de white vs black}
+%\new{
 \section{Code Coverage}
-\cite{ecss-q-st-80c}
+%documneto que define o sistema ecss\cite{ecss-s-st-00c}
+%documento de qualidade\cite{ecss-q-st-80c}
+%ulisses paper\cite{costa_et_al:OASIcs:2012:3523}
 
 \begin{description}
 \item[Level A] Software that if not executed, or if not correctly executed, or whose anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Catastrophic consequences};
@@ -27,9 +29,10 @@ technical specification and validation against the requirements baseline
 as in \cite{ecss-q-st-80c} at clause 6.3.5.2.
 }\\\hline
 \end{tabular}
-\caption{ECSS - Code Coverage vs. Criticality}\label{tab:ccoverage}
+\caption{\protect\ac{ECSS} - Code Coverage vs. Criticality}\label{tab:ccoverage}
 \end{table}
-
+%}
+\note{falar mais sobre testing no geral, antes de comecar a falar de white vs black}
 \section{White-box vs Black-box testing}
 %In this section is discussed the two most common approaches for testing: White-box and Black-box testing.\\
 In White-box testing the tester needs to understand the internals of
@@ -45,7 +48,7 @@ executions in order to attempt to compute inputs to drive the program
 along specific execution paths or branches, without ever executing the
 program. Control Flow based testing approach can be useful to analyze all the
 possible paths in the code and write unit tests to cover multiple paths.
-The CFG (Control Flow Graph) of the program can be built,
+The \ac{CFG} of the program can be built,
 test inputs can be generated to make any path execute regarding a given criterion:
 Select all paths;
 Select paths to achieve complete statement
@@ -56,7 +59,7 @@ coverage\cite{stt,Ntafos:1988:CST:630792.631017}.
 
 Data Flow Testing is designed into looking at the life cycle
 (creation, usage and destruction) of a particular
-piece of data and observe how it is used along the CFG, this ensures
+piece of data and observe how it is used along the \ac{CFG}, this ensures
 that the number of paths is always finite\cite{dataflow}.\\
 
 Opposite to White-box testing, Black-box testing is based on
@@ -67,15 +70,15 @@ This approach is used for unit testing of single methods/functions,
 integration testing
 of combinations of the methods/functions, or even final system testing.\\
 
-This document is organized as follows.
-In Section~\ref{testingapproaches} the important testing approaches in
-use---Specification-based testing and Constraint-based generation---are briefly
-revisited and, for each one,  the most relevant tools are identified.
-In Section~\ref{testingtools} some of the tools referred are
-experimented in order to be compared.
-Our proposal for a test generation system is introduced in
-Section~\ref{proposal}.
-The document is concluded in Section~\ref{Concl}.
+%This document is organized as follows.
+%In Section~\ref{testingapproaches} the important testing approaches in
+%use---Specification-based testing and Constraint-based generation---are briefly
+%revisited and, for each one,  the most relevant tools are identified.
+%In Section~\ref{testingtools} some of the tools referred are
+%experimented in order to be compared.
+%Our proposal for a test generation system is introduced in
+%Section~\ref{proposal}.
+%The document is concluded in Section~\ref{sec:Concl}.
 
 \section{Testing Tools Approaches}\label{testingapproaches}
 In this section, a study of the most recent tools that use Specification-based, Constraint-based, Grammar-based and Random-based tests generation
@@ -88,21 +91,21 @@ way of Black-box testing.\\
 With this technique the testing phase and development phase can be started in parallel, we do not need the implementation
 to start the development of test cases. The only thing needed is the functional contracts and/or oracles\footnote{A test oracle determines whether or not the results of a test execution are correct\cite{Peters95generatinga}.} for each function/method.\\
 Since the 90's there have been some effort into using specifications to try to generate test cases such as Z specifications
-\cite{Horcher95improvingsoftware,Stocks:1996:FST:239916.239918}, UML statecharts\cite{Offutt:1999:GTU:1767297.1767341},VDM\cite{Aichernig99automatedblack-box}
-or ADL specifications\cite{Sankar94specifyingand}.
+\cite{Horcher95improvingsoftware,Stocks:1996:FST:239916.239918}, \ac{UML} statecharts\cite{Offutt:1999:GTU:1767297.1767341}, \ac{VDM}\cite{Aichernig99automatedblack-box}
+or \ac{ADL} specifications\cite{Sankar94specifyingand}.
 These specifications typically do not consider structurally complex inputs and these tools do not generate JUnit test cases.
 Nowadays there are some tools out there that can perform Specification-based Testing approach:
 
 \begin{description}
 \item[Conformiq] is a commercial Tool Suite that generates
-human-readable test plans and executable test scripts from Java code, state charts and UML\footnote{See more at: \url{http://www.conformiq.com/products.php}}.
+human-readable test plans and executable test scripts from Java code, state charts and \ac{UML}\footnote{See more at: \url{http://www.conformiq.com/products.php}}.
 \item[MaTeLo] stands for Markov Test Logic and is a commercial tool
 that generates test sequences from a collection of states, transitions, classes of equivalence, types, sequences, global variables and test oracles
 using their user interface\footnote{See more at: \url{http://www.all4tec.net/index.php/All4tec/matelo-product.html}}.
 \item[Smartesting CertifyIt] is a commercial tool that generates test cases from a functional model, as UML\footnote{See more at: \url{http://www.smartesting.com/index.php/cms/en/product/certify-it}}.
 \item[T-Vec] is a commercial tool that generates test cases from modeling tools available from T-VEC or third-party vendors\footnote{See more at: \url{http://www.t-vec.com/}}.
 \item[Rational Tau] is an IBM commercial tool that provides automated error checking, rules-based model checking, and a model-based explorer using
-UML\footnote{See more at: \url{http://www-01.ibm.com/software/awdtools/tau/}}.
+\ac{UML}\footnote{See more at: \url{http://www-01.ibm.com/software/awdtools/tau/}}.
 \end{description}
 The relevant ones or the recent open-source ones will be discussed.
 
@@ -138,7 +141,7 @@ It executes the method on each test input, and uses the method post-condition as
 uses Alloy's\footnote{Alloy is a first-order declarative language based on sets and relations. The Alloy Analyzer is a fully
 automatic tool that finds instances of Alloy specifications: an instance
 assigns values to the sets and relations in the specification such that
-all formulae in the specification evaluate to true.} SAT system to analyze first-order  formulae.
+all formulae in the specification evaluate to true.} \ac{SAT} system to analyze first-order  formulae.
 The authors claim that have used TestEra to check several JAVA programs including an architecture for
 dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods from the JAVA Collection Framework.
 
@@ -152,17 +155,17 @@ Korat generates all (non-isomorphic) inputs for which the predicate returns $tru
 Korat generates all the possible input spaces regarding the predicate and monitor the predicate's executions to be able to prune large portions of the search space.\\
 \indent The writing of a predicate is done using JAVA language and in most cases can be written the first thing that cames to programmer's head to restrict the input space.
 But for more complex structures it is better to understand how the matching algorithm work to be able to write a fast verifiable predicate.\\
-Unfortunately the test derivation tool using Korat (that also uses JML) is not available to the public.
+Unfortunately the test derivation tool using Korat (that also uses \ac{JML}) is not available to the public.
 
 \subsection{Constraint-based Generation Testing}
 Constraint Based Testing\cite{DeMillo91constraint-basedautomatic} can be used to select test cases satisfying specific constraints by
-solving a set of constraints over a set of variables. The system is described using constraints and these can be solved by SAT solvers.\\
+solving a set of constraints over a set of variables. The system is described using constraints and these can be solved by \ac{SAT} solvers.\\
 Constraint programming can be combined with symbolic execution, regarding this approach a program is executed symbolically,
 collecting data constraints over different paths in the CFG, and then solving the constraints and producing test cases from there.
 There are some tools out there, like:
 
 \begin{description}
-\item[Euclide] for verifying safety properties over C code using ACSL annotations, CPBPV for program verification.
+\item[Euclide] for verifying safety properties over C code using \ac{ACSL} annotations, CPBPV for program verification.
 \item[OSMOSE] a tool that uses concolic execution and path-based techniques over machine code.
 \item[GATeL] for Lustre language to generate test sequences\footnote{See more at: \url{http://www-list.cea.fr/labos/gb/LSL/test/gatel/index.html}}.
 \end{description}
@@ -197,7 +200,7 @@ ASTGen\cite{Daniel:2007:ATR:1287624.1287651} is a JAVA framework that automates 
 and checking of test outputs. The main technique is an iterative generation of structurally complex test inputs.
 ASTGen\footnote{See more at: \url{http://mir.cs.illinois.edu/astgen/}} allows developers to write imperative generators whose executions
 produce input programs for refactoring engines. More precisely, ASTGen
-offers a library of generic, reusable, and composable generators that produce abstract syntax trees (ASTs).\\
+offers a library of generic, reusable, and composable generators that produce \ac{AST}.\\
 So, ASTGen ensures the production of test inputs instead of the developer produce them. The developer needs to write a generator whose execution
 produces thousands of programs with structural properties that are relevant for the specific refactoring being tested. This tool has found
 21 bugs in Eclipse and 26 bugs in Netbeans applications.
@@ -215,7 +218,7 @@ too sparse to actually test specifics parts of the program. Either way, this tec
 \subsubsection{Csmith}
 Csmith\cite{Yang:2011:FUB:1993316.1993532} is a black-box random tests generator that is able to generate C programs
 conform to the C99\footnote{See more at: \url{http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf}} standard. This is a very recent tool that already discover
-more than 195 bugs in LLVM and 79 bugs in GCC. With Csmith we are able to generate random programs with unambiguous meanings (undefined behavior or 
+more than 195 bugs in LLVM and 79 bugs in \ac{GCC}. With Csmith we are able to generate random programs with unambiguous meanings (undefined behavior or 
 unspecified behavior). Does not attempt to generate terminating program, so they use timeouts for long time consuming generated programs.
 And the main supported features right now are: Arithmetic, logical, and bit operations on integers, Loops, Conditionals, Function calls, Const and volatile,
 Structs and Bitfields, Pointers and arrays, Goto, Break and continue. The generation of code regarding this features can be tuned using the command line program.

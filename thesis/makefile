@@ -28,6 +28,6 @@ endif
 # Clean rules
 clean:
 	@echo "Cleaning the shop"
-	@find . -maxdepth 1 \( \! -iname README* \! -iname .gitignore \! -iname "*.bib" \! -iname "*.tex" -type f \! -iname "makefile" \! -iname "*.sty" \! -iname "*.cls" \) -exec rm -f '{}' \;
+	@find . -maxdepth 1 \( \! -iname \.latexmkrc \! -iname README* \! -iname .gitignore \! -iname "*.bib" \! -iname "*.tex" -type f \! -iname "makefile" \! -iname "*.sty" \! -iname "*.cls" \) -exec rm -f '{}' \;
 	@find . \( -name *~ -or -name *.*~ \) -exec rm -f '{}' \;
 
