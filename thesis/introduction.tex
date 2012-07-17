@@ -51,7 +51,7 @@ and help them to define the satellites' operational processes.
 
 The simulator consists of operational models of the various internal components of the satellite from their main computer to its payload (instruments aboard the satellite),
 which interact with each other and thus define the behavior of the satellite.
-VST has participated in the development of tests to validate the operational simulator.
+\ac{VST} has participated in the development of tests to validate the operational simulator.
 The development of these simulators is based on operating rules simulation of
 \ac{ESA} -- \ac{SMP}\footnote{\ac{SMP} is based on the ideas of component-based design and \ac{MDA}
 as promoted by the \ac{OMG} and is based on the open standards of \ac{UML} and \ac{XML}.
@@ -65,7 +65,7 @@ Here is a brief description of each component in \ac{SIMSAT}\footnote{More infor
 \begin{description}
 \item[\ac{SIMSAT} Kernel] this is a generic simulation infrastructure providing the framework for the running of space systems simulators.
 \item[\ac{SIMSAT} \ac{MMI}] this is a generic Graphical User Interface enabling the user interaction with the simulator's components.
-\item[Ground Models] this is a family of \ac{SIMSAT} compatible models enabling a realistic simulations of all ground systems between the spacecraft (or spacecraft model) and the control centre at European Space Operations Centre (ESOC).
+\item[Ground Models] this is a family of \ac{SIMSAT} compatible models enabling a realistic simulations of all ground systems between the spacecraft (or spacecraft model) and the control centre at \ac{ESOC}.
 \item[Emulator Suite] On-board Processor Emulators support the execution in satellite simulators of the real flight software.
 \item[Generic Models] a set of generic space models that ease the developments of the spacecraft models used in operational simulators.
 \item[\ac{GSTV}] this is a family of test simulators that are based on the generic simulators infrastructure components listed above and are able to support the different levels of testing of ground infrastructure systems.
@@ -75,19 +75,19 @@ Moreover the \ac{SIMSAT} Kernel is made up of several components\footnote{More i
 \begin{description}
 \item[Scheduler] is responsible for the co-ordination and processing of all events within the Simulation Kernel. An event on the schedule identifies an action that needs to be performed at a specified point in simulated time.
 \item[Mode Manager] is the simulation state machine. The Simulation has a number of operational modes, which control the operation of the simulation.
-\item[Time-Manager] is responsible for maintaining and providing models and the MMI with the correct simulation-Time. It provides time in four formats, Simulation-Time, Epoch-Time, Zulu-Time and Correlated Zulu-Time. this is a family of SIMSAT compatible models enabling a realistic simulations
-\item[Logger] supports the recording of Kernel or model events that occur during a simulation. The log in which the current simulation messages are written is called the active log. The logger also provides a view of the simulation event history in an MMI during a simulation session.
-\item[Visualization manager] is responsible for making the values of both model and Kernel data items available for display in an MMI.
+\item[Time-Manager] is responsible for maintaining and providing models and the \ac{MMI} with the correct simulation-Time. It provides time in four formats, Simulation-Time, Epoch-Time, Zulu-Time and Correlated Zulu-Time. this is a family of SIMSAT compatible models enabling a realistic simulations
+\item[Logger] supports the recording of Kernel or model events that occur during a simulation. The log in which the current simulation messages are written is called the active log. The logger also provides a view of the simulation event history in an \ac{MMI} during a simulation session.
+\item[Visualization manager] is responsible for making the values of both model and Kernel data items available for display in an \ac{MMI}.
 \item[State-vector manager] is responsible for the saving and restoring of the state of the simulation. Its main purpose is to allow the Simulation State, at any point in the simulation, to be saved. This allows the user to return to an earlier simulation scenario.
 \item[Command handler] is responsible for the reception and execution of Kernel and user defined commands.a set of generic space models that ease the developments of the spacecraft models used in operational.
-\item[Command procedure] interpreter is responsible for the interpretation of command procedures. A command procedure contains Kernel and User defined simulator commands and supports a procedural language to control the flow of these commands. The execution of command procedures is controlled directly from the MMI.
+\item[Command procedure] interpreter is responsible for the interpretation of command procedures. A command procedure contains Kernel and User defined simulator commands and supports a procedural language to control the flow of these commands. The execution of command procedures is controlled directly from the \ac{MMI}.
 \end{description}
 
-Right now, to be able to perform tests in the Operational Simulator, in order to validate \ac{SIMSAT}, VST Engineers need to write scripts that
+Right now, to be able to perform tests in the Operational Simulator, in order to validate \ac{SIMSAT}, \ac{VST} Engineers need to write scripts that
 perform simulations and validate the results using GUI interfaces (\ac{SIMSAT} \ac{MMI}). This job can be tedious and difficult to replicate.\\
 So a first solution will have to go through a preliminary study of the tools
 that currently exist with which we can generate tests automatically.
-By studding these tools we do not hope to find the perfect solution, but combine techniques to obtain an optimal solution to improve VST work.
+By studding these tools we do not hope to find the perfect solution, but combine techniques to obtain an optimal solution to improve \ac{VST} work.
 \section{Goals}
 This document correspond to the first milestone in the author's dissertation (developed under a partnership agreement between \ac{UM} and \ac{VST}) aimed at producing a tool
 that is able to automatically generate interesting testcases for the C++ \ac{ESA}'s Operational Simulator.\\

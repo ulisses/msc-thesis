@@ -102,17 +102,17 @@ human-readable test plans and executable test scripts from Java code, state char
 \item[MaTeLo] stands for Markov Test Logic and is a commercial tool
 that generates test sequences from a collection of states, transitions, classes of equivalence, types, sequences, global variables and test oracles
 using their user interface\footnote{See more at: \url{http://www.all4tec.net/index.php/All4tec/matelo-product.html}}.
-\item[Smartesting CertifyIt] is a commercial tool that generates test cases from a functional model, as UML\footnote{See more at: \url{http://www.smartesting.com/index.php/cms/en/product/certify-it}}.
+\item[Smartesting CertifyIt] is a commercial tool that generates test cases from a functional model, as \ac{UML}\footnote{See more at: \url{http://www.smartesting.com/index.php/cms/en/product/certify-it}}.
 \item[T-Vec] is a commercial tool that generates test cases from modeling tools available from T-VEC or third-party vendors\footnote{See more at: \url{http://www.t-vec.com/}}.
-\item[Rational Tau] is an IBM commercial tool that provides automated error checking, rules-based model checking, and a model-based explorer using
+\item[Rational Tau] is an \ac{IBM} commercial tool that provides automated error checking, rules-based model checking, and a model-based explorer using
 \ac{UML}\footnote{See more at: \url{http://www-01.ibm.com/software/awdtools/tau/}}.
 \end{description}
 The relevant ones or the recent open-source ones will be discussed.
 
 \subsubsection{Spec Explorer}
-This is a Microsoft model-based testing that uses one software modeling languages, the AsmL (Abstract State Machine Language).
+This is a Microsoft model-based testing that uses one software modeling languages, the \ac{AsmL}.
 This modeling language provides the foundations of the Spec Explorer\footnote{See more at: \url{http://research.microsoft.com/en-us/projects/specexplorer/}} tool
-and Spec\# that is a formal language for API contracts (influenced by JML, AsmL, and Eiffel), which extends C\# with constructs for non-null types,
+and Spec\# that is a formal language for \ac{API} contracts (influenced by \ac{JML}, \ac{AsmL}, and Eiffel), which extends C\# with constructs for non-null types,
 pre-conditions, post-conditions, and object invariants\footnote{See more at: \url{http://research.microsoft.com/en-us/projects/specsharp/}}.
 These tool is already available to users and is in a very mature phase.\\
 \indent The user of Spec Explorer writes a model of the system and sets the possible values for some properties in his code, furthermore the user also provides a scenario.
@@ -129,8 +129,8 @@ This monitoring is done using the formal specification language runtime assertio
 The main idea behind these tools is to translate the pre- and post-conditions methods into the code of the testing method.\\
 The pre-conditions became the criteria for selecting test inputs, and the post-conditions provided the properties to check for
 test results. So, the post-conditions became the test oracles.\\
-This tool uses the JML\cite{Burdy03anoverview} specification language to annotate JAVA methods code with pre- and post-conditions and
-automatically generate JUnit test classes from JML specifications.
+This tool uses the \ac{JML}\cite{Burdy03anoverview} specification language to annotate JAVA methods code with pre- and post-conditions and
+automatically generate JUnit test classes from \ac{JML} specifications.
 
 \subsubsection{TestEra}
 TestEra\cite{testera} can be used to perform automated specification-based testing of
@@ -161,7 +161,7 @@ Unfortunately the test derivation tool using Korat (that also uses \ac{JML}) is 
 Constraint Based Testing\cite{DeMillo91constraint-basedautomatic} can be used to select test cases satisfying specific constraints by
 solving a set of constraints over a set of variables. The system is described using constraints and these can be solved by \ac{SAT} solvers.\\
 Constraint programming can be combined with symbolic execution, regarding this approach a program is executed symbolically,
-collecting data constraints over different paths in the CFG, and then solving the constraints and producing test cases from there.
+collecting data constraints over different paths in the \ac{CFG}, and then solving the constraints and producing test cases from there.
 There are some tools out there, like:
 
 \begin{description}
@@ -218,7 +218,7 @@ too sparse to actually test specifics parts of the program. Either way, this tec
 \subsubsection{Csmith}
 Csmith\cite{Yang:2011:FUB:1993316.1993532} is a black-box random tests generator that is able to generate C programs
 conform to the C99\footnote{See more at: \url{http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf}} standard. This is a very recent tool that already discover
-more than 195 bugs in LLVM and 79 bugs in \ac{GCC}. With Csmith we are able to generate random programs with unambiguous meanings (undefined behavior or 
+more than 195 bugs in \ac{LLVM} and 79 bugs in \ac{GCC}. With Csmith we are able to generate random programs with unambiguous meanings (undefined behavior or 
 unspecified behavior). Does not attempt to generate terminating program, so they use timeouts for long time consuming generated programs.
 And the main supported features right now are: Arithmetic, logical, and bit operations on integers, Loops, Conditionals, Function calls, Const and volatile,
 Structs and Bitfields, Pointers and arrays, Goto, Break and continue. The generation of code regarding this features can be tuned using the command line program.

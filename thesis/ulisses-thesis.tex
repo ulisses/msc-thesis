@@ -35,7 +35,8 @@
             pdftex,bookmarks,colorlinks,a4paper]{hyperref}
 \usepackage{pifont} % for \cross symbol newcommand
 \usepackage{float}
-\usepackage[acronym,shortcuts]{glossaries} \makeglossaries
+\usepackage[acronym,shortcuts]{glossaries}
+\makeglossaries
 
 \definecolor{darkblue}{rgb}{0,0,0.6}
 %\renewcommand\familydefault{\sfdefault}% usar font sem serifas
@@ -151,6 +152,12 @@
 % New Content
 \newcommand{\new}[1]{{\color{blue}#1}}
 
+%%% ACRONYM (GLOSSARY)
+% List of Acronyms leged
+\newcommand{\listofacronymsname}{List of Acronyms}
+% remove the dot (.) at the end of a glossary entry...
+\renewcommand*{\glspostdescription}{}
+
 \begin{document}
 \pagenumbering{roman}
 \include{acronyms}
@@ -163,8 +170,14 @@
 \tableofcontents \addcontentsline{toc}{chapter}{\contentsname}
 \listoftables    \addcontentsline{toc}{section}{\listtablename}
 \listoffigures   \addcontentsline{toc}{section}{\listfigurename}
-\printglossary[type=\acronymtype,style=long]
-\addcontentsline{toc}{section}{Acronyms}
+\newpage
+\addcontentsline{toc}{section}{\listofacronymsname}
+\printglossary[
+	 type=\acronymtype
+	,style=listdotted
+	,title={\listofacronymsname}
+	,toctitle={\uppercase{\listofacronymsname}}
+	]
 \newpage
 % start the thesis
 \pagenumbering{arabic}
@@ -178,6 +191,7 @@
 \include{casestudy}
 \include{conclusion}
 
+\addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{alpha}
 \bibliography{thesisBib}
 
