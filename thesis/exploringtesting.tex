@@ -25,14 +25,13 @@ Nevertheless, PathCrawler was able to give a full coverage for this simple funct
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
 \setlength{\tabcolsep}{10pt}
-\caption{Output Table for $Multiply$ function using PathCrawler}
-\label{tab:mul}
 \centering
 \noindent \begin{tabular}{|c|c|c|}\hline
 Result & p & return value\\\hline
 \checkK & Point\{x=1,y=42\} & 1 \\\hline
 \checkK & Point\{x=177407,y=109471\} & 0 \\\hline
 \end{tabular}
+\caption{Output Table for $Multiply$ function using PathCrawler}\label{tab:mul}
 \end{table}
 
 Regarding our second example a function that performs a binary search in order to find if a number is in a given range (between two bounds).
@@ -63,8 +62,6 @@ for $BinarySearch$ function:  $lo\leq~x<hi$. In Table \ref{tab:bsearch} is shown
 
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
-\caption{Output Table for $BSearch$ function using PathCrawler}
-\label{tab:bsearch}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|}\hline
 Result & x & n & return value \\\hline
@@ -74,6 +71,7 @@ Result & x & n & return value \\\hline
 \checkK & 2 & 805306368 & 3 \\\hline
 \checkK & 11 & 1610612736 & 12 \\\hline
 \end{tabular}
+\caption{Output Table for $BSearch$ function using PathCrawler} \label{tab:bsearch}
 \end{table}
 
 PathCrawler was tried with the following function that calculates the year of the $n^{th}$ day after 1980-01-01.
@@ -130,8 +128,6 @@ The output table can be seen in Table \ref{tab:point}, with the inputs and outpu
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
 \setlength{\tabcolsep}{1pt}
-\caption{Output Table for $multiply$ method using Pex}
-\label{tab:point}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|}\hline
 Result & p & Output/Exception & Error Message\\\hline
@@ -141,6 +137,7 @@ Result & p & Output/Exception & Error Message\\\hline
 \checkK & new Point\{X=0,Y=0\} & &\\\hline
 \cross & new Point\{X=3,Y=14\} & Exception & hidden bug!\\\hline
 \end{tabular}
+\caption{Output Table for $multiply$ method using Pex}\label{tab:point}
 \end{table}
 
 Pex was successful to reach the $Exception$ path inside the code. Of course this is not always possible, since sometimes the functions inside
@@ -170,8 +167,6 @@ Pex was able to generate an input that could not pass in the assertion inerted i
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
 \setlength{\tabcolsep}{1pt}
-\caption{Output Table for $BSearch$ method using Pex}
-\label{tab:binary}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|c|}\hline
 Result & x & n & result & Output/Exception \\\hline
@@ -182,6 +177,7 @@ Result & x & n & result & Output/Exception \\\hline
 \checkK & 1 & 6 & 2      & \\\hline
 \checkK & 50 & 96 & 51      &\\\hline
 \end{tabular}
+\caption{Output Table for $BSearch$ method using Pex}\label{tab:binary}
 \end{table}
 
 Now we have a more complex example, a function that returns the year of the $n^{th}$ day after 1980-01-01.
@@ -217,8 +213,6 @@ In this particular case we could increment the number of $MaxConditions$: $[PexM
 
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
-\caption{Output Table for $FromDayToYear$ method using Pex}
-\label{tab:leap}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|c|}\hline
 Result & day & out year & Output/Exception\\\hline
@@ -230,6 +224,7 @@ Result & day & out year & Output/Exception\\\hline
 \checkK & 7874 & 2001 & \\\hline
 \bigexclaim &  7671 & & path bounds exceeded\\\hline
 \end{tabular}
+\caption{Output Table for $FromDayToYear$ method using Pex}\label{tab:leap}
 \end{table}
 
 \subsection{Korat}
