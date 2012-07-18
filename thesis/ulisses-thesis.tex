@@ -1,7 +1,7 @@
 \documentclass[a4paper,11pt, twoside]{report}
 \usepackage[left=2.5cm,right=2cm,top=3cm,bottom=3cm]{geometry}
 
-%\usepackage[printonlyused,withpage]{acronym}
+\usepackage{etoolbox}
 \usepackage[english]{babel}
 \usepackage{amssymb, amsmath} %math functions
 \usepackage[T1]{fontenc}
@@ -33,6 +33,11 @@
             filecolor=darkblue,%
             linkcolor=darkblue,%
             pdftex,bookmarks,colorlinks,a4paper]{hyperref}
+
+% end notes package (the second one --- hyperendnotes is for use hyperref with endnotes)
+\usepackage{endnotes,chngcntr}
+\usepackage{hyperendnote}
+
 \usepackage{pifont} % for \cross symbol newcommand
 \usepackage{float}
 \usepackage[acronym,shortcuts]{glossaries}
@@ -158,6 +163,25 @@
 % remove the dot (.) at the end of a glossary entry...
 \renewcommand*{\glspostdescription}{}
 
+%%%%%% ENDNOTES
+% Replace all footnotes by endnotes
+\let\footnote=\endnote
+\let\theendnotee=\theendnote
+% Section of endnotes (at the end of a chapter usually)
+\newcommand{\secendnote}{
+	\newpage
+	%\begingroup
+	\parindent 0pt
+	\parskip 2ex
+	\def\enotesize{\normalsize}
+	\def\notesname{Notes of chapter \arabic{chapter}}
+	\def\theendnote{\arabic{chapter}.\theendnotee} %2.1 note menas that is the first note (1) from chapter 2 :)
+	\theendnotes
+	%\endgroup
+}
+\counterwithin{endnote}{chapter}  % Reset endnote numbering every new chapter
+
+%%%%%%%%%%% BEGIN OF LaTeX DOCUMENT
 \begin{document}
 \pagenumbering{roman}
 \include{acronyms}
@@ -170,6 +194,7 @@
 \tableofcontents \addcontentsline{toc}{chapter}{\contentsname}
 \listoftables    \addcontentsline{toc}{section}{\listtablename}
 \listoffigures   \addcontentsline{toc}{section}{\listfigurename}
+% Print Glossary to the document
 \newpage
 \addcontentsline{toc}{section}{\listofacronymsname}
 \printglossary[
@@ -179,7 +204,7 @@
 	,toctitle={\uppercase{\listofacronymsname}}
 	]
 \newpage
-% start the thesis
+% Start the thesis
 \pagenumbering{arabic}
 \addtocounter{mtc}{+1} %fix the minitoc numbering
 \include{introduction}
@@ -191,7 +216,7 @@
 \include{casestudy}
 \include{conclusion}
 
-\addcontentsline{toc}{chapter}{Bibliography}
+\addcontentsline{toc}{chapter}{\bibname}
 \bibliographystyle{alpha}
 \bibliography{thesisBib}
 
