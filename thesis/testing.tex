@@ -19,15 +19,17 @@ improve the quality and safety of Space projects and products.
 \def\a{\save[].[dddddd]!C="a"*[F--]\frm{}\restore}
 \def\b{\save[].[dddddddd]!C="b"*[F--]\frm{}\restore}
 
-\xyoption{matrix}
+\def\h{\save[].[rr]!C="h"*+<7pt>+[F:<10pt>]\frm{}\restore}
+
+\xyoption{all}
 \begin{figure}[!htb]\label{fig:ecssdocsstruct}
 \footnotesize
 \begin{displaymath}
 \xymatrix{
   & *+[F-]{\txt{ECSS-S-ST-00\cite{ecss-s-st-00c} - ECSS System}} \ar@{-}[d] \ar@{-}[dl] \ar@{-}[dr] & \\
-	\a{\txt{Space project management\\(management Standards)}}
+	\h\a{\txt{Space project management\\(management Standards)}}
   & \b{\txt{Space product assurance\\(product assurance Standards)}}
-  & \b{\txt{Space engineering\\(engineering Standards)}}\\
+  & \b{\txt{Space engineering\\(engineering Standards)}} & *+[F]{\txt{External\\standards\\adopted by\\ECSS}}\ar@{->}[];"h"+<32.1pt,26.3pt>+\\
 	*+[F**:red]{\txt{M-10 - Project planning\\and implementation}}
   & *+[F**:blue][white]{\txt{Q-10 - Product\\assurance management}}
   & *+[F**:green]{\txt{E-10 - System\\engineering}}\\
@@ -51,20 +53,6 @@ improve the quality and safety of Space projects and products.
 }
 \end{displaymath}
     \caption{\protect\ac{ECSS} System}
-\end{figure}
-
-\xyoption{matrix}
-\begin{figure}[!htb]\label{exp_struct_desenho}
-\begin{displaymath}
-\xymatrix{ \put(0,0){\circle*{3}} \ar[d]^{*proxL} \ar[r]^{*proxC} &
-            \ldots \ar[r]^{*prox} &
-            c_{0j} \ar[r]^{*prox} & NULL\\
-          \put(0,0){\circle*{3}} \ar[d]^{*proxL} \ar[r]^{*proxC} &
-            \ldots \ar[r]^{*prox} &
-            c_{ij} \ar[r]^{*prox} & *+[F--]{NULL}\\
-          NULL &\omit &\omit &\omit &\omit &\omit &\omit & \omit}
-\end{displaymath}
-    \caption{Explicacao da estrutura que guarda o desenho}
 \end{figure}
 
 %documneto que define o sistema ecss\cite{ecss-s-st-00c}
