@@ -15,7 +15,52 @@ single, integrated set of Standards and Requirements from which all generic requ
 improve the competitiveness of the European Space industry.
 This is particularly important to formalize an unambiguous communication in order to facilitate the interaction between project partners,
 create a set of legally binding documents, reduce risk and guarantee interface compatibility and
-improve the quality and safety of Space projects and products.
+improve the quality and safety of Space projects and products.\\
+In section \ref{sec:historyspace} we will see the history of Space Industry Standards and the need for them.
+
+\subsection{History of Software Development Standards for Space Industry}\label{sec:historyspace}
+\ac{ESA} Software Engineering Standards originate around 1975. At
+that time the \ac{ESA} was working on a number of ambitious projects, on relatively new subjects, involving the development of
+large amounts of code. The project teams often consisted of technically excellent engineers, but most of them were not used to working in projects with
+rigorous cost and a strict schedule. There was very little project oriented discipline\cite{esa-bulletin-90}.\\
+
+One of the projects was a high level of criticality (As we will see later on Table \ref{tab:severity}) and the
+development activity was done at \ac{ESOC}, namely to support the mission, the launch of which was imminent.
+The project began delaying and there were some major hardware, operating system problems, the team was waiting for improvements in the hardware
+and eventually to be able to continue the work, they reduced the amount of requirements to only
+those highly essential for the launch of the satellite. The problem was faced when they realize that no one knew the exact system requirements.
+\begin{quotation}
+There were no written requirements — at best, some could partly be
+retrieved from minutes of meetings. All the rest were in the minds of the project engineers. How
+could cost and schedule be guaranteed under these circumstances? This was a project manager's
+worst nightmare!\cite{esa-bulletin-90}
+\end{quotation}
+
+The team manager decided to stop any further development. All software engineers write down their understanding of the requirements.
+As they had a written list of requirements, they were now able to select only
+those requirements needed for the launch. The remaining requirements were implemented after
+the satellite was launched. In this case a disaster was prevented from happening\cite{Zwartjes05anagile}.
+The \ac{BSSC} was subsequently founded in order to \ac{ESA} never end up in an identical situation. This was the seed from
+which the \ac{BSSC}, and consequently, the \ac{ESA} Software Engineering Standards was funded and prospered.\\
+\ac{ESA}'s \ac{BSSC} was formally established in May 1977 ant it was defined that \ac{BSSC} responsibilities were:
+\begin{itemize}
+\item Establishing and maintaining engineering standards for the procurement,
+development and maintenance of software.
+\item Verifying that the standards thus established are made applicable to software
+development activities at \ac{ESA}. The \ac{BSSC} verifies the application of the PSS-05-0\cite{pss-05-0} standards through a procedure involving the
+scrutiny of contracts with a software content.
+These rather limited controls have succeeded remarkably well in helping to instill a software standards "culture" within the organisation.
+\item Acting as liaison with \ac{ESA} Legal Affairs department concerning the safeguarding of intellectual
+property rights relating to software.
+\end{itemize}
+PSS-05-0 was a very successful standard and \ac{BSSC} has played an important role in promoting it, both through its various
+publications and through its responsibility in monitoring its application. PSS-05-0 has served to create a common software engineering culture in \ac{ESA}\cite{esa-bulletin-90}.\\
+In June 1994, \ac{ESA} Council confirmed the willing to transfer the present PSS system of \ac{ESA} space standards to a new system
+of standards, today known as \ac{ECSS}, in order to expand the Standards 
+to other European national space agencies and European space industry in general.
+The \ac{ECSS} system of standards covers a bigger are, as we explain before: management, product assurance and engineering standards, specifically for space projects.
+The \ac{ECSS} standard for software engineering, ECSS-E-40\cite{ecss-e-st-40c}, this is a high-level requirements-oriented standard, in effect a tailoring of ISO/IEC 12207 for space projects.
+Unlike the old PSS-05-0, it reflects the specifics of space projects, for example the relationship between the space system development cycle and the software development cycle\cite{esa-bulletin-90}.
 
 \subsection{Documents which define the Standards}
 ECSS-S-ST-00\cite{ecss-s-st-00c} document is the top level user document of \ac{ECSS}.
@@ -136,43 +181,7 @@ So, tailoring is the process by which individual requirements are evaluated and 
 The available list of standards and their content is analysed in order to select the set of standards to be made applicable to the project, taking 
 into account its specificity and constrains and identify those requirements in the individual standards which are not 
 applicable to the project, modify or exceptionally add requirement for specific needs\cite{ecss-s-st-00c}.
-Tailoring is an important task in order to deliver a suitable product or service considering the costumer needs.\\
-
-\subsection{Software Development Standards}
-ac{ESA} Software Engineering Standards originate around 1975. At
-that time the \ac{ESA} was working on a number of ambitious projects, on relatively new subjects, involving the development of
-large amounts of code. The project teams often consisted of technically excellent engineers, but most of them were not used to working in projects with
-rigorous cost and a strict schedule. There was very little project oriented discipline\cite{esa-bulletin-90}.\\
-
-One of the projects was a high level of criticality (As we will see later on Table \ref{tab:severity}) and the
-development activity was done at \ac{ESOC}, namely to support the mission, the launch of which was imminent.
-The project began delaying and there were some major hardware, operating system problems, the team was waiting for improvements in the hardware
-and eventually to be able to continue the work, they reduced the amount of requirements to only
-those highly essential for the launch of the satellite. The problem was faced when they realize that no one knew the exact system requirements.
-\begin{quotation}
-There were no written requirements — at best, some could partly be
-retrieved from minutes of meetings. All the rest were in the minds of the project engineers. How
-could cost and schedule be guaranteed under these circumstances? This was a project manager's
-worst nightmare!\cite{esa-bulletin-90}
-\end{quotation}
-
-The team manager decided to stop any further development. All software engineers write down their understanding of the requirements.
-As they had a written list of requirements, they were now able to select only
-those requirements needed for the launch. The remaining requirements were implemented after
-the satellite was launched. In this case a disaster was prevented from happening\cite{Zwartjes05anagile}.\\
-The \ac{BSSC} was subsequently founded in order to \ac{ESA} never find them in a identical situation. This was the seed from
-which the \ac{BSSC}, and consequently, the \ac{ESA} Software Engineering Standards was funded and prospered.\\
-\ac{ESA}'s \ac{BSSC} was formally established in May 1977 ant it was defined that \ac{BSSC} responsibilities were:
-\begin{itemize}
-\item Establishing and maintaining engineering standards for the procurement,
-development and maintenance of software.
-\item Verifying that the standards thus established are made applicable to software
-development activities at \ac{ESA}. The \ac{BSSC} verifies the application of the PSS-05-0\cite{pss-05-0} standards through a procedure involving the
-scrutiny of contracts with a software content.
-These rather limited controls have succeeded remarkably well in helping to instill a software standards "culture" within the organisation.
-\item Acting as liaison with \ac{ESA} Legal Affairs department concerning the safeguarding of intellectual
-property rights relating to software.
-\end{itemize}
+Tailoring is an important task in order to deliver a suitable product or service considering the costumer needs.
 
 Description from\cite{ecss-q-st-80c}
 \begin{description}
