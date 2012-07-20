@@ -2,6 +2,7 @@
 \chapter{Testing}
 \minitoc
 \new{
+In this chapter\ldots
 \section{Standardization in Space Industry}
 Software development for Space, particularly in Europe, follows very specific rules on international standards. This standards not only define how a software project should
 evolve but also how every component developed in the field of Space Industry should be done, tested, documented, deployed and maintained.
@@ -9,50 +10,65 @@ This include not only software but many more artefacts like: Electrical, Mechani
 In 1994 \ac{ECSS} was established to develop a single set of consistent Space standards recognized and accepted for use by the entire European Space Community.
 \ac{ECSS} is supported by \ac{ESA} Council deliberations since the foundation and has developed through
 a partnership between \ac{ESA}, National Space Agencies and European Industry, the management and implementation of European Space Projects.\\
-\ac{ECSS} main objectives are increase the effectiveness of all Space programmes in Europe through the application of a
+The main objectives of \ac{ECSS} are to increase the effectiveness of all Space programmes in Europe through the application of a
 single, integrated set of Standards and Requirements from which all generic requirements of future Space projects can be derived and
 improve the competitiveness of the European Space industry.
 This is particularly important to formalize an unambiguous communication in order to facilitate the interaction between project partners,
 create a set of legally binding documents, reduce risk and guarantee interface compatibility and
-improve the quality and safety of Space projects and products.\\
+improve the quality and safety of Space projects and products.
 
-%\subsection{Documents}
+\subsection{Documents which define the Standards}
 ECSS-S-ST-00\cite{ecss-s-st-00c} document is the top level user document of \ac{ECSS}.
+It gives a general introduction into \ac{ECSS} and the correct use of \ac{ECSS} Documents in space
+programmes and projects.
+Its purpose is to provide users with an overview of the \ac{ECSS} System, together
+with an introduction to the three branches of applicability, that will be explained later on this section, and to the disciplines
+covered by the set of \ac{ECSS} Standards and the processes involved in generating
+and using these standards.
+In this document there are also an introduction into space programmes, space projects actors and their
+customer-supplier relationships. Also the application of this System for space projects in the customer-supplier
+chain is also explained and a practical tailoring method is described together with
+methods for collecting and processing user feedback.
+Finally the top-level requirements are defined for implementation of the \ac{ECSS}
+system in space projects/programmes\cite{ecss-s-st-00c}.\\
+
 Under this document there are three parallel branches, the branche dedicated to project management,
 engineering, and product assurance.
 Project management branch documents have an "M" prefix, engineering standards have an "E" prefix, and product assurance standards have a "Q" prefix.
-Also, other standards from other \ac{SDO} are integrated into \ac{ECSS} new standards.
+
 Within each branch, disciplines and corresponding requirements are covered by
-dedicated standards. \ac{ECSS} Disciplines can also be supported by \ac{HB} and \ac{TM} as necessary\cite{ecss-s-st-00c}.\\
+dedicated standards.
 Standards are normative document written specifically for direct use in invitation to tender and 
 business agreements for implementing space related activities. Its content 
 strictly limited to the statement of verifiable customer requirements, supported 
 by the minimum descriptive text necessary for understanding their context.
+
+\ac{ECSS} Disciplines can also be supported by \ac{HB} and \ac{TM} as necessary\cite{ecss-s-st-00c}.
 \ac{HB} are non-normative document providing orientation, 
 guidelines, technical data, advice or recommendations, which contains 
 information about how to implement space related activities. There are two types of \ac{HB}'s: Guidelines and good practices and Collection of data.
-\ac{TM} are non-normative document providing useful information to the space community 
+On the other side, \ac{TM} are non-normative documents providing useful information to the space community 
 on a specific subject, prepared to record and present non-normative data, which 
-are not relevant for a Standard or for a handbook, or not yet mature to be 
-published as handbook or standard.
+are not relevant for a Standard or for a \ac{HB}, or not yet mature to be published as \ac{HB} or standard.
 
-The disciplines addressed by the \ac{ECSS} Standards system are given in Figure \ref{fig:ecssdocsstruct}\cite{ecss-s-st-00c} where is possible to see all
-the Standards organization described before.
+In order to clear understand the disciplines addressed by the \ac{ECSS} Standards system,
+is shown in Figure \ref{fig:ecssdocsstruct}\cite{ecss-s-st-00c} the Standard document by \ac{ECSS} where is possible to clearly
+see the three separated branches (M, E and Q). It is also possible to see other standards from other \ac{SDO} that are integrated into \ac{ECSS} new standards.
 
 \def\a{\save[].[dddddd]!C="a"*[F--]\frm{}\restore}
 \def\b{\save[].[dddddddd]!C="b"*[F--]\frm{}\restore}
 
 \def\h{\save[].[rr]!C="h"*+<7pt>+[F:<10pt>]\frm{}\restore}
 
-\xyoption{all}
+\ifx\bw\undefined
 \begin{figure}[!ht]
 \footnotesize
 \begin{displaymath}
-\xymatrix{
-  & *+[F-]{\txt{ECSS-S-ST-00\cite{ecss-s-st-00c} - ECSS System}} \ar@{-}[d] \ar@{-}[dl] \ar@{-}[dr] & \\
+\xymatrix@=.28cm{
+  & *+[F-]{\txt{ECSS-S-ST-00\cite{ecss-s-st-00c} - ECSS System}} \ar@{->}[d] \ar@{->}[dl] \ar@{->}[dr] & \\
 	\h\a{\txt{Space project management\\(management Standards)}}
   & \b{\txt{Space product assurance\\(product assurance Standards)}}
-  & \b{\txt{Space engineering\\(engineering Standards)}} & *+[F]{\txt{External\\standards\\adopted by\\ECSS}}\ar@{->}[];"h"+<32.1pt,26.3pt>+\\
+  & \b{\txt{Space engineering\\(engineering Standards)}} & *+[F]{\txt{External\\standards\\adopted by\\ECSS}}\ar@/{}_{3pc}/@{->}[];"h"+<3.1pt,28.3pt>+\\
 	*+[F**:red]{\txt{M-10 - Project planning\\and implementation}}
   & *+[F**:blue][white]{\txt{Q-10 - Product\\assurance management}}
   & *+[F**:green]{\txt{E-10 - System\\engineering}}\\
@@ -77,19 +93,86 @@ the Standards organization described before.
 \end{displaymath}
     \caption{\protect\ac{ECSS} System}\label{fig:ecssdocsstruct}
 \end{figure}
+\else
+\begin{figure}[!ht]
+\footnotesize
+\begin{displaymath}
+\xymatrix@=.28cm{
+  & *+[F-]{\txt{ECSS-S-ST-00\cite{ecss-s-st-00c} - ECSS System}} \ar@{->}[d] \ar@{->}[dl] \ar@{->}[dr] & \\
+	\h\a{\txt{Space project management\\(management Standards)}}
+  & \b{\txt{Space product assurance\\(product assurance Standards)}}
+  & \b{\txt{Space engineering\\(engineering Standards)}} & *+[F]{\txt{External\\standards\\adopted by\\ECSS}}\ar@/{}_{3pc}/@{->}[];"h"+<3.1pt,28.3pt>+\\
+	*+[F**]{\txt{M-10 - Project planning\\and implementation}}
+  & *+[F**]{\txt{Q-10 - Product\\assurance management}}
+  & *+[F**]{\txt{E-10 - System\\engineering}}\\
+	*+[F**]{\txt{M-40 - Configuration and\\information management}}
+  & *+[F**]{\txt{Q-20 - Quality assurance}}
+  & *+[F**]{\txt{E-20 - Electrical and\\optical engineering}}\\
+	*+[F**]{\txt{M-60 - Cost and schedule\\management}}
+  & *+[F**]{\txt{Q-30 - Dependability}}
+  & *+[F**]{\txt{E-30 - Mechanical\\engineering}}\\
+	*+[F**]{\txt{M-70 - Integrated logistic\\support}}
+  & *+[F**]{\txt{Q-40 - Safety}}
+  & *+[F**]{\txt{E-40\cite{ecss-e-st-40c} - Software\\engineering}}\\
+	*+[F**]{\txt{M-80 - Risk management}}
+  & *+[F**]{\txt{Q-60 - EEE components}}
+  & *+[F**]{\txt{E-50 - Communications}}\\
+  & *+[F**]{\txt{Q-70 - Materials, mechanical\\parts and processes}}
+  & *+[F**]{\txt{E-60 - Control\\engineering}}\\
+  & *+[F**]{\txt{Q-80\cite{ecss-q-st-80c} - Software\\product assurance}}
+  & *+[F**]{\txt{E-70 - Ground systems\\and operations}}\\
+  & & &
+}
+\end{displaymath}
+    \caption{\protect\ac{ECSS} System}\label{fig:ecssdocsstruct}
+\end{figure}
+\fi
 
-The application of this Standards regarding space related projects is not a strict imposition. This Standards enforce
+The application of this Standards regarding space related projects is not a strict imposition, they enforce
 tailoring to the technical, cost, schedule, programmatic and economic characteristics of the space programmes and projects.
 For a specific project, Standards are tailored according to all the traits of the project: the type and 
 phase of the project, the acceptable risks, the project complexity, cost, etc.
-So, tailoring is the process by which individual requirements are evaluated
-and made applicable to a specific project.
-The list of standards and their content is analysed in order to select the set of standards to be made applicable to the project, taking 
+So, tailoring is the process by which individual requirements are evaluated and made applicable to a specific project.
+The available list of standards and their content is analysed in order to select the set of standards to be made applicable to the project, taking 
 into account its specificity and constrains and identify those requirements in the individual standards which are not 
-applicable to the project, modify or exceptionally add requirement for specific needs\cite{ecss-s-st-00c}.\\
+applicable to the project, modify or exceptionally add requirement for specific needs\cite{ecss-s-st-00c}.
 Tailoring is an important task in order to deliver a suitable product or service considering the costumer needs.\\
 
-There are two particular documents that are more relevant regarding \ac{ESA}
+\subsection{Software Development Standards}
+ac{ESA} Software Engineering Standards originate around 1975. At
+that time the \ac{ESA} was working on a number of ambitious projects, on relatively new subjects, involving the development of
+large amounts of code. The project teams often consisted of technically excellent engineers, but most of them were not used to working in projects with
+rigorous cost and a strict schedule. There was very little project oriented discipline\cite{esa-bulletin-90}.\\
+
+One of the projects was a high level of criticality (As we will see later on Table \ref{tab:severity}) and the
+development activity was done at \ac{ESOC}, namely to support the mission, the launch of which was imminent.
+The project began delaying and there were some major hardware, operating system problems, the team was waiting for improvements in the hardware
+and eventually to be able to continue the work, they reduced the amount of requirements to only
+those highly essential for the launch of the satellite. The problem was faced when they realize that no one knew the exact system requirements.
+\begin{quotation}
+There were no written requirements — at best, some could partly be
+retrieved from minutes of meetings. All the rest were in the minds of the project engineers. How
+could cost and schedule be guaranteed under these circumstances? This was a project manager's
+worst nightmare!\cite{esa-bulletin-90}
+\end{quotation}
+
+The team manager decided to stop any further development. All software engineers write down their understanding of the requirements.
+As they had a written list of requirements, they were now able to select only
+those requirements needed for the launch. The remaining requirements were implemented after
+the satellite was launched. In this case a disaster was prevented from happening\cite{Zwartjes05anagile}.\\
+The \ac{BSSC} was subsequently founded in order to \ac{ESA} never find them in a identical situation. This was the seed from
+which the \ac{BSSC}, and consequently, the \ac{ESA} Software Engineering Standards was funded and prospered.\\
+\ac{ESA}'s \ac{BSSC} was formally established in May 1977 ant it was defined that \ac{BSSC} responsibilities were:
+\begin{itemize}
+\item Establishing and maintaining engineering standards for the procurement,
+development and maintenance of software.
+\item Verifying that the standards thus established are made applicable to software
+development activities at \ac{ESA}. The \ac{BSSC} verifies the application of the PSS-05-0\cite{pss-05-0} standards through a procedure involving the
+scrutiny of contracts with a software content.
+These rather limited controls have succeeded remarkably well in helping to instill a software standards "culture" within the organisation.
+\item Acting as liaison with \ac{ESA} Legal Affairs department concerning the safeguarding of intellectual
+property rights relating to software.
+\end{itemize}
 
 Description from\cite{ecss-q-st-80c}
 \begin{description}

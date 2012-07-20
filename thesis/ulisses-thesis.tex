@@ -28,19 +28,36 @@
 \usepackage{pgf}
 \usepackage{color,graphicx}
 \usepackage[all]{xy}
-\usepackage[pdfauthor={Ulisses Araujo Costa},%
-            urlcolor=darkblue,%
-            citecolor=darkblue,%
-            filecolor=darkblue,%
-            linkcolor=darkblue,%
-            pdftex,bookmarks,colorlinks,a4paper]{hyperref}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DEFINE THE COLOR OF THE DOCUMENT
+% use \def\bw{1} to generate the document in black and white
+ \def\bw{1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\bw\undefined
+\usepackage[pdfauthor={Ulisses Araujo Costa},
+            urlcolor=darkblue,
+            citecolor=darkblue,
+            filecolor=darkblue,
+            linkcolor=darkblue,
+            pdftex,bookmarks,colorlinks,a4paper]{hyperref}
+\else
+\usepackage[pdfauthor={Ulisses Araujo Costa},
+            urlcolor=black,
+            citecolor=black,
+            filecolor=black,
+            linkcolor=black,
+            pdftex,bookmarks,colorlinks,a4paper]{hyperref}
+\fi
 % end notes package (the second one --- hyperendnotes is for use hyperref with endnotes)
 \usepackage{endnotes,chngcntr}
 \usepackage{hyperendnote}
 
 \usepackage{pifont} % for \cross symbol newcommand
-\usepackage{float}
+\usepackage{subfig}
+\usepackage{graphicx}
+
 \usepackage[acronym,shortcuts]{glossaries}
 \makeglossaries
 
@@ -65,9 +82,15 @@
 }
 \lstnewenvironment{code}{\lstset{language=codeTTN}}{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifx\bw\undefined
 \newcommand{\checkK}{\color{green}\checkmark}
 \newcommand{\cross}{\color{red}\hspace{-3pt}\ding{55}}
 \newcommand{\bigexclaim}{\color{yellow}$\bigtriangleup$\hspace{-5.6pt}!}
+\else
+\newcommand{\checkK}{\color{black}\checkmark}
+\newcommand{\cross}{\color{black}\hspace{-3pt}\ding{55}}
+\newcommand{\bigexclaim}{\color{black}$\bigtriangleup$\hspace{-5.6pt}!}
+\fi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% first reset the headers and footers
 
@@ -155,36 +178,51 @@
 		\addtocounter{page}{-1}
 	}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Author notes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\note#1{{\noindent {\color{red}\textbf{NOTA:} #1}}}
 % New Content
 \newcommand{\new}[1]{{\color{blue}\textbf{INICIO CONTEUDO NOVO:}#1 \textbf{FIM CONTEUDO NOVO}\\}}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% ACRONYM (GLOSSARY)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % List of Acronyms leged
 \newcommand{\listofacronymsname}{List of Acronyms}
 % remove the dot (.) at the end of a glossary entry...
 \renewcommand*{\glspostdescription}{}
 
-%%%%%% ENDNOTES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%% ENDNOTES %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Replace all footnotes by endnotes
 \let\footnote=\endnote
 \let\theendnotee=\theendnote
 % Section of endnotes (at the end of a chapter usually)
 \newcommand{\secendnote}{
-	\newpage
-	%\begingroup
-	\parindent 0pt
-	\parskip 2ex
-	\def\enotesize{\normalsize}
-	\def\notesname{Notes of chapter \arabic{chapter}}
-	\def\theendnote{\arabic{chapter}.\theendnotee} %2.1 note menas that is the first note (1) from chapter 2 :)
-	\theendnotes
-	%\endgroup
+	% If we don't have footnotes in a chapter, don't print the footnotes listing
+	\ifnum\value{endnote}=0
+	\else
+		\newpage
+		\begingroup
+		\parindent 0pt
+		\parskip 2ex
+		\def\enotesize{\normalsize}
+		\def\notesname{Notes of chapter \arabic{chapter}}
+		\def\theendnote{\arabic{chapter}.\theendnotee} %2.1 note menas that is the first note (1) from chapter 2 :)
+		\theendnotes
+		\endgroup
+	\fi
 }
-\counterwithin{endnote}{chapter}  % Reset endnote numbering every new chapter
+% Reset endnote numbering every new chapter
+\counterwithin{endnote}{chapter}
 
-%%%%%%%%%%% BEGIN OF LaTeX DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% BEGIN OF LaTeX DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 \pagenumbering{roman}
 \include{acronyms}
@@ -193,10 +231,10 @@
 \include{resumo}
 \include{abstract}
 \dominilof \dominilot \dominitoc
-\tableofcontents \addcontentsline{toc}{chapter}{\contentsname}
-\listoftables    \addcontentsline{toc}{section}{\listtablename}
-\listoffigures   \addcontentsline{toc}{section}{\listfigurename}
-% Print Glossary to the document
+\cleardoublepage \tableofcontents \addcontentsline{toc}{chapter}{\contentsname}
+\cleardoublepage \listoftables    \addcontentsline{toc}{section}{\listtablename}
+\cleardoublepage \listoffigures   \addcontentsline{toc}{section}{\listfigurename}
+% Print Glossary into the document
 \newpage
 \addcontentsline{toc}{section}{\listofacronymsname}
 \printglossary[
