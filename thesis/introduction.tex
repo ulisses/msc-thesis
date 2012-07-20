@@ -1,3 +1,4 @@
+\cleardoublepage
 \begin{savequote}[10pc]
 {%
 \parindent 0pt
@@ -28,7 +29,7 @@ exercising the software in carefully controlled circumstances.
 
 In the most recent period of software history the integration of
 software testing as an important step in the process of
-software development opened up to the origin of \textit{xUnit}\cite{xunit}
+software development opened up to the origin of xUnit\cite{xunit}
 tools and Agile software development.
 Also, \ac{ESA} started to use manual written tests as a part of their
 software development processes.\\
@@ -60,31 +61,36 @@ This protects the investments in the model from changes in technology by definin
 Further the \ac{SMP} specification provides standardised interfaces between the simulation models and the simulation run-time environment for common simulation services as well as a
 number of mechanisms to support inter-model communication.\cite{1A,2A,3A,4A,5A}}, as well as in infrastructure \ac{SIMSAT} simulation.
 This standard is infrastructure agnostic of any space specific model, so any other needs of simulation can be used, such as defense, transport, energy, etc.\\
+\ac{SIMSAT}\footnote{More information in: http://www.egos.esa.int/portal/egos-web/products/Simulators/simsat/intro-sim.html} is composed by $6$ parts:
+\ac{SIMSAT} Kernel is a generic simulation infrastructure that provides the framework to run space systems simulations.
+\ac{SIMSAT} \ac{MMI} is a generic \ac{GUI} enabling the user interaction with the simulator's components.
+Ground Models are a family of \ac{SIMSAT} compatible models enabling a realistic simulations of all ground systems between the spacecraft (or spacecraft model)
+and the control center at \ac{ESOC}\cite{Martin_whitepaper}. These modules are standard and include implementation of uplink and downlink processors.
+Emulator Suite On-board Processor Emulators support the execution in satellite simulators of the real flight software.
+Generic Models a set of generic space models that ease the developments of the spacecraft models used in operational simulators.
+\ac{GSTV} this is a family of test simulators that are based on the generic simulators infrastructure components listed above and are able to support the different levels
+of testing of ground infrastructure systems.\\
 
-Here is a brief description of each component in \ac{SIMSAT}\footnote{More information in: http://www.egos.esa.int/portal/egos-web/products/Simulators/simsat/intro-sim.html}:
-\begin{description}
-\item[\ac{SIMSAT} Kernel] this is a generic simulation infrastructure providing the framework for the running of space systems simulators.
-\item[\ac{SIMSAT} \ac{MMI}] this is a generic Graphical User Interface enabling the user interaction with the simulator's components.
-\item[Ground Models] this is a family of \ac{SIMSAT} compatible models enabling a realistic simulations of all ground systems between the spacecraft (or spacecraft model) and the control centre at \ac{ESOC}.
-\item[Emulator Suite] On-board Processor Emulators support the execution in satellite simulators of the real flight software.
-\item[Generic Models] a set of generic space models that ease the developments of the spacecraft models used in operational simulators.
-\item[\ac{GSTV}] this is a family of test simulators that are based on the generic simulators infrastructure components listed above and are able to support the different levels of testing of ground infrastructure systems.
-\end{description}
-
-Moreover the \ac{SIMSAT} Kernel is made up of several components\footnote{More information in: http://www.egos.esa.int/portal/egos-web/products/Simulators/SIMSAT/}:
-\begin{description}
-\item[Scheduler] is responsible for the co-ordination and processing of all events within the Simulation Kernel. An event on the schedule identifies an action that needs to be performed at a specified point in simulated time.
-\item[Mode Manager] is the simulation state machine. The Simulation has a number of operational modes, which control the operation of the simulation.
-\item[Time-Manager] is responsible for maintaining and providing models and the \ac{MMI} with the correct simulation-Time. It provides time in four formats, Simulation-Time, Epoch-Time, Zulu-Time and Correlated Zulu-Time. this is a family of SIMSAT compatible models enabling a realistic simulations
-\item[Logger] supports the recording of Kernel or model events that occur during a simulation. The log in which the current simulation messages are written is called the active log. The logger also provides a view of the simulation event history in an \ac{MMI} during a simulation session.
-\item[Visualization manager] is responsible for making the values of both model and Kernel data items available for display in an \ac{MMI}.
-\item[State-vector manager] is responsible for the saving and restoring of the state of the simulation. Its main purpose is to allow the Simulation State, at any point in the simulation, to be saved. This allows the user to return to an earlier simulation scenario.
-\item[Command handler] is responsible for the reception and execution of Kernel and user defined commands.a set of generic space models that ease the developments of the spacecraft models used in operational.
-\item[Command procedure] interpreter is responsible for the interpretation of command procedures. A command procedure contains Kernel and User defined simulator commands and supports a procedural language to control the flow of these commands. The execution of command procedures is controlled directly from the \ac{MMI}.
-\end{description}
+The \ac{SIMSAT} Kernel is the part we are interested in performing automatic test generation, because is the main component regarding the simulation.
+The Kernel is made up of several components\footnote{More information in: http://www.egos.esa.int/portal/egos-web/products/Simulators/SIMSAT/} including
+a Scheduler that is responsible for the co-ordination and processing of all events within the Simulation Kernel.
+An event on the schedule identifies an action that needs to be performed at a specified point in simulated time.\\
+A Mode Manager that is the simulation state machine. The Simulation has a number of operational modes, which control the operation of the simulation.\\
+The Time-Manager that is responsible for maintaining and providing models and the \ac{MMI} with the correct simulation-Time,
+it provides time in four formats, Simulation-Time, Epoch-Time, Zulu-Time and Correlated Zulu-Time, this is a family of \ac{SIMSAT}
+compatible models enabling a realistic simulations.\\
+The Logger supports the recording of Kernel or model events that occur during a simulation.
+The log in which the current simulation messages are written is called the active log.
+The logger also provides a view of the simulation event history in an \ac{MMI} during a simulation session.\\
+The Visualization manager is responsible for making the values of both model and Kernel data items available for display in an \ac{MMI}.
+State-vector manager is responsible for the saving and restoring of the state of the simulation. Its main purpose is to allow the Simulation State, at any point in the simulation, to be saved. This allows the user to return to an earlier simulation scenario.\\
+Command handler is responsible for the reception and execution of Kernel and user defined commands.a set of generic space models that ease the developments of the spacecraft models used in operational.\\
+Command procedure interpreter is responsible for the interpretation of command procedures.
+A command procedure contains Kernel and User defined simulator commands and supports a procedural language to control the flow of these commands.
+The execution of command procedures is controlled directly from the \ac{MMI}\cite{1996ESASP.394..399L}.
 
 Right now, to be able to perform tests in the Operational Simulator, in order to validate \ac{SIMSAT}, \ac{VST} Engineers need to write scripts that
-perform simulations and validate the results using GUI interfaces (\ac{SIMSAT} \ac{MMI}). This job can be tedious and difficult to replicate.\\
+perform simulations and validate the results using \ac{GUI} (\ac{SIMSAT} \ac{MMI}). This job can be tedious and difficult to replicate.\\
 So a first solution will have to go through a preliminary study of the tools
 that currently exist with which we can generate tests automatically.
 By studding these tools we do not hope to find the perfect solution, but combine techniques to obtain an optimal solution to improve \ac{VST} work.

@@ -1,3 +1,4 @@
+\cleardoublepage
 \chapter{Exploring some Testing Tools}
 \minitoc
 
@@ -27,7 +28,7 @@ Nevertheless, PathCrawler was able to give a full coverage for this simple funct
 \setlength{\tabcolsep}{10pt}
 \centering
 \noindent \begin{tabular}{|c|c|c|}\hline
-Result & p & return value\\\hline
+\textbf{Result} & \textbf{p} & \textbf{return value}\\\hline
 \checkK & Point\{x=1,y=42\} & 1 \\\hline
 \checkK & Point\{x=177407,y=109471\} & 0 \\\hline
 \end{tabular}
@@ -64,7 +65,7 @@ for $BinarySearch$ function:  $lo\leq~x<hi$. In Table \ref{tab:bsearch} is shown
 \renewcommand{\arraystretch}{1.3}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|}\hline
-Result & x & n & return value \\\hline
+\textbf{Result} & \textbf{x} & \textbf{n} & \textbf{return value} \\\hline
 \checkK & -189424 & -140714 & 0 \\\hline
 \checkK & 157819 & 0 & 0 \\\hline
 \checkK & 1 & 1610612736 & 2 \\\hline
@@ -130,7 +131,7 @@ The output table can be seen in Table \ref{tab:point}, with the inputs and outpu
 \setlength{\tabcolsep}{1pt}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|}\hline
-Result & p & Output/Exception & Error Message\\\hline
+\textbf{Result} & \textbf{p} & \textbf{Output/Exception} & \textbf{Error Message}\\\hline
  &  &  & Object ref. not set \\
 \cross & null  & NullReferenceException & to an instance \\
  &  &  & of an object.\\\hline
@@ -169,7 +170,7 @@ Pex was able to generate an input that could not pass in the assertion inerted i
 \setlength{\tabcolsep}{1pt}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|c|}\hline
-Result & x & n & result & Output/Exception \\\hline
+\textbf{Result} & \textbf{x} & \textbf{n} & \textbf{result} & \textbf{Output/Exception}\\\hline
 \checkK & 0 & 0 & 0      & \\\hline
 \checkK & 0 & 1 & 1      & \\\hline
 \checkK & 0 & 3 & 1      & \\\hline
@@ -215,7 +216,7 @@ In this particular case we could increment the number of $MaxConditions$: $[PexM
 \renewcommand{\arraystretch}{1.3}
 \centering
 \noindent \begin{tabular}{|c|c|c|c|c|}\hline
-Result & day & out year & Output/Exception\\\hline
+\textbf{Result} & \textbf{day} & \textbf{out year} & \textbf{Output/Exception}\\\hline
 \checkK & 0 & 1980 & \\\hline
 \checkK & 367 & 1981 & \\\hline
 \bigexclaim & 366 & & path bounds exceeded\\\hline
@@ -331,16 +332,30 @@ a $LinkedList$ structure and returns $Bool$ whenever this structure follows the 
 Using this specification, Korat generated the 2 structures shown in Figure \ref{fig:inst1} and \ref{fig:inst2}. In Figure \ref{fig:inst1} with $2$ elements
 and in Figure \ref{fig:inst2} an instance with $5$ elements.
 
-\begin{figure}[!ht]
-\center \includegraphics[width=.3\textwidth]{images/ll1}
-\caption{Instance with $2$ elements for $LinkedList$}
-\label{fig:inst1}
-\end{figure}
+%\begin{figure}[!ht]
+%\center \includegraphics[width=.3\textwidth]{images/ll1}
+%\caption{Instance with $2$ elements for $LinkedList$}
+%\label{fig:inst1}
+%\end{figure}
+%
+%\begin{figure}[!ht]
+%\center \includegraphics[width=.3\textwidth]{images/ll2}
+%\caption{Instance with $5$ elements for $LinkedList$}
+%\label{fig:inst2}
+%\end{figure}
 
 \begin{figure}[!ht]
-\center \includegraphics[width=.3\textwidth]{images/ll2}
-\caption{Instance with $5$ elements for $LinkedList$}
-\label{fig:inst2}
+\centerline{
+\subfloat[Instance with $2$ elements for $LinkedList$]{
+\includegraphics[width=.3\textwidth]{images/ll1}
+\label{fig:inst1}
+}
+\hfil
+\subfloat[Instance with $5$ elements for $LinkedList$]{
+\includegraphics[width=.25\textwidth]{images/ll2}
+\label{fig:inst2}}}
+\caption{Examples of generated instances from Korat for $LinkedList$ class.}
+\label{fig:insts}
 \end{figure}
 
 \subsection{Summary}
@@ -358,8 +373,8 @@ In Table \ref{tab:tabcmp} we can see a brief comparison between all the experime
 
 \begin{table}[!ht]
 \centering
-\begin{tabular}{|m{2cm}|m{2cm}|m{2cm}|m{2cm}|m{2cm}|m{2cm}|}\hline
-Name & Target Language & Black/White-box & Additional Input & Output & Comments\\\hline
+\begin{tabular}{|m{2.5cm}|m{1cm}|m{2cm}|m{2cm}|m{3.5cm}|m{3.5cm}|}\hline
+\textbf{Name} & \textbf{Target Language} & \textbf{Type} & \textbf{Additional Input} & \textbf{Output} & \textbf{Comments}\\\hline
 \textbf{PathCrawler} & C & White-box (symbolic execution) & Test vectors & Constraints about the executed paths & Too Complex\\\hline
 \textbf{Pex} & C\# & White-box (symbolic execution) & -- & Unit Tests & Poor generated data instances (objects)\\\hline
 \textbf{Korat} & JAVA & Black-box & Invariants written in JAVA & Graphical form of data structures (using Alloy-GraphViz) & Powerful generating valid data instances\\\hline
@@ -369,16 +384,26 @@ Name & Target Language & Black/White-box & Additional Input & Output & Comments\
 \end{table}
 
 \begin{figure}[!ht]
-\center \includegraphics[width=.3\textwidth]{images/pex1}
-\label{fig:pexinst1}
-\caption{Example of Pex generated $LinkedList$ instance to test $Remove$ method}
+\centerline{
+\subfloat[Example of Pex generated $LinkedList$ instance to test $Remove$ method]{
+\includegraphics[width=.25\textwidth]{images/pex1}\label{fig:pexinst1}
+}
+\hfil
+\subfloat[Example of Pex generated $LinkedList$ instance to test $Find$ method]{
+\includegraphics[width=.25\textwidth]{images/pex2}\label{fig:pexinst2}}}
+\caption{Examples of generated instances from Pex for $LinkedList$ class.}\label{fig:pexG}
 \end{figure}
+%\begin{figure}[!ht]
+%\center \includegraphics[width=.3\textwidth]{images/pex1}
+%\label{fig:pexinst1}
+%\caption{Example of Pex generated $LinkedList$ instance to test $Remove$ method}
+%\end{figure}
 
-\begin{figure}[!ht]
-\center \includegraphics[width=.3\textwidth]{images/pex2}
-\label{fig:pexinst2}
-\caption{Example of Pex generated $LinkedList$ instance to test $Find$ method}
-\end{figure}
+%\begin{figure}[!ht]
+%\center \includegraphics[width=.3\textwidth]{images/pex2}
+%\label{fig:pexinst2}
+%\caption{Example of Pex generated $LinkedList$ instance to test $Find$ method}
+%\end{figure}
 
 %\section{Conclusion}\label{Concl}
 %Looking for an efficient solution to automatically generate complete test sets for complex and critical C++ software,
