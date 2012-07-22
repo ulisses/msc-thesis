@@ -80,9 +80,7 @@ system in space projects/programmes\cite{ecss-s-st-00c}.\\
 Under this document there are three parallel branches, the branche dedicated to project management,
 engineering, and product assurance.
 Project management branch documents have an "M" prefix, engineering standards have an "E" prefix, and product assurance standards have a "Q" prefix.
-
-Within each branch, disciplines and corresponding requirements are covered by
-dedicated standards.
+Within each branch, disciplines and corresponding requirements are covered by dedicated standards.
 Standards are normative document written specifically for direct use in invitation to tender and 
 business agreements for implementing space related activities. Its content 
 strictly limited to the statement of verifiable customer requirements, supported 
@@ -318,7 +316,7 @@ using their user interface\footnote{See more at: \url{http://www.all4tec.net/ind
 \end{description}
 The relevant ones or the recent open-source ones will be discussed.
 
-\subsubsection{Spec Explorer}
+\paragraph{Spec Explorer}
 This is a Microsoft model-based testing that uses one software modeling languages, the \ac{AsmL}.
 This modeling language provides the foundations of the Spec Explorer\footnote{See more at: \url{http://research.microsoft.com/en-us/projects/specexplorer/}} tool
 and Spec\# that is a formal language for \ac{API} contracts (influenced by \ac{JML}, \ac{AsmL}, and Eiffel), which extends C\# with constructs for non-null types,
@@ -331,7 +329,7 @@ It searches throw all possible sequences of methods invocation that do not viola
 that are relevant to a user-specified set of test properties. After that we can generate from this visual graphs the unit tests (the arrows) and the
 test cases (a graph).
 
-\subsubsection{JMLUnit}
+\paragraph{JMLUnit}
 JMLUnit\cite{Cheon04thejml} is a tool that automates the generation of oracles for JAVA testing classes. This tool
 monitors the specified behavior of the method being tested to decide whether the test passed or failed.
 This monitoring is done using the formal specification language runtime assertion checker.
@@ -341,7 +339,7 @@ test results. So, the post-conditions became the test oracles.\\
 This tool uses the \ac{JML}\cite{Burdy03anoverview} specification language to annotate JAVA methods code with pre- and post-conditions and
 automatically generate JUnit test classes from \ac{JML} specifications.
 
-\subsubsection{TestEra}
+\paragraph{TestEra}
 TestEra\cite{testera} can be used to perform automated specification-based testing of
 JAVA programs. This framework requires as input a JAVA method, a formal specification\footnote{Specifications are first-order logic formulae.}
 of the pre and post-conditions of that method, and a bound that limits the size of the test cases to be generated.\\
@@ -354,7 +352,7 @@ all formulae in the specification evaluate to true.} \ac{SAT} system to analyze 
 The authors claim that have used TestEra to check several JAVA programs including an architecture for
 dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods from the JAVA Collection Framework.
 
-\subsubsection{Korat}
+\paragraph{Korat}
 Korat\cite{Boyapati02korat:automated} is a mature framework for automated testing structurally complex inputs of JAVA programs.
 Given a formal specification for a method, Korat\footnote{See more at: \url{http://korat.sourceforge.net/}} uses the method pre-condition
 to automatically generate all (non-isomorphic) test cases up to a given small size.
@@ -381,7 +379,7 @@ There are some tools out there, like:
 
 Here two tools will be explained, one proprietary and other academic.
 
-\subsubsection{Pex} Pex\cite{Tillmann:2008:PWB:1792786.1792798} is an automatic white-box test generation tool for .NET. Starting from a
+\paragraph{Pex} Pex\cite{Tillmann:2008:PWB:1792786.1792798} is an automatic white-box test generation tool for .NET. Starting from a
 method that takes parameters, Pex performs path-bounded model-checking
 by repeatedly executing the program and solving constraint systems to obtain inputs that will steer the program along different execution paths.
 This uses the idea of dynamic symbolic execution\cite{Tillmann06unittests}. Pex uses the theorem prover and
@@ -394,7 +392,7 @@ The result is an automatically generated small test suite which often achieves h
 Pex can be used in a project, class or method (which makes it a very helpful and versatile tool). After the analysis process the "Pex Explorarion Results" shows
 the $input \times output$ pairs selected for each test case for the method, here it also shows the percentage of the test coverage.
 
-\subsubsection{PathCrawler} This is an academic tool based on dynamic and static analysis\cite{Williams05pathcrawler:automatic}, 
+\paragraph{PathCrawler} This is an academic tool based on dynamic and static analysis\cite{Williams05pathcrawler:automatic}, 
 it uses constraint logic programming to generate the Test-cases. PathCrawler\footnote{See more at: \url{http://www-list.cea.fr/labos/gb/LSL/test/pathcrawler/index.html}} executes an instrumented function for each function under test
 with the generated inputs, it preserves this information to not cover the same path.\\
 This tool supports assertions in any point in the code and pre-conditions regarding the input values.
@@ -404,7 +402,7 @@ In this approach inputs to a system under test are defined by a context-free gra
 Using this approach to describe the syntax of the input to the system under test proves to be very helpful to test
 network protocols\cite{tal:syntax-based,kaksonen2001functional} and parsers and compilers\cite{1994-burgess,Burgess_Saidi_1996}.
 
-\subsubsection{ASTGen}
+\paragraph{ASTGen}
 ASTGen\cite{Daniel:2007:ATR:1287624.1287651} is a JAVA framework that automates testing of refactoring engines: generation of test inputs
 and checking of test outputs. The main technique is an iterative generation of structurally complex test inputs.
 ASTGen\footnote{See more at: \url{http://mir.cs.illinois.edu/astgen/}} allows developers to write imperative generators whose executions
@@ -424,7 +422,7 @@ The data obtained from random testing can then be used to find bugs or non expec
 \indent The main problem regarding random generation is the problem of the coverage, it is possible that it will not be broad enough. And furthermore it can be
 too sparse to actually test specifics parts of the program. Either way, this technique proves to be very effective for testing compilers.
 
-\subsubsection{Csmith}
+\paragraph{Csmith}
 Csmith\cite{Yang:2011:FUB:1993316.1993532} is a black-box random tests generator that is able to generate C programs
 conform to the C99\footnote{See more at: \url{http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf}} standard. This is a very recent tool that already discover
 more than 195 bugs in \ac{LLVM} and 79 bugs in \ac{GCC}. With Csmith we are able to generate random programs with unambiguous meanings (undefined behavior or 
@@ -432,7 +430,7 @@ unspecified behavior). Does not attempt to generate terminating program, so they
 And the main supported features right now are: Arithmetic, logical, and bit operations on integers, Loops, Conditionals, Function calls, Const and volatile,
 Structs and Bitfields, Pointers and arrays, Goto, Break and continue. The generation of code regarding this features can be tuned using the command line program.
 
-\subsubsection{QuickCheck for JAVA}
+\paragraph{QuickCheck for JAVA}
 QuickCheck was originally a combinator library for the Haskell\footnote{See more at haskell.org} programming language\cite{Claessen:2000:QLT:357766.351266}.
 Later on QuickCheck philosophy spread to other programming languages like: JAVA, Erlang, Perl, Ruby and JavaScript.\\
 QuickCheck works by generating high amounts of data (within the method domain) and checking it against a given property,
