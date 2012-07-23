@@ -4,6 +4,11 @@
 \new{
 In this chapter is discussed\ldots
 \section{Standardization in Space Industry}
+Software products for space industry tends to be a part of a network composed by several systems. This space systems include manned and unmanned spacecraft,
+launchers, payloads, experiments and their associated ground equipment and facilities\cite{Mattiello-FranciscoSanAmbJogCos:2007:BrSoIn}.
+This kind of projects are generally  expensive, demand considerable amount of time to be completed and have different companies and countries participating.\\
+Trying to get a standard way to follow all rules to deliver the components with the same degree of quality and reliability is extremely important.\\
+
 Software development for Space, particularly in Europe, follows very specific rules on international standards. This standards not only define how a software project should
 evolve but also how every component developed in the field of Space Industry should be done, tested, documented, deployed and maintained.
 This include not only software but many more artefacts like: Electrical, Mechanical, Material components, etc.\\
@@ -187,6 +192,25 @@ applicable to the project, modify or exceptionally add requirement for specific 
 Tailoring is an important task in order to deliver a suitable product or service considering the costumer needs.
 
 \subsection{ECSS-Q-80 and Testing}
+Software development projects tend to be specific depending on the application domain and 
+space software projects are not an exception. This projects tend to have particular dynamics than software projects
+in other domains because space software development pose additional challenges due to its inherent
+requirement that the end products should be highly dependable.
+The criticality factor of those systems (sometime life critical) tend to have different more stringent requirements and approaches 
+compared to less critical software projects, so
+the existing software engineering standards are not enough to cope with these challenges, this is why \ac{ECSS} has developed a set of standards for European
+space projects\cite{Ahmad2010AgileECSS,10.1109/SESS.1997.595952}.
+This is why \ac{ECSS} have a particular E branch standard completely dedicated to "Software Product Assurance" --- The ECSS-Q-80\cite{ecss-q-st-80c}.\\
+
+The fundamental principle of this standard is to facilitate the
+customer-supplier relationship assumed for all software developments, at all levels.
+They have contributed to these objectives by providing a set of requirements to be
+met throughout the system lifetime which involves the development and
+maintenance of space application software. Such requirements deal with quality
+management and framework, lifecycle activities and process definition, and quality
+characteristics of the software product\cite{Mattiello-FranciscoSanAmbJogCos:2007:BrSoIn}.
+The main objective of this standard is to provide the customer with adequate confidence about the software product.
+
 Description from\cite{ecss-q-st-80c}
 \begin{description}
 \item[Level A] Software that if not executed, or if not correctly executed, or whose anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Catastrophic consequences};
