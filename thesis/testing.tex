@@ -231,7 +231,9 @@ The Critical level corresponds to Temporarily disabling but not life-threatening
 Major damage to interfacing flight system; Major damage to ground facilities; Major damage to public or private property;
 and Major detrimental environ- mental effects. The result of having a software component fail this level leaves to a loss of mission.\\
 The other two levels: Major and Minor leaves to Major mission degradation and Minor mission degradation with no or negligible safety results in the mission.
-Table \label{tab:severity} have this information summarized\cite{ecss-q-st-40c}.
+In Table \ref{tab:severity} we have the \ac{ECSS} Severity Classification of consequences information summarized acording to \cite{ecss-q-st-40c}.
+According to the standard
+when several categories can be applied to the system or system component, the highest severity takes priority.
 \begin{table}[!ht]
 \centering
 \noindent \begin{tabular}{|c|c|m{4cm}|m{5cm}|}\hline
@@ -254,7 +256,24 @@ Temporarily disabling but not life-threatening injury, or temporary occupational
 \caption{\protect\ac{ECSS} Severity Classification of consequences}\label{tab:severity}
 \end{table}
 
-Table from \cite{ecss-q-st-40c}
+To ensure more security about the source code, regarding the severity level, \ac{ECSS} standards, namely \cite{ecss-q-st-40c}
+consider the application of formal tools to verify the source code. But at the same time, a major emphasis to software testing.
+\ac{ECSS} divides the the test effort regarding the criticality of the source code.
+If the source code is classified as Level A then the tests for that piece of software should meet 100\% in
+three different categories: Source code statement coverage, Source code decision coverage and Source code modified condition and decision coverage.\\
+Statement coverage measure of the part of the program within which every executable source code statement has been invoked at least once.
+Decision coverage measure of the part of the program within which every point of entry and exit
+is invoked at least once and every decision has taken TRUE and FALSE
+at least once (this includes statement coverage).
+Modified condition and decision coverage measure of the part of the program within which every point of entry and exit
+has been invoked at least once, every decision in the program has taken TRUE and FALSE values at least once, and each condition in a decision has been
+shown to independently affect that decision's outcome. A condition is shown to independently affect a
+decision's outcome by varying that condition while holding fixed all other possible conditions.\\
+If the source code is classified as Level B then the tests for that piece of software should meet 100\% in the first two categories of testing and should be
+agreed with the costumer the value for to meet regarding Source code modified condition and decision coverage.
+If the source code is classified as Level C or D then the tests for all the three categories should be agreed with the costumer.
+In the following Table \ref{tab:ccoverage} this information is summarized.
+
 \begin{table}[!ht]
 \centering
 \noindent \begin{tabular}{|m{6cm}|c|c|c|c|}
