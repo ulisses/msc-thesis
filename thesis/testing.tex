@@ -209,9 +209,13 @@ met throughout the system lifetime which involves the development and
 maintenance of space application software. Such requirements deal with quality
 management and framework, lifecycle activities and process definition, and quality
 characteristics of the software product\cite{Mattiello-FranciscoSanAmbJogCos:2007:BrSoIn}.
-The main objective of this standard is to provide the customer with adequate confidence about the software product.
+Therefore the main objective of this standard is to provide the customer with adequate confidence about the software product.\\
 
-Description from\cite{ecss-q-st-80c}
+In order to improve greater security in the code that is produced for space industry, the standard ECSS-Q-80\cite{ecss-q-st-80c} defines
+some levels of criticality of the software, depending on their use in the mission.
+This categorization is separate into 4 levels (A,B,C and D) regarding what can happen if the software fails or if it is not executed.
+In the following listing we can see the classification:
+
 \begin{description}
 \item[Level A] Software that if not executed, or if not correctly executed, or whose anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Catastrophic consequences};
 \item[Level B] Software that if not executed, or if not correctly executed, or whose anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Critical consequences};
@@ -219,7 +223,15 @@ Description from\cite{ecss-q-st-80c}
 \item[Level D] Software that if not executed, or if not correctly executed, or whose anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Minor or Negligible consequences}.
 \end{description}
 
-Table from \cite{ecss-q-st-40c}
+Each Severity level is intrinsically connected to a level of safety into the mission. Catastrophic corresponds to
+Loss of life, life-threatening or permanently disabling injury or occupational illness; Loss of system; 
+Loss of an interfacing manned flight system; Loss of launch site facilities; and Severe detrimental environ- mental effects. The result
+of having a software component fail within this level leaves to a major failures propagation in the mission.\\
+The Critical level corresponds to Temporarily disabling but not life-threatening injury, or temporary occupational illness;
+Major damage to interfacing flight system; Major damage to ground facilities; Major damage to public or private property;
+and Major detrimental environ- mental effects. The result of having a software component fail this level leaves to a loss of mission.\\
+The other two levels: Major and Minor leaves to Major mission degradation and Minor mission degradation with no or negligible safety results in the mission.
+Table \label{tab:severity} have this information summarized\cite{ecss-q-st-40c}.
 \begin{table}[!ht]
 \centering
 \noindent \begin{tabular}{|c|c|m{4cm}|m{5cm}|}\hline
