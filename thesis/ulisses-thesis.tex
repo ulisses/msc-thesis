@@ -8,7 +8,6 @@
 \usepackage[english]{babel}
 \usepackage{amssymb, amsmath} %math functions
 \usepackage[T1]{fontenc}
-%\usepackage{ae}
 \usepackage[utf8x]{inputenc}
 \usepackage{url}
 
@@ -16,7 +15,6 @@
 \usepackage{listings}
 \usepackage{multirow}
 \usepackage{tabularx}
-%\usepackage{colortbl}
 \usepackage{rotating} % for the rotated columns of table
 
 % my imports
@@ -27,14 +25,13 @@
 \usepackage{cite}
 \usepackage[avantgarde]{quotchap}
 \usepackage[english]{minitoc}
-\usepackage{pgf}
 \usepackage{color,graphicx}
 \usepackage[all]{xy}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DEFINE THE COLOR OF THE DOCUMENT
 % use \def\bw{1} to generate the document in black and white
- \def\bw{1}
+% \def\bw{1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifx\bw\undefined
@@ -236,11 +233,12 @@
 \include{acknowledgements}
 \include{resumo}
 \include{abstract}
+
 \dominilof \dominilot \dominitoc
 \cleardoublepage \tableofcontents   \addcontentsline{toc}{chapter}{\contentsname}
 \cleardoublepage \listoftables      \addcontentsline{toc}{section}{\listtablename}
 \cleardoublepage \listoffigures     \addcontentsline{toc}{section}{\listfigurename}
-%\cleardoublepage \lstlistoflistings \addcontentsline{toc}{section}{\lstlistlistingname}
+\cleardoublepage \lstlistoflistings \addcontentsline{toc}{section}{\lstlistlistingname}
 % Print Glossary into the document
 \newpage
 \addcontentsline{toc}{section}{\listofacronymsname}
