@@ -80,9 +80,10 @@
         showtabs=false,
 		numbers=left,
 		numberstyle=\footnotesize,
-		xleftmargin=15pt
+		xleftmargin=15pt,
+		captionpos=b % caption below :)
 }
-\lstnewenvironment{code}{\lstset{language=codeTTN}}{}
+\lstnewenvironment{code}[1][]{\lstset{language=codeTTN,caption=#1}}{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifx\bw\undefined
 \newcommand{\checkK}{\color{green}\checkmark}
@@ -220,6 +221,9 @@
 % Reset endnote numbering every new chapter
 \counterwithin{endnote}{chapter}
 
+%listings
+\renewcommand*{\lstlistlistingname}{List of Listings}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% BEGIN OF LaTeX DOCUMENT
@@ -233,9 +237,10 @@
 \include{resumo}
 \include{abstract}
 \dominilof \dominilot \dominitoc
-\cleardoublepage \tableofcontents \addcontentsline{toc}{chapter}{\contentsname}
-\cleardoublepage \listoftables    \addcontentsline{toc}{section}{\listtablename}
-\cleardoublepage \listoffigures   \addcontentsline{toc}{section}{\listfigurename}
+\cleardoublepage \tableofcontents   \addcontentsline{toc}{chapter}{\contentsname}
+\cleardoublepage \listoftables      \addcontentsline{toc}{section}{\listtablename}
+\cleardoublepage \listoffigures     \addcontentsline{toc}{section}{\listfigurename}
+%\cleardoublepage \lstlistoflistings \addcontentsline{toc}{section}{\lstlistlistingname}
 % Print Glossary into the document
 \newpage
 \addcontentsline{toc}{section}{\listofacronymsname}
