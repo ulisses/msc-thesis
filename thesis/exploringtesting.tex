@@ -79,9 +79,8 @@ for $BinarySearch$ function:  $lo\leq~x<hi$.\\
 As we can see in Table \ref{tab:bsearch} PathCrawler was able to reach all the \ac{CFG} for this code.
 It was able to generate input for the simplest case: not execute the loop, the first two examples in Table \ref{tab:bsearch}.
 In the third, forth and fifth lines of the table, namely $(1,1610612736)$, $(2,805306368)$ and $(11,1610612736)$ was able to reach the
-if statement in the first loop iteration, and the else statement some iterations later.
+if statement in the first loop iteration, and the else statement in subsequent iterations.
 }
-
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
 \centering
@@ -96,8 +95,9 @@ if statement in the first loop iteration, and the else statement some iterations
 \caption{Output Table for $BSearch$ function using PathCrawler} \label{tab:bsearch}
 \end{table}
 
-PathCrawler was tried with the following function that calculates the year of the $n^{th}$ day after 1980-01-01.
-
+\new{
+PathCrawler was also submitted with the third function that calculates is a given year is leap year or not.
+}
 \begin{code}[{Predicate to verify if is a leap year in C}]
 int IsLeapYear(int year) {
   return (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0));
@@ -251,10 +251,13 @@ In this particular case we could increment the number of $MaxConditions$: $[PexM
 \end{table}
 
 \subsection{Korat}
-Like was explained before, Korat generates a graphical representation of the structure instances that validates the property $repOK$. This property was written using JAVA code.\\
-In order to test the freelly available version of Korat, a Doubly Linked List structure was created in JAVA.
+Like was explained before, Korat generates a graphical representation of the structure instances that validates the property $repOK$.
+\new{The $repOK$ property is written using JAVA code and is a predicate (a function that returns a Boolean value) representing the class invariants
+of that JAVA class. Because the freely available version of Korat is not able to generate testcases, we just show the results for that freely version.
+We have created a Doubly Linked List structure in JAVA as shown in Listing \ref{lst:lljava}.
+}
 
-\begin{code}[{LinkedList class in JAVA}]
+\begin{code}[{LinkedList class in JAVA},label=lst:lljava]
 public class LinkedList<T> {
   public static class LinkedListElement<T> {
     public T Data;
@@ -272,8 +275,7 @@ public class LinkedList<T> {
 \newcommand{\subseteqL}{\mathbin{\subseteq\mkern-4mu\subseteq}}
 \newcommand{\inL}{\mathbin{\in\mkern-4mu\in}}
 
-Now the $repOK$ predicate method must be defined.
-This predicate method will check that the tree doesn't have any cycles and that the number of nodes traversed from root matches the value of the field size.
+The $repOK$ predicate method will check that the LinkedList class doesn't have any cycles and that the number of nodes traversed from root matches the value of the field size.
 First was defined the properties about this data structure. The most relevant ones are property \ref{eq:linked} in Figure \ref{fig:formulae} that
 ensures the structure and property \ref{eq:uniq} that ensures our doubly linked list does not have repeated elements.\\
 Consider $e,e_1,e_2 \in LinkedListElement$ and $i$ the index function: $i : LinkedListElement \rightarrow int$, that receives an element of $LinkedList$ and
@@ -303,10 +305,11 @@ As a matter of avoiding verbosity two symbols were defined ($\inL$ and $\subsete
 \label{fig:formulae}
 \end{figure*}
 
-We took the properties described in Figure \ref{fig:formulae} and use them to restrict the generation of structures as we can see in the following Java implementation code.
+We took the properties described in Figure \ref{fig:formulae} and use them to restrict the generation of data structures
+as we can see in the JAVA implementation code Listing \ref{lst:repok} representing the invariants in Figure \ref{fig:formulae}.
 Note that we using short-circuiting, so we return $false$ as soon as we can. This way Korat will be able to generate faster the instances matching our criteria.
 
-\begin{code}[{repOK Korat method for LinkedList class in JAVA}]
+\begin{code}[{repOK Korat method for LinkedList class in JAVA},label=lst:repok]
 public boolean repOK() {
   if(Head == null || Tail == null)
     return size == 0;
@@ -334,9 +337,11 @@ public boolean repOK() {
 }
 \end{code}
 
-The last step was defining the finitization method, this way we tell Korat how to bound the input space.
-
-\begin{code}[{Finitization Korat method for LinkedList class in JAVA}]
+\new{These invariants could not be inferred in an automatic form, so it must be written by the developer or the person in charge for the verification.
+The last step to be able to put the Korat example to work is the definition of the finitization method, this way we tell Korat how to bound the input space as 
+we can see in Listing \ref{lst:finit}.
+}
+\begin{code}[{Finitization Korat method for LinkedList class in JAVA},label=lst:finit]
 public static IFinitization finLL(int nodesNum, int minSize, int maxSize) {
   IFinitization f = FinitizationFactory.create(LL.class);
   IObjSet nodes = f.createObjSet(LinkedListElement.class, nodesNum, true);
@@ -349,11 +354,14 @@ public static IFinitization finLL(int nodesNum, int minSize, int maxSize) {
 }
 \end{code}
 
-The properties in Figure \ref{fig:formulae} were taken and used to restrict the generation of structures using Java. So the $repOK$ method that receives
+The properties in Figure \ref{fig:formulae} were derived and used to restrict the generation of structures using Java. So the $repOK$ method that receives
 a $LinkedList$ structure and returns $Bool$ whenever this structure follows the invariants in \ref{fig:formulae} was defined.
 Using this specification, Korat generated the 2 structures shown in Figure \ref{fig:inst1} and \ref{fig:inst2}. In Figure \ref{fig:inst1} with $2$ elements
 and in Figure \ref{fig:inst2} an instance with $5$ elements.
-
+\new{
+As we can see both the generated
+structures present exactly the shape we were expecting to be in order to comply with the invariants of the LinkedList class.
+}
 \begin{figure}[!ht]
 \centerline{
 \subfloat[Instance with $2$ elements for $LinkedList$]{
