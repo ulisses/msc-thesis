@@ -66,6 +66,8 @@
 \pdfpageheight=\paperheight
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Listings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \lstdefinelanguage{codeTTN}
 {
         basicstyle=\ttfamily\footnotesize,
@@ -81,6 +83,7 @@
 		captionpos=b % caption below :)
 }
 \lstnewenvironment{code}[1][]{\lstset{language=codeTTN,caption=#1}}{}
+\renewcommand*{\lstlistlistingname}{List of Listings}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifx\bw\undefined
 \newcommand{\checkK}{\color{green}\checkmark}
@@ -182,7 +185,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\note#1{{\noindent {\color{red}\textbf{NOTA:} #1}}}
 % New Content
-\newcommand{\new}[1]{{\linenumbers\color{blue}#1}}
+%\newcommand{\new}[1]{{\linenumbers\color{blue}#1}}
+\newcommand{\new}[1]{{\color{blue}#1}}
 %\newcommand{\new}[1]{{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -217,9 +221,6 @@
 }
 % Reset endnote numbering every new chapter
 \counterwithin{endnote}{chapter}
-
-%listings
-\renewcommand*{\lstlistlistingname}{List of Listings}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -3,11 +3,21 @@
 \minitoc
 
 \section{Using the tools}\label{testingtools}
-After introducing the theory and the techniques that support each tool, some of the tools will be demonstrated in action, resorting to small but illustrative examples
-on how each tool can help us to find good test cases.\\
+\new{
+After doing a theoretical study on the existing techniques to perform automated testing, it was necessary to experiment some of the tools that currently implement these techniques.
+Some of this tools will be demonstrated in action, resorting to small but illustrative examples
+on how each tool can help us to find good test cases taking into account our aim of coverage code.\\
+We will consider three samples of code which has the particularities of interest for the type of code we're interested in testing.
+Therefore will be considered an example of multiplication of the coordinates of an object (structure) point,
+with just a simple condition in the code. The purpose of this exercise is to be the simplest possible example with an if statement.
+The second example will be a binary search algorithm that verifies if a number is in a giver range of numbers, this algorithm
+was chosen because it have a while statement and inside have a if statement, therefore is slightly more complex than the previous one.
+The third and last example used here to test the tools is a predicate that verifies if a particular year is leap year. This example
+is very interesting because it has more complex conditions in the if statements and, like the second one, has also a loop.
+}
 
 \subsection{PathCrawler}
-Concerning the first case  a simple example will be used based on a function that performs a multiplication, creating a simple branch on the code.
+Concerning the first case a simple example will be used based on a function that performs a multiplication, creating a simple branch on the code.
 \begin{code}[{Multiplication of a Point coordinates in C}]
 typedef struct s {
     int x;
@@ -20,8 +30,11 @@ int Multiply(Point p) {
 }
 \end{code}
 Pointers were tried instead of coping the structure as a parameter to $Multiply$ function, but PathCrawler was not able to run.
-
+\new{We have found that PathCrawler is very limited and is almost not possible to use it in real projects.
 Nevertheless, PathCrawler was able to give a full coverage for this simple function as you can see in Table \ref{tab:mul}.
+For Point $(1,42)$ it was able to find a result, so it was possible to generate a testcase for this code branch.
+PathCrawler also tried to generate a number for the Point structure coordinates where the condition is not valid, so for the Point $(177407,109471)$ it was able
+to fail the is statement, so the return value is $0$.}
 
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
@@ -35,7 +48,12 @@ Nevertheless, PathCrawler was able to give a full coverage for this simple funct
 \caption{Output Table for $Multiply$ function using PathCrawler}\label{tab:mul}
 \end{table}
 
-Regarding our second example a function that performs a binary search in order to find if a number is in a given range (between two bounds).
+Regarding our second example a function that performs a binary search in order to find if a number is in a given range (between two bounds) we have used
+a special function that PathCrawler have: $pathcrawler\_assert$, this function can be used at any location in the
+program under test, and will force PathCrawler to generate test cases to cover both the case where its argument is true and the case where it is false.
+\new{This feature may be seen as another way to write an oracle. We have written an invariant in that point of the code: $mid \ge lo \wedge mid < hi$.
+This was the only way we find to be able to force PathCrawler to generate testcases for the if statement.
+}
 
 \begin{code}[{Binary Search in C}]
 int BSearch(int x, int n) {
@@ -52,14 +70,17 @@ int BinarySearch(int x, int lo, int hi) {
     return lo; 
 }
 \end{code}
-A function that PathCrawler gives to us has been used: $pathcrawler\_assert$, this function can be used at any location in the
-program under test, and will force PathCrawler to generate test cases to cover both the case where its argument is true and the case where it is false.
-This feature may be seen as another way to write an oracle.\\
 The results were interesting: 31 covered paths and 44 infeasible paths and the test was interrupted by PathCrawler,
 because PathCrawler reach the maximal test session time (the user can increase this number, but for this example is left the default value).\\
 A further analysis of the results demonstrated that 28 out of the 44 infeasible paths discovered appeared when PathCrawler tried to
 do the assertion in line 8. No pre-condition was written, so PathCrawler does not know that this is a pre-condition
-for $BinarySearch$ function:  $lo\leq~x<hi$. In Table \ref{tab:bsearch} is shown some of the test inputs generated for this example.
+for $BinarySearch$ function:  $lo\leq~x<hi$.\\
+\new{
+As we can see in Table \ref{tab:bsearch} PathCrawler was able to reach all the \ac{CFG} for this code.
+It was able to generate input for the simplest case: not execute the loop, the first two examples in Table \ref{tab:bsearch}.
+In the third, forth and fifth lines of the table, namely $(1,1610612736)$, $(2,805306368)$ and $(11,1610612736)$ was able to reach the
+if statement in the first loop iteration, and the else statement some iterations later.
+}
 
 \begin{table}[!ht]
 \renewcommand{\arraystretch}{1.3}
@@ -347,7 +368,7 @@ and in Figure \ref{fig:inst2} an instance with $5$ elements.
 \label{fig:insts}
 \end{figure}
 
-\subsection{Summary}
+\section{Summary}
 After the experimental study of the selected tools, reported in the previous subsections, it was found that PathCrawler and Pex have different
 approaches regarding testcase generation. PathCrawler seems to be a very efficient tool to discover multiple
 infeasible paths in C code, because it uses a mix between static and dynamic analysis. When it finds a suitable input for a function it tries to execute
