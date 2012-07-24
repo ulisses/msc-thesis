@@ -2,7 +2,11 @@
 \chapter{Testing}
 \minitoc
 \new{
-In this chapter is discussed\ldots
+In this chapter are discussed and contextualized historically the standards by which the space industry is governed.
+The importance of this Standards is addressed regarding the security of the software products for space purposes.
+The classification of \ac{ECSS} software criticality is also shown and starting therefrom are shown testing techniques that 
+respond to such high requirements, with the aim to analyze the code coverage.\\
+In a second part of this chapter\ldots
 \section{Standardization in Space Industry}
 Software products for space industry tends to be a part of a network composed by several systems. This space systems include manned and unmanned spacecraft,
 launchers, payloads, experiments and their associated ground equipment and facilities\cite{Mattiello-FranciscoSanAmbJogCos:2007:BrSoIn}.
@@ -268,7 +272,8 @@ at least once (this includes statement coverage).
 Modified condition and decision coverage measure of the part of the program within which every point of entry and exit
 has been invoked at least once, every decision in the program has taken TRUE and FALSE values at least once, and each condition in a decision has been
 shown to independently affect that decision's outcome. A condition is shown to independently affect a
-decision's outcome by varying that condition while holding fixed all other possible conditions.\\
+decision's outcome by varying that condition while holding fixed all other possible conditions. All of this code coverages will be explained in more detail in section
+\ref{sec:ccoverage}\\
 If the source code is classified as Level B then the tests for that piece of software should meet 100\% in the first two categories of testing and should be
 agreed with the costumer the value for to meet regarding Source code modified condition and decision coverage.
 If the source code is classified as Level C or D then the tests for all the three categories should be agreed with the costumer.
@@ -292,9 +297,17 @@ as in \cite{ecss-q-st-80c} at clause 6.3.5.2.
 \caption{\protect\ac{ECSS} - Code Coverage vs. Criticality}\label{tab:ccoverage}
 \end{table}
 
-\section{Code Coverage}
+\section{Code Coverage}\label{sec:ccoverage}
+Since Code coverage is a major concern regarding the software development for space industry, is very important to provide a study in this subject
+in order to access a possible integration of this feature into the final product.
 }
-\note{falar mais sobre testing no geral, antes de comecar a falar de white vs black}
+\\\note{
+Nesta seccao pretendo falar com grande detalhe nas varias vertendes de code coverage tendo em consideracao os standards da ECSS.
+Como por exemplo: Statement Coverage, Decision Coverage, Condition Coverage, Multiple Condition Coverage, Condition/Decision Coverage,
+Modified Condition/Decision Coverage, Path Coverage.\\
+E ainda Function Coverage, Call Coverage, Linear Code Sequence and Jump (LCSAJ) Coverage, Data Flow Coverage, Object Code Branch Coverage,
+Loop Coverage, Race Coverage, Relational Operator Coverage, Weak Mutation Coverage, Table Coverage
+}
 \section{White-box vs Black-box testing}
 %In this section is discussed the two most common approaches for testing: White-box and Black-box testing.\\
 In White-box testing the tester needs to understand the internals of
