@@ -1,44 +1,43 @@
 \cleardoublepage
 \chapter{Testing}
 \minitoc
-\new{
 In this chapter are discussed and contextualized historically the standards by which the space industry is governed.
 The importance of this Standards is addressed regarding the security of the software products for space purposes.
 The classification of \ac{ECSS} software criticality is also shown and starting therefrom are shown testing techniques that 
 respond to such high requirements, with the aim to analyze the code coverage.\\
-In a second part of this chapter is presented the main differences between White-box and Black-box testing and
-some testing tools approaches are described considering some automatic generation testing techniques and some tools for each technique namely:
+In a second part of this chapter the main differences between White-box and Black-box testing are presented and
+some testing tools approaches are described considering automatic generation testing techniques, and some tools for each technique namely:
 Specification-based Generation Testing, Constraint-based Generation Testing, Grammar-based Generation Testing and
 Random-based Generation Testing.
 \section{Standardization in Space Industry}
 Software products for space industry tends to be a part of a network composed by several systems. This space systems include manned and unmanned spacecraft,
 launchers, payloads, experiments and their associated ground equipment and facilities\cite{Mattiello-FranciscoSanAmbJogCos:2007:BrSoIn}.
-This kind of projects are generally  expensive, demand considerable amount of time to be completed and have different companies and countries participating.\\
+These kind of projects are generally  expensive, demand considerable amount of time to be completed and have different companies and countries participating.\\
 Trying to get a standard way to follow all rules to deliver the components with the same degree of quality and reliability is extremely important.\\
 
-Software development for Space, particularly in Europe, follows very specific rules on international standards. This standards not only define how a software project should
+Software development for Space, particularly in Europe, follows very specific rules on international standards. These standards not only define how a software project should
 evolve but also how every component developed in the field of Space Industry should be done, tested, documented, deployed and maintained.
-This include not only software but many more artefacts like: Electrical, Mechanical, Material components, etc.\\
-In 1994 \ac{ECSS} was established to develop a single set of consistent Space standards recognized and accepted for use by the entire European Space Community.
-\ac{ECSS} is supported by \ac{ESA} Council deliberations since the foundation and has developed through
+This include not only software but many more artefacts like: Electrical, Mechanical and Material components, etc.\\
+In 1994, \ac{ECSS} was established to develop a single set of consistent Space standards recognized and accepted for use by the entire European Space Community.
+\ac{ECSS} is supported by \ac{ESA} Council deliberations since the foundation and has developed, through
 a partnership between \ac{ESA}, National Space Agencies and European Industry, the management and implementation of European Space Projects.\\
 The main objectives of \ac{ECSS} are to increase the effectiveness of all Space programmes in Europe through the application of a
 single, integrated set of Standards and Requirements from which all generic requirements of future Space projects can be derived and
 improve the competitiveness of the European Space industry.
 This is particularly important to formalize an unambiguous communication in order to facilitate the interaction between project partners,
-create a set of legally binding documents, reduce risk and guarantee interface compatibility and
+create a set of legally binding documents, reduce risks, guarantee interface compatibility and
 improve the quality and safety of Space projects and products.\\
 In section \ref{sec:historyspace} we will see the history of Space Industry Standards and the need for them.
 
 \subsection{History of Software Development Standards for Space Industry}\label{sec:historyspace}
 \ac{ESA} Software Engineering Standards originate around 1975. At
 that time the \ac{ESA} was working on a number of ambitious projects, on relatively new subjects, involving the development of
-large amounts of code. The project teams often consisted of technically excellent engineers, but most of them were not used to working in projects with
+large amounts of code. The project teams often consisted of technically excellent engineers, but most of them were not used to work in projects with
 rigorous cost and a strict schedule. There was very little project oriented discipline\cite{esa-bulletin-90}.\\
 
-One of the projects was a high level of criticality (As we will see later on Table \ref{tab:severity}) and the
+One of the projects had a high level of criticality (as we will see later on Table \ref{tab:severity}) and the
 development activity was done at \ac{ESOC}, namely to support the mission, the launch of which was imminent.
-The project began delaying and there were some major hardware, operating system problems, the team was waiting for improvements in the hardware
+The project began delaying and there were some major hardware, operating system problems. The team was waiting for improvements in the hardware
 and eventually to be able to continue the work, they reduced the amount of requirements to only
 those highly essential for the launch of the satellite. The problem was faced when they realize that no one knew the exact system requirements.
 \begin{quotation}
@@ -54,15 +53,14 @@ those requirements needed for the launch. The remaining requirements were implem
 the satellite was launched. In this case a disaster was prevented from happening\cite{Zwartjes05anagile}.
 The \ac{BSSC} was subsequently founded in order to \ac{ESA} never end up in an identical situation. This was the seed from
 which the \ac{BSSC}, and consequently, the \ac{ESA} Software Engineering Standards was funded and prospered.\\
-\ac{ESA}'s \ac{BSSC} was formally established in May 1977 ant it was defined that \ac{BSSC} responsibilities were:
+\ac{ESA}'s \ac{BSSC} was formally established in May 1977 ant it was defined that \ac{BSSC} responsibilities were to:
 \begin{itemize}
-\item Establishing and maintaining engineering standards for the procurement,
-development and maintenance of software.
-\item Verifying that the standards thus established are made applicable to software
+\item Establish and maintain engineering standards for the procurement, development and maintenance of software.
+\item Verify that the standards thus established are made applicable to software
 development activities at \ac{ESA}. The \ac{BSSC} verifies the application of the PSS-05-0\cite{pss-05-0} standards through a procedure involving the
 scrutiny of contracts with a software content.
 These rather limited controls have succeeded remarkably well in helping to instill a software standards "culture" within the organisation.
-\item Acting as liaison with \ac{ESA} Legal Affairs department concerning the safeguarding of intellectual
+\item Act as liaison with \ac{ESA} Legal Affairs department concerning the safeguarding of intellectual
 property rights relating to software.
 \end{itemize}
 PSS-05-0 was a very successful standard and \ac{BSSC} has played an important role in promoting it, both through its various
@@ -70,8 +68,8 @@ publications and through its responsibility in monitoring its application. PSS-0
 In June 1994, \ac{ESA} Council confirmed the willing to transfer the present PSS system of \ac{ESA} space standards to a new system
 of standards, today known as \ac{ECSS}, in order to expand the Standards 
 to other European national space agencies and European space industry in general.
-The \ac{ECSS} system of standards covers a bigger are, as we explain before: management, product assurance and engineering standards, specifically for space projects.
-The \ac{ECSS} standard for software engineering, ECSS-E-40\cite{ecss-e-st-40c}, this is a high-level requirements-oriented standard, in effect a tailoring of ISO/IEC 12207 for space projects.
+The \ac{ECSS} system of standards covers a bigger area, as we explain before: management, product assurance and engineering standards, specifically for space projects.
+The \ac{ECSS} standard for software engineering, ECSS-E-40\cite{ecss-e-st-40c}, is a high-level requirements-oriented standard, in effect a tailoring of ISO/IEC 12207 for space projects.
 Unlike the old PSS-05-0, it reflects the specifics of space projects, for example the relationship between the space system development cycle and the software development cycle\cite{esa-bulletin-90}.
 
 \subsection{Document Standards}
@@ -79,11 +77,11 @@ ECSS-S-ST-00\cite{ecss-s-st-00c} document is the top level user document of \ac{
 It gives a general introduction into \ac{ECSS} and the correct use of \ac{ECSS} Documents in space
 programmes and projects.
 Its purpose is to provide users with an overview of the \ac{ECSS} System, together
-with an introduction to the three branches of applicability, that will be explained later on this section, and to the disciplines
+with an introduction to the three branches of applicability, (that will be explained later on this section) and to the disciplines
 covered by the set of \ac{ECSS} Standards and the processes involved in generating
 and using these standards.
-In this document there are also an introduction into space programmes, space projects actors and their
-customer-supplier relationships. Also the application of this System for space projects in the customer-supplier
+In this document there is also an introduction into space programmes, space projects actors and their
+customer-supplier relationships. The application of this System for space projects in the customer-supplier
 chain is also explained and a practical tailoring method is described together with
 methods for collecting and processing user feedback.
 Finally the top-level requirements are defined for implementation of the \ac{ECSS}
@@ -95,7 +93,7 @@ Project management branch documents have an "M" prefix, engineering standards ha
 Within each branch, disciplines and corresponding requirements are covered by dedicated standards.
 Standards are normative document written specifically for direct use in invitation to tender and 
 business agreements for implementing space related activities. Its content 
-strictly limited to the statement of verifiable customer requirements, supported 
+is strictly limited to the statement of verifiable customer requirements, supported 
 by the minimum descriptive text necessary for understanding their context.
 
 \ac{ECSS} Disciplines can also be supported by \ac{HB} and \ac{TM} as necessary\cite{ecss-s-st-00c}.
@@ -107,9 +105,9 @@ on a specific subject, prepared to record and present non-normative data, which
 are not relevant for a Standard or for a \ac{HB}, or not yet mature to be published as \ac{HB} or standard.
 
 In order to clear understand the disciplines addressed by the \ac{ECSS} Standards system,
-is shown in Figure \ref{fig:ecssdocsstruct} the Standard document by \ac{ECSS} where is possible to clearly
+is shown in Figure \ref{fig:ecssdocsstruct} the Standard document by \ac{ECSS} where it is possible to clearly
 see the three separated branches (M, E and Q)\cite{ecss-s-st-00c}.
-It is also possible to see other standards from other \ac{SDO} that are integrated into \ac{ECSS} new standards.
+It is also possible to see standards from other \ac{SDO} that are integrated into \ac{ECSS} new standards.
 
 \def\a{\save[].[dddddd]!C="a"*[F--]\frm{}\restore}
 \def\b{\save[].[dddddddd]!C="b"*[F--]\frm{}\restore}
@@ -200,21 +198,21 @@ Tailoring is an important task in order to deliver a suitable product or service
 
 \subsection{ECSS-Q-80 and Testing}
 Software development projects tend to be specific depending on the application domain and 
-space software projects are not an exception. This projects tend to have particular dynamics than software projects
+space software projects are not an exception. These projects tend to have particular dynamics than software projects
 in other domains because space software development pose additional challenges due to its inherent
 requirement that the end products should be highly dependable.
-The criticality factor of those systems (sometime life critical) tend to have different more stringent requirements and approaches 
+The criticality factor of those systems (sometimes life critical) tend to have different more stringent requirements and approaches 
 compared to less critical software projects, so
 the existing software engineering standards are not enough to cope with these challenges, this is why \ac{ECSS} has developed a set of standards for European
 space projects\cite{Ahmad2010AgileECSS,10.1109/SESS.1997.595952}.
 This is why \ac{ECSS} have a particular E branch standard completely dedicated to "Software Product Assurance" --- The ECSS-Q-80\cite{ecss-q-st-80c}.\\
 
-The fundamental principle of this standard is to facilitate the
+The fundamental principle of these standard is to facilitate the
 customer-supplier relationship assumed for all software developments, at all levels.
 They have contributed to these objectives by providing a set of requirements to be
 met throughout the system lifetime which involves the development and
 maintenance of space application software. Such requirements deal with quality
-management and framework, lifecycle activities and process definition, and quality
+management, lifecycle activities and process definition, and quality
 characteristics of the software product\cite{Mattiello-FranciscoSanAmbJogCos:2007:BrSoIn}.
 Therefore the main objective of this standard is to provide the customer with adequate confidence about the software product.\\
 
@@ -224,19 +222,19 @@ This categorization is separate into 4 levels (A,B,C and D) regarding what can h
 In the following listing we can see the classification:
 
 \begin{description}
-\item[Level A] Software that if not executed, or if not correctly executed, or whose anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Catastrophic consequences};
-\item[Level B] Software that if not executed, or if not correctly executed, or whose anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Critical consequences};
-\item[Level C] Software that if not executed, or if not correctly executed, or whose anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Major consequences};
-\item[Level D] Software that if not executed, or if not correctly executed, or whose anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Minor or Negligible consequences}.
+\item[Level A] Software that if not executed, or not correctly executed, or if anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Catastrophic consequences};
+\item[Level B] Software that if not executed, or not correctly executed, or if anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Critical consequences};
+\item[Level C] Software that if not executed, or not correctly executed, or if anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Major consequences};
+\item[Level D] Software that if not executed, or not correctly executed, or if anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Minor or Negligible consequences}.
 \end{description}
 
 Each Severity level is intrinsically connected to a level of safety into the mission. Catastrophic corresponds to
 Loss of life, life-threatening or permanently disabling injury or occupational illness; Loss of system; 
-Loss of an interfacing manned flight system; Loss of launch site facilities; and Severe detrimental environ- mental effects. The result
-of having a software component fail within this level leaves to a major failures propagation in the mission\cite{ecss-q-st-30c}.\\
+Loss of an interfacing manned flight system; Loss of launch site facilities; and Severe detrimental environmental effects. The result
+of having a software component fail within this level leaves to major failures propagation in the mission\cite{ecss-q-st-30c}.\\
 The Critical level corresponds to Temporarily disabling but not life-threatening injury, or temporary occupational illness;
 Major damage to interfacing flight system; Major damage to ground facilities; Major damage to public or private property;
-and Major detrimental environ- mental effects. The result of having a software component fail this level leaves to a loss of mission.\\
+and Major detrimental environmental effects. The result of having a software component fail this level leaves to loss of mission.\\
 The other two levels: Major and Minor leaves to Major mission degradation and Minor mission degradation with no or negligible safety results in the mission.
 In Table \ref{tab:severity} we have the \ac{ECSS} Severity Classification of consequences information summarized acording to \cite{ecss-q-st-40c}.
 According to the standard
@@ -268,7 +266,7 @@ consider the application of formal tools to verify the source code. But at the s
 \ac{ECSS} divides the the test effort regarding the criticality of the source code.
 If the source code is classified as Level A then the tests for that piece of software should meet 100\% in
 three different categories: Source code statement coverage, Source code decision coverage and Source code modified condition and decision coverage.\\
-Statement coverage measure of the part of the program within which every executable source code statement has been invoked at least once.
+Statement coverage measure the part of the program within which every executable source code statement has been invoked at least once.
 Decision coverage measure of the part of the program within which every point of entry and exit
 is invoked at least once and every decision has taken TRUE and FALSE
 at least once (this includes statement coverage).
@@ -301,10 +299,10 @@ as in \cite{ecss-q-st-80c} at clause 6.3.5.2.
 \end{table}
 
 \section{Code Coverage}\label{sec:ccoverage}
-Since Code coverage is a major concern regarding the software development for space industry, is very important to provide a study in this subject
+Since Code coverage is a major concern regarding the software development for space industry, it is very important to provide a study on this subject
 in order to access a possible integration of this feature into the final product.
-}
-\\\note{
+\note{Falar no CO-178-B}\\
+\note{
 Nesta seccao pretendo falar com grande detalhe nas varias vertendes de code coverage tendo em consideracao os standards da ECSS.
 Como por exemplo: Statement Coverage, Decision Coverage, Condition Coverage, Multiple Condition Coverage, Condition/Decision Coverage,
 Modified Condition/Decision Coverage, Path Coverage.\\
@@ -359,8 +357,9 @@ of combinations of the methods/functions, or even final system testing.\\
 %The document is concluded in Section~\ref{sec:Concl}.
 
 \section{Tool Approaches}\label{testingapproaches}
-In this section, a study of the most recent approaches that use Specification-based, Constraint-based, Grammar-based and Random-based tests generation
-approaches for the most popular languages - C, JAVA and C\# will be presented.
+In this section, a study of the most recent approaches to the development testing tools,
+like Specification-based, Constraint-based, Grammar-based and Random-based tests generation
+for the most popular languages - C, JAVA and C\#, will be presented.
 
 \subsection{Specification-based Generation Testing}
 Specification Based Testing refers to the process of testing a program based on what its specification or model says its behavior should be.
