@@ -196,7 +196,7 @@ into account its specificity and constrains and identify those requirements in t
 applicable to the project, modify or exceptionally add requirement for specific needs\cite{ecss-s-st-00c}.
 Tailoring is an important task in order to deliver a suitable product or service considering the costumer needs.
 
-\subsection{ECSS-Q-80 and Testing}
+\subsection{ECSS-Q-80 and Testing}\label{sec:stand}
 Software development projects tend to be specific depending on the application domain and 
 space software projects are not an exception. These projects tend to have particular dynamics than software projects
 in other domains because space software development pose additional challenges due to its inherent
@@ -297,17 +297,82 @@ as in \cite{ecss-q-st-80c} at clause 6.3.5.2.
 \end{tabular}
 \caption{\protect\ac{ECSS} - Code Coverage vs. Criticality}\label{tab:ccoverage}
 \end{table}
+\new{
+\subsection{DO-178/ED-12 Standard for Airborne Systems}
+Software in avionics has been around since 1970's, but was in the 80's when the cost of computers went down, thanks to the introduction of personal computers,
+that the avionics industry start to use software components in airborne systems.
+The increased use of Software and Computer systems for safety critical applications motivated the development in 1980 of
+DO-178 by \ac{RTCA}
+\footnote{
+\ac{RTCA} is a US non-profit organization that develops technical guidance for use by government regulatory authorities and by industry.
+The documents it publishes are treated as guidelines, not as requirements.\\
+RTCA's objectives are to:
+\begin{itemize}
+\item Ensure the safety and reliability of airborne systems;
+\item Develop minimum operational performance requirements for document-specific systems;
+\item Develop guidelines for use by a regulatory authority;
+\item Provide administrative and logistics resources that enable teamwork among the world-wide aviation community.
+\end{itemize}
+}
+and ED-35 by \ac{EUROCAE}
+\footnote{
+\ac{EUROCAE} has now been operating for more than 40 years as a non-profit organization
+whose membership exclusively comprises aviation stakeholders made up of Manufacturers,
+Services Providers, National and International Aviation Authorities and Users (Airlines, Airports, operators) from Europe.
+}
+leading to the creation of a single standard in 1985 --- The DO-178/ED-12 Standard: The first
+common certification criteria for production of avionics software. This document became a wordlwide basis for software
+certification in the aviation industry until nowadays. This Standard is
+officially recognized as a de facto international standard by the \ac{ISO}.\\
+One of the things that these documents defined was the Software Levels\cite{citeulike:4106419}, ie DO-178/ED-12 requires that all systems requirements be mapped
+to one of the five software levels:
+\begin{description}
+\item[Level A] Most critical failure level. Failure at Level A results in catastrophic failure conditions for an aircraft;
+\item[Level B] The software at this level contributes to severe-major failure conditions;
+\item[Level C] Software at this level contributes to major failure conditions;
+\item[Level D] Software at this level contributes to minor failure conditions;
+\item[Level E] The software has no effect toward potential failure conditions.
+\end{description}
+As we have seen in section \ref{sec:stand}, this classification is very similar.
+The fact is that this Standard has served as initial motto for ECSS-Q-80\cite{ecss-q-st-80c} and ECSS-E-40\cite{ecss-e-st-40c}, \ac{ECSS} standards.
+In fact \ac{ECSS} software standards were naturally fetched from many learned lessons in avionics.
+
+DO-178/ED-12 focus is placed with more emphasis in 
 
 \section{Code Coverage}\label{sec:ccoverage}
 Since Code coverage is a major concern regarding the software development for space industry, it is very important to provide a study on this subject
 in order to access a possible integration of this feature into the final product.
-\note{Falar no CO-178-B}\\
-\note{
-Nesta seccao pretendo falar com grande detalhe nas varias vertendes de code coverage tendo em consideracao os standards da ECSS.
-Como por exemplo: Statement Coverage, Decision Coverage, Condition Coverage, Multiple Condition Coverage, Condition/Decision Coverage,
-Modified Condition/Decision Coverage, Path Coverage.\\
-E ainda Function Coverage, Call Coverage, Linear Code Sequence and Jump (LCSAJ) Coverage, Data Flow Coverage, Object Code Branch Coverage,
-Loop Coverage, Race Coverage, Relational Operator Coverage, Weak Mutation Coverage, Table Coverage
+
+\cite{ccoverage}
+\cite{citeulike:3789144}
+\cite{Marick99}
+\cite{citeulike:4106419}
+\cite{costa_et_al:OASIcs:2012:3523}
+%\note{Falar no CO-178-B}\\
+%\note{
+%Nesta seccao pretendo falar com grande detalhe nas varias vertendes de code coverage tendo em consideracao os standards da ECSS.
+%Como por exemplo: Statement Coverage, Decision Coverage, Condition Coverage, Multiple Condition Coverage, Condition/Decision Coverage,
+%Modified Condition/Decision Coverage, Path Coverage.\\
+%E ainda Function Coverage, Call Coverage, Linear Code Sequence and Jump (LCSAJ) Coverage, Data Flow Coverage, Object Code Branch Coverage,
+%Loop Coverage, Race Coverage, Relational Operator Coverage, Weak Mutation Coverage, Table Coverage
+%}
+\subsection{Statement Coverage}
+\subsection{Decision Coverage}
+\subsection{Condition Coverage}
+\subsection{Multiple Condition Coverage}
+\subsection{Condition/Decision Coverage}
+\subsection{Modified Condition/Decision Coverage}
+\subsection{Path Coverage}
+\subsection{Function Coverage}
+\subsection{Call Coverage}
+\subsection{Linear Code Sequence and Jump (LCSAJ) Coverage}
+\subsection{Data Flow Coverage}
+\subsection{Object Code Branch Coverage}
+\subsection{Loop Coverage}
+\subsection{Race Coverage}
+\subsection{Relational Operator Coverage}
+\subsection{Weak Mutation Coverage}
+\subsection{Table Coverage}
 }
 \section{White-box vs Black-box testing}
 %In this section is discussed the two most common approaches for testing: White-box and Black-box testing.\\
