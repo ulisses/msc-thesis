@@ -1,6 +1,13 @@
 \cleardoublepage
 \chapter{Testing}
 \minitoc
+\new{
+Here the word "safety" is used in terms of a property of a system that it will not endanger human life or the environment and
+the word "safety-critical" is used to describe a
+system that is intended to achieve, on its own, the necessary level of safety integrity for the implementation of the required safety functions.
+So, a safety-critical software is an artifact that if
+fails can cause loss of human life or have other catastrophic consequences.\\
+}
 In this chapter are discussed and contextualized historically the standards by which the space industry is governed.
 The importance of this Standards is addressed regarding the security of the software products for space purposes.
 The classification of \ac{ECSS} software criticality is also shown and starting therefrom are shown testing techniques that 
@@ -302,7 +309,7 @@ as in \cite{ecss-q-st-80c} at clause 6.3.5.2.
 \section{DO-178/ED-12 Standard for Airborne Systems}
 Software in avionics has been around since 1970's, but was in the 80's when the cost of computers went down, thanks to the introduction of personal computers,
 that the avionics industry start to use software components in airborne systems.
-The increased use of Software and Computer systems for safety critical applications motivated the development in 1980 of
+The increased use of Software and Computer systems for safety-critical applications motivated the development in 1980 of
 DO-178 by \ac{RTCA}
 \footnote{
 \ac{RTCA} is a US non-profit organization that develops technical guidance for use by government regulatory authorities and by industry.
@@ -321,12 +328,15 @@ and ED-35 by \ac{EUROCAE}
 whose membership exclusively comprises aviation stakeholders made up of Manufacturers,
 Services Providers, National and International Aviation Authorities and Users (Airlines, Airports, operators) from Europe.
 }
-leading to the creation of a single standard, some years later in 1985 --- The DO-178/ED-12 Standard: The first
-common certification criteria for production of avionics software. This document became a worldwide basis for software
+leading to the creation of a single standard and some years later in 1985 --- The DO-178/ED-12 Standard: The first
+common certification criteria for production of avionics software. This document has the title
+"Software Considerations in Airborne Systems and Equipment Certification" and became a worldwide basis for software
 certification in the aviation industry until nowadays. This Standard is
-officially recognized as a de facto international standard by the \ac{ISO}.\\
+officially recognized as a \textit{de facto} international standard by the \ac{ISO} for software certification in the aviation industry.\\
 Compared to other Software Standards like MIL-STD-498, MIL-STD-2167A, IEEE/EIA-12207, IEC 61508 all of these standards deal with certain aspects of
-software development covered by DO-178/ED-12\cite{avionics} and none of them has been found to provide a complete coverage of Software Development process as DO-178/ED-12 do.
+software development covered by DO-178/ED-12\cite{citeulike:4106419} and none of them has been found to provide a complete coverage of Software Development process as DO-178/ED-12 do
+\cite{avionics}.
+
 One of the things that these documents defined was the Software Levels\cite{citeulike:4106419}, ie DO-178/ED-12 requires that all systems requirements be mapped
 to one of the five software levels:
 \begin{description}
@@ -339,8 +349,60 @@ to one of the five software levels:
 As we have seen in section \ref{sec:stand}, this classification is very similar.
 The fact is that this Standard has served as initial motto for ECSS-Q-80\cite{ecss-q-st-80c} and ECSS-E-40\cite{ecss-e-st-40c}, \ac{ECSS} standards.
 In fact \ac{ECSS} software standards were naturally fetched from many learned lessons in avionics.
+Many other definitions in \ac{ECSS} ECSS-Q-80\cite{ecss-q-st-80c} and ECSS-E-40\cite{ecss-e-st-40c} were drawn based on DO-178/ED-12, like the
+Severity classification of consequences, code covera vs. Criticality and many more guidelines.
 
-DO-178/ED-12 focus is placed with more emphasis in 
+DO-178/ED-12 has three Software Life cycle Processes where are defined the objectives of each step in the software development as well
+the set of activities for meeting the objectives:
+\begin{description}
+\item[Software Planning Process] where the Standard defines five types of planning data\footnote{\ac{RTCA} and \ac{EUROCAE} avoid referring to this "data" as
+"documents" when trying to elaborate on the objective evidence that need to be produced to satisfy the Standard objectives\cite{avionics}, on the other side \ac{ECSS} refers
+this evidences as "documents". SO we can consider this evidences as documents.} that should include
+considerations on the methods, languages, standards and tools to be used during the development phase. These plans are: Plan for Software Aspects of Certification,
+Software Development Plan, Software Verification Plan, Software Configuration Management Plan and Software Quality Assurance Plan.
+\item[Software Development Process] where the Standard defines that should be included the requirements, that can be
+expressed as high- and low-level requirements\cite{avionics,citeulike:4106419}. The Standard allow the system complexity and the design methodology applied to the system under development
+drive the requirements decomposition process. The design, coding and integration artifacts are briefly described since these tend to vary between various development methodologies.
+However the Standard defines clearly the expected outputs of each of the processes, the design process yields low-level requirements and software architecture.
+The coding process produces the source code, in a high-order language or assembly code. The integration process result in executable code
+resident on the target computer. The Standard also predicts that each of these outputs should be verified, assured and configured.
+\item[Integral Process] Four processes are defined as integral in DO-178/ED-12 which
+mean that they can be overlaid and extended throughout the
+software life cycle. They are as follows:
+\begin{itemize}
+\item Software Verification: Verification is the most important
+in DO-178/ED-12 which accounts to over two thirds of the total.
+\item Software Configuration Management: The clear definition
+of what is to be verified will be more reasonable for the
+various outputs of the verification in DO-178B. This definition
+or configuration is the design of the DO-178/ED-12 objectives
+for configuration management.
+\item Software Quality Assurance: \ac{SQA} objectives provide oversight of the entire DO-178/ED-12
+process and require independence at all levels. \ac{SQA} guarantees
+detection of plans and standards, deviated during development
+process are recorded, evaluated, tracked and resolved.
+\item Certification Liaison Process: As mentioned earlier, the
+issues should be identified early for the certification process.
+DO-178/ED-12 outlines twenty data items to be produced in a
+compliant process where three of these are specific to it and
+must be provided to the certifying authority: Plan for Software Aspects of Certification, Software Configuration Index and Software Accomplishment Summary.
+\end{itemize}
+\end{description}
+\subsection{The new standard DO-178C/ED-12C}
+The first version of DO-178/ED-12 was DO-178A/ED-12A and was released in 1985 ans twenty years later the Standard had a new update -- The DO-178B/ED-12B released in 1992,
+ten more years and in 2012 the most recent version of the Standard was released following the existing nomenclature: DO-178C/ED-12C.
+The most recent version includes three supplements: 
+\begin{description}
+\item[ED-216 Formal Methods] identifies the additions, modifications and substitutions to ED-12C and ED-109A objectives when formal methods are used as part of a software life cycle, and the additional guidance required. It discusses those aspects of airworthiness certification that pertain to the production of software, using formal methods for systems approved using ED-12C;
+\item[ED-217 Object-Oriented Technology and related techniques] identifies the additions, modifications and deletions to ED-12C and ED-109A objectives when \ac{OO} technology or related techniques are used as part of the software development life cycle and additional guidance is required. This supplement, in conjunction with ED-12C, is intended to provide a common framework for the evaluation and acceptance of \ac{OO} technology and related techniques (RT)-based systems;
+\item[ED-218 Model-Based development and verification] contains modifications and additions to ED-12C and ED-109A. Objectives, activities, explanatory text and software life cycle data that should be addressed when model- based development and verification are used as part of the software life cycle. This includes the artifacts that would be expressed using models and the verification evidence that could be derived from them. Therefore, this supplement also applies to the models developed in the system process that define software requirements or software architecture.
+\end{description}
+
+As we can see the Standard ECSS-Q-80\cite{ecss-q-st-80c} in the software quality assurance side and ECSS-E-40\cite{ecss-e-st-40c} in the software development side
+gives a distinguished emphasis on software validation and verification, however is the standard DO-178/ED-12, for reasons obvious,
+that gives much more emphasis in the verification component. The biggest proof is the most recent embedding of the Formal Methods into the
+new version of the Standard DO-178C/ED-12C, in order to reach where the tests are not enough.
+Increasingly the use of tools and methodologies from the area of Formal Methods is crucial to prevent software errors and ensure quality and their proper functioning.
 
 \section{Code Coverage}\label{sec:ccoverage}
 Since Code coverage is a major concern regarding the software development for space industry, it is very important to provide a study on this subject
@@ -359,23 +421,23 @@ in order to access a possible integration of this feature into the final product
 %E ainda Function Coverage, Call Coverage, Linear Code Sequence and Jump (LCSAJ) Coverage, Data Flow Coverage, Object Code Branch Coverage,
 %Loop Coverage, Race Coverage, Relational Operator Coverage, Weak Mutation Coverage, Table Coverage
 %}
-\subsection{Statement Coverage}
-\subsection{Decision Coverage}
-\subsection{Condition Coverage}
-\subsection{Multiple Condition Coverage}
-\subsection{Condition/Decision Coverage}
-\subsection{Modified Condition/Decision Coverage}
-\subsection{Path Coverage}
-\subsection{Function Coverage}
-\subsection{Call Coverage}
-\subsection{Linear Code Sequence and Jump (LCSAJ) Coverage}
-\subsection{Data Flow Coverage}
-\subsection{Object Code Branch Coverage}
-\subsection{Loop Coverage}
-\subsection{Race Coverage}
-\subsection{Relational Operator Coverage}
-\subsection{Weak Mutation Coverage}
-\subsection{Table Coverage}
+%\subsection{Statement Coverage}
+%\subsection{Decision Coverage}
+%\subsection{Condition Coverage}
+%\subsection{Multiple Condition Coverage}
+%\subsection{Condition/Decision Coverage}
+%\subsection{Modified Condition/Decision Coverage}
+%\subsection{Path Coverage}
+%\subsection{Function Coverage}
+%\subsection{Call Coverage}
+%\subsection{Linear Code Sequence and Jump (LCSAJ) Coverage}
+%\subsection{Data Flow Coverage}
+%\subsection{Object Code Branch Coverage}
+%\subsection{Loop Coverage}
+%\subsection{Race Coverage}
+%\subsection{Relational Operator Coverage}
+%\subsection{Weak Mutation Coverage}
+%\subsection{Table Coverage}
 }
 \section{White-box vs Black-box testing}
 %In this section is discussed the two most common approaches for testing: White-box and Black-box testing.\\
