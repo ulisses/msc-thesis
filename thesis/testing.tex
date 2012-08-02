@@ -9,7 +9,7 @@ In a second part of this chapter the main differences between White-box and Blac
 some testing tools approaches are described considering automatic generation testing techniques, and some tools for each technique namely:
 Specification-based Generation Testing, Constraint-based Generation Testing, Grammar-based Generation Testing and
 Random-based Generation Testing.
-\section{Standardization in Space Industry}
+\section{ESA and ECSS Standardization in Space Industry}
 Software products for space industry tends to be a part of a network composed by several systems. This space systems include manned and unmanned spacecraft,
 launchers, payloads, experiments and their associated ground equipment and facilities\cite{Mattiello-FranciscoSanAmbJogCos:2007:BrSoIn}.
 These kind of projects are generally  expensive, demand considerable amount of time to be completed and have different companies and countries participating.\\
@@ -297,8 +297,9 @@ as in \cite{ecss-q-st-80c} at clause 6.3.5.2.
 \end{tabular}
 \caption{\protect\ac{ECSS} - Code Coverage vs. Criticality}\label{tab:ccoverage}
 \end{table}
+
 \new{
-\subsection{DO-178/ED-12 Standard for Airborne Systems}
+\section{DO-178/ED-12 Standard for Airborne Systems}
 Software in avionics has been around since 1970's, but was in the 80's when the cost of computers went down, thanks to the introduction of personal computers,
 that the avionics industry start to use software components in airborne systems.
 The increased use of Software and Computer systems for safety critical applications motivated the development in 1980 of
@@ -320,10 +321,12 @@ and ED-35 by \ac{EUROCAE}
 whose membership exclusively comprises aviation stakeholders made up of Manufacturers,
 Services Providers, National and International Aviation Authorities and Users (Airlines, Airports, operators) from Europe.
 }
-leading to the creation of a single standard in 1985 --- The DO-178/ED-12 Standard: The first
-common certification criteria for production of avionics software. This document became a wordlwide basis for software
+leading to the creation of a single standard, some years later in 1985 --- The DO-178/ED-12 Standard: The first
+common certification criteria for production of avionics software. This document became a worldwide basis for software
 certification in the aviation industry until nowadays. This Standard is
 officially recognized as a de facto international standard by the \ac{ISO}.\\
+Compared to other Software Standards like MIL-STD-498, MIL-STD-2167A, IEEE/EIA-12207, IEC 61508 all of these standards deal with certain aspects of
+software development covered by DO-178/ED-12\cite{avionics} and none of them has been found to provide a complete coverage of Software Development process as DO-178/ED-12 do.
 One of the things that these documents defined was the Software Levels\cite{citeulike:4106419}, ie DO-178/ED-12 requires that all systems requirements be mapped
 to one of the five software levels:
 \begin{description}
