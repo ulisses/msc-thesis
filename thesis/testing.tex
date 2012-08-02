@@ -1,17 +1,17 @@
 \cleardoublepage
 \chapter{Testing}
 \minitoc
-\new{
-Here the word "safety" is used in terms of a property of a system that it will not endanger human life or the environment and
-the word "safety-critical" is used to describe a
-system that is intended to achieve, on its own, the necessary level of safety integrity for the implementation of the required safety functions.
-So, a safety-critical software is an artifact that if
-fails can cause loss of human life or have other catastrophic consequences.\\
-}
 In this chapter are discussed and contextualized historically the standards by which the space industry is governed.
 The importance of this Standards is addressed regarding the security of the software products for space purposes.
 The classification of \ac{ECSS} software criticality is also shown and starting therefrom are shown testing techniques that 
 respond to such high requirements, with the aim to analyze the code coverage.\\
+\new{
+The expression "safety" will be used in terms of a property of a system that it will not endanger human life or the environment and
+the expression "safety-critical" is used to describe a
+system that is intended to achieve, on its own, the necessary level of safety integrity for the implementation of the required safety functions.
+So, a safety-critical software is an artifact that if
+fails can cause loss of human life or have other catastrophic consequences.\\
+}
 In a second part of this chapter the main differences between White-box and Black-box testing are presented and
 some testing tools approaches are described considering automatic generation testing techniques, and some tools for each technique namely:
 Specification-based Generation Testing, Constraint-based Generation Testing, Grammar-based Generation Testing and
@@ -20,7 +20,7 @@ Random-based Generation Testing.
 Software products for space industry tends to be a part of a network composed by several systems. This space systems include manned and unmanned spacecraft,
 launchers, payloads, experiments and their associated ground equipment and facilities\cite{Mattiello-FranciscoSanAmbJogCos:2007:BrSoIn}.
 These kind of projects are generally  expensive, demand considerable amount of time to be completed and have different companies and countries participating.\\
-Trying to get a standard way to follow all rules to deliver the components with the same degree of quality and reliability is extremely important.\\
+Trying to get a Standard way to follow all rules to deliver the components with the same degree of quality and reliability is extremely important.\\
 
 Software development for Space, particularly in Europe, follows very specific rules on international standards. These standards not only define how a software project should
 evolve but also how every component developed in the field of Space Industry should be done, tested, documented, deployed and maintained.
@@ -70,13 +70,13 @@ These rather limited controls have succeeded remarkably well in helping to insti
 \item Act as liaison with \ac{ESA} Legal Affairs department concerning the safeguarding of intellectual
 property rights relating to software.
 \end{itemize}
-PSS-05-0 was a very successful standard and \ac{BSSC} has played an important role in promoting it, both through its various
+PSS-05-0 was a very successful Standard and \ac{BSSC} has played an important role in promoting it, both through its various
 publications and through its responsibility in monitoring its application. PSS-05-0 has served to create a common software engineering culture in \ac{ESA}\cite{esa-bulletin-90}.\\
 In June 1994, \ac{ESA} Council confirmed the willing to transfer the present PSS system of \ac{ESA} space standards to a new system
 of standards, today known as \ac{ECSS}, in order to expand the Standards 
 to other European national space agencies and European space industry in general.
 The \ac{ECSS} system of standards covers a bigger area, as we explain before: management, product assurance and engineering standards, specifically for space projects.
-The \ac{ECSS} standard for software engineering, ECSS-E-40\cite{ecss-e-st-40c}, is a high-level requirements-oriented standard, in effect a tailoring of ISO/IEC 12207 for space projects.
+The \ac{ECSS} Standard for software engineering, ECSS-E-40\cite{ecss-e-st-40c}, is a high-level requirements-oriented standard, in effect a tailoring of ISO/IEC 12207 for space projects.
 Unlike the old PSS-05-0, it reflects the specifics of space projects, for example the relationship between the space system development cycle and the software development cycle\cite{esa-bulletin-90}.
 
 \subsection{Document Standards}
@@ -212,18 +212,18 @@ The criticality factor of those systems (sometimes life critical) tend to have d
 compared to less critical software projects, so
 the existing software engineering standards are not enough to cope with these challenges, this is why \ac{ECSS} has developed a set of standards for European
 space projects\cite{Ahmad2010AgileECSS,10.1109/SESS.1997.595952}.
-This is why \ac{ECSS} have a particular E branch standard completely dedicated to "Software Product Assurance" --- The ECSS-Q-80\cite{ecss-q-st-80c}.\\
+This is why \ac{ECSS} have a particular E branch Standard completely dedicated to "Software Product Assurance" --- The ECSS-Q-80\cite{ecss-q-st-80c}.\\
 
-The fundamental principle of these standard is to facilitate the
+The fundamental principle of these Standard is to facilitate the
 customer-supplier relationship assumed for all software developments, at all levels.
 They have contributed to these objectives by providing a set of requirements to be
 met throughout the system lifetime which involves the development and
 maintenance of space application software. Such requirements deal with quality
 management, lifecycle activities and process definition, and quality
 characteristics of the software product\cite{Mattiello-FranciscoSanAmbJogCos:2007:BrSoIn}.
-Therefore the main objective of this standard is to provide the customer with adequate confidence about the software product.\\
+Therefore the main objective of this Standard is to provide the customer with adequate confidence about the software product.\\
 
-In order to improve greater security in the code that is produced for space industry, the standard ECSS-Q-80\cite{ecss-q-st-80c} defines
+In order to improve greater security in the code that is produced for space industry, the Standard ECSS-Q-80\cite{ecss-q-st-80c} defines
 some levels of criticality of the software, depending on their use in the mission.
 This categorization is separate into 4 levels (A,B,C and D) regarding what can happen if the software fails or if it is not executed.
 In the following listing we can see the classification:
@@ -280,7 +280,7 @@ at least once (this includes statement coverage).
 Modified condition and decision coverage measure of the part of the program within which every point of entry and exit
 has been invoked at least once, every decision in the program has taken TRUE and FALSE values at least once, and each condition in a decision has been
 shown to independently affect that decision's outcome. A condition is shown to independently affect a
-decision's outcome by varying that condition while holding fixed all other possible conditions. All of this code coverages will be explained in more detail in section
+decision's outcome by varying that condition while holding fixed all other possible conditions. All of these code coverages will be explained in more detail in section
 \ref{sec:ccoverage}\\
 If the source code is classified as Level B then the tests for that piece of software should meet 100\% in the first two categories of testing and should be
 agreed with the costumer the value for to meet regarding Source code modified condition and decision coverage.
@@ -314,7 +314,7 @@ DO-178 by \ac{RTCA}
 \footnote{
 \ac{RTCA} is a US non-profit organization that develops technical guidance for use by government regulatory authorities and by industry.
 The documents it publishes are treated as guidelines, not as requirements.\\
-RTCA's objectives are to:
+\ac{RTCA}'s objectives are to:
 \begin{itemize}
 \item Ensure the safety and reliability of airborne systems;
 \item Develop minimum operational performance requirements for document-specific systems;
@@ -328,16 +328,16 @@ and ED-35 by \ac{EUROCAE}
 whose membership exclusively comprises aviation stakeholders made up of Manufacturers,
 Services Providers, National and International Aviation Authorities and Users (Airlines, Airports, operators) from Europe.
 }
-leading to the creation of a single standard and some years later in 1985 --- The DO-178/ED-12 Standard: The first
+leading to the creation of a single Standard and some years later in 1985 --- The DO-178/ED-12 Standard: The first
 common certification criteria for production of avionics software. This document has the title
 "Software Considerations in Airborne Systems and Equipment Certification" and became a worldwide basis for software
 certification in the aviation industry until nowadays. This Standard is
-officially recognized as a \textit{de facto} international standard by the \ac{ISO} for software certification in the aviation industry.\\
+officially recognized as a \textit{de facto} international Standard by the \ac{ISO} for software certification in the aviation industry.\\
 Compared to other Software Standards like MIL-STD-498, MIL-STD-2167A, IEEE/EIA-12207, IEC 61508 all of these standards deal with certain aspects of
-software development covered by DO-178/ED-12\cite{citeulike:4106419} and none of them has been found to provide a complete coverage of Software Development process as DO-178/ED-12 do
+software development covered by DO-178/ED-12\cite{ed-12b} and none of them has been found to provide a complete coverage of Software Development process as DO-178/ED-12 do
 \cite{avionics}.
 
-One of the things that these documents defined was the Software Levels\cite{citeulike:4106419}, ie DO-178/ED-12 requires that all systems requirements be mapped
+One of the things that these documents defined was the Software Levels\cite{ed-12b}, ie DO-178/ED-12 requires that all systems requirements be mapped
 to one of the five software levels:
 \begin{description}
 \item[Level A] Most critical failure level. Failure at Level A results in catastrophic failure conditions for an aircraft;
@@ -357,11 +357,11 @@ the set of activities for meeting the objectives:
 \begin{description}
 \item[Software Planning Process] where the Standard defines five types of planning data\footnote{\ac{RTCA} and \ac{EUROCAE} avoid referring to this "data" as
 "documents" when trying to elaborate on the objective evidence that need to be produced to satisfy the Standard objectives\cite{avionics}, on the other side \ac{ECSS} refers
-this evidences as "documents". SO we can consider this evidences as documents.} that should include
+these evidences as "documents". So we can consider these evidences as documents.} that should include
 considerations on the methods, languages, standards and tools to be used during the development phase. These plans are: Plan for Software Aspects of Certification,
 Software Development Plan, Software Verification Plan, Software Configuration Management Plan and Software Quality Assurance Plan.
 \item[Software Development Process] where the Standard defines that should be included the requirements, that can be
-expressed as high- and low-level requirements\cite{avionics,citeulike:4106419}. The Standard allow the system complexity and the design methodology applied to the system under development
+expressed as high- and low-level requirements\cite{avionics,ed-12b}. The Standard allow the system complexity and the design methodology applied to the system under development
 drive the requirements decomposition process. The design, coding and integration artifacts are briefly described since these tend to vary between various development methodologies.
 However the Standard defines clearly the expected outputs of each of the processes, the design process yields low-level requirements and software architecture.
 The coding process produces the source code, in a high-order language or assembly code. The integration process result in executable code
@@ -374,7 +374,7 @@ software life cycle. They are as follows:
 in DO-178/ED-12 which accounts to over two thirds of the total.
 \item Software Configuration Management: The clear definition
 of what is to be verified will be more reasonable for the
-various outputs of the verification in DO-178B. This definition
+various outputs of the verification in DO-178/ED-12. This definition
 or configuration is the design of the DO-178/ED-12 objectives
 for configuration management.
 \item Software Quality Assurance: \ac{SQA} objectives provide oversight of the entire DO-178/ED-12
@@ -388,7 +388,7 @@ compliant process where three of these are specific to it and
 must be provided to the certifying authority: Plan for Software Aspects of Certification, Software Configuration Index and Software Accomplishment Summary.
 \end{itemize}
 \end{description}
-\subsection{The new standard DO-178C/ED-12C}
+\subsection{The new Standard DO-178C/ED-12C}
 The first version of DO-178/ED-12 was DO-178A/ED-12A and was released in 1985 ans twenty years later the Standard had a new update -- The DO-178B/ED-12B released in 1992,
 ten more years and in 2012 the most recent version of the Standard was released following the existing nomenclature: DO-178C/ED-12C.
 The most recent version includes three supplements: 
@@ -399,21 +399,18 @@ The most recent version includes three supplements:
 \end{description}
 
 As we can see the Standard ECSS-Q-80\cite{ecss-q-st-80c} in the software quality assurance side and ECSS-E-40\cite{ecss-e-st-40c} in the software development side
-gives a distinguished emphasis on software validation and verification, however is the standard DO-178/ED-12, for reasons obvious,
+gives a distinguished emphasis on software validation and verification, however is the Standard DO-178/ED-12, for reasons obvious,
 that gives much more emphasis in the verification component. The biggest proof is the most recent embedding of the Formal Methods into the
-new version of the Standard DO-178C/ED-12C, in order to reach where the tests are not enough.
+new version of the Standard DO-178C/ED-12C\cite{ed-12c}, in order to reach where the tests are not enough.
 Increasingly the use of tools and methodologies from the area of Formal Methods is crucial to prevent software errors and ensure quality and their proper functioning.
 
 \section{Code Coverage}\label{sec:ccoverage}
-Since Code coverage is a major concern regarding the software development for space industry, it is very important to provide a study on this subject
+Since Code coverage is a major concern regarding the software development for space industry, as we have seen previously, it is very important to provide a study on this subject
 in order to access a possible integration of this feature into the final product.
 
 \cite{ccoverage}
-\cite{citeulike:3789144}
+\cite{mcdc}
 \cite{Marick99}
-\cite{citeulike:4106419}
-\cite{costa_et_al:OASIcs:2012:3523}
-%\note{Falar no CO-178-B}\\
 %\note{
 %Nesta seccao pretendo falar com grande detalhe nas varias vertendes de code coverage tendo em consideracao os standards da ECSS.
 %Como por exemplo: Statement Coverage, Decision Coverage, Condition Coverage, Multiple Condition Coverage, Condition/Decision Coverage,
