@@ -1,11 +1,13 @@
 \cleardoublepage
 \chapter{Testing}
 \minitoc
-In this chapter are discussed and contextualized historically the standards by which the space industry is governed.
-The importance of this Standards is addressed regarding the security of the software products for space purposes.
-The classification of \ac{ECSS} software criticality is also shown and starting therefrom are shown testing techniques that 
-respond to such high requirements, with the aim to analyze the code coverage.\\
+In this chapter are discussed and contextualized historically the \ac{ECSS} standards by which the space industry is governed (Section \ref{sec:historyspace} and Section \ref{sec:doc-stand}).
+The importance of this Standards is addressed regarding the security of the software products for space purposes, it is also
+shown the classification of \ac{ECSS} software criticality (Section \ref{sec:stand}) and starting therefrom are shown testing techniques that 
+respond to such high requirements, with the aim to analyze the code coverage (Section \ref{sec:ccoverage}).
 \new{
+Related to space Standards it is also shown the most reliable Standard for airborn software components -- The DO-178/ED-12 from \ac{EUROCAE} and \ac{RTCA} (Section \ref{sec:airborne}).
+Also it will be shown the most recent version of this Standard and the relationship between it and \ac{ECSS} software Standards (Section \ref{sec:new-stand}).\\
 The expression "safety" will be used in terms of a property of a system that it will not endanger human life or the environment and
 the expression "safety-critical" is used to describe a
 system that is intended to achieve, on its own, the necessary level of safety integrity for the implementation of the required safety functions.
@@ -79,7 +81,7 @@ The \ac{ECSS} system of standards covers a bigger area, as we explain before: ma
 The \ac{ECSS} Standard for software engineering, ECSS-E-40\cite{ecss-e-st-40c}, is a high-level requirements-oriented standard, in effect a tailoring of ISO/IEC 12207 for space projects.
 Unlike the old PSS-05-0, it reflects the specifics of space projects, for example the relationship between the space system development cycle and the software development cycle\cite{esa-bulletin-90}.
 
-\subsection{Document Standards}
+\subsection{Document Standards}\label{sec:doc-stand}
 ECSS-S-ST-00\cite{ecss-s-st-00c} document is the top level user document of \ac{ECSS}.
 It gives a general introduction into \ac{ECSS} and the correct use of \ac{ECSS} Documents in space
 programmes and projects.
@@ -306,7 +308,7 @@ as in \cite{ecss-q-st-80c} at clause 6.3.5.2.
 \end{table}
 
 \new{
-\section{DO-178/ED-12 Standard for Airborne Systems}
+\section{DO-178/ED-12 Standard for Airborne Systems}\label{sec:airborne}
 Software in avionics has been around since 1970's, but was in the 80's when the cost of computers went down, thanks to the introduction of personal computers,
 that the avionics industry start to use software components in airborne systems.
 The increased use of Software and Computer systems for safety-critical applications motivated the development in 1980 of
@@ -388,8 +390,8 @@ compliant process where three of these are specific to it and
 must be provided to the certifying authority: Plan for Software Aspects of Certification, Software Configuration Index and Software Accomplishment Summary.
 \end{itemize}
 \end{description}
-\subsection{The new Standard DO-178C/ED-12C}
-The first version of DO-178/ED-12 was DO-178A/ED-12A and was released in 1985 ans twenty years later the Standard had a new update -- The DO-178B/ED-12B released in 1992,
+\subsection{The new Standard DO-178C/ED-12C}\label{sec:new-stand}
+The first version of DO-178/ED-12 was DO-178A/ED-12A and was released in 1985 and twenty years later the Standard had a new update -- The DO-178B/ED-12B released in 1992,
 ten more years and in 2012 the most recent version of the Standard was released following the existing nomenclature: DO-178C/ED-12C.
 The most recent version of the Standard takes into account new technologies and methodologies developed since 1992 (the previous version of the Standard).
 These methodologies and Technologies include the \ac{OO} Paradigm, Model based design/automatic code generators and \ac{RT} operating systems.
@@ -431,6 +433,7 @@ gives a distinguished emphasis on software validation and verification, however 
 that gives much more emphasis in the verification component. The biggest proof is the most recent embedding of the Formal Methods into the
 new version of the Standard DO-178C/ED-12C\cite{ed-12c}, in order to reach where the tests are not enough.
 Increasingly the use of tools and methodologies from the area of Formal Methods is crucial to prevent software errors and ensure quality and their proper functioning.
+
 \section{Code Coverage}\label{sec:ccoverage}
 As we have seen previouslly, code coverage is a major concern regarding the software development for space industry, it is very important to provide a study on this subject
 in order to access a possible integration of this feature into the final product.
