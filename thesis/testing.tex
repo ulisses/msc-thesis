@@ -391,21 +391,48 @@ must be provided to the certifying authority: Plan for Software Aspects of Certi
 \subsection{The new Standard DO-178C/ED-12C}
 The first version of DO-178/ED-12 was DO-178A/ED-12A and was released in 1985 ans twenty years later the Standard had a new update -- The DO-178B/ED-12B released in 1992,
 ten more years and in 2012 the most recent version of the Standard was released following the existing nomenclature: DO-178C/ED-12C.
+The most recent version of the Standard takes into account new technologies and methodologies developed since 1992 (the previous version of the Standard).
+These methodologies and Technologies include the \ac{OO} Paradigm, Model based design/automatic code generators and \ac{RT} operating systems.
+The new Standard also recognize that there is more to software verification than testing \textit{per se} and includes Formal methods\cite{Brosgol:2011:DNA:2070337.2070341} and abstract interpretation
+and also takes into account the supplementary papers/commentaries on DO-178B.\\
 The most recent version includes three supplements: 
 \begin{description}
 \item[ED-216 Formal Methods] identifies the additions, modifications and substitutions to ED-12C and ED-109A objectives when formal methods are used as part of a software life cycle, and the additional guidance required. It discusses those aspects of airworthiness certification that pertain to the production of software, using formal methods for systems approved using ED-12C;
-\item[ED-217 Object-Oriented Technology and related techniques] identifies the additions, modifications and deletions to ED-12C and ED-109A objectives when \ac{OO} technology or related techniques are used as part of the software development life cycle and additional guidance is required. This supplement, in conjunction with ED-12C, is intended to provide a common framework for the evaluation and acceptance of \ac{OO} technology and related techniques (RT)-based systems;
-\item[ED-218 Model-Based development and verification] contains modifications and additions to ED-12C and ED-109A. Objectives, activities, explanatory text and software life cycle data that should be addressed when model- based development and verification are used as part of the software life cycle. This includes the artifacts that would be expressed using models and the verification evidence that could be derived from them. Therefore, this supplement also applies to the models developed in the system process that define software requirements or software architecture.
+\item[ED-217 Object-Oriented Technology and related techniques] identifies the additions, modifications and deletions to ED-12C and ED-109A objectives 
+when \ac{OO} technology or related techniques are used as part of the software development life cycle and additional guidance is required.
+This supplement, in conjunction with ED-12C, is intended to provide a common framework for the evaluation and acceptance of \ac{OO} technology
+and related techniques \ac{RT}-based systems;
+\item[ED-218 Model-Based development and verification] contains modifications and additions to ED-12C and ED-109A. Objectives, activities, explanatory text and
+software life cycle data that should be addressed when model-based development and verification are used as part of the software life cycle.
+This includes the artifacts that would be expressed using models and the verification evidence that could be derived from them.
+Therefore, this supplement also applies to the models developed in the system process that define software requirements or software architecture.
 \end{description}
+
+The benefits of incorporating the \textbf{ED-216 Formal Methods} supplement are important because
+the use of mathematical models, that defines the system using an unambiguous abstraction syntax (eg state machines, Z notation, set theory, \ac{DSL}'s),
+and mathematical analysis, that provides guarantees/proofs of software properties regarding the compliance with requirements,
+may be applied at various stages during the software development and can be used as a formal verification technique.
+This supplement sees Formal methods as a complement to testing, basically testing shows that functional requirements
+are satisfied and sometimes is able to detect errors and Formal methods can increase confidence that no anomalous behavior will occur
+(formal methods may found faults that are not detected by testing techniques)\cite{Chelini:2009:WTD:1647420.1647443}.\\
+The benefits from incorporating the \textbf{ED-217 Object-Oriented Technology and related techniques} supplement are important because
+it assumes that \ac{OO} paradigms bring more safety to software development than other lower level languages once massively used in aerospace.
+The Data-centric approach of \ac{OO} languages eases maintenance of many large systems, the use of Model-driven architecture tool (like \ac{UML}) facilitates
+the generation of \ac{OO} code\cite{Elliott:2010:OSC:1869542.1869558}. The use of a Standard paradigm allow space industry to use languages used by many programmers such as C++, JAVA or Ada95.
+The features that this paradigms bring to space software are very important, namely, the capability of Method overloading, the type conventions, the re-use of
+generic templates, exceptions and concurrency, etc.\\
+The benefits from incorporating the \textbf{ED-218 Model-Based development and verification} supplement are essentially the motivation to use unambiguous notation and supports the use of
+automated code generation tools, namely automatic test generation tools\cite{Chelini:2009:WTD:1647420.1647443}. This supplement acknowledges the need of
+high-level requirements from which development model is derived and the ability to demonstrate properties for the model, showing that the property 
+is preserved in the source code.\\
 
 As we can see the Standard ECSS-Q-80\cite{ecss-q-st-80c} in the software quality assurance side and ECSS-E-40\cite{ecss-e-st-40c} in the software development side
 gives a distinguished emphasis on software validation and verification, however is the Standard DO-178/ED-12, for reasons obvious,
 that gives much more emphasis in the verification component. The biggest proof is the most recent embedding of the Formal Methods into the
 new version of the Standard DO-178C/ED-12C\cite{ed-12c}, in order to reach where the tests are not enough.
 Increasingly the use of tools and methodologies from the area of Formal Methods is crucial to prevent software errors and ensure quality and their proper functioning.
-
 \section{Code Coverage}\label{sec:ccoverage}
-Since Code coverage is a major concern regarding the software development for space industry, as we have seen previously, it is very important to provide a study on this subject
+As we have seen previouslly, code coverage is a major concern regarding the software development for space industry, it is very important to provide a study on this subject
 in order to access a possible integration of this feature into the final product.
 
 \cite{ccoverage}
