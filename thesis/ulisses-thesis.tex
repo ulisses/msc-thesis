@@ -1,12 +1,13 @@
-\documentclass[a4paper,11pt,twoside,svgnames]{book}
+\documentclass[a4paper,11pt,svgnames]{book}
 \usepackage{etex}
 \newcommand{\leftMargin}{2.5cm}
 \newcommand{\rightMargin}{2cm}
 \usepackage[left=\leftMargin,right=\rightMargin,top=3cm,bottom=3cm]{geometry}
 
+\usepackage{caption}
 \usepackage{lastpage}
 \usepackage{tikz}
-%\usepackage{kpfonts}
+\usepackage{etoolbox}
 \usepackage[explicit]{titlesec}
 
 \usepackage[all]{xy}
@@ -33,12 +34,13 @@
 \usepackage[all]{xy}
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DEFINE THE COLOR OF THE DOCUMENT AND NEATNESS
 % use \def\bw{1} to generate the document in black and white
 % \def\bw{1}
 % use \def\neat{1} to generate a neater document
-% \def\neat{1}
+\def\neat{1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifx\bw\undefined
@@ -106,13 +108,10 @@
 
 \fancyhead{}
 \fancyfoot{}
-%% make the odd pages have the section name on the top right
-\fancyhead[RO]{\sffamily\bfseries \rightmark}
-%% make the even pages have the chapter name on the top left
-\fancyhead[LE]{\sffamily\bfseries \leftmark}
 
 %% page nums on the bottom in a nice box
 \ifx\neat\undefined
+	%%% FOOTERS
 	%% even side pages
 	\fancyfoot[LE]{\psboxit{box 0.8 setgray fill}
 	{{\framebox[10mm][c]{\rule{0cm}{4mm}\color{black}{\bfseries \thepage}}}}}
@@ -120,10 +119,16 @@
 	\fancyfoot[RO]{\psboxit{box 1 setgray fill}
 	{\hspace{\textwidth}\psboxit{box 0.8 setgray fill}
 	{\framebox[10mm][c]{\rule{0cm}{4mm}\color{black}{\bfseries \thepage}}}}}
+	%%% HEADERS
+	%% odd side pages
+	\fancyhead[RO]{\sffamily\bfseries \rightmark}
+	%% even side pages
+	\fancyhead[LE]{\sffamily\bfseries \leftmark}
 \else
 	\newcommand{\yshift}{1.5cm}
 	\newcommand{\corners}{3pt}
 	\newcommand{\sep}{11pt}
+	%%% FOOTERS
 	%% even side pages
 	\fancyfoot[LE]{
 	\begin{tikzpicture}[remember picture, overlay]
@@ -136,6 +141,21 @@
 	\begin{tikzpicture}[remember picture, overlay]
 	\node[xshift=\textwidth+\rightMargin,yshift=\yshift,rounded corners=\corners,inner sep=\sep,fill=MidnightBlue] at (current page.south west)
 	{\color{white}\thepage};
+	\end{tikzpicture}
+	}
+	%%% HEADERS
+	%% odd side pages
+	\fancyhead[RO]{
+	\begin{tikzpicture}[remember picture, overlay]
+	\draw[xshift=-\textwidth+.13cm,fill=LightSkyBlue,yshift=-.151cm] (0,0) rectangle (\textwidth,1cm);
+	\node[anchor=east,xshift=-\rightMargin,yshift=-\yshift-0.35cm] at (current page.north east) {\color{white}\sffamily\bfseries\rightmark};
+	\end{tikzpicture}
+	}
+	%% even side pages
+	\fancyhead[LE]{
+	\begin{tikzpicture}[remember picture, overlay]
+	\draw[fill=LightSkyBlue,yshift=-.151cm] (0,0) rectangle (\textwidth,1cm);
+	\node[anchor=west,xshift=\leftMargin,yshift=-\yshift-0.35cm] at (current page.north west) {\color{white}\sffamily\bfseries\leftmark};
 	\end{tikzpicture}
 	}
 \fi
@@ -287,10 +307,10 @@
 \include{abstract}
 
 \dominilof \dominilot \dominitoc
-\cleardoublepage \tableofcontents   \addcontentsline{toc}{chapter}{\contentsname}
-\cleardoublepage \listoftables      \addcontentsline{toc}{section}{\listtablename}
-\cleardoublepage \listoffigures     \addcontentsline{toc}{section}{\listfigurename}
-\cleardoublepage \lstlistoflistings \addcontentsline{toc}{section}{\lstlistlistingname}
+\tableofcontents   \addcontentsline{toc}{chapter}{\contentsname}
+\listoftables      \addcontentsline{toc}{section}{\listtablename}
+\listoffigures     \addcontentsline{toc}{section}{\listfigurename}
+\lstlistoflistings \addcontentsline{toc}{section}{\lstlistlistingname}
 % Print Glossary into the document
 \newpage
 \addcontentsline{toc}{section}{\listofacronymsname}
