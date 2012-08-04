@@ -1,5 +1,13 @@
-\documentclass[a4paper,11pt, twoside]{book}
-\usepackage[left=2.5cm,right=2cm,top=3cm,bottom=3cm]{geometry}
+\documentclass[a4paper,11pt,twoside,svgnames]{book}
+\usepackage{etex}
+\newcommand{\leftMargin}{2.5cm}
+\newcommand{\rightMargin}{2cm}
+\usepackage[left=\leftMargin,right=\rightMargin,top=3cm,bottom=3cm]{geometry}
+
+\usepackage{lastpage}
+\usepackage{tikz}
+%\usepackage{kpfonts}
+\usepackage[explicit]{titlesec}
 
 \usepackage[all]{xy}
 \usepackage[english]{babel}
@@ -24,10 +32,13 @@
 \usepackage{color,graphicx}
 \usepackage[all]{xy}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% DEFINE THE COLOR OF THE DOCUMENT
+% DEFINE THE COLOR OF THE DOCUMENT AND NEATNESS
 % use \def\bw{1} to generate the document in black and white
- \def\bw{1}
+% \def\bw{1}
+% use \def\neat{1} to generate a neater document
+% \def\neat{1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifx\bw\undefined
@@ -101,13 +112,33 @@
 \fancyhead[LE]{\sffamily\bfseries \leftmark}
 
 %% page nums on the bottom in a nice box
-%% even side pages
-\fancyfoot[LE]{\psboxit{box 0.8 setgray fill}
-{\framebox[10mm][c]{\rule{0cm}{4mm}\color{black}{\bfseries \thepage}}}}
-%% odd side pages
-\fancyfoot[RO]{\psboxit{box 1 setgray fill}
-{\hspace{\textwidth}\psboxit{box 0.8 setgray fill}
-{\framebox[10mm][c]{\rule{0cm}{4mm}\color{black}{\bfseries \thepage}}}}}
+\ifx\neat\undefined
+	%% even side pages
+	\fancyfoot[LE]{\psboxit{box 0.8 setgray fill}
+	{{\framebox[10mm][c]{\rule{0cm}{4mm}\color{black}{\bfseries \thepage}}}}}
+	%% odd side pages
+	\fancyfoot[RO]{\psboxit{box 1 setgray fill}
+	{\hspace{\textwidth}\psboxit{box 0.8 setgray fill}
+	{\framebox[10mm][c]{\rule{0cm}{4mm}\color{black}{\bfseries \thepage}}}}}
+\else
+	\newcommand{\yshift}{1.5cm}
+	\newcommand{\corners}{3pt}
+	\newcommand{\sep}{11pt}
+	%% even side pages
+	\fancyfoot[LE]{
+	\begin{tikzpicture}[remember picture, overlay]
+	\node[xshift=\leftMargin,yshift=\yshift,rounded corners=\corners,inner sep=\sep,fill=MidnightBlue] at (current page.south west)
+	{\color{white}\thepage};
+	\end{tikzpicture}
+	}
+	%% odd side pages
+	\fancyfoot[RO]{
+	\begin{tikzpicture}[remember picture, overlay]
+	\node[xshift=\textwidth+\rightMargin,yshift=\yshift,rounded corners=\corners,inner sep=\sep,fill=MidnightBlue] at (current page.south west)
+	{\color{white}\thepage};
+	\end{tikzpicture}
+	}
+\fi
 
 %% make the bottom line above the page number box
 \renewcommand{\footrulewidth}{0.4pt}
@@ -217,6 +248,30 @@
 }
 % Reset endnote numbering every new chapter
 \counterwithin{endnote}{chapter}
+
+% neat section naming
+\ifx\neat\undefined
+\else
+\definecolor{doc}{RGB}{0,60,110}
+
+\newcommand*\chapterlabel{}
+\titleformat{\chapter}
+{\gdef\chapterlabel{}\normalfont\sffamily\Huge\bfseries\scshape}
+{\gdef\chapterlabel{\thechapter\ }}{0pt}
+{\begin{tikzpicture}[remember picture,overlay]
+\node[yshift=-3cm] at (current page.north west)
+{\begin{tikzpicture}[remember picture, overlay]
+\draw[fill=LightSkyBlue] (0,0) rectangle
+(\paperwidth,3cm);
+\node[anchor=east,xshift=.9\paperwidth,rectangle,rounded corners=20pt,inner sep=11pt,fill=MidnightBlue]
+{\color{white}\chapterlabel#1};
+\end{tikzpicture}
+};
+\end{tikzpicture}
+}
+\titlespacing*{\chapter}{0pt}{50pt}{-60pt}
+\fi
+% % %
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
