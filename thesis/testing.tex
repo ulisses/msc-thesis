@@ -1,14 +1,14 @@
 \chapter{Testing}
 \minitoc
-In this chapter are discussed and contextualized historically the \ac{ECSS} standards by which the space industry is governed (Section \ref{sec:historyspace} and Section \ref{sec:doc-stand}).
+In this chapter are discussed and contextualized historically the \ac{ECSS} Standards by which the space industry is governed (Section \ref{sec:historyspace} and Section \ref{sec:doc-stand}).
 The importance of this Standards is addressed regarding the security of the software products for space purposes, it is also
 shown the classification of \ac{ECSS} software criticality (Section \ref{sec:stand}) and starting therefrom are shown testing techniques that 
 respond to such high requirements, with the aim to analyze the code coverage (Section \ref{sec:ccoverage}).
 \new{
 Related to space Standards it is also shown the most reliable Standard for airborn software components -- The DO-178/ED-12 from \ac{EUROCAE} and \ac{RTCA} (Section \ref{sec:airborne}).
 Also it will be shown the most recent version of this Standard and the relationship between it and \ac{ECSS} software Standards (Section \ref{sec:new-stand}).\\
-The expression "safety" will be used in terms of a property of a system that it will not endanger human life or the environment and
-the expression "safety-critical" is used to describe a
+The term "safety" denotes the property of a system that it will not endanger human life or the environment and
+the term "safety-critical" is used to characterize a
 system that is intended to achieve, on its own, the necessary level of safety integrity for the implementation of the required safety functions.
 So, a safety-critical software is an artifact that if
 fails can cause loss of human life or have other catastrophic consequences.\\
@@ -23,10 +23,10 @@ launchers, payloads, experiments and their associated ground equipment and facil
 These kind of projects are generally  expensive, demand considerable amount of time to be completed and have different companies and countries participating.\\
 Trying to get a Standard way to follow all rules to deliver the components with the same degree of quality and reliability is extremely important.\\
 
-Software development for Space, particularly in Europe, follows very specific rules on international standards. These standards not only define how a software project should
+Software development for Space, particularly in Europe, follows very specific rules on international Standards. These Standards not only define how a software project should
 evolve but also how every component developed in the field of Space Industry should be done, tested, documented, deployed and maintained.
 This include not only software but many more artefacts like: Electrical, Mechanical and Material components, etc.\\
-In 1994, \ac{ECSS} was established to develop a single set of consistent Space standards recognized and accepted for use by the entire European Space Community.
+In 1994, \ac{ECSS} was established to develop a single set of consistent Space Standards recognized and accepted for use by the entire European Space Community.
 \ac{ECSS} is supported by \ac{ESA} Council deliberations since the foundation and has developed, through
 a partnership between \ac{ESA}, National Space Agencies and European Industry, the management and implementation of European Space Projects.\\
 The main objectives of \ac{ECSS} are to increase the effectiveness of all Space programmes in Europe through the application of a
@@ -63,21 +63,21 @@ The \ac{BSSC} was subsequently founded in order to \ac{ESA} never end up in an i
 which the \ac{BSSC}, and consequently, the \ac{ESA} Software Engineering Standards was funded and prospered.\\
 \ac{ESA}'s \ac{BSSC} was formally established in May 1977 ant it was defined that \ac{BSSC} responsibilities were to:
 \begin{itemize}
-\item Establish and maintain engineering standards for the procurement, development and maintenance of software.
-\item Verify that the standards thus established are made applicable to software
-development activities at \ac{ESA}. The \ac{BSSC} verifies the application of the PSS-05-0\cite{pss-05-0} standards through a procedure involving the
+\item Establish and maintain engineering Standards for the procurement, development and maintenance of software.
+\item Verify that the Standards thus established are made applicable to software
+development activities at \ac{ESA}. The \ac{BSSC} verifies the application of the PSS-05-0\cite{pss-05-0} Standards through a procedure involving the
 scrutiny of contracts with a software content.
-These rather limited controls have succeeded remarkably well in helping to instill a software standards "culture" within the organisation.
+These rather limited controls have succeeded remarkably well in helping to instill a software Standards "culture" within the organisation.
 \item Act as liaison with \ac{ESA} Legal Affairs department concerning the safeguarding of intellectual
 property rights relating to software.
 \end{itemize}
 PSS-05-0 was a very successful Standard and \ac{BSSC} has played an important role in promoting it, both through its various
 publications and through its responsibility in monitoring its application. PSS-05-0 has served to create a common software engineering culture in \ac{ESA}\cite{esa-bulletin-90}.\\
-In June 1994, \ac{ESA} Council confirmed the willing to transfer the present PSS system of \ac{ESA} space standards to a new system
-of standards, today known as \ac{ECSS}, in order to expand the Standards 
+In June 1994, \ac{ESA} Council confirmed the willing to transfer the present PSS system of \ac{ESA} space Standards to a new system
+of Standards, today known as \ac{ECSS}, in order to expand the Standards 
 to other European national space agencies and European space industry in general.
-The \ac{ECSS} system of standards covers a bigger area, as we explain before: management, product assurance and engineering standards, specifically for space projects.
-The \ac{ECSS} Standard for software engineering, ECSS-E-40\cite{ecss-e-st-40c}, is a high-level requirements-oriented standard, in effect a tailoring of ISO/IEC 12207 for space projects.
+The \ac{ECSS} system of Standards covers a bigger area, as we explain before: management, product assurance and engineering Standards, specifically for space projects.
+The \ac{ECSS} Standard for software engineering, ECSS-E-40\cite{ecss-e-st-40c}, is a high-level requirements-oriented Standard, in effect a tailoring of ISO/IEC 12207 for space projects.
 Unlike the old PSS-05-0, it reflects the specifics of space projects, for example the relationship between the space system development cycle and the software development cycle\cite{esa-bulletin-90}.
 
 \subsection{Document Standards}\label{sec:doc-stand}
@@ -87,7 +87,7 @@ programmes and projects.
 Its purpose is to provide users with an overview of the \ac{ECSS} System, together
 with an introduction to the three branches of applicability, (that will be explained later on this section) and to the disciplines
 covered by the set of \ac{ECSS} Standards and the processes involved in generating
-and using these standards.
+and using these Standards.
 In this document there is also an introduction into space programmes, space projects actors and their
 customer-supplier relationships. The application of this System for space projects in the customer-supplier
 chain is also explained and a practical tailoring method is described together with
@@ -97,8 +97,8 @@ system in space projects/programmes\cite{ecss-s-st-00c}.\\
 
 Under this document there are three parallel branches, the branche dedicated to project management,
 engineering, and product assurance.
-Project management branch documents have an "M" prefix, engineering standards have an "E" prefix, and product assurance standards have a "Q" prefix.
-Within each branch, disciplines and corresponding requirements are covered by dedicated standards.
+Project management branch documents have an "M" prefix, engineering Standards have an "E" prefix, and product assurance Standards have a "Q" prefix.
+Within each branch, disciplines and corresponding requirements are covered by dedicated Standards.
 Standards are normative document written specifically for direct use in invitation to tender and 
 business agreements for implementing space related activities. Its content 
 is strictly limited to the statement of verifiable customer requirements, supported 
@@ -110,12 +110,12 @@ guidelines, technical data, advice or recommendations, which contains
 information about how to implement space related activities. There are two types of \ac{HB}'s: Guidelines and good practices and Collection of data.
 On the other side, \ac{TM} are non-normative documents providing useful information to the space community 
 on a specific subject, prepared to record and present non-normative data, which 
-are not relevant for a Standard or for a \ac{HB}, or not yet mature to be published as \ac{HB} or standard.
+are not relevant for a Standard or for a \ac{HB}, or not yet mature to be published as \ac{HB} or Standard.
 
 In order to clear understand the disciplines addressed by the \ac{ECSS} Standards system,
 is shown in Figure \ref{fig:ecssdocsstruct} the Standard document by \ac{ECSS} where it is possible to clearly
 see the three separated branches (M, E and Q)\cite{ecss-s-st-00c}.
-It is also possible to see standards from other \ac{SDO} that are integrated into \ac{ECSS} new standards.
+It is also possible to see Standards from other \ac{SDO} that are integrated into \ac{ECSS} new Standards.
 
 \def\a{\save[].[dddddd]!C="a"*[F--]\frm{}\restore}
 \def\b{\save[].[dddddddd]!C="b"*[F--]\frm{}\restore}
@@ -130,7 +130,7 @@ It is also possible to see standards from other \ac{SDO} that are integrated int
   & *+[F-]{\txt{ECSS-S-ST-00\cite{ecss-s-st-00c} - ECSS System}} \ar@{->}[d] \ar@{->}[dl] \ar@{->}[dr] & \\
 	\h\a{\txt{Space project management\\(management Standards)}}
   & \b{\txt{Space product assurance\\(product assurance Standards)}}
-  & \b{\txt{Space engineering\\(engineering Standards)}} & *+[F]{\txt{External\\standards\\adopted by\\ECSS}}\ar@/{}_{3pc}/@{->}[];"h"+<3.1pt,28.3pt>+\\
+  & \b{\txt{Space engineering\\(engineering Standards)}} & *+[F]{\txt{External\\Standards\\adopted by\\ECSS}}\ar@/{}_{3pc}/@{->}[];"h"+<3.1pt,28.3pt>+\\
 	*+[F**:red]{\txt{M-10 - Project planning\\and implementation}}
   & *+[F**:blue][white]{\txt{Q-10 - Product\\assurance management}}
   & *+[F**:green]{\txt{E-10 - System\\engineering}}\\
@@ -167,7 +167,7 @@ It is also possible to see standards from other \ac{SDO} that are integrated int
   & *+[F-]{\txt{ECSS-S-ST-00\cite{ecss-s-st-00c} - ECSS System}} \ar@{->}[d] \ar@{->}[dl] \ar@{->}[dr] & \\
 	\h\a{\txt{Space project management\\(management Standards)}}
   & \b{\txt{Space product assurance\\(product assurance Standards)}}
-  & \b{\txt{Space engineering\\(engineering Standards)}} & *+[F]{\txt{External\\standards\\adopted by\\ECSS}}\ar@/{}_{3pc}/@{->}[];"h"+<3.1pt,28.3pt>+\\
+  & \b{\txt{Space engineering\\(engineering Standards)}} & *+[F]{\txt{External\\Standards\\adopted by\\ECSS}}\ar@/{}_{3pc}/@{->}[];"h"+<3.1pt,28.3pt>+\\
 	*+[F]{\txt{M-10 - Project planning\\and implementation}}
   & *+[F]{\txt{Q-10 - Product\\assurance management}}
   & *+[F]{\txt{E-10 - System\\engineering}}\\
@@ -199,8 +199,8 @@ tailoring to the technical, cost, schedule, programmatic and economic characteri
 For a specific project, Standards are tailored according to all the traits of the project: the type and 
 phase of the project, the acceptable risks, the project complexity, cost, etc.
 So, tailoring is the process by which individual requirements are evaluated and made applicable to a specific project.
-The available list of standards and their content is analysed in order to select the set of standards to be made applicable to the project, taking 
-into account its specificity and constrains and identify those requirements in the individual standards which are not 
+The available list of Standards and their content is analysed in order to select the set of Standards to be made applicable to the project, taking 
+into account its specificity and constrains and identify those requirements in the individual Standards which are not 
 applicable to the project, modify or exceptionally add requirement for specific needs\cite{ecss-s-st-00c}.
 Tailoring is an important task in order to deliver a suitable product or service considering the costumer needs.
 
@@ -211,7 +211,7 @@ in other domains because space software development pose additional challenges d
 requirement that the end products should be highly dependable.
 The criticality factor of those systems (sometimes life critical) tend to have different more stringent requirements and approaches 
 compared to less critical software projects, so
-the existing software engineering standards are not enough to cope with these challenges, this is why \ac{ECSS} has developed a set of standards for European
+the existing software engineering Standards are not enough to cope with these challenges, this is why \ac{ECSS} has developed a set of Standards for European
 space projects\cite{Ahmad2010AgileECSS,10.1109/SESS.1997.595952}.
 This is why \ac{ECSS} have a particular E branch Standard completely dedicated to "Software Product Assurance" --- The ECSS-Q-80\cite{ecss-q-st-80c}.\\
 
@@ -245,7 +245,7 @@ Major damage to interfacing flight system; Major damage to ground facilities; Ma
 and Major detrimental environmental effects. The result of having a software component fail this level leaves to loss of mission.\\
 The other two levels: Major and Minor leaves to Major mission degradation and Minor mission degradation with no or negligible safety results in the mission.
 In Table \ref{tab:severity} we have the \ac{ECSS} Severity Classification of consequences information summarized acording to \cite{ecss-q-st-40c}.
-According to the standard
+According to the Standard
 when several categories can be applied to the system or system component, the highest severity takes priority.
 \begin{table}[!ht]
 \centering
@@ -269,7 +269,7 @@ Temporarily disabling but not life-threatening injury, or temporary occupational
 \caption{ECSS Severity Classification of consequences}\label{tab:severity}
 \end{table}
 
-To ensure more security about the source code, regarding the severity level, \ac{ECSS} standards, namely \cite{ecss-q-st-40c}
+To ensure more security about the source code, regarding the severity level, \ac{ECSS} Standards, namely \cite{ecss-q-st-40c}
 consider the application of formal tools to verify the source code. But at the same time, a major emphasis to software testing.
 \ac{ECSS} divides the the test effort regarding the criticality of the source code.
 If the source code is classified as Level A then the tests for that piece of software should meet 100\% in
@@ -334,24 +334,24 @@ common certification criteria for production of avionics software. This document
 "Software Considerations in Airborne Systems and Equipment Certification" and became a worldwide basis for software
 certification in the aviation industry until nowadays. This Standard is
 officially recognized as a \textit{de facto} international Standard by the \ac{ISO} for software certification in the aviation industry.\\
-Compared to other Software Standards like MIL-STD-498, MIL-STD-2167A, IEEE/EIA-12207, IEC 61508 all of these standards deal with certain aspects of
+Other Software Standards like MIL-STD-498, MIL-STD-2167A, IEEE/EIA-12207, IEC 61508 deal with certain aspects of
 software development covered by DO-178/ED-12\cite{ed-12b} and none of them has been found to provide a complete coverage of Software Development process as DO-178/ED-12 do
 \cite{avionics}.
 
-One of the things that these documents defined was the Software Levels\cite{ed-12b}, ie DO-178/ED-12 requires that all systems requirements be mapped
-to one of the five software levels:
+DO-178/ED-12 defines five Software Levels\cite{ed-12b}, such that the requirements of any system can be mapped to one
+of these levels:
 \begin{description}
 \item[Level A] Most critical failure level. Failure at Level A results in catastrophic failure conditions for an aircraft;
-\item[Level B] The software at this level contributes to severe-major failure conditions;
+\item[Level B] Software at this level contributes to severe-major failure conditions;
 \item[Level C] Software at this level contributes to major failure conditions;
 \item[Level D] Software at this level contributes to minor failure conditions;
-\item[Level E] The software has no effect toward potential failure conditions.
+\item[Level E] Software has no effect toward potential failure conditions.
 \end{description}
-As we have seen in section \ref{sec:stand}, this classification is very similar.
-The fact is that this Standard has served as initial motto for ECSS-Q-80\cite{ecss-q-st-80c} and ECSS-E-40\cite{ecss-e-st-40c}, \ac{ECSS} standards.
-In fact \ac{ECSS} software standards were naturally fetched from many learned lessons in avionics.
-Many other definitions in \ac{ECSS} ECSS-Q-80\cite{ecss-q-st-80c} and ECSS-E-40\cite{ecss-e-st-40c} were drawn based on DO-178/ED-12, like the
-Severity classification of consequences, code covera vs. Criticality and many more guidelines.
+This classification is very similar to the one seen in section \ref{sec:stand}.
+The fact is that this Standard has served as initial motto for ECSS-Q-80\cite{ecss-q-st-80c} and ECSS-E-40\cite{ecss-e-st-40c}, \ac{ECSS} Standards.
+In fact \ac{ECSS} software Standards were naturally fetched from many learned lessons in avionics.
+Many other definitions in ECSS-Q-80\cite{ecss-q-st-80c} and ECSS-E-40\cite{ecss-e-st-40c} were drawn based on DO-178/ED-12, like the
+Severity classification of consequences, Code Coverage vs. Criticality, and many more guidelines.
 
 DO-178/ED-12 has three Software Life cycle Processes where are defined the objectives of each step in the software development as well
 the set of activities for meeting the objectives:
@@ -359,7 +359,8 @@ the set of activities for meeting the objectives:
 \item[Software Planning Process] where the Standard defines five types of planning data\footnote{\ac{RTCA} and \ac{EUROCAE} avoid referring to this "data" as
 "documents" when trying to elaborate on the objective evidence that need to be produced to satisfy the Standard objectives\cite{avionics}, on the other side \ac{ECSS} refers
 these evidences as "documents". So we can consider these evidences as documents.} that should include
-considerations on the methods, languages, standards and tools to be used during the development phase. These plans are: Plan for Software Aspects of Certification,
+considerations on the methods, languages, Standards and tools to be used during the development phase. These plans are: Software Aspects of
+Certification Plan,
 Software Development Plan, Software Verification Plan, Software Configuration Management Plan and Software Quality Assurance Plan.
 \item[Software Development Process] where the Standard defines that should be included the requirements, that can be
 expressed as high- and low-level requirements\cite{avionics,ed-12b}. The Standard allow the system complexity and the design methodology applied to the system under development
@@ -380,7 +381,7 @@ or configuration is the design of the DO-178/ED-12 objectives
 for configuration management.
 \item Software Quality Assurance: \ac{SQA} objectives provide oversight of the entire DO-178/ED-12
 process and require independence at all levels. \ac{SQA} guarantees
-detection of plans and standards, deviated during development
+detection of plans and Standards, deviated during development
 process are recorded, evaluated, tracked and resolved.
 \item Certification Liaison Process: As mentioned earlier, the
 issues should be identified early for the certification process.
@@ -394,7 +395,7 @@ The first version of DO-178/ED-12 was DO-178A/ED-12A and was released in 1985 an
 ten more years and in 2012 the most recent version of the Standard was released following the existing nomenclature: DO-178C/ED-12C.
 The most recent version of the Standard takes into account new technologies and methodologies developed since 1992 (the previous version of the Standard).
 These methodologies and Technologies include the \ac{OO} Paradigm, Model based design/automatic code generators and \ac{RT} operating systems.
-The new Standard also recognize that there is more to software verification than testing \textit{per se} and includes Formal methods\cite{Brosgol:2011:DNA:2070337.2070341} and abstract interpretation
+The new Standard also recognizes that there is more to software verification than testing \textit{per se} and includes Formal methods\cite{Brosgol:2011:DNA:2070337.2070341} and abstract interpretation
 and also takes into account the supplementary papers/commentaries on DO-178B.\\
 The most recent version includes three supplements: 
 \begin{description}
@@ -410,38 +411,38 @@ Therefore, this supplement also applies to the models developed in the system pr
 \end{description}
 
 The benefits of incorporating the \textbf{ED-216 Formal Methods} supplement are important because
-the use of mathematical models, that defines the system using an unambiguous abstraction syntax (eg state machines, Z notation, set theory, \ac{DSL}'s),
+the use of mathematical models, that define the system using an unambiguous abstraction syntax (eg state machines, Z notation, set theory, \ac{DSL}'s),
 and mathematical analysis, that provides guarantees/proofs of software properties regarding the compliance with requirements,
 may be applied at various stages during the software development and can be used as a formal verification technique.
 This supplement sees Formal methods as a complement to testing, basically testing shows that functional requirements
 are satisfied and sometimes is able to detect errors and Formal methods can increase confidence that no anomalous behavior will occur
 (formal methods may found faults that are not detected by testing techniques)\cite{Chelini:2009:WTD:1647420.1647443}.\\
 The benefits from incorporating the \textbf{ED-217 Object-Oriented Technology and related techniques} supplement are important because
-it assumes that \ac{OO} paradigms bring more safety to software development than other lower level languages once massively used in aerospace.
+it assumes that \ac{OO} paradigms brings more safety to software development than other lower level languages once massively used in aerospace.
 The Data-centric approach of \ac{OO} languages eases maintenance of many large systems, the use of Model-driven architecture tool (like \ac{UML}) facilitates
 the generation of \ac{OO} code\cite{Elliott:2010:OSC:1869542.1869558}. The use of a Standard paradigm allow space industry to use languages used by many programmers such as C++, JAVA or Ada95.
-The features that this paradigms bring to space software are very important, namely, the capability of Method overloading, the type conventions, the re-use of
+The features that this paradigm brings to space software are very important, namely, the capability of Method overloading, the type conventions, the re-use of
 generic templates, exceptions and concurrency, etc.\\
 The benefits from incorporating the \textbf{ED-218 Model-Based development and verification} supplement are essentially the motivation to use unambiguous notation and supports the use of
 automated code generation tools, namely automatic test generation tools\cite{Chelini:2009:WTD:1647420.1647443}. This supplement acknowledges the need of
 high-level requirements from which development model is derived and the ability to demonstrate properties for the model, showing that the property 
 is preserved in the source code.\\
 
-As we can see the Standard ECSS-Q-80\cite{ecss-q-st-80c} in the software quality assurance side and ECSS-E-40\cite{ecss-e-st-40c} in the software development side
-gives a distinguished emphasis on software validation and verification, however is the Standard DO-178/ED-12, for reasons obvious,
+As can be seen the Standard ECSS-Q-80\cite{ecss-q-st-80c} in the software quality assurance side and ECSS-E-40\cite{ecss-e-st-40c} in the software development side
+give a distinguished emphasis on software validation and verification, however is the Standard DO-178/ED-12, for obvious reasons,
 that gives much more emphasis in the verification component. The biggest proof is the most recent embedding of the Formal Methods into the
 new version of the Standard DO-178C/ED-12C\cite{ed-12c}, in order to reach where the tests are not enough.
-Increasingly the use of tools and methodologies from the area of Formal Methods is crucial to prevent software errors and ensure quality and their proper functioning.
+Increasing the use of tools and methodologies from the area of Formal Methods is crucial to prevent software errors and ensure quality and their proper functioning.
 
 \section{Code Coverage}\label{sec:ccoverage}
-As we have seen previouslly, code coverage is a major concern regarding the software development for space industry, it is very important to provide a study on this subject
+As we have seen previously, code coverage is a major concern regarding the software development for space industry, it is very important to provide a study on this subject
 in order to access a possible integration of this feature into the final product.
 
 \cite{ccoverage}
 \cite{mcdc}
 \cite{Marick99}
 %\note{
-%Nesta seccao pretendo falar com grande detalhe nas varias vertendes de code coverage tendo em consideracao os standards da ECSS.
+%Nesta seccao pretendo falar com grande detalhe nas varias vertendes de code coverage tendo em consideracao os Standards da ECSS.
 %Como por exemplo: Statement Coverage, Decision Coverage, Condition Coverage, Multiple Condition Coverage, Condition/Decision Coverage,
 %Modified Condition/Decision Coverage, Path Coverage.\\
 %E ainda Function Coverage, Call Coverage, Linear Code Sequence and Jump (LCSAJ) Coverage, Data Flow Coverage, Object Code Branch Coverage,
@@ -650,7 +651,7 @@ too sparse to actually test specifics parts of the program. Either way, this tec
 
 \paragraph{Csmith}
 Csmith\cite{Yang:2011:FUB:1993316.1993532} is a black-box random tests generator that is able to generate C programs
-conform to the C99\footnote{See more at: \url{http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf}} standard. This is a very recent tool that already discover
+conform to the C99\footnote{See more at: \url{http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf}} Standard. This is a very recent tool that already discover
 more than 195 bugs in \ac{LLVM} and 79 bugs in \ac{GCC}. With Csmith we are able to generate random programs with unambiguous meanings (undefined behavior or 
 unspecified behavior). Does not attempt to generate terminating program, so they use timeouts for long time consuming generated programs.
 And the main supported features right now are: Arithmetic, logical, and bit operations on integers, Loops, Conditionals, Function calls, Const and volatile,
