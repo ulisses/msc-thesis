@@ -13,10 +13,10 @@ system that is intended to achieve, on its own, the necessary level of safety in
 So, a safety-critical software is an artifact that if
 fails can cause loss of human life or have other catastrophic consequences.\\
 }
-In a second part of this chapter the main differences between White-box and Black-box testing are presented and
+In a second part of this chapter the main differences between \ac{WB} and \ac{BB} testing are presented and
 some testing tools approaches are described considering automatic generation testing techniques, and some tools for each technique namely:
-\ac{SBGT}, Constraint-based Generation Testing, Grammar-based Generation Testing and
-Random-based Generation Testing.
+\ac{SBGT}, \ac{CBGT}, \ac{GBGT} and
+\ac{RBGT}.
 \section{ESA and ECSS Standardization in Space Industry}
 Software products for space industry tends to be a part of a network composed by several systems. This space systems include manned and unmanned spacecraft,
 launchers, payloads, experiments and their associated ground equipment and facilities\cite{Mattiello-FranciscoSanAmbJogCos:2007:BrSoIn}.
@@ -482,14 +482,14 @@ verify the behavior of the system is according with the expectations of the end 
 There are several ways to test software. There are techniques that were widely used in systems developed in structured languages
 that still have great value to the \ac{OO} languages. Despite the development paradigms are completely different,
 the main objective of these techniques remains the same: to find flaws in software\cite{Myers:2004:AST:983238}.
-The most widely known are the white-box and black-box.
+The most widely known are the \ac{WB} and \ac{BB}.
 These methods complement each other and must be applied together in order to ensure a good quality test.
 \subsection{White-box vs Black-box testing}
 }
 %In this section is discussed the two most common approaches for testing: White-box and Black-box testing.\\
-In White-box testing the tester needs to understand the internals of
+In \ac{WB} testing the tester needs to understand the internals of
 the code to be able to write tests for it.
-The goal of selecting test cases that test specific parts of the code
+The goal of selecting \ac{TC}s that test specific parts of the code
 is to cause the execution of specific spots in the software, such as
 statements, branches or paths.
 This technique consists in analyzing statically a program, by reading
@@ -513,7 +513,7 @@ Data Flow Testing is designed into looking at the life cycle
 piece of data and observe how it is used along the \ac{CFG}, this ensures
 that the number of paths is always finite\cite{dataflow}.\\
 
-Opposite to White-box testing, Black-box testing is based on
+Opposite to \ac{WBT}, \ac{BBT} is based on
 functionality, so the tester observes a system based
 on its functional contracts and writes the pairs of inputs and the
 expected outputs.
@@ -533,7 +533,7 @@ of combinations of the methods/functions, or even final system testing.\\
 
 \section{Tool Approaches}\label{testingapproaches}
 In this Section, a study of the most recent approaches to the development testing tools,
-like \ac{SB}, Constraint-based, Grammar-based and Random-based tests generation
+like \ac{SB}, \ac{CB}, \ac{GB} and \ac{RB} tests generation
 for the most popular languages - C, JAVA and C\#, will be presented.
 
 \subsection{Specification-based Generation Testing}
@@ -542,13 +542,13 @@ for the most popular languages - C, JAVA and C\#, will be presented.
 much discussed in academia and have been gaining interest in the software industry.
 According to the philosophy of \ac{SBT}, \ac{TC}s are derived from a system specification\cite{conrad:graph}, so it can be generated systematically from specifications,
 with this technique the testing phase and development phase can be started in parallel, since it is not
-needed the implementation to start the development of test cases. The only thing needed is the functional contracts (The specification, or a model)
+needed the implementation to start the development of \ac{TC}s. The only thing needed is the functional contracts (The specification, or a model)
 and/or oracles\footnote{A test oracle determines whether or not the results of a test execution are correct\cite{Peters95generatinga}.} for each function/method.\\
 
-These specifications serve as input for the definition of test cases to test a given system.
+These specifications serve as input for the definition of \ac{TC}s to test a given system.
 If the generation of the test is performed automatically, any change in the system specification will have repercussion in the \ac{TC}s.
 However, there are some difficulties in application of \ac{SBT}, as mentioned by\cite{Bertolino04towardsanti-model-based},
-namely that exist a gap between the level of abstraction of a model and level of abstraction of test cases.
+namely that exist a gap between the level of abstraction of a model and level of abstraction of \ac{TC}s.
 \ac{SBT} are composed of several activities. The main ones are\cite{Lindholm06model-basedtesting} the
 \textbf{Construction of the model}: For the definition of \ac{SBT}, various types of models has been used, for example, \ac{UML} diagrams with
 \ac{OCL} annotations\cite{Simula.SE.30}, Z specifications\cite{Horcher95improvingsoftware,Stocks:1996:FST:239916.239918},
@@ -557,21 +557,21 @@ namely that exist a gap between the level of abstraction of a model and level of
 The use of formal specifications leads to a better understanding of the system, as well as providing means for automatic identification of incomplete
 or inconsistent specifications so that the other steps of \ac{SBT} have less prone to errors specification.
 Since the use of formal specifications tends to diminish ambiguities, that natural languages could create, automatic generation of tests is privileged using this philosophy.
-\textbf{Definition of derivation criteria of test cases from the model}: Must first establish a technique to be used in the design of the test cases,
+\textbf{Definition of derivation criteria of \ac{TC}s from the model}: Must first establish a technique to be used in the design of the \ac{TC}s,
 the techniques may be ac{WBT} (those where the system source code is visible) or \ac{BBT} (where only the specification is considered - the code is not taken into account).\\
-The derivation criteria defines the test coverage. For example in \cite{Lindholm06model-basedtesting}, where is generated test cases from \ac{FSA},
+The derivation criteria defines the test coverage. For example in \cite{Lindholm06model-basedtesting}, where is generated \ac{TC}s from \ac{FSA},
 two types of covering are considered, the first is when the test suite reaches each model state at least once and the second
 is when the test suite reaches each state transition at least once.
 Obviously, the latter is tightened, creating a greater number of tests, since all the combinations of the two states by two
 are achieved at least once. However, in many cases test coverage condition may be infeasible, depending on the model.\\
-\textbf{Generation of test cases and test suite}: The derivation of test criteria defined in the previous section are applied.
-From this interaction test cases are generated and grouped into test suites.
-\textbf{Adaptation of test cases}: 
+\textbf{Generation of \ac{TC}s and test suite}: The derivation of test criteria defined in the previous section are applied.
+From this interaction \ac{TC}s are generated and grouped into test suites.
+\textbf{Adaptation of \ac{TC}s}: 
 By being created from an abstract model, generated \ac{TC}s
 may have a level of abstraction that is not interesting for system testing.
 If this occurs, it is necessary to make an adaptation of this suite to the concrete level of the system being tested.
 }
-These specifications typically do not consider structurally complex inputs and the existing tools do not generate JUnit test cases.
+These specifications typically do not consider structurally complex inputs and the existing tools do not generate JUnit \ac{TC}s.
 Nowadays there are some commercial tools out there that can perform \ac{SBT} approach, namely:
 \begin{description}
 \item[Conformiq] is a commercial Tool Suite that generates
@@ -579,8 +579,8 @@ human-readable test plans and executable test scripts from Java code, state char
 \item[MaTeLo] stands for Markov Test Logic and is a commercial tool
 that generates test sequences from a collection of states, transitions, classes of equivalence, types, sequences, global variables and test oracles
 using their user interface\footnote{See more at: \url{http://www.all4tec.net/index.php/All4tec/matelo-product.html}}.
-\item[Smartesting CertifyIt] is a commercial tool that generates test cases from a functional model, as \ac{UML}\footnote{See more at: \url{http://www.smartesting.com/index.php/cms/en/product/certify-it}}.
-\item[T-Vec] is a commercial tool that generates test cases from modeling tools available from T-VEC or third-party vendors\footnote{See more at: \url{http://www.t-vec.com/}}.
+\item[Smartesting CertifyIt] is a commercial tool that generates \ac{TC}s from a functional model, as \ac{UML}\footnote{See more at: \url{http://www.smartesting.com/index.php/cms/en/product/certify-it}}.
+\item[T-Vec] is a commercial tool that generates \ac{TC}s from modeling tools available from T-VEC or third-party vendors\footnote{See more at: \url{http://www.t-vec.com/}}.
 \item[Rational Tau] is an \ac{IBM} commercial tool that provides automated error checking, rules-based model checking, and a model-based explorer using
 \ac{UML}\footnote{See more at: \url{http://www-01.ibm.com/software/awdtools/tau/}}.
 \end{description}
@@ -597,7 +597,7 @@ These scenarios are simple sets of calls to methods without their parameters (re
 Then Spec Explorer will generate a visual graph where each node represents a state of the system and the arrows represent a call to some method.
 It searches throw all possible sequences of methods invocation that do not violate the contracts (pre, pos conditions) and
 that are relevant to a user-specified set of test properties. After that we can generate from this visual graphs the unit tests (the arrows) and the
-test cases (a graph).
+\ac{TC}s (a graph).
 
 \paragraph{JMLUnit}
 JMLUnit\cite{Cheon04thejml} is a tool that automates the generation of oracles for JAVA testing classes. This tool
@@ -612,7 +612,7 @@ automatically generate JUnit test classes from \ac{JML} specifications.
 \paragraph{TestEra}
 TestEra\cite{testera} can be used to perform automated \ac{SBT} of
 JAVA programs. This framework requires as input a JAVA method, a formal specification\footnote{Specifications are first-order logic formulae.}
-of the pre and post-conditions of that method, and a bound that limits the size of the test cases to be generated.\\
+of the pre and post-conditions of that method, and a bound that limits the size of the \ac{TC}s to be generated.\\
 With the pre-condition it automatically generates all non-isomorphic test inputs up to the given bound.
 It executes the method on each test input, and uses the method post-condition as an oracle to check the correctness of each output. This tool
 uses Alloy's\footnote{Alloy is a first-order declarative language based on sets and relations. The Alloy Analyzer is a fully
@@ -625,9 +625,9 @@ dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods f
 \paragraph{Korat}
 Korat\cite{Boyapati02korat:automated} is a mature framework for automated testing structurally complex inputs of JAVA programs.
 Given a formal specification for a method, Korat\footnote{See more at: \url{http://korat.sourceforge.net/}} uses the method pre-condition
-to automatically generate all (non-isomorphic) test cases up to a given small size.
-Korat then executes the method on each test case, and uses the method post-condition as a test oracle to check the correctness of each output.\\
-To be able to generate test cases for a method, Korat uses a predicate and a bound on the size of its inputs,
+to automatically generate all (non-isomorphic) \ac{TC}s up to a given small size.
+Korat then executes the method on each \ac{TC}, and uses the method post-condition as a test oracle to check the correctness of each output.\\
+To be able to generate \ac{TC}s for a method, Korat uses a predicate and a bound on the size of its inputs,
 Korat generates all (non-isomorphic) inputs for which the predicate returns $true$.
 Korat generates all the possible input spaces regarding the predicate and monitor the predicate's executions to be able to prune large portions of the search space.\\
 \indent The writing of a predicate is done using JAVA language and in most cases can be written the first thing that cames to programmer's head to restrict the input space.
@@ -635,10 +635,10 @@ But for more complex structures it is better to understand how the matching algo
 Unfortunately the test derivation tool using Korat (that also uses \ac{JML}) is not available to the public.
 
 \subsection{Constraint-based Generation Testing}
-Constraint Based Testing\cite{DeMillo91constraint-basedautomatic} can be used to select test cases satisfying specific constraints by
+\ac{CBT}\cite{DeMillo91constraint-basedautomatic} can be used to select \ac{TC}s satisfying specific constraints by
 solving a set of constraints over a set of variables. The system is described using constraints and these can be solved by \ac{SAT} solvers.\\
 Constraint programming can be combined with symbolic execution, regarding this approach a program is executed symbolically,
-collecting data constraints over different paths in the \ac{CFG}, and then solving the constraints and producing test cases from there.
+collecting data constraints over different paths in the \ac{CFG}, and then solving the constraints and producing \ac{TC}s from there.
 There are some tools out there, like:
 
 \begin{description}
@@ -649,7 +649,7 @@ There are some tools out there, like:
 
 Here two tools will be explained, one proprietary and other academic.
 
-\paragraph{Pex} Pex\cite{Tillmann:2008:PWB:1792786.1792798} is an automatic white-box test generation tool for .NET. Starting from a
+\paragraph{Pex} Pex\cite{Tillmann:2008:PWB:1792786.1792798} is an automatic \ac{WB} test generation tool for .NET. Starting from a
 method that takes parameters, Pex performs path-bounded model-checking
 by repeatedly executing the program and solving constraint systems to obtain inputs that will steer the program along different execution paths.
 This uses the idea of dynamic symbolic execution\cite{Tillmann06unittests}. Pex uses the theorem prover and
@@ -660,15 +660,15 @@ declarations, all exceptions throws operations, if statements, asserts and .net 
 produce new test inputs which exercise diferent program behavior.\\
 The result is an automatically generated small test suite which often achieves high code coverage.\\
 Pex can be used in a project, class or method (which makes it a very helpful and versatile tool). After the analysis process the "Pex Explorarion Results" shows
-the $input \times output$ pairs selected for each test case for the method, here it also shows the percentage of the test coverage.
+the $input \times output$ pairs selected for each \ac{TC} for the method, here it also shows the percentage of the test coverage.
 
 \paragraph{PathCrawler} This is an academic tool based on dynamic and static analysis\cite{Williams05pathcrawler:automatic}, 
-it uses constraint logic programming to generate the Test-cases. PathCrawler\footnote{See more at: \url{http://www-list.cea.fr/labos/gb/LSL/test/pathcrawler/index.html}} executes an instrumented function for each function under test
+it uses constraint logic programming to generate the \ac{TC}s. PathCrawler\footnote{See more at: \url{http://www-list.cea.fr/labos/gb/LSL/test/pathcrawler/index.html}} executes an instrumented function for each function under test
 with the generated inputs, it preserves this information to not cover the same path.\\
 This tool supports assertions in any point in the code and pre-conditions regarding the input values.
 
 \subsection{Grammar-based Generation Testing}
-In this approach inputs to a system under test are defined by a context-free grammar. The language of the grammar contains all possible test cases.
+In this approach inputs to a system under test are defined by a context-free grammar. The language of the grammar contains all possible \ac{TC}s.
 Using this approach to describe the syntax of the input to the system under test proves to be very helpful to test
 network protocols\cite{tal:syntax-based,kaksonen2001functional} and parsers and compilers\cite{1994-burgess,Burgess_Saidi_1996}.
 
@@ -693,7 +693,7 @@ The data obtained from random testing can then be used to find bugs or non expec
 too sparse to actually test specifics parts of the program. Either way, this technique proves to be very effective for testing compilers.
 
 \paragraph{Csmith}
-Csmith\cite{Yang:2011:FUB:1993316.1993532} is a black-box random tests generator that is able to generate C programs
+Csmith\cite{Yang:2011:FUB:1993316.1993532} is a \ac{BB} random tests generator that is able to generate C programs
 conform to the C99\footnote{See more at: \url{http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf}} Standard. This is a very recent tool that already discover
 more than 195 bugs in \ac{LLVM} and 79 bugs in \ac{GCC}. With Csmith we are able to generate random programs with unambiguous meanings (undefined behavior or 
 unspecified behavior). Does not attempt to generate terminating program, so they use timeouts for long time consuming generated programs.
