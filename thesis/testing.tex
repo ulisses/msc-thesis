@@ -15,7 +15,7 @@ fails can cause loss of human life or have other catastrophic consequences.\\
 }
 In a second part of this chapter the main differences between White-box and Black-box testing are presented and
 some testing tools approaches are described considering automatic generation testing techniques, and some tools for each technique namely:
-Specification-based Generation Testing, Constraint-based Generation Testing, Grammar-based Generation Testing and
+\ac{SBGT}, Constraint-based Generation Testing, Grammar-based Generation Testing and
 Random-based Generation Testing.
 \section{ESA and ECSS Standardization in Space Industry}
 Software products for space industry tends to be a part of a network composed by several systems. This space systems include manned and unmanned spacecraft,
@@ -35,7 +35,7 @@ improve the competitiveness of the European Space industry.
 This is particularly important to formalize an unambiguous communication in order to facilitate the interaction between project partners,
 create a set of legally binding documents, reduce risks, guarantee interface compatibility and
 improve the quality and safety of Space projects and products.\\
-In section \ref{sec:historyspace} we will see the history of Space Industry Standards and the need for them.
+In Section \ref{sec:historyspace} we will see the history of Space Industry Standards and the need for them.
 
 \subsection{History of Software Development Standards for Space Industry}\label{sec:historyspace}
 \ac{ESA} Software Engineering Standards originate around 1975. At
@@ -85,7 +85,7 @@ ECSS-S-ST-00\cite{ecss-s-st-00c} document is the top level user document of \ac{
 It gives a general introduction into \ac{ECSS} and the correct use of \ac{ECSS} Documents in space
 programmes and projects.
 Its purpose is to provide users with an overview of the \ac{ECSS} System, together
-with an introduction to the three branches of applicability, (that will be explained later on this section) and to the disciplines
+with an introduction to the three branches of applicability, (that will be explained later on this Section) and to the disciplines
 covered by the set of \ac{ECSS} Standards and the processes involved in generating
 and using these Standards.
 In this document there is also an introduction into space programmes, space projects actors and their
@@ -281,7 +281,7 @@ at least once (this includes statement coverage).
 Modified condition and decision coverage measure of the part of the program within which every point of entry and exit
 has been invoked at least once, every decision in the program has taken TRUE and FALSE values at least once, and each condition in a decision has been
 shown to independently affect that decision's outcome. A condition is shown to independently affect a
-decision's outcome by varying that condition while holding fixed all other possible conditions. All of these code coverages will be explained in more detail in section
+decision's outcome by varying that condition while holding fixed all other possible conditions. All of these code coverages will be explained in more detail in Section
 \ref{sec:ccoverage}\\
 If the source code is classified as Level B then the tests for that piece of software should meet 100\% in the first two categories of testing and should be
 agreed with the costumer the value for to meet regarding Source code modified condition and decision coverage.
@@ -347,7 +347,7 @@ of these levels:
 \item[Level D] Software at this level contributes to minor failure conditions;
 \item[Level E] Software has no effect toward potential failure conditions.
 \end{description}
-This classification is very similar to the one seen in section \ref{sec:stand}.
+This classification is very similar to the one seen in Section \ref{sec:stand}.
 The fact is that this Standard has served as initial motto for ECSS-Q-80\cite{ecss-q-st-80c} and ECSS-E-40\cite{ecss-e-st-40c}, \ac{ECSS} Standards.
 In fact \ac{ECSS} software Standards were naturally fetched from many learned lessons in avionics.
 Many other definitions in ECSS-Q-80\cite{ecss-q-st-80c} and ECSS-E-40\cite{ecss-e-st-40c} were drawn based on DO-178/ED-12, like the
@@ -435,22 +435,16 @@ new version of the Standard DO-178C/ED-12C\cite{ed-12c}, in order to reach where
 Increasing the use of tools and methodologies from the area of Formal Methods is crucial to prevent software errors and ensure quality and their proper functioning.
 
 \section{Code Coverage}\label{sec:ccoverage}
-As we have seen previously, code coverage is a major concern regarding the software development for space industry, it is very important to provide a study on this subject
+As we have seen in Sections \ref{sec:stand} and \ref{sec:new-stand}, code coverage is a major concern regarding the software development for space industry,
+it is very important to provide a study on this subject
 in order to access a possible integration of this feature into the final product produced to \ac{VST}.\\
-
+}
+%Brand NEW STUFF
+\new{
 
 \cite{ccoverage}
 \cite{mcdc}
 \cite{Marick99}
-}
-\new{
-%\note{
-%Nesta seccao pretendo falar com grande detalhe nas varias vertendes de code coverage tendo em consideracao os Standards da ECSS.
-%Como por exemplo: Statement Coverage, Decision Coverage, Condition Coverage, Multiple Condition Coverage, Condition/Decision Coverage,
-%Modified Condition/Decision Coverage, Path Coverage.\\
-%E ainda Function Coverage, Call Coverage, Linear Code Sequence and Jump (LCSAJ) Coverage, Data Flow Coverage, Object Code Branch Coverage,
-%Loop Coverage, Race Coverage, Relational Operator Coverage, Weak Mutation Coverage, Table Coverage
-%}
 %\subsection{Statement Coverage}
 %\subsection{Decision Coverage}
 %\subsection{Condition Coverage}
@@ -469,9 +463,10 @@ in order to access a possible integration of this feature into the final product
 %\subsection{Weak Mutation Coverage}
 %\subsection{Table Coverage}
 \section{Test Categories}
-The different categories of software testing enables the detection of faults of the system from different perspectives.
+The different categories of software testing enables the detection of faults of the system from different perspectives and in differents stages
+of software development.
 In certain situations, because there are few scenarios or low criticality of the system,
-certain categories of testing can be planned together. The following are the most frequent categories:
+certain categories of testing can be planned together. Acording to \cite{citeulike:453686} the following are the most frequent:
 \begin{description}
 \item[Unit Testing] Unit tests are designed to test small parts or
 units of the system, such as methods or small pieces of code;
@@ -496,8 +491,7 @@ In White-box testing the tester needs to understand the internals of
 the code to be able to write tests for it.
 The goal of selecting test cases that test specific parts of the code
 is to cause the execution of specific spots in the software, such as
-statements, branches or
-paths.
+statements, branches or paths.
 This technique consists in analyzing statically a program, by reading
 the program code and using symbolic execution techniques to simulate
 abstract program
@@ -538,22 +532,47 @@ of combinations of the methods/functions, or even final system testing.\\
 %The document is concluded in Section~\ref{sec:Concl}.
 
 \section{Tool Approaches}\label{testingapproaches}
-In this section, a study of the most recent approaches to the development testing tools,
-like Specification-based, Constraint-based, Grammar-based and Random-based tests generation
+In this Section, a study of the most recent approaches to the development testing tools,
+like \ac{SB}, Constraint-based, Grammar-based and Random-based tests generation
 for the most popular languages - C, JAVA and C\#, will be presented.
 
 \subsection{Specification-based Generation Testing}
-Specification Based Testing refers to the process of testing a program based on what its specification or model says its behavior should be.
-In particular, can be generated test cases based on the specification of the program's behavior, without seeing an implementation of the program. So this clearly a
-way of Black-box testing.\\
-With this technique the testing phase and development phase can be started in parallel, we do not need the implementation
-to start the development of test cases. The only thing needed is the functional contracts and/or oracles\footnote{A test oracle determines whether or not the results of a test execution are correct\cite{Peters95generatinga}.} for each function/method.\\
-Since the 90's there have been some effort into using specifications to try to generate test cases such as Z specifications
-\cite{Horcher95improvingsoftware,Stocks:1996:FST:239916.239918}, \ac{UML} statecharts\cite{Offutt:1999:GTU:1767297.1767341}, \ac{VDM}\cite{Aichernig99automatedblack-box}
-or \ac{ADL} specifications\cite{Sankar94specifyingand}.
-These specifications typically do not consider structurally complex inputs and these tools do not generate JUnit test cases.
-Nowadays there are some tools out there that can perform Specification-based Testing approach:
+\new{
+\ac{SBT} appeared in order to address the testing activities in a systematic manner, this subject is currently under
+much discussed in academia and have been gaining interest in the software industry.
+According to the philosophy of \ac{SBT}, \ac{TC}s are derived from a system specification\cite{conrad:graph}, so it can be generated systematically from specifications,
+with this technique the testing phase and development phase can be started in parallel, since it is not
+needed the implementation to start the development of test cases. The only thing needed is the functional contracts (The specification, or a model)
+and/or oracles\footnote{A test oracle determines whether or not the results of a test execution are correct\cite{Peters95generatinga}.} for each function/method.\\
 
+These specifications serve as input for the definition of test cases to test a given system.
+If the generation of the test is performed automatically, any change in the system specification will have repercussion in the \ac{TC}s.
+However, there are some difficulties in application of \ac{SBT}, as mentioned by\cite{Bertolino04towardsanti-model-based},
+namely that exist a gap between the level of abstraction of a model and level of abstraction of test cases.
+\ac{SBT} are composed of several activities. The main ones are\cite{Lindholm06model-basedtesting} the
+\textbf{Construction of the model}: For the definition of \ac{SBT}, various types of models has been used, for example, \ac{UML} diagrams with
+\ac{OCL} annotations\cite{Simula.SE.30}, Z specifications\cite{Horcher95improvingsoftware,Stocks:1996:FST:239916.239918},
+\ac{UML} Statecharts\cite{Offutt:1999:GTU:1767297.1767341}, \ac{VDM}\cite{Aichernig99automatedblack-box},
+\ac{ADL} specifications\cite{Sankar94specifyingand}, or models defined in B Language\cite{Legeard:2002:ABT:647541.730142,Bernard:2004:GTS:1134155.1134156}.
+The use of formal specifications leads to a better understanding of the system, as well as providing means for automatic identification of incomplete
+or inconsistent specifications so that the other steps of \ac{SBT} have less prone to errors specification.
+Since the use of formal specifications tends to diminish ambiguities, that natural languages could create, automatic generation of tests is privileged using this philosophy.
+\textbf{Definition of derivation criteria of test cases from the model}: Must first establish a technique to be used in the design of the test cases,
+the techniques may be ac{WBT} (those where the system source code is visible) or \ac{BBT} (where only the specification is considered - the code is not taken into account).\\
+The derivation criteria defines the test coverage. For example in \cite{Lindholm06model-basedtesting}, where is generated test cases from \ac{FSA},
+two types of covering are considered, the first is when the test suite reaches each model state at least once and the second
+is when the test suite reaches each state transition at least once.
+Obviously, the latter is tightened, creating a greater number of tests, since all the combinations of the two states by two
+are achieved at least once. However, in many cases test coverage condition may be infeasible, depending on the model.\\
+\textbf{Generation of test cases and test suite}: The derivation of test criteria defined in the previous section are applied.
+From this interaction test cases are generated and grouped into test suites.
+\textbf{Adaptation of test cases}: 
+By being created from an abstract model, generated \ac{TC}s
+may have a level of abstraction that is not interesting for system testing.
+If this occurs, it is necessary to make an adaptation of this suite to the concrete level of the system being tested.
+}
+These specifications typically do not consider structurally complex inputs and the existing tools do not generate JUnit test cases.
+Nowadays there are some commercial tools out there that can perform \ac{SBT} approach, namely:
 \begin{description}
 \item[Conformiq] is a commercial Tool Suite that generates
 human-readable test plans and executable test scripts from Java code, state charts and \ac{UML}\footnote{See more at: \url{http://www.conformiq.com/products.php}}.
@@ -565,8 +584,8 @@ using their user interface\footnote{See more at: \url{http://www.all4tec.net/ind
 \item[Rational Tau] is an \ac{IBM} commercial tool that provides automated error checking, rules-based model checking, and a model-based explorer using
 \ac{UML}\footnote{See more at: \url{http://www-01.ibm.com/software/awdtools/tau/}}.
 \end{description}
-The relevant ones or the recent open-source ones will be discussed.
 
+The relevant ones or the recent open-source ones will be discussed.
 \paragraph{Spec Explorer}
 This is a Microsoft model-based testing that uses one software modeling languages, the \ac{AsmL}.
 This modeling language provides the foundations of the Spec Explorer\footnote{See more at: \url{http://research.microsoft.com/en-us/projects/specexplorer/}} tool
@@ -591,7 +610,7 @@ This tool uses the \ac{JML}\cite{Burdy03anoverview} specification language to an
 automatically generate JUnit test classes from \ac{JML} specifications.
 
 \paragraph{TestEra}
-TestEra\cite{testera} can be used to perform automated specification-based testing of
+TestEra\cite{testera} can be used to perform automated \ac{SBT} of
 JAVA programs. This framework requires as input a JAVA method, a formal specification\footnote{Specifications are first-order logic formulae.}
 of the pre and post-conditions of that method, and a bound that limits the size of the test cases to be generated.\\
 With the pre-condition it automatically generates all non-isomorphic test inputs up to the given bound.
