@@ -105,12 +105,14 @@
 \newcommand{\bigexclaim}{\color{black}$\bigtriangleup$\hspace{-5.6pt}!}
 \fi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% first reset the headers and footers
+%% Headers and Footers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%% first reset the headers and footers
 \fancyhead{}
 \fancyfoot{}
 
-%% page nums on the bottom in a nice box
+%% page nums on the bottom in a nice box and section and chapter titles in headers
 \ifx\neat\undefined
 	%%% FOOTERS
 	%% even side pages
@@ -162,8 +164,11 @@
 \fi
 
 %% make the bottom line above the page number box
-\renewcommand{\footrulewidth}{0.4pt}
-\renewcommand{\footruleskip}{0mm}
+\ifx\neat\undefined
+	\renewcommand{\footrulewidth}{0.4pt}
+	\renewcommand{\footruleskip}{0mm}
+\else
+\fi
 
 \pdfpagewidth=\paperwidth
 \pdfpageheight=\paperheight
@@ -270,7 +275,7 @@
 % Reset endnote numbering every new chapter
 \counterwithin{endnote}{chapter}
 
-% neat section naming
+%% neat section naming with TikZ
 \ifx\neat\undefined
 \else
 \definecolor{doc}{RGB}{0,60,110}

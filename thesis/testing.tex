@@ -436,11 +436,14 @@ Increasing the use of tools and methodologies from the area of Formal Methods is
 
 \section{Code Coverage}\label{sec:ccoverage}
 As we have seen previously, code coverage is a major concern regarding the software development for space industry, it is very important to provide a study on this subject
-in order to access a possible integration of this feature into the final product.
+in order to access a possible integration of this feature into the final product produced to \ac{VST}.\\
+
 
 \cite{ccoverage}
 \cite{mcdc}
 \cite{Marick99}
+}
+\new{
 %\note{
 %Nesta seccao pretendo falar com grande detalhe nas varias vertendes de code coverage tendo em consideracao os Standards da ECSS.
 %Como por exemplo: Statement Coverage, Decision Coverage, Condition Coverage, Multiple Condition Coverage, Condition/Decision Coverage,
@@ -465,8 +468,29 @@ in order to access a possible integration of this feature into the final product
 %\subsection{Relational Operator Coverage}
 %\subsection{Weak Mutation Coverage}
 %\subsection{Table Coverage}
+\section{Test Categories}
+The different categories of software testing enables the detection of faults of the system from different perspectives.
+In certain situations, because there are few scenarios or low criticality of the system,
+certain categories of testing can be planned together. The following are the most frequent categories:
+\begin{description}
+\item[Unit Testing] Unit tests are designed to test small parts or
+units of the system, such as methods or small pieces of code;
+\item[Component Testing] The target universe of this type of test is a little larger than the
+test unit, here it is important to test the components as a whole, but not considering the interaction with other parts of the system;
+\item[Integration Testing] Tests are looking for flaws from the integration of system components, usually related to sending and receiving data;
+\item[System Testing] In this type of test to search for errors is performed using the system as would be done by the end user;
+\item[Acceptance Testing] Usually performed by a small group of end users of the system by simulating routine operations of the system, aiming
+verify the behavior of the system is according with the expectations of the end user.
+\end{description}
+
+\section{Test Strategies}
+There are several ways to test software. There are techniques that were widely used in systems developed in structured languages
+that still have great value to the \ac{OO} languages. Despite the development paradigms are completely different,
+the main objective of these techniques remains the same: to find flaws in software\cite{Myers:2004:AST:983238}.
+The most widely known are the white-box and black-box.
+These methods complement each other and must be applied together in order to ensure a good quality test.
+\subsection{White-box vs Black-box testing}
 }
-\section{White-box vs Black-box testing}
 %In this section is discussed the two most common approaches for testing: White-box and Black-box testing.\\
 In White-box testing the tester needs to understand the internals of
 the code to be able to write tests for it.
