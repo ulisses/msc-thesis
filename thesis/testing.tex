@@ -463,17 +463,57 @@ in order to access a possible integration of this feature into the final product
 %\subsection{Weak Mutation Coverage}
 %\subsection{Table Coverage}
 \section{Test Categories}
-The different categories of software testing enables the detection of faults of the system from different perspectives and in differents stages
+The different categories of software testing enables the detection of faults of the system from different perspectives and in different stages
 of software development.
 In certain situations, because there are few scenarios or low criticality of the system,
-certain categories of testing can be planned together. Acording to \cite{citeulike:453686} the following are the most frequent:
+certain categories of testing can be planned together. According to \cite{citeulike:453686} there are five testing categories,
+\ac{UT}, Component Testing, Integration Testing, System Testing and Acceptance Testing.
+In this section we will explain all of them, with a particular emphasis in \ac{UT} since it is the most elementary testing category
+in which is possible to test atomic components of source code (a certain instruction, method/function or class).\\
+
+\ac{UT}s are designed to exercise small parts or units of the system, usually code statements, functions, methods or classes,
+determining whether it works correctly and it concentrates on smallest unit of software design, it seeks to identify logical errors
+and implementation errors in each module of the software separately.
+Almost all programmers perform some level of \ac{UT} on a unitary component or piece of code.
+These tests together with the integration tests are essential to create a quality software product\cite{dustin2002effective},
+yet they are often overlooked, or are implemented in a superficial way.\\
+According to \cite{Hunt:2003:PUT:1197403} it should be done in source code written by a programmer, usually a tester,
+who exercises a very small area of the code being tested.\\
+\ac{UT}s must check five characteristics: The individual components to make sure that they function properly;
+The interface components for ensuring that information is being passed according to the interfaces requirements;
+Handling of inconsistent data; Initialization of variables and if the boundary conditions are operating properly.\\
+The main motivations to perform \ac{UT} are using a method of testing the elements of a computer program,
+in which initial attention is focused on smaller units of the program. Helping in the location, definition and correction of a software problems,
+because when an error is located, is known the module and the unit in which it belongs\cite{Myers:2004:AST:983238}.\\
+\ac{UT} facilitates isolating bugs because when a problem is found at the unit level, the problem must lie in the unit.
+If on the other hand a bug is located, where multiple units are combined then it must be analyzed how those modules interact with each other.
+Of course, one can find exceptions, but overall, testing and debugging is much more efficient than test everything immediately\cite{Patton:2000:ST:517489}.\\
+
+If unit tests are carried out in a proper manner, the further phases of tests (as we shall see below) will be more successful.
+To perform a structured and repeatable software program with Unit Tests, they should be developed before or in parallel with the development of software.
+To be effective and helpful for the development team, \ac{UT} must be considered part of the development project
+and tests must be updated along according to the requirements and source code, as the project evolves\cite{dustin2002effective}.
+Finding defects while a component is still in development offers a significant savings in time and cost and consequently produces a better quality software product.
+The main advantages of use \ac{UT} during software development are\cite{dustin2002effective}:
+\begin{itemize}
+\item The development must be geared to run the unit tests, in which each requirement will be attending, so the software will be considered
+successfully when all the unit tests pass;
+\item Will cause the developer to put efforts on meeting the exact problem, and usually it will result in less code and a more direct implementation.
+So, using \ac{UT} has a side effect of improving the code and understand their functioning better.
+\end{itemize}
+
+In the following listing is shown a brief description for the others test categories:
+
 \begin{description}
-\item[Unit Testing] Unit tests are designed to test small parts or
-units of the system, such as methods or small pieces of code;
-\item[Component Testing] The target universe of this type of test is a little larger than the
-test unit, here it is important to test the components as a whole, but not considering the interaction with other parts of the system;
-\item[Integration Testing] Tests are looking for flaws from the integration of system components, usually related to sending and receiving data;
-\item[System Testing] In this type of test to search for errors is performed using the system as would be done by the end user;
+\item[Component Testing] The target universe of this type of test is a little larger than \ac{UT},
+here it is important to test the components as a whole, but not considering the interaction with other parts of the system;
+\item[Integration Testing] The aim of this testing category is to tests the interface between the integrated units.
+It is a systematic, for construction of the program structure by performing at the same time, tests to detect errors associated interfaces.
+Mainly it tests if units tested individually perform properly when placed together.
+\item[System Testing]
+The main purpose is to compare the system or program with its original goals.
+Here are performed tests considering the whole picture, software elements integrated operating environment.
+Usually is performed using \ac{BB} techniques and are executed by a tester.
 \item[Acceptance Testing] Usually performed by a small group of end users of the system by simulating routine operations of the system, aiming
 verify the behavior of the system is according with the expectations of the end user.
 \end{description}
@@ -683,7 +723,7 @@ produces thousands of programs with structural properties that are relevant for 
 21 bugs in Eclipse and 26 bugs in Netbeans applications.
 
 \subsection{Random-based Generation Testing}
-In the random testing approach, test inputs are selected randomly from the input domain of the system.
+In the \ac{RBT}, test inputs are selected randomly from the input domain of the system.
 To have a random testing suite first we must identify the input domain, after that select test inputs independently from the domain,
 then the system under test is executed on these inputs, the results are compared to the system specification, an oracle.\\
 Random testing gives us an advantage of easily estimating software reliability from test outcomes.
