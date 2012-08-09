@@ -442,12 +442,22 @@ in order to access a possible integration of this feature into the final product
 The code coverage analysis is a technique used in \ac{WBT}, whose goal is to see how the test suite exercises parts of the code.
 Therefore, it is a technique used to determine the quality of the test suite and not the quality of the software product, but a consequence
 of acessing the quality of the tests and getting a quantitative classification about it is an indirect measure of quality\cite{ccoverage}.
+There are ways of evaluating test cases, the code-based criteria are named based on the way
+in which test cases are designed to run at least once over all paths of \ac{CFG} of the program.
+In a data flow testing based the information about the definition and use of variables in the program is placed in the graphical model\cite{Gokhale:2005:DCC:1090955.1092172}.\\
+There are also techniques developed to find a small subset of commands and decision points in the program in order to any test can exercise all of the
+instructions or decision of the code.
+This technique was used in some software systems and has proven an increase in the percentage of coverage of instruction and decision points in
+comparison to other existing techniques. This technique reduces the numbers of checkpoints that must be done\cite{Agrawal:1999:ECT:381788.316166}.\\
+Code Coverage also helps developers improving the final product because it provides feedback to them in which encourage increased coverage by adding new \ac{TC}s.
+This increase coverage result in low costs in removing possible errors\cite{Piwowarski:1993:CME:257572.257635}.
+
 It is mainly used during \ac{UT}, which requires coverage of possible paths within each program unit.
 The advantages of using code coverage within the development process are: helping to manage risk by providing accurate
 data regarding the coverage of the code, by executing the \ac{UTS}, so that possible faults in parts of the code that has not been tested, are not found in later stages;
 Provide information regarding \ac{TC}s that should exist to have a satisfactory coverage or provide infomration about redundant test cases
 and still endure the security of the process resulting in the improvement of the software.
-The faults that should be found during \ac{UT} will not be passed to the other phases of testing.
+The faults that should be found during \ac{UT} will not be passed to the other phases of testing.\\
 
 \cite{mcdc}
 \cite{Marick99}
