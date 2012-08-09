@@ -439,9 +439,12 @@ it is very important to provide a study on this subject
 in order to access a possible integration of this feature into the final product produced to \ac{VST}.\\
 }
 \neww{
-The code coverage analysis is a technique used in \ac{WBT}, whose goal is to see how the test suite exercises parts of the code.
+Code Coverage analysis is among the first techniques used for systematic software testing.
+This theme was initially treated by Miller and Maloney \cite{Miller:1963:SMA:366246.366248}.
+Since then, various authors began their research, which emerged variations for coverage analysis techniques, some are mixtures of different approaches.\\
+This is a technique used in \ac{WBT}, whose goal is to see how the test suite exercises parts of the code.
 Therefore, it is a technique used to determine the quality of the test suite and not the quality of the software product, but a consequence
-of acessing the quality of the tests and getting a quantitative classification about it is an indirect measure of quality\cite{ccoverage}.
+of accessing the quality of the tests and getting a quantitative classification about it is an indirect measure of quality\cite{ccoverage}.
 There are ways of evaluating test cases, the code-based criteria are named based on the way
 in which test cases are designed to run at least once over all paths of \ac{CFG} of the program.
 In a data flow testing based the information about the definition and use of variables in the program is placed in the graphical model\cite{Gokhale:2005:DCC:1090955.1092172}.\\
@@ -732,11 +735,20 @@ In the \ac{RBT}, test inputs are selected randomly from the input domain of the 
 To have a random testing suite first we must identify the input domain, after that select test inputs independently from the domain,
 then the system under test is executed on these inputs, the results are compared to the system specification, an oracle.\\
 Random testing gives us an advantage of easily estimating software reliability from test outcomes.
-Test inputs are randomly generated according to an operational profile, and failure times are recorded.
-The data obtained from random testing can then be used to find bugs or non expected behaviors.\\
-\indent The main problem regarding random generation is the problem of the coverage, it is possible that it will not be broad enough. And furthermore it can be
-too sparse to actually test specifics parts of the program. Either way, this technique proves to be very effective for testing compilers.
+\neww{
+Random testing are based on the input domain, so the method generally applied is \ac{BBT}.
+Tests are randomly selected from all over the input domain, not considering any information about the structure or program specification.
+The use of a \ac{RBT} could be helpful as a valuable blueprint for the generation of test cases, especially in the final stage of software testing\cite{reliable}.
 
+\ac{RBT} provide an easy way to generate test cases,
+but does not present a detailed analysis about its reliability.
+The data obtained from random testing can then be used to find bugs or non expected behaviors.\\
+Usually with this type of testing is generated a large number of test cases, thus providing an automatic way for the generation of test cases.
+Since \ac{RBGT} do not use any information about the software specification, only some entries are selected, so it can not guarantee the effectiveness of this selection.
+Test inputs are randomly generated according to an operational profile, and failure times are recorded.
+The generated tests can be too sparse to actually test specifics parts of the program. Either way, this technique proves to be very effective for testing
+compilers and network protocols.
+}
 \paragraph{Csmith}
 Csmith\cite{Yang:2011:FUB:1993316.1993532} is a \ac{BB} random tests generator that is able to generate C programs
 conform to the C99\footnote{See more at: \url{http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf}} Standard. This is a very recent tool that already discover
