@@ -297,7 +297,7 @@ Source code decision coverage & 100\% & 100\% & AM & AM \\\hline
 Source code modified condition and decision coverage & 100\% & AM & AM & AM \\\hline
 \multicolumn{5}{|m{14cm}|}{
 NOTE: "AM" means that the value is agreed with the customer and measured for:
-unit level testing; integration level testing and validation against the
+the level of \ac{UT}; integration level testing and validation against the
 technical specification and validation against the requirements baseline
 as in \cite{ecss-q-st-80c} at clause 6.3.5.2.
 }\\\hline
@@ -438,10 +438,17 @@ As we have seen in Sections \ref{sec:stand} and \ref{sec:new-stand}, code covera
 it is very important to provide a study on this subject
 in order to access a possible integration of this feature into the final product produced to \ac{VST}.\\
 }
-%Brand NEW STUFF
 \neww{
+The code coverage analysis is a technique used in \ac{WBT}, whose goal is to see how the test suite exercises parts of the code.
+Therefore, it is a technique used to determine the quality of the test suite and not the quality of the software product, but a consequence
+of acessing the quality of the tests and getting a quantitative classification about it is an indirect measure of quality\cite{ccoverage}.
+It is mainly used during \ac{UT}, which requires coverage of possible paths within each program unit.
+The advantages of using code coverage within the development process are: helping to manage risk by providing accurate
+data regarding the coverage of the code, by executing the \ac{UTS}, so that possible faults in parts of the code that has not been tested, are not found in later stages;
+Provide information regarding \ac{TC}s that should exist to have a satisfactory coverage or provide infomration about redundant test cases
+and still endure the security of the process resulting in the improvement of the software.
+The faults that should be found during \ac{UT} will not be passed to the other phases of testing.
 
-\cite{ccoverage}
 \cite{mcdc}
 \cite{Marick99}
 %\subsection{Statement Coverage}
@@ -488,15 +495,15 @@ because when an error is located, is known the module and the unit in which it b
 If on the other hand a bug is located, where multiple units are combined then it must be analyzed how those modules interact with each other.
 Of course, one can find exceptions, but overall, testing and debugging is much more efficient than test everything immediately\cite{Patton:2000:ST:517489}.\\
 
-If unit tests are carried out in a proper manner, the further phases of tests (as we shall see below) will be more successful.
-To perform a structured and repeatable software program with Unit Tests, they should be developed before or in parallel with the development of software.
+If \ac{UTS} are carried out in a proper manner, the further phases of tests (as we shall see below) will be more successful.
+To perform a structured and repeatable software program with \ac{UTS}, they should be developed before or in parallel with the development of software.
 To be effective and helpful for the development team, \ac{UT} must be considered part of the development project
 and tests must be updated along according to the requirements and source code, as the project evolves\cite{dustin2002effective}.
 Finding defects while a component is still in development offers a significant savings in time and cost and consequently produces a better quality software product.
 The main advantages of use \ac{UT} during software development are\cite{dustin2002effective}:
 \begin{itemize}
-\item The development must be geared to run the unit tests, in which each requirement will be attending, so the software will be considered
-successfully when all the unit tests pass;
+\item The development must be geared to run the \ac{UTS}, in which each requirement will be attending, so the software will be considered
+successfully when all the \ac{UTS} pass;
 \item Will cause the developer to put efforts on meeting the exact problem, and usually it will result in less code and a more direct implementation.
 So, using \ac{UT} has a side effect of improving the code and understand their functioning better.
 \end{itemize}
@@ -525,7 +532,6 @@ The most widely known are the \ac{WB} and \ac{BB}.
 These methods complement each other and must be applied together in order to ensure a good quality test.
 \subsection{White-box vs Black-box testing}
 }
-%In this section is discussed the two most common approaches for testing: White-box and Black-box testing.\\
 In \ac{WB} testing the tester needs to understand the internals of
 the code to be able to write tests for it.
 The goal of selecting \ac{TC}s that test specific parts of the code
@@ -537,7 +543,7 @@ abstract program
 executions in order to attempt to compute inputs to drive the program
 along specific execution paths or branches, without ever executing the
 program. Control Flow based testing approach can be useful to analyze all the
-possible paths in the code and write unit tests to cover multiple paths.
+possible paths in the code and write \ac{UTS} to cover multiple paths.
 The \ac{CFG} of the program can be built,
 test inputs can be generated to make any path execute regarding a given criterion:
 Select all paths;
@@ -556,19 +562,9 @@ Opposite to \ac{WBT}, \ac{BBT} is based on
 functionality, so the tester observes a system based
 on its functional contracts and writes the pairs of inputs and the
 expected outputs.
-This approach is used for unit testing of single methods/functions,
+This approach is used for \ac{UT} of single methods/functions,
 integration testing
 of combinations of the methods/functions, or even final system testing.\\
-
-%This document is organized as follows.
-%In Section~\ref{testingapproaches} the important testing approaches in
-%use---Specification-based testing and Constraint-based generation---are briefly
-%revisited and, for each one,  the most relevant tools are identified.
-%In Section~\ref{testingtools} some of the tools referred are
-%experimented in order to be compared.
-%Our proposal for a test generation system is introduced in
-%Section~\ref{proposal}.
-%The document is concluded in Section~\ref{sec:Concl}.
 
 \section{Tool Approaches}\label{testingapproaches}
 In this Section, a study of the most recent approaches to the development testing tools,
@@ -635,7 +631,7 @@ These tool is already available to users and is in a very mature phase.\\
 These scenarios are simple sets of calls to methods without their parameters (remember that this is Spec Explorer job).
 Then Spec Explorer will generate a visual graph where each node represents a state of the system and the arrows represent a call to some method.
 It searches throw all possible sequences of methods invocation that do not violate the contracts (pre, pos conditions) and
-that are relevant to a user-specified set of test properties. After that we can generate from this visual graphs the unit tests (the arrows) and the
+that are relevant to a user-specified set of test properties. After that we can generate from this visual graphs the \ac{UTS} (the arrows) and the
 \ac{TC}s (a graph).
 
 \paragraph{JMLUnit}
@@ -694,7 +690,7 @@ by repeatedly executing the program and solving constraint systems to obtain inp
 This uses the idea of dynamic symbolic execution\cite{Tillmann06unittests}. Pex uses the theorem prover and
 constraint solver Z3\footnote{See more at: \url{http://research.microsoft.com/en-us/um/redmond/projects/z3/}} to reason about the feasibility of execution paths, and
 to obtain ground models for constraint systems.\\
-Pex came with Moles that helps to generate unit tests. These tools together are able to understand the input (by analyzing branches in the code:
+Pex came with Moles that helps to generate \ac{UTS}. These tools together are able to understand the input (by analyzing branches in the code:
 declarations, all exceptions throws operations, if statements, asserts and .net Contracts). With this information Pex uses Z3 constraint solver to
 produce new test inputs which exercise diferent program behavior.\\
 The result is an automatically generated small test suite which often achieves high code coverage.\\
