@@ -328,6 +328,7 @@
 	,toctitle={\uppercase{\listofacronymsname}}
 	]
 % Start the thesis
+\cleardoublepage
 \newpage
 \pagenumbering{arabic}
 \addtocounter{mtc}{+1} %fix the minitoc numbering
@@ -341,7 +342,7 @@
 \include{conclusion}
 
 %bibliography
-\cleardoublepage
+%\cleardoublepage
 \addcontentsline{toc}{chapter}{\bibname}
 \bibliographystyle{alpha}
 \bibliography{thesisBib}
