@@ -482,29 +482,32 @@ The faults that should be found during \ac{UT} will not be passed to the other p
 %\subsection{Relational Operator Coverage}
 %\subsection{Weak Mutation Coverage}
 %\subsection{Table Coverage}
+}
+\new{
 \section{Test Categories}
-The different categories of software testing enables the detection of faults of the system from different perspectives and in different stages
+The different categories of software testing enable the detection of faults of the system from different perspectives and in different stages
 of software development.
 In certain situations, because there are few scenarios or low criticality of the system,
 certain categories of testing can be planned together. According to \cite{citeulike:453686} there are five testing categories,
-\ac{UT}, Component Testing, Integration Testing, System Testing and Acceptance Testing.
+Unit Testing (UT), Component Testing, Integration Testing, System Testing and Acceptance Testing.
 In this section we will explain all of them, with a particular emphasis in \ac{UT} since it is the most elementary testing category
 in which is possible to test atomic components of source code (a certain instruction, method/function or class).\\
 
-\ac{UT}s are designed to exercise small parts or units of the system, usually code statements, functions, methods or classes,
-determining whether it works correctly and it concentrates on smallest unit of software design, it seeks to identify logical errors
+\ac{UT}s concentrates on smallest unit of software and are designed to exercise small
+parts or units of the system, usually code statements, functions, methods or classes,
+determining whether it works correctly, it seeks to identify logical errors
 and implementation errors in each module of the software separately.
-Almost all programmers perform some level of \ac{UT} on a unitary component or piece of code.
+Almost all programmers perform at some level unitary tests on a each piece of code.
 These tests together with the integration tests are essential to create a quality software product\cite{dustin2002effective},
-yet they are often overlooked, or are implemented in a superficial way.\\
+however they are often overlooked, or are implemented in a superficial way.\\
 According to \cite{Hunt:2003:PUT:1197403} it should be done in source code written by a programmer, usually a tester,
 who exercises a very small area of the code being tested.\\
-\ac{UT}s must check five characteristics: The individual components to make sure that they function properly;
-The interface components for ensuring that information is being passed according to the interfaces requirements;
-Handling of inconsistent data; Initialization of variables and if the boundary conditions are operating properly.\\
+\ac{UT}s must check five characteristics: The individual components to make sure that they work properly;
+The interface components for ensuring that information is being passed according to the requirements;
+Handling of inconsistent data; Initialization of variables; and operation under the boundary conditions.\\
 The main motivations to perform \ac{UT} are using a method of testing the elements of a computer program,
-in which initial attention is focused on smaller units of the program. Helping in the location, definition and correction of a software problems,
-because when an error is located, is known the module and the unit in which it belongs\cite{Myers:2004:AST:983238}.\\
+in which initial attention is focused on smaller units of the program, helping in the location, definition and correction of a software problems,
+because when an error is located, it is known the module and the unit to which it belongs\cite{Myers:2004:AST:983238}.\\
 \ac{UT} facilitates isolating bugs because when a problem is found at the unit level, the problem must lie in the unit.
 If on the other hand a bug is located, where multiple units are combined then it must be analyzed how those modules interact with each other.
 Of course, one can find exceptions, but overall, testing and debugging is much more efficient than test everything immediately\cite{Patton:2000:ST:517489}.\\
@@ -513,7 +516,7 @@ If \ac{UTS} are carried out in a proper manner, the further phases of tests (as 
 To perform a structured and repeatable software program with \ac{UTS}, they should be developed before or in parallel with the development of software.
 To be effective and helpful for the development team, \ac{UT} must be considered part of the development project
 and tests must be updated along according to the requirements and source code, as the project evolves\cite{dustin2002effective}.
-Finding defects while a component is still in development offers a significant savings in time and cost and consequently produces a better quality software product.
+Finding defects while a component is still in development offers significant savings in time and cost and consequently produces a better quality software product.
 The main advantages of use \ac{UT} during software development are\cite{dustin2002effective}:
 \begin{itemize}
 \item The development must be geared to run the \ac{UTS}, in which each requirement will be attending, so the software will be considered
@@ -522,25 +525,29 @@ successfully when all the \ac{UTS} pass;
 So, using \ac{UT} has a side effect of improving the code and understand their functioning better.
 \end{itemize}
 
-In the following listing is shown a brief description for the others test categories:
+The other four test categories are briefly described below:
 
 \begin{description}
 \item[Component Testing] The target universe of this type of test is a little larger than \ac{UT},
 here it is important to test the components as a whole, but not considering the interaction with other parts of the system;
-\item[Integration Testing] The aim of this testing category is to tests the interface between the integrated units.
-It is a systematic, for construction of the program structure by performing at the same time, tests to detect errors associated interfaces.
+\item[Integration Testing] The aim of this testing category is to
+test the interaction among the different components, previously tested separately, when they are integrated.
+%It is a systematic, for construction of the program structure by performing at the same time, tests to detect errors associated interfaces.
 Mainly it tests if units tested individually perform properly when placed together.
 \item[System Testing]
 The main purpose is to compare the system or program with its original goals.
 Here are performed tests considering the whole picture, software elements integrated operating environment.
-Usually is performed using \ac{BB} techniques and are executed by a tester.
-\item[Acceptance Testing] Usually performed by a small group of end users of the system by simulating routine operations of the system, aiming
-verify the behavior of the system is according with the expectations of the end user.
+While the previous three categories adopt clearly a \ac{WB} approach, this category usually is performed using \ac{BB}
+techniques and is executed by a tester.
+\item[Acceptance Testing] Usually performed by a small group of end users of the system, that will simulate the
+different routines of a daily  operation of the system, aims
+at verifying if the behavior of the system is according to their expectations.
 \end{description}
 
 \section{Test Strategies}
 There are several ways to test software. There are techniques that were widely used in systems developed in structured languages
-that still have great value to the \ac{OO} languages. Despite the development paradigms are completely different,
+that still have great value for \ac{OO} languages. Despite the
+development paradigms are different,
 the main objective of these techniques remains the same: to find flaws in software\cite{Myers:2004:AST:983238}.
 The most widely known are the \ac{WB} and \ac{BB}.
 These methods complement each other and must be applied together in order to ensure a good quality test.
@@ -586,10 +593,11 @@ like \ac{SB}, \ac{CB}, \ac{GB} and \ac{RB} tests generation
 for the most popular languages - C, JAVA and C\#, will be presented.
 
 \subsection{Specification-based Generation Testing}
-\neww{
+\new{
 \ac{SBT} appeared in order to address the testing activities in a systematic manner, this subject is currently under
-much discussed in academia and have been gaining interest in the software industry.
-According to the philosophy of \ac{SBT}, \ac{TC}s are derived from a system specification\cite{conrad:graph}, so it can be generated systematically from specifications,
+much discussion in academia and have been gaining interest in the software industry.
+According to the philosophy of \ac{SBT}, \ac{TC}s are derived from the system specification\cite{conrad:graph}, so it 
+is possible to say that \ac{TC}s can be generated systematically from specifications,
 with this technique the testing phase and development phase can be started in parallel, since it is not
 needed the implementation to start the development of \ac{TC}s. The only thing needed is the functional contracts (The specification, or a model)
 and/or oracles\footnote{A test oracle determines whether or not the results of a test execution are correct\cite{Peters95generatinga}.} for each function/method.\\
@@ -597,26 +605,32 @@ and/or oracles\footnote{A test oracle determines whether or not the results of a
 These specifications serve as input for the definition of \ac{TC}s to test a given system.
 If the generation of the test is performed automatically, any change in the system specification will have repercussion in the \ac{TC}s.
 However, there are some difficulties in application of \ac{SBT}, as mentioned by\cite{Bertolino04towardsanti-model-based},
-namely that exist a gap between the level of abstraction of a model and level of abstraction of \ac{TC}s.
-\ac{SBT} are composed of several activities. The main ones are\cite{Lindholm06model-basedtesting} the
-\textbf{Construction of the model}: For the definition of \ac{SBT}, various types of models has been used, for example, \ac{UML} diagrams with
+namely that exist a gap between the level of abstraction of a model and the level of abstraction of \ac{TC}s.
+\ac{SBT} is composed of several activities; the main one is\cite{Lindholm06model-basedtesting} the
+\textbf{Construction of the model} for the definition of \ac{SBT}, various types of models has been used, for example, \ac{UML} diagrams with
 \ac{OCL} annotations\cite{Simula.SE.30}, Z specifications\cite{Horcher95improvingsoftware,Stocks:1996:FST:239916.239918},
 \ac{UML} Statecharts\cite{Offutt:1999:GTU:1767297.1767341}, \ac{VDM}\cite{Aichernig99automatedblack-box},
 \ac{ADL} specifications\cite{Sankar94specifyingand}, or models defined in B Language\cite{Legeard:2002:ABT:647541.730142,Bernard:2004:GTS:1134155.1134156}.
-The use of formal specifications leads to a better understanding of the system, as well as providing means for automatic identification of incomplete
-or inconsistent specifications so that the other steps of \ac{SBT} have less prone to errors specification.
-Since the use of formal specifications tends to diminish ambiguities, that natural languages could create, automatic generation of tests is privileged using this philosophy.
-\textbf{Definition of derivation criteria of \ac{TC}s from the model}: Must first establish a technique to be used in the design of the \ac{TC}s,
-the techniques may be ac{WBT} (those where the system source code is visible) or \ac{BBT} (where only the specification is considered - the code is not taken into account).\\
-The derivation criteria defines the test coverage. For example in \cite{Lindholm06model-basedtesting}, where is generated \ac{TC}s from \ac{FSA},
+The use of formal specifications leads to a better understanding of the system, as well as provides means for automatic identification of incomplete
+or inconsistent specifications making the other steps of \ac{SBT} less error prone.
+Since the use of formal specifications tends to diminish ambiguities, when compared
+with those stated in a natural languages, automatic generation of tests is privileged using this philosophy.
+
+Other activity of \ac{SBT} is the
+\textbf{definition of derivation criteria of \ac{TC}s from the model}, where it first must be established a technique to be used in the design of the \ac{TC}s,
+the techniques may be \ac{WBT} (those where the system source code is visible) or \ac{BBT} (where only the specification is considered - the code is not taken into account).\\
+The derivation criteria defines the test coverage. For example in \cite{Lindholm06model-basedtesting}, where \ac{TC}s are generated from \ac{FSA},
 two types of covering are considered, the first is when the test suite reaches each model state at least once and the second
 is when the test suite reaches each state transition at least once.
 Obviously, the latter is tightened, creating a greater number of tests, since all the combinations of the two states by two
 are achieved at least once. However, in many cases test coverage condition may be infeasible, depending on the model.\\
-\textbf{Generation of \ac{TC}s and test suite}: The derivation of test criteria defined in the previous section are applied.
+
+Other activity of \ac{SBT} is the
+\textbf{generation of \ac{TC}s and test suite} where the derivation of test criteria defined in the previous section are applied.
 From this interaction \ac{TC}s are generated and grouped into test suites.
-\textbf{Adaptation of \ac{TC}s}: 
-By being created from an abstract model, generated \ac{TC}s
+
+And finally one of the lats activities of applying \ac{SBT} is the
+\textbf{adaptation of \ac{TC}s} by being created from an abstract model, generated \ac{TC}s
 may have a level of abstraction that is not interesting for system testing.
 If this occurs, it is necessary to make an adaptation of this suite to the concrete level of the system being tested.
 }
@@ -735,20 +749,18 @@ produces thousands of programs with structural properties that are relevant for 
 \subsection{Random-based Generation Testing}
 In the \ac{RBT}, test inputs are selected randomly from the input domain of the system.
 To have a random testing suite first we must identify the input domain, after that select test inputs independently from the domain,
-then the system under test is executed on these inputs, the results are compared to the system specification, an oracle.\\
-Random testing gives us an advantage of easily estimating software reliability from test outcomes.
-\neww{
-Random testing are based on the input domain, so the method generally applied is \ac{BBT}.
+then the system under test is executed on these inputs, the results are compared to the system specification, an oracle.
+\new{
+Random testing is based on the input domain, so the method generally applied is \ac{BBT}.
 Tests are randomly selected from all over the input domain, not considering any information about the structure or program specification.
 The use of a \ac{RBT} could be helpful as a valuable blueprint for the generation of test cases, especially in the final stage of software testing\cite{reliable}.
 
-\ac{RBT} provide an easy way to generate test cases,
+\ac{RBT} provides an easy way to generate test cases,
 but does not present a detailed analysis about its reliability.
 The data obtained from random testing can then be used to find bugs or non expected behaviors.\\
-Usually with this type of testing is generated a large number of test cases, thus providing an automatic way for the generation of test cases.
-Since \ac{RBGT} do not use any information about the software specification, only some entries are selected, so it can not guarantee the effectiveness of this selection.
+Since \ac{RBGT} does not use any information about the software specification, only some entries are selected, so it can not guarantee the effectiveness of this selection.
 Test inputs are randomly generated according to an operational profile, and failure times are recorded.
-The generated tests can be too sparse to actually test specifics parts of the program. Either way, this technique proves to be very effective for testing
+The generated tests can be too sparse to actually test specifics parts of the program. Anyway, this technique proves to be very effective for testing
 compilers and network protocols.
 }
 \paragraph{Csmith}
