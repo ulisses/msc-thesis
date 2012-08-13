@@ -4,6 +4,7 @@ In this chapter are discussed and contextualized historically the \ac{ECSS} Stan
 The importance of this Standards is addressed regarding the security of the software products for space purposes, it is also
 shown the classification of \ac{ECSS} software criticality (Section \ref{sec:stand}) and starting therefrom are shown testing techniques that 
 respond to such high requirements, with the aim to analyze the code coverage (Section \ref{sec:ccoverage}).
+
 \new{
 Related to space Standards it is also shown the most reliable Standard for airborn software components -- The DO-178/ED-12 from \ac{EUROCAE} and \ac{RTCA} (Section \ref{sec:airborne}).
 Also it will be shown the most recent version of this Standard and the relationship between it and \ac{ECSS} software Standards (Section \ref{sec:new-stand}).\\
@@ -12,6 +13,7 @@ the term "safety-critical" is used to characterize a
 system that is intended to achieve, on its own, the necessary level of safety integrity for the implementation of the required safety functions.
 So, a safety-critical software is an artifact that if
 fails can cause loss of human life or have other catastrophic consequences.\\
+
 }
 In a second part of this chapter the main differences between \ac{WB} and \ac{BB} testing are presented and
 some testing tools approaches are described considering automatic generation testing techniques, and some tools for each technique namely:
@@ -750,11 +752,11 @@ produces thousands of programs with structural properties that are relevant for 
 In the \ac{RBT}, test inputs are selected randomly from the input domain of the system.
 To have a random testing suite first we must identify the input domain, after that select test inputs independently from the domain,
 then the system under test is executed on these inputs, the results are compared to the system specification, an oracle.
+
 \new{
 Random testing is based on the input domain, so the method generally applied is \ac{BBT}.
 Tests are randomly selected from all over the input domain, not considering any information about the structure or program specification.
 The use of a \ac{RBT} could be helpful as a valuable blueprint for the generation of test cases, especially in the final stage of software testing\cite{reliable}.
-
 \ac{RBT} provides an easy way to generate test cases,
 but does not present a detailed analysis about its reliability.
 The data obtained from random testing can then be used to find bugs or non expected behaviors.\\
@@ -762,6 +764,7 @@ Since \ac{RBGT} does not use any information about the software specification, o
 Test inputs are randomly generated according to an operational profile, and failure times are recorded.
 The generated tests can be too sparse to actually test specifics parts of the program. Anyway, this technique proves to be very effective for testing
 compilers and network protocols.
+
 }
 \paragraph{Csmith}
 Csmith\cite{Yang:2011:FUB:1993316.1993532} is a \ac{BB} random tests generator that is able to generate C programs
