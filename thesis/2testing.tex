@@ -5,7 +5,6 @@ The importance of this Standards is addressed regarding the security of the soft
 shown the classification of \ac{ECSS} software criticality (Section \ref{sec:stand}) and starting therefrom are shown testing techniques that 
 respond to such high requirements, with the aim to analyze the code coverage (Section \ref{sec:ccoverage}).
 
-\new{
 Related to space Standards it is also shown the most reliable Standard for airborn software components -- The DO-178/ED-12 from \ac{EUROCAE} and \ac{RTCA} (Section \ref{sec:airborne}).
 Also it will be shown the most recent version of this Standard and the relationship between it and \ac{ECSS} software Standards (Section \ref{sec:new-stand}).\\
 The term "safety" denotes the property of a system that it will not endanger human life or the environment and
@@ -14,7 +13,6 @@ system that is intended to achieve, on its own, the necessary level of safety in
 So, a safety-critical software is an artifact that if
 fails can cause loss of human life or have other catastrophic consequences.\\
 
-}
 In a second part of this chapter the main differences between \ac{WB} and \ac{BB} testing are presented and
 some testing tools approaches are described considering automatic generation testing techniques, and some tools for each technique namely:
 \ac{SBGT}, \ac{CBGT}, \ac{GBGT} and
@@ -307,7 +305,6 @@ as in \cite{ecss-q-st-80c} at clause 6.3.5.2.
 \caption{ECSS Code Coverage vs. Criticality}\label{tab:ccoverage}
 \end{table}
 
-\new{
 \section{DO-178/ED-12 Standard for Airborne Systems}\label{sec:airborne}
 Software in avionics has been around since 1970's, but was in the 80's when the cost of computers went down, thanks to the introduction of personal computers,
 that the avionics industry start to use software components in airborne systems.
@@ -437,10 +434,9 @@ Increasing the use of tools and methodologies from the area of Formal Methods is
 
 \section{Code Coverage}\label{sec:ccoverage}
 \note{See Qualidade de conjuntos de teste de software de código aberto: uma análise baseada em critérios estruturais\\}
-As we have seen in Sections \ref{sec:stand} and \ref{sec:new-stand}, code coverage is a major concern regarding the software development for space industry,
+As we have seen in Sections \ref{sec:stand} and \ref{sec:new-stand}, code coverage is a major concern regarding the software development for space industry.
 So it is important to study this subject in order to integrate this feature in the final product to be delivered by \ac{VST}.\\
-}
-\neww{
+
 Code Coverage analysis is among the first techniques used for systematic software testing.
 This theme was initially treated by Miller and Maloney \cite{Miller:1963:SMA:366246.366248}.
 Since then, various authors started researching comming up with some different coverage analysis techniques.\\
@@ -484,8 +480,6 @@ The faults that should be found during \ac{UT} will not be passed to the other p
 %\subsection{Relational Operator Coverage}
 %\subsection{Weak Mutation Coverage}
 %\subsection{Table Coverage}
-}
-\new{
 \section{Test Categories}
 The different categories of software testing enable the detection of faults of the system from different perspectives and in different stages
 of software development.
@@ -554,7 +548,6 @@ the main objective of these techniques remains the same: to find flaws in softwa
 The most widely known are the \ac{WB} and \ac{BB}.
 These methods complement each other and must be applied together in order to ensure a good quality test.
 \subsection{White-box vs Black-box testing}
-}
 In \ac{WB} testing the tester needs to understand the internals of
 the code to be able to write tests for it.
 The goal of selecting \ac{TC}s that test specific parts of the code
@@ -595,7 +588,6 @@ like \ac{SB}, \ac{CB}, \ac{GB} and \ac{RB} tests generation
 for the most popular languages - C, JAVA and C\#, will be presented.
 
 \subsection{Specification-based Generation Testing}
-\new{
 \ac{SBT} appeared in order to address the testing activities in a systematic manner, this subject is currently under
 much discussion in academia and have been gaining interest in the software industry.
 According to the philosophy of \ac{SBT}, \ac{TC}s are derived from the system specification\cite{conrad:graph}, so it 
@@ -635,7 +627,6 @@ And finally one of the lats activities of applying \ac{SBT} is the
 \textbf{adaptation of \ac{TC}s} by being created from an abstract model, generated \ac{TC}s
 may have a level of abstraction that is not interesting for system testing.
 If this occurs, it is necessary to make an adaptation of this suite to the concrete level of the system being tested.
-}
 These specifications typically do not consider structurally complex inputs and the existing tools do not generate JUnit \ac{TC}s.
 Nowadays there are some commercial tools out there that can perform \ac{SBT} approach, namely:
 \begin{description}
@@ -753,7 +744,6 @@ In the \ac{RBT}, test inputs are selected randomly from the input domain of the 
 To have a random testing suite first we must identify the input domain, after that select test inputs independently from the domain,
 then the system under test is executed on these inputs, the results are compared to the system specification, an oracle.
 
-\new{
 Random testing is based on the input domain, so the method generally applied is \ac{BBT}.
 Tests are randomly selected from all over the input domain, not considering any information about the structure or program specification.
 The use of a \ac{RBT} could be helpful as a valuable blueprint for the generation of test cases, especially in the final stage of software testing\cite{reliable}.
@@ -765,7 +755,6 @@ Test inputs are randomly generated according to an operational profile, and fail
 The generated tests can be too sparse to actually test specifics parts of the program. Anyway, this technique proves to be very effective for testing
 compilers and network protocols.
 
-}
 \paragraph{Csmith}
 Csmith\cite{Yang:2011:FUB:1993316.1993532} is a \ac{BB} random tests generator that is able to generate C programs
 conform to the C99\footnote{See more at: \url{http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf}} Standard. This is a very recent tool that already discover
