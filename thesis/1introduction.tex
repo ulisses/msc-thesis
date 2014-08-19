@@ -28,10 +28,12 @@ the model be implemented.
 Because of this, the use of software models in the process of developing a software system is very important regarding
 the organization of the activities in order to obtain high quality at lower cost.
 In this context, the \ac{UML} is the standard language, used for modeling the structure of software projects.\\
-Since the beginning, every industry use testing methods to discover problems in early stages of the development process to improve
-the products quality, and software industry is not an exception. Software testing became an essential method for software quality assurance and became
-widely used and accepted for the validation and verification of software systems. It can be considered as a complete revision
-of the specification, design and implementation of a software system.
+
+Since the beginning, every industry use testing methods to discover problems in early stages of the development and delivery
+process to improve the products quality, and software industry is not an exception.
+Software testing became an essential method for software quality assurance and became widely used
+and accepted for the validation and verification of software systems.
+It can be considered as a complete revision of the specification, design and implementation of a software system.
 
 Miller\cite{miller} describe the utility of software testing as:
 
@@ -42,21 +44,33 @@ exercising the software in carefully controlled circumstances.
 
 In the most recent period of software history the integration of
 software testing as an important step in the process of
-software development opened up to the origin of xUnit\cite{xunit}
-tools and Agile software development.
-Also, \ac{ESA} started to use manual written tests as a part of their
+software development opened up to the origin of xUnit\cite{xunit} tools and Agile during software development phase.
+Also, \ac{ESA} started to use possible to automate written tests as a part of their
 software development processes.\\
-Using  manual written tests is tedious, time consuming and error-prone.
-Lots of functions/methods need full code coverage and this practice
-leads to incomplete test suites;
-as it is hard to create tests that cover specific code paths, many
-hidden bugs can be left.
-Many times a supervision leaded by the developer
-is needed to assure that the right paths in the code are being tested,
-specially regarding \ac{BBT}.\\
-Nowadays we start to observe a rapid increase in the automatic test
-generation field.
+%Using  manual written tests is tedious, time consuming and error-prone.
+%Lots of functions/methods need full code coverage and this practice
+%leads to incomplete test suites;
+%as it is hard to create tests that cover specific code paths, many
+%hidden bugs can be left.
+%Many times a supervision leaded by the developer
+%is needed to assure that the right paths in the code are being tested,
+%specially regarding \ac{BBT}.\\
+%Nowadays we start to observe a rapid increase in the automatic test
+%generation field.
 
+\note{fazer uma passagem mais tranquila do texto de cima para baixo, talvez falar em model driven testing}
+
+In this chapter we will show the architecture and some of the relevant details of the software used to manage and control
+the \ac{ESA} satellites: the \ac{MCS} and it's architecture; the nowadays system that is used to perform Tests on the \ac{MCS} and the
+database infrastructure that keeps all the data collected from the \ac{ESA} missions, known as \ac{MIB}.
+
+\new{
+\section{The Mission Control System architecture}
+
+\section{The nowadays Automatic Regression Testing}
+
+\section{The Mission Data Base}
+}
 \section{Operational Simulator Infrastructure}
 \ac{ESA}'s Operational Simulator called \ac{SIMSAT}
 is a satellite simulator that model and simulate
