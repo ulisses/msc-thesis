@@ -1,0 +1,16 @@
+\chapter{Our Proposal and Architecture}
+%\minitoc
+\note{onde se descrevesse a proposta e se detalhesse tecnicamente a solução arquitetónica que a poderá implementar}
+
+\section{Generate Tests from Code+\glsentryname{OCL}}\label{proposal}
+Since the Operational Simulator code is not familiar to us, regarding its implementation, it was decided to start solving this problem by inferring the \ac{UML}+\ac{OCL} from the existing code
+to be able to work on a more abstract level rather than the implementation.
+The idea is to extract tests from the inferred \ac{OCL}, using the Partition Analysis described
+in \cite{Benattou02generatingtest} and at the same time generate tests directly from the code, using symbolic execution to complement
+the specification-based generation from \ac{OCL}. The main goal is to extract as many tests as possible from a model and from the implementation 
+to provide information to a feedback loop\cite{Xie03mutuallyenhancing}
+test generation framework with two test prespectives, functional and structural, and from there be able to get a more refined set of tests.\\
+A combination of both, symbolic execution from Pex and complex data generation from Korat, it will be designed and implemented to
+generate more interesting inputs for the methods under testing.
+\section{Summary}
+\secendnote

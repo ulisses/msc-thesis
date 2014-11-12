@@ -1,0 +1,36 @@
+\chapter*{Abstract}
+\ac{ESA} uses a big and complex stack of software programs to perform tests in the
+Ground Segment Infrastructure, specially the \ac{MCS}.
+This engine uses many different tools to ensure the maintenance of the
+regression testing infrastructure. Mainly these tests perform black-box
+testing to all the software systems used in the Ground Segment by executing scripts mainly written in Python.
+These scripts are developed by the Software Testing team at \ac{ESOC} responsible to deliver the \ac{MCS} to the mission's team, so the
+satellite can be operated correctly throw \ac{MCS}.
+\ac{VST} is one of the companies that provides
+these services to \ac{ESA} and an updated tool is needed in order to help reusing the existing tests
+and improve the way more tests can be written in the future.\\
+
+An all-in-one framework and tool must be developed in order to allow more complex data to be used as input for the
+tests, ultimately the test data shall be automatically generated based on the data from
+the \ac{MIB} or generically simply based on their data type
+and some rules to restrict the generated data domain.\\
+A embedded \ac{DSL} was developed in order to help the user generating the test data for the test scripts that are already written.\\
+
+On the other hand, since lots of functions/methods need full code coverage and with this method is hard to create tests that
+cover specific code paths potentially leaving many hidden bugs we present the problem and some solutions for it.
+Besides that, software is not a static artifact and is constantly
+evolving, so a test data generation technique could be a more suitable mechanism in the development process.\\
+
+As we know, writing these rules to guide the generation of data can be very hard and some times is simply impossible to
+crystallize in a pre-condition a ground truth rule to generate every cases the user wants.
+So, we will show our tries to automatically infer tests from the existing \ac{OO} code.
+There are many approaches trying to tackle this problem and therefore
+many tools were developed. Here we will present a study on the most
+recent tools that uses: Model-based testing, Specification-based
+testing, Constraint-based generation, Random generation and
+Grammar-based generation for the most used languages - C, JAVA and C\#.\\
+Automated Test Case Generation tools give support for creating test
+cases and at the same time ensure test case coverage methodically. The
+main goal of this tools is extract information from the program on how
+to generate executable test cases.
+

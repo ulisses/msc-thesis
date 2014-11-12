@@ -1,0 +1,221 @@
+% book example for classicthesis.sty
+\documentclass[
+  % Replace twoside with oneside if you are printing your thesis on a single side
+  % of the paper, or for viewing on screen.
+  twoside,
+  %twoside,
+  11pt, a4paper,
+  footinclude=true,
+  headinclude=true,
+  cleardoublepage=empty
+]{scrbook}
+
+\usepackage{lipsum}
+\usepackage[linedheaders,parts,pdfspacing]{classicthesis}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{acronym}
+\usepackage{dissertation}
+%\usepackage[avantgarde]{quotchap}
+\usepackage[acronym,shortcuts]{glossaries}
+\makeglossaries
+\include{chapters/acronyms}
+% end notes package (the second one --- hyperendnotes is for use hyperref with endnotes)
+\usepackage{endnotes,chngcntr}
+\usepackage{hyperendnote}
+\usepackage{listings}
+\usepackage{tabularx}
+\usepackage{multirow}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Listings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstdefinelanguage{codeTTN}
+{
+    basicstyle=\ttfamily\footnotesize,
+    sensitive=true,
+    showstringspaces=false,
+    numberblanklines=true,
+    showspaces=false,
+    breaklines=true,
+    showtabs=false,
+    numbers=left,
+    numberstyle=\footnotesize,
+    xleftmargin=15pt,
+    captionpos=b % caption below :)
+}
+\lstnewenvironment{code}[1][]{\lstset{language=codeTTN,caption=#1}}{}
+\renewcommand*{\lstlistlistingname}{List of Listings}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifx\bw\undefined
+\newcommand{\checkK}{\color{darkgreen}\checkmark}
+\newcommand{\cross}{\color{red}\hspace{-3pt}\ding{55}}
+\newcommand{\bigexclaim}{\color{yellow}$\bigtriangleup$\hspace{-5.6pt}!}
+\else
+\newcommand{\checkK}{\color{black}\checkmark}
+\newcommand{\cross}{\color{black}\hspace{-3pt}\ding{55}}
+\newcommand{\bigexclaim}{\color{black}$\bigtriangleup$\hspace{-5.6pt}!}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author notes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\note#1{{\noindent {\color{red}\textbf{NOTA:} #1}}}
+% New Content
+%\newcommand{\new}[1]{{\linenumbers\color{blue}#1}}
+\newcommand{\new}[1]{{\linenumbers\color{blue}#1}}
+\newcommand{\neww}[1]{{\linenumbers\color{darkgreen}#1}}
+
+\usepackage{lineno}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ACRONYM (GLOSSARY)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% List of Acronyms leged
+\newcommand{\listofacronymsname}{List of Acronyms}
+% remove the dot (.) at the end of a glossary entry...
+\renewcommand*{\glspostdescription}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%% ENDNOTES %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Replace all footnotes by endnotes
+\let\footnote=\endnote
+\let\theendnotee=\theendnote
+% Section of endnotes (at the end of a chapter usually)
+\newcommand{\secendnote}{
+    % If we don't have footnotes in a chapter, don't print the footnotes listing
+        \ifnum\value{endnote}=0
+            \else
+                    \newpage
+                            \begingroup
+                                    \parindent 0pt 
+                                            \parskip 2ex 
+                                                    \def\enotesize{\normalsize}
+                                                            \def\notesname{Notes of chapter \arabic{chapter}}
+                                                                    \def\theendnote{\arabic{chapter}.\theendnotee} %2.1 note menas that is the first note (1) from chapter 2 :)
+                                                                            \theendnotes
+                                                                                    \endgroup
+                                                                                        \fi 
+                                                                                        }
+                                                                                        % Reset endnote numbering every new chapter
+                                                                                        \counterwithin{endnote}{chapter}
+
+\usepackage{color,graphicx}
+
+
+\definecolor{darkblue}{rgb}{0,0,0.6}
+\definecolor{darkgreen}{rgb}{0,0.7,0}
+
+\usepackage{pifont} % for \cross symbol newcommand
+\usepackage{subfig}
+\usepackage{amssymb, amsmath} %math functions
+
+\usepackage[all]{xy}
+%% stuff do minitoc %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\setcounter{minitocdepth}{2}
+%\setlength{\mtcindent}{24pt}
+%\renewcommand{\mtcfont}{\small\rm}
+%\renewcommand{\mtcSSfont}{\small\bf}
+%\renewcommand{\mtctitle}{Contents of chapter \thechapter}
+%%\newenvironment{mtc}{\secttoc\sectlof\sectlot}{\pagebreak}
+%%                        ^       ^        ^
+%%                    conteudos  figuras  tabelas
+%% \newenvironment{mtc}{\minitoc\minilof\minilot}{\pagebreak}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Title
+\title{Automatic Test Data Generation for Space Missions}
+
+% Author
+\author{Ulisses Ara\'ujo Costa}
+
+% Supervisor
+\def\supervisor{%
+	Prof. Pedro Rangel Henriques
+\\
+	Daniela da Cruz
+}
+
+% Date
+\date{\today}
+
+%\makeglossaries  %  either use this ...
+
+%\makeindex	% ... or this
+
+\begin{document}
+	
+% Cover page ---------------------------------------------
+\sf
+	\pagenumbering{alph}
+	\thispagestyle{empty}
+	\input{def/title}
+\rm
+	\cleardoublepage
+%---------------------------------------------------------
+
+\include{chapters/acknowledgements}
+
+% Add abstracts (en,pt) -----------------------------------------------------------
+\include{chapters/abstract}
+\include{chapters/resumo}
+
+\cleardoublepage
+        
+\pagenumbering{roman}
+\setcounter{page}{3}
+%pagestyle{fancy}   % -------- removed
+\rm 
+                            
+% Document
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Contents}
+\tableofcontents
+                                                    
+\cleardoublepage
+\listoffigures
+                                                                
+\cleardoublepage
+\listoftables
+                                                                            
+\cleardoublepage
+\lstlistoflistings
+                                                                                        
+% Add list of acronyms
+\cleardoublepage
+\pagenumbering{arabic}
+\setcounter{page}{3}
+
+\include{chapters/1introduction}
+\include{chapters/2testing}
+\include{chapters/3exploringtesting}
+\include{chapters/4ocl}
+\include{chapters/5work}
+\include{chapters/6system}
+\include{chapters/7casestudy}
+\include{chapters/8conclusion}
+
+		
+\bookmarksetup{startatroot} % Ends last part.
+\addtocontents{toc}{\bigskip} % Making the table of contents look good.
+\cleardoublepage
+
+%----------------- Bibliography (needs bibtex) --------------------------------%
+\bibliography{dissertation}
+%----------------- Index of terms (needs  makeindex) --------------------------%
+%\printindex
+%------------------------------------------------------------------------------%
+	
+	\appendix
+	\renewcommand\chaptername{Appendix}
+
+	% Add appendix chapters
+
+\part{Apendices}
+
+%\lstlistoflistings \addcontentsline{toc}{section}{\lstlistlistingname}
+
+\end{document}
+

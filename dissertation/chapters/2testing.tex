@@ -1,0 +1,774 @@
+\chapter{Testing}
+%\minitoc
+In this chapter are discussed and contextualized historically the \ac{ECSS} Standards by which the space industry is governed (Section \ref{sec:historyspace} and Section \ref{sec:doc-stand}).
+The importance of this Standards is addressed regarding the security of the software products for space purposes, it is also
+shown the classification of \ac{ECSS} software criticality (Section \ref{sec:stand}) and starting therefrom are shown testing techniques that 
+respond to such high requirements, with the aim to analyze the code coverage (Section \ref{sec:ccoverage}).
+
+Related to space Standards it is also shown the most reliable Standard for airborn software components -- The DO-178/ED-12 from \ac{EUROCAE} and \ac{RTCA} (Section \ref{sec:airborne}).
+Also it will be shown the most recent version of this Standard and the relationship between it and \ac{ECSS} software Standards (Section \ref{sec:new-stand}).\\
+The term "safety" denotes the property of a system that it will not endanger human life or the environment and
+the term "safety-critical" is used to characterize a
+system that is intended to achieve, on its own, the necessary level of safety integrity for the implementation of the required safety functions.
+So, a safety-critical software is an artifact that if
+fails can cause loss of human life or have other catastrophic consequences.\\
+
+In a second part of this chapter the main differences between \ac{WB} and \ac{BB} testing are presented and
+some testing tools approaches are described considering automatic generation testing techniques, and some tools for each technique namely:
+\ac{SBGT}, \ac{CBGT}, \ac{GBGT} and
+\ac{RBGT}.
+\section{ESA and ECSS Standardization in Space Industry}
+Software products for space industry tends to be a part of a network composed by several systems. This space systems include manned and unmanned spacecraft,
+launchers, payloads, experiments and their associated ground equipment and facilities\cite{Mattiello-FranciscoSanAmbJogCos:2007:BrSoIn}.
+These kind of projects are generally  expensive, demand considerable amount of time to be completed and have different companies and countries participating.\\
+Trying to get a Standard way to follow all rules to deliver the components with the same degree of quality and reliability is extremely important.\\
+
+Software development for Space, particularly in Europe, follows very specific rules on international Standards. These Standards not only define how a software project should
+evolve but also how every component developed in the field of Space Industry should be done, tested, documented, deployed and maintained.
+This include not only software but many more artefacts like: Electrical, Mechanical and Material components, etc.\\
+In 1994, \ac{ECSS} was established to develop a single set of consistent Space Standards recognized and accepted for use by the entire European Space Community.
+\ac{ECSS} is supported by \ac{ESA} Council deliberations since the foundation and has developed, through
+a partnership between \ac{ESA}, National Space Agencies and European Industry, the management and implementation of European Space Projects.\\
+The main objectives of \ac{ECSS} are to increase the effectiveness of all Space programmes in Europe through the application of a
+single, integrated set of Standards and Requirements from which all generic requirements of future Space projects can be derived and
+improve the competitiveness of the European Space industry.
+This is particularly important to formalize an unambiguous communication in order to facilitate the interaction between project partners,
+create a set of legally binding documents, reduce risks, guarantee interface compatibility and
+improve the quality and safety of Space projects and products.\\
+In Section \ref{sec:historyspace} we will see the history of Space Industry Standards and the need for them.
+
+\subsection{History of Software Development Standards for Space Industry}\label{sec:historyspace}
+\ac{ESA} Software Engineering Standards originate around 1975. At
+that time the \ac{ESA} was working on a number of ambitious projects, on relatively new subjects, involving the development of
+large amounts of code. The project teams often consisted of technically excellent engineers, but most of them were not used to work in projects with
+rigorous cost and a strict schedule. There was very little project oriented discipline\cite{esa-bulletin-90}.\\
+
+One of the projects had a high level of criticality (as we will see later on Table \ref{tab:severity}) and the
+development activity was done at \ac{ESOC}, namely to support the mission, the launch of which was imminent.
+The project began delaying and there were some major hardware, operating system problems. The team was waiting for improvements in the hardware
+and eventually to be able to continue the work, they reduced the amount of requirements to only
+those highly essential for the launch of the satellite. The problem was faced when they realize that no one knew the exact system requirements.
+\begin{quotation}
+There were no written requirements — at best, some could partly be
+retrieved from minutes of meetings. All the rest were in the minds of the project engineers. How
+could cost and schedule be guaranteed under these circumstances? This was a project manager's
+worst nightmare!\cite{esa-bulletin-90}
+\end{quotation}
+
+The team manager decided to stop any further development. All software engineers write down their understanding of the requirements.
+As they had a written list of requirements, they were now able to select only
+those requirements needed for the launch. The remaining requirements were implemented after
+the satellite was launched. In this case a disaster was prevented from happening\cite{Zwartjes05anagile}.
+The \ac{BSSC} was subsequently founded in order to \ac{ESA} never end up in an identical situation. This was the seed from
+which the \ac{BSSC}, and consequently, the \ac{ESA} Software Engineering Standards was funded and prospered.\\
+\ac{ESA}'s \ac{BSSC} was formally established in May 1977 ant it was defined that \ac{BSSC} responsibilities were to:
+\begin{itemize}
+\item Establish and maintain engineering Standards for the procurement, development and maintenance of software.
+\item Verify that the Standards thus established are made applicable to software
+development activities at \ac{ESA}. The \ac{BSSC} verifies the application of the PSS-05-0\cite{pss-05-0} Standards through a procedure involving the
+scrutiny of contracts with a software content.
+These rather limited controls have succeeded remarkably well in helping to instill a software Standards "culture" within the organisation.
+\item Act as liaison with \ac{ESA} Legal Affairs department concerning the safeguarding of intellectual
+property rights relating to software.
+\end{itemize}
+PSS-05-0 was a very successful Standard and \ac{BSSC} has played an important role in promoting it, both through its various
+publications and through its responsibility in monitoring its application. PSS-05-0 has served to create a common software engineering culture in \ac{ESA}\cite{esa-bulletin-90}.\\
+In June 1994, \ac{ESA} Council confirmed the willing to transfer the present PSS system of \ac{ESA} space Standards to a new system
+of Standards, today known as \ac{ECSS}, in order to expand the Standards 
+to other European national space agencies and European space industry in general.
+The \ac{ECSS} system of Standards covers a bigger area, as we explain before: management, product assurance and engineering Standards, specifically for space projects.
+The \ac{ECSS} Standard for software engineering, ECSS-E-40\cite{ecss-e-st-40c}, is a high-level requirements-oriented Standard, in effect a tailoring of ISO/IEC 12207 for space projects.
+Unlike the old PSS-05-0, it reflects the specifics of space projects, for example the relationship between the space system development cycle and the software development cycle\cite{esa-bulletin-90}.
+
+\subsection{Document Standards}\label{sec:doc-stand}
+ECSS-S-ST-00\cite{ecss-s-st-00c} document is the top level user document of \ac{ECSS}.
+It gives a general introduction into \ac{ECSS} and the correct use of \ac{ECSS} Documents in space
+programmes and projects.
+Its purpose is to provide users with an overview of the \ac{ECSS} System, together
+with an introduction to the three branches of applicability, (that will be explained later on this Section) and to the disciplines
+covered by the set of \ac{ECSS} Standards and the processes involved in generating
+and using these Standards.
+In this document there is also an introduction into space programmes, space projects actors and their
+customer-supplier relationships. The application of this System for space projects in the customer-supplier
+chain is also explained and a practical tailoring method is described together with
+methods for collecting and processing user feedback.
+Finally the top-level requirements are defined for implementation of the \ac{ECSS}
+system in space projects/programmes\cite{ecss-s-st-00c}.\\
+
+Under this document there are three parallel branches, the branche dedicated to project management,
+engineering, and product assurance.
+Project management branch documents have an "M" prefix, engineering Standards have an "E" prefix, and product assurance Standards have a "Q" prefix.
+Within each branch, disciplines and corresponding requirements are covered by dedicated Standards.
+Standards are normative document written specifically for direct use in invitation to tender and 
+business agreements for implementing space related activities. Its content 
+is strictly limited to the statement of verifiable customer requirements, supported 
+by the minimum descriptive text necessary for understanding their context.
+
+\ac{ECSS} Disciplines can also be supported by \ac{HB} and \ac{TM} as necessary\cite{ecss-s-st-00c}.
+\ac{HB} are non-normative document providing orientation, 
+guidelines, technical data, advice or recommendations, which contains 
+information about how to implement space related activities. There are two types of \ac{HB}'s: Guidelines and good practices and Collection of data.
+On the other side, \ac{TM} are non-normative documents providing useful information to the space community 
+on a specific subject, prepared to record and present non-normative data, which 
+are not relevant for a Standard or for a \ac{HB}, or not yet mature to be published as \ac{HB} or Standard.
+
+In order to clear understand the disciplines addressed by the \ac{ECSS} Standards system,
+is shown in Figure \ref{fig:ecssdocsstruct} the Standard document by \ac{ECSS} where it is possible to clearly
+see the three separated branches (M, E and Q)\cite{ecss-s-st-00c}.
+It is also possible to see Standards from other \ac{SDO} that are integrated into \ac{ECSS} new Standards.
+
+\def\a{\save[].[dddddd]!C="a"*[F--]\frm{}\restore}
+\def\b{\save[].[dddddddd]!C="b"*[F--]\frm{}\restore}
+
+\def\h{\save[].[rr]!C="h"*+<7pt>+[F:<100pt>]\frm{}\restore}
+
+\ifx\bw\undefined
+\begin{figure}[!ht]
+\footnotesize
+\begin{displaymath}
+\xymatrix@=.28cm{
+  & *+[F-]{\txt{ECSS-S-ST-00\cite{ecss-s-st-00c} - ECSS System}} \ar@{->}[d] \ar@{->}[dl] \ar@{->}[dr] & \\
+	\h\a{\txt{Space project management\\(management Standards)}}
+  & \b{\txt{Space product assurance\\(product assurance Standards)}}
+  & \b{\txt{Space engineering\\(engineering Standards)}} & *+[F]{\txt{External\\Standards\\adopted by\\ECSS}}\ar@/{}_{3pc}/@{->}[];"h"+<3.1pt,28.3pt>+\\
+	*+[F**:red]{\txt{M-10 - Project planning\\and implementation}}
+  & *+[F**:blue][white]{\txt{Q-10 - Product\\assurance management}}
+  & *+[F**:green]{\txt{E-10 - System\\engineering}}\\
+	*+[F**:red]{\txt{M-40 - Configuration and\\information management}}
+  & *+[F**:blue][white]{\txt{Q-20 - Quality assurance}}
+  & *+[F**:green]{\txt{E-20 - Electrical and\\optical engineering}}\\
+	*+[F**:red]{\txt{M-60 - Cost and schedule\\management}}
+  & *+[F**:blue][white]{\txt{Q-30 - Dependability}}
+  & *+[F**:green]{\txt{E-30 - Mechanical\\engineering}}\\
+	*+[F**:red]{\txt{M-70 - Integrated logistic\\support}}
+  & *+[F**:blue][white]{\txt{Q-40 - Safety}}
+  & *+[F**:green]{\txt{E-40\cite{ecss-e-st-40c} - Software\\engineering}}\\
+	*+[F**:red]{\txt{M-80 - Risk management}}
+  & *+[F**:blue][white]{\txt{Q-60 - EEE components}}
+  & *+[F**:green]{\txt{E-50 - Communications}}\\
+  & *+[F**:blue][white]{\txt{Q-70 - Materials, mechanical\\parts and processes}}
+  & *+[F**:green]{\txt{E-60 - Control\\engineering}}\\
+  & *+[F**:blue][white]{\txt{Q-80\cite{ecss-q-st-80c} - Software\\product assurance}}
+  & *+[F**:green]{\txt{E-70 - Ground systems\\and operations}}\\
+  & & &
+}
+\end{displaymath}
+    \caption{ECSS System}\label{fig:ecssdocsstruct}
+\end{figure}
+
+%documneto que define o sistema ecss\cite{ecss-s-st-00c}
+%documento de qualidade\cite{ecss-q-st-80c}
+%ulisses paper\cite{costa_et_al:OASIcs:2012:3523}
+\else
+\begin{figure}[!ht]
+\footnotesize
+\begin{displaymath}
+\xymatrix@=.28cm{
+  & *+[F-]{\txt{ECSS-S-ST-00\cite{ecss-s-st-00c} - ECSS System}} \ar@{->}[d] \ar@{->}[dl] \ar@{->}[dr] & \\
+	\h\a{\txt{Space project management\\(management Standards)}}
+  & \b{\txt{Space product assurance\\(product assurance Standards)}}
+  & \b{\txt{Space engineering\\(engineering Standards)}} & *+[F]{\txt{External\\Standards\\adopted by\\ECSS}}\ar@/{}_{3pc}/@{->}[];"h"+<3.1pt,28.3pt>+\\
+	*+[F]{\txt{M-10 - Project planning\\and implementation}}
+  & *+[F]{\txt{Q-10 - Product\\assurance management}}
+  & *+[F]{\txt{E-10 - System\\engineering}}\\
+	*+[F]{\txt{M-40 - Configuration and\\information management}}
+  & *+[F]{\txt{Q-20 - Quality assurance}}
+  & *+[F]{\txt{E-20 - Electrical and\\optical engineering}}\\
+	*+[F]{\txt{M-60 - Cost and schedule\\management}}
+  & *+[F]{\txt{Q-30 - Dependability}}
+  & *+[F]{\txt{E-30 - Mechanical\\engineering}}\\
+	*+[F]{\txt{M-70 - Integrated logistic\\support}}
+  & *+[F]{\txt{Q-40 - Safety}}
+  & *+[F]{\txt{E-40\cite{ecss-e-st-40c} - Software\\engineering}}\\
+	*+[F]{\txt{M-80 - Risk management}}
+  & *+[F]{\txt{Q-60 - EEE components}}
+  & *+[F]{\txt{E-50 - Communications}}\\
+  & *+[F]{\txt{Q-70 - Materials, mechanical\\parts and processes}}
+  & *+[F]{\txt{E-60 - Control\\engineering}}\\
+  & *+[F]{\txt{Q-80\cite{ecss-q-st-80c} - Software\\product assurance}}
+  & *+[F]{\txt{E-70 - Ground systems\\and operations}}\\
+  & & &
+}
+\end{displaymath}
+    \caption{ECSS System}\label{fig:ecssdocsstruct}
+\end{figure}
+\fi
+
+The application of this Standards regarding space related projects is not a strict imposition, they enforce
+tailoring to the technical, cost, schedule, programmatic and economic characteristics of the space programmes and projects.
+For a specific project, Standards are tailored according to all the traits of the project: the type and 
+phase of the project, the acceptable risks, the project complexity, cost, etc.
+So, tailoring is the process by which individual requirements are evaluated and made applicable to a specific project.
+The available list of Standards and their content is analysed in order to select the set of Standards to be made applicable to the project, taking 
+into account its specificity and constrains and identify those requirements in the individual Standards which are not 
+applicable to the project, modify or exceptionally add requirement for specific needs\cite{ecss-s-st-00c}.
+Tailoring is an important task in order to deliver a suitable product or service considering the costumer needs.
+
+\subsection{ECSS-Q-80 and Testing}\label{sec:stand}
+Software development projects tend to be specific depending on the application domain and 
+space software projects are not an exception. These projects tend to have particular dynamics than software projects
+in other domains because space software development pose additional challenges due to its inherent
+requirement that the end products should be highly dependable.
+The criticality factor of those systems (sometimes life critical) tend to have different more stringent requirements and approaches 
+compared to less critical software projects, so
+the existing software engineering Standards are not enough to cope with these challenges, this is why \ac{ECSS} has developed a set of Standards for European
+space projects\cite{Ahmad2010AgileECSS,10.1109/SESS.1997.595952}.
+This is why \ac{ECSS} have a particular E branch Standard completely dedicated to "Software Product Assurance" --- The ECSS-Q-80\cite{ecss-q-st-80c}.
+The fundamental principle of this Standard is to facilitate the
+customer-supplier relationship assumed for all software developments, at all levels.
+They have contributed to these objectives by providing a set of requirements to be
+met throughout the system lifetime which involves the development and
+maintenance of space application software. Such requirements deal with quality
+management, lifecycle activities and process definition, and quality
+characteristics of the software product\cite{Mattiello-FranciscoSanAmbJogCos:2007:BrSoIn}.
+Therefore the main objective of this Standard is to provide the customer with adequate confidence about the software product.\\
+
+In order to improve greater security in the code that is produced for space industry, the Standard ECSS-Q-80\cite{ecss-q-st-80c} defines
+some levels of criticality of the software, depending on their use in the mission.
+This categorization is separate into 4 levels (A,B,C and D) regarding what can happen if the software fails or if it is not executed.
+In the following listing we can see the classification:
+
+\begin{description}
+\item[Level A] Software that if not executed, or not correctly executed, or if anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Catastrophic consequences};
+\item[Level B] Software that if not executed, or not correctly executed, or if anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Critical consequences};
+\item[Level C] Software that if not executed, or not correctly executed, or if anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Major consequences};
+\item[Level D] Software that if not executed, or not correctly executed, or if anomalous behaviour can cause or contribute to a system failure resulting in \textbf{Minor or Negligible consequences}.
+\end{description}
+
+Each Severity level is intrinsically connected to a level of safety into the mission. Catastrophic corresponds to
+Loss of life, life-threatening or permanently disabling injury or occupational illness; Loss of system; 
+Loss of an interfacing manned flight system; Loss of launch site facilities; and Severe detrimental environmental effects. The result
+of having a software component fail within this level leaves to major failures propagation in the mission\cite{ecss-q-st-30c}.\\
+The Critical level corresponds to Temporarily disabling but not life-threatening injury, or temporary occupational illness;
+Major damage to interfacing flight system; Major damage to ground facilities; Major damage to public or private property;
+and Major detrimental environmental effects. The result of having a software component fail this level leaves to loss of mission.\\
+The other two levels: Major and Minor leaves to Major mission degradation and Minor mission degradation with no or negligible safety results in the mission.
+In Table \ref{tab:severity} we have the \ac{ECSS} Severity Classification of consequences information summarized acording to \cite{ecss-q-st-40c}.
+According to the Standard
+when several categories can be applied to the system or system component, the highest severity takes priority.
+\begin{table}[!ht]
+\centering
+\noindent \begin{tabular}{|c|c|m{4cm}|m{5cm}|}\hline
+\textbf{Severity} & \textbf{Level} & \textbf{Dependability (from \cite{ecss-q-st-30c})} & \textbf{Safety}\\\hline\hline
+\multirow{5}{*}{\textbf{Catastrophic}} & \multirow{5}{*}{$1$} & \multirow{5}{*}{Failures propagation} & 
+Loss of life, life-threatening or permanently disabling injury or occupational illness;\\\cline{4-4}
+& & & Loss of system;  \\ \cline{4-4}
+& & & Loss of an interfacing manned flight system; \\ \cline{4-4}
+& & & Loss of launch site facilities;  \\ \cline{4-4}
+& & & Severe detrimental environmental effects.  \\\hline\hline
+\multirow{5}{*}{\textbf{Critical}} & \multirow{5}{*}{$2$} & \multirow{5}{*}{Loss of mission} & 
+Temporarily disabling but not life-threatening injury, or temporary occupational illness;\\\cline{4-4}
+& & & Major damage to interfacing flight system;  \\ \cline{4-4}
+& & & Major damage to ground facilities; \\ \cline{4-4}
+& & & Major damage to public or private property;  \\ \cline{4-4}
+& & & Major detrimental environmental effects.  \\\hline\hline
+\textbf{Major} & $3$ & Major mission degradation & --\\\hline\hline
+\textbf{Minor} & $3$ & Minor mission degradation or any other effects & --\\\hline
+\end{tabular}
+\caption{ECSS Severity Classification of consequences}\label{tab:severity}
+\end{table}
+
+To ensure more security about the source code, regarding the severity level, \ac{ECSS} Standards, namely \cite{ecss-q-st-40c}
+consider the application of formal tools to verify the source code. But at the same time, a major emphasis to software testing.
+\ac{ECSS} divides the the test effort regarding the criticality of the source code.
+If the source code is classified as Level A then the tests for that piece of software should meet 100\% in
+three different categories: Source code statement coverage, Source code decision coverage and Source code modified condition and decision coverage.\\
+Statement coverage measure the part of the program within which every executable source code statement has been invoked at least once.
+Decision coverage measure of the part of the program within which every point of entry and exit
+is invoked at least once and every decision has taken TRUE and FALSE
+at least once (this includes statement coverage).
+Modified condition and decision coverage measure of the part of the program within which every point of entry and exit
+has been invoked at least once, every decision in the program has taken TRUE and FALSE values at least once, and each condition in a decision has been
+shown to independently affect that decision's outcome. A condition is shown to independently affect a
+decision's outcome by varying that condition while holding fixed all other possible conditions. All of these code coverages will be explained in more detail in Section
+\ref{sec:ccoverage}\\
+If the source code is classified as Level B then the tests for that piece of software should meet 100\% in the first two categories of testing and should be
+agreed with the costumer the value for to meet regarding Source code modified condition and decision coverage.
+If the source code is classified as Level C or D then the tests for all the three categories should be agreed with the costumer.
+In the following Table \ref{tab:ccoverage} this information is summarized.
+
+\begin{table}[!ht]
+\centering
+\noindent \begin{tabular}{|m{6cm}|c|c|c|c|}
+\hline
+\textbf{Code Coverage vs. Criticality} & A & B & C & D \\\hline
+Source code statement coverage & 100\% & 100\% & AM & AM \\\hline
+Source code decision coverage & 100\% & 100\% & AM & AM \\\hline
+Source code modified condition and decision coverage & 100\% & AM & AM & AM \\\hline
+\multicolumn{5}{|m{14cm}|}{
+NOTE: "AM" means that the value is agreed with the customer and measured for:
+the level of \ac{UT}; integration level testing and validation against the
+technical specification and validation against the requirements baseline
+as in \cite{ecss-q-st-80c} at clause 6.3.5.2.
+}\\\hline
+\end{tabular}
+\caption{ECSS Code Coverage vs. Criticality}\label{tab:ccoverage}
+\end{table}
+
+\section{DO-178/ED-12 Standard for Airborne Systems}\label{sec:airborne}
+Software in avionics has been around since 1970's, but was in the 80's when the cost of computers went down, thanks to the introduction of personal computers,
+that the avionics industry start to use software components in airborne systems.
+The increased use of Software and Computer systems for safety-critical applications motivated the development in 1980 of
+DO-178 by \ac{RTCA}
+\footnote{
+\ac{RTCA} is a US non-profit organization that develops technical guidance for use by government regulatory authorities and by industry.
+The documents it publishes are treated as guidelines, not as requirements.\\
+\ac{RTCA}'s objectives are to:
+\begin{itemize}
+\item Ensure the safety and reliability of airborne systems;
+\item Develop minimum operational performance requirements for document-specific systems;
+\item Develop guidelines for use by a regulatory authority;
+\item Provide administrative and logistics resources that enable teamwork among the world-wide aviation community.
+\end{itemize}
+}
+and ED-35 by \ac{EUROCAE}
+\footnote{
+\ac{EUROCAE} has now been operating for more than 40 years as a non-profit organization
+whose membership exclusively comprises aviation stakeholders made up of Manufacturers,
+Services Providers, National and International Aviation Authorities and Users (Airlines, Airports, operators) from Europe.
+}
+leading to the creation of a single Standard and some years later in 1985 --- The DO-178/ED-12 Standard: The first
+common certification criteria for production of avionics software. This document has the title
+"Software Considerations in Airborne Systems and Equipment Certification" and became a worldwide basis for software
+certification in the aviation industry until nowadays. This Standard is
+officially recognized as a \textit{de facto} international Standard by the \ac{ISO} for software certification in the aviation industry.\\
+Other Software Standards like MIL-STD-498, MIL-STD-2167A, IEEE/EIA-12207, IEC 61508 deal with certain aspects of
+software development covered by DO-178/ED-12\cite{ed-12b} and none of them has been found to provide a complete coverage of Software Development process as DO-178/ED-12 do
+\cite{avionics}.
+
+DO-178/ED-12 defines five Software Levels\cite{ed-12b}, such that the requirements of any system can be mapped to one
+of these levels:
+\begin{description}
+\item[Level A] Most critical failure level. Failure at Level A results in catastrophic failure conditions for an aircraft;
+\item[Level B] Software at this level contributes to severe-major failure conditions;
+\item[Level C] Software at this level contributes to major failure conditions;
+\item[Level D] Software at this level contributes to minor failure conditions;
+\item[Level E] Software has no effect toward potential failure conditions.
+\end{description}
+This classification is very similar to the one seen in Section \ref{sec:stand}.
+The fact is that this Standard has served as initial motto for ECSS-Q-80\cite{ecss-q-st-80c} and ECSS-E-40\cite{ecss-e-st-40c}, \ac{ECSS} Standards.
+In fact \ac{ECSS} software Standards were naturally fetched from many learned lessons in avionics.
+Many other definitions in ECSS-Q-80\cite{ecss-q-st-80c} and ECSS-E-40\cite{ecss-e-st-40c} were drawn based on DO-178/ED-12, like the
+Severity classification of consequences, Code Coverage vs. Criticality, and many more guidelines.
+
+DO-178/ED-12 has three Software Life cycle Processes where are defined the objectives of each step in the software development as well
+the set of activities for meeting the objectives:
+\begin{description}
+\item[Software Planning Process] where the Standard defines five types of planning data\footnote{\ac{RTCA} and \ac{EUROCAE} avoid referring to this "data" as
+"documents" when trying to elaborate on the objective evidence that need to be produced to satisfy the Standard objectives\cite{avionics}, on the other side \ac{ECSS} refers
+these evidences as "documents". So we can consider these evidences as documents.} that should include
+considerations on the methods, languages, Standards and tools to be used during the development phase. These plans are: Software Aspects of
+Certification Plan,
+Software Development Plan, Software Verification Plan, Software Configuration Management Plan and Software Quality Assurance Plan.
+\item[Software Development Process] where the Standard defines that should be included the requirements, that can be
+expressed as high- and low-level requirements\cite{avionics,ed-12b}. The Standard allow the system complexity and the design methodology applied to the system under development
+drive the requirements decomposition process. The design, coding and integration artifacts are briefly described since these tend to vary between various development methodologies.
+However the Standard defines clearly the expected outputs of each of the processes, the design process yields low-level requirements and software architecture.
+The coding process produces the source code, in a high-order language or assembly code. The integration process result in executable code
+resident on the target computer. The Standard also predicts that each of these outputs should be verified, assured and configured.
+\item[Integral Process] Four processes are defined as integral in DO-178/ED-12 which
+mean that they can be overlaid and extended throughout the
+software life cycle. They are as follows:
+\begin{itemize}
+\item Software Verification: Verification is the most important
+in DO-178/ED-12 which accounts to over two thirds of the total.
+\item Software Configuration Management: The clear definition
+of what is to be verified will be more reasonable for the
+various outputs of the verification in DO-178/ED-12. This definition
+or configuration is the design of the DO-178/ED-12 objectives
+for configuration management.
+\item Software Quality Assurance: \ac{SQA} objectives provide oversight of the entire DO-178/ED-12
+process and require independence at all levels. \ac{SQA} guarantees
+detection of plans and Standards, deviated during development
+process are recorded, evaluated, tracked and resolved.
+\item Certification Liaison Process: As mentioned earlier, the
+issues should be identified early for the certification process.
+DO-178/ED-12 outlines twenty data items to be produced in a
+compliant process where three of these are specific to it and
+must be provided to the certifying authority: Plan for Software Aspects of Certification, Software Configuration Index and Software Accomplishment Summary.
+\end{itemize}
+\end{description}
+\subsection{The new Standard DO-178C/ED-12C}\label{sec:new-stand}
+The first version of DO-178/ED-12 was DO-178A/ED-12A and was released in 1985 and twenty years later the Standard had a new update -- The DO-178B/ED-12B released in 1992,
+ten more years and in 2012 the most recent version of the Standard was released following the existing nomenclature: DO-178C/ED-12C.
+The most recent version of the Standard takes into account new technologies and methodologies developed since 1992 (the previous version of the Standard).
+These methodologies and Technologies include the \ac{OO} Paradigm, Model based design/automatic code generators and \ac{RT} operating systems.
+The new Standard also recognizes that there is more to software verification than testing \textit{per se} and includes Formal methods\cite{Brosgol:2011:DNA:2070337.2070341} and abstract interpretation
+and also takes into account the supplementary papers/commentaries on DO-178B.\\
+The most recent version includes three supplements: 
+\begin{description}
+\item[ED-216 Formal Methods] identifies the additions, modifications and substitutions to ED-12C and ED-109A objectives when formal methods are used as part of a software life cycle, and the additional guidance required. It discusses those aspects of airworthiness certification that pertain to the production of software, using formal methods for systems approved using ED-12C;
+\item[ED-217 Object-Oriented Technology and related techniques] identifies the additions, modifications and deletions to ED-12C and ED-109A objectives 
+when \ac{OO} technology or related techniques are used as part of the software development life cycle and additional guidance is required.
+This supplement, in conjunction with ED-12C, is intended to provide a common framework for the evaluation and acceptance of \ac{OO} technology
+and related techniques \ac{RT}-based systems;
+\item[ED-218 Model-Based development and verification] contains modifications and additions to ED-12C and ED-109A. Objectives, activities, explanatory text and
+software life cycle data that should be addressed when model-based development and verification are used as part of the software life cycle.
+This includes the artifacts that would be expressed using models and the verification evidence that could be derived from them.
+Therefore, this supplement also applies to the models developed in the system process that define software requirements or software architecture.
+\end{description}
+
+The benefits of incorporating the \textbf{ED-216 Formal Methods} supplement are important because
+the use of mathematical models, that define the system using an unambiguous abstraction syntax (eg state machines, Z notation, set theory, \ac{DSL}'s),
+and mathematical analysis, that provides guarantees/proofs of software properties regarding the compliance with requirements,
+may be applied at various stages during the software development and can be used as a formal verification technique.
+This supplement sees Formal methods as a complement to testing, basically testing shows that functional requirements
+are satisfied and sometimes is able to detect errors and Formal methods can increase confidence that no anomalous behavior will occur
+(formal methods may found faults that are not detected by testing techniques)\cite{Chelini:2009:WTD:1647420.1647443}.\\
+The benefits from incorporating the \textbf{ED-217 Object-Oriented Technology and related techniques} supplement are important because
+it assumes that \ac{OO} paradigms brings more safety to software development than other lower level languages once massively used in aerospace.
+The Data-centric approach of \ac{OO} languages eases maintenance of many large systems, the use of Model-driven architecture tool (like \ac{UML}) facilitates
+the generation of \ac{OO} code\cite{Elliott:2010:OSC:1869542.1869558}. The use of a Standard paradigm allow space industry to use languages used by many programmers such as C++, JAVA or Ada95.
+The features that this paradigm brings to space software are very important, namely, the capability of Method overloading, the type conventions, the re-use of
+generic templates, exceptions and concurrency, etc.\\
+The benefits from incorporating the \textbf{ED-218 Model-Based development and verification} supplement are essentially the motivation to use unambiguous notation and supports the use of
+automated code generation tools, namely automatic test generation tools\cite{Chelini:2009:WTD:1647420.1647443}. This supplement acknowledges the need of
+high-level requirements from which development model is derived and the ability to demonstrate properties for the model, showing that the property 
+is preserved in the source code.\\
+
+As can be seen the Standard ECSS-Q-80\cite{ecss-q-st-80c} in the software quality assurance side and ECSS-E-40\cite{ecss-e-st-40c} in the software development side
+give a distinguished emphasis on software validation and verification, however is the Standard DO-178/ED-12, for obvious reasons,
+that gives much more emphasis in the verification component. The biggest proof is the most recent embedding of the Formal Methods into the
+new version of the Standard DO-178C/ED-12C\cite{ed-12c}, in order to reach where the tests are not enough.
+Increasing the use of tools and methodologies from the area of Formal Methods is crucial to prevent software errors and ensure quality and their proper functioning.
+
+\section{Code Coverage}\label{sec:ccoverage}
+\note{See Qualidade de conjuntos de teste de software de código aberto: uma análise baseada em critérios estruturais\\}
+As we have seen in Sections \ref{sec:stand} and \ref{sec:new-stand}, code coverage is a major concern regarding the software development for space industry.
+So it is important to study this subject in order to integrate this feature in the final product to be delivered by \ac{VST}.\\
+
+Code Coverage analysis is among the first techniques used for systematic software testing.
+This theme was initially treated by Miller and Maloney \cite{Miller:1963:SMA:366246.366248}.
+Since then, various authors started researching comming up with some different coverage analysis techniques.\\
+This is a technique used in \ac{WBT}, whose goal is to see how the test suite exercises parts of the code.
+Therefore, it is a technique used to determine the quality of the test suite and not the quality of the software product, but a consequence
+of assessing the quality of the tests and getting a quantitative classification about it is an indirect measure of quality\cite{ccoverage}.
+
+There are different ways of evaluating test cases.
+The code-based criteria is based on which test cases are designed to run at least once over all paths of \ac{CFG} of the program.
+In a data flow testing based the information about the definition and use of variables in the program is placed in the graphical model\cite{Gokhale:2005:DCC:1090955.1092172}.\\
+There are also techniques developed to find a small subset of commands and decision points in the program in order to exercise all of the
+instructions or decision in the code.
+This technique was used in some software systems and has proven an increase in the percentage of coverage of instruction and decision points in
+comparison to other existing techniques. This technique reduces the numbers of necessary checkpoints\cite{Agrawal:1999:ECT:381788.316166}.\\
+Code Coverage also helps developers improving the final product because it encourage to increment the coverage by adding new \ac{TC}s.
+This increase coverage result in low costs in removing possible errors\cite{Piwowarski:1993:CME:257572.257635}.
+
+It is mainly used during \ac{UT}, which requires coverage of possible paths within each program unit.
+The advantages of using code coverage within the development process are: helping to manage risk by providing accurate
+data regarding the coverage of the code, by executing the \ac{UTS}, so that possible faults in parts of the code that has not been tested, are not found in later stages;
+Provide information regarding \ac{TC}s that should exist to have a satisfactory coverage or provide infomration about redundant test cases
+and still endure the security of the process resulting in the improvement of the software.
+The faults that should be found during \ac{UT} will not be passed to the other phases of testing.\\
+
+\cite{mcdc}
+\cite{Marick99}
+%\subsection{Statement Coverage}
+%\subsection{Decision Coverage}
+%\subsection{Condition Coverage}
+%\subsection{Multiple Condition Coverage}
+%\subsection{Condition/Decision Coverage}
+%\subsection{Modified Condition/Decision Coverage}
+%\subsection{Path Coverage}
+%\subsection{Function Coverage}
+%\subsection{Call Coverage}
+%\subsection{Linear Code Sequence and Jump (LCSAJ) Coverage}
+%\subsection{Data Flow Coverage}
+%\subsection{Object Code Branch Coverage}
+%\subsection{Loop Coverage}
+%\subsection{Race Coverage}
+%\subsection{Relational Operator Coverage}
+%\subsection{Weak Mutation Coverage}
+%\subsection{Table Coverage}
+\section{Test Categories}
+The different categories of software testing enable the detection of faults of the system from different perspectives and in different stages
+of software development.
+In certain situations, because there are few scenarios or low criticality of the system,
+certain categories of testing can be planned together. According to \cite{citeulike:453686} there are five testing categories,
+Unit Testing (UT), Component Testing, Integration Testing, System Testing and Acceptance Testing.
+In this section we will explain all of them, with a particular emphasis in \ac{UT} since it is the most elementary testing category
+in which is possible to test atomic components of source code (a certain instruction, method/function or class).\\
+
+\ac{UT}s concentrates on smallest unit of software and are designed to exercise small
+parts or units of the system, usually code statements, functions, methods or classes,
+determining whether it works correctly, it seeks to identify logical errors
+and implementation errors in each module of the software separately.
+Almost all programmers perform at some level unitary tests on a each piece of code.
+These tests together with the integration tests are essential to create a quality software product\cite{dustin2002effective},
+however they are often overlooked, or are implemented in a superficial way.\\
+According to \cite{Hunt:2003:PUT:1197403} it should be done in source code written by a programmer, usually a tester,
+who exercises a very small area of the code being tested.\\
+\ac{UT}s must check five characteristics: The individual components to make sure that they work properly;
+The interface components for ensuring that information is being passed according to the requirements;
+Handling of inconsistent data; Initialization of variables; and operation under the boundary conditions.\\
+The main motivations to perform \ac{UT} are using a method of testing the elements of a computer program,
+in which initial attention is focused on smaller units of the program, helping in the location, definition and correction of a software problems,
+because when an error is located, it is known the module and the unit to which it belongs\cite{Myers:2004:AST:983238}.\\
+\ac{UT} facilitates isolating bugs because when a problem is found at the unit level, the problem must lie in the unit.
+If on the other hand a bug is located, where multiple units are combined then it must be analyzed how those modules interact with each other.
+Of course, one can find exceptions, but overall, testing and debugging is much more efficient than test everything immediately\cite{Patton:2000:ST:517489}.\\
+
+If \ac{UTS} are carried out in a proper manner, the further phases of tests (as we shall see below) will be more successful.
+To perform a structured and repeatable software program with \ac{UTS}, they should be developed before or in parallel with the development of software.
+To be effective and helpful for the development team, \ac{UT} must be considered part of the development project
+and tests must be updated along according to the requirements and source code, as the project evolves\cite{dustin2002effective}.
+Finding defects while a component is still in development offers significant savings in time and cost and consequently produces a better quality software product.
+The main advantages of use \ac{UT} during software development are\cite{dustin2002effective}:
+\begin{itemize}
+\item The development must be geared to run the \ac{UTS}, in which each requirement will be attending, so the software will be considered
+successfully when all the \ac{UTS} pass;
+\item Will cause the developer to put efforts on meeting the exact problem, and usually it will result in less code and a more direct implementation.
+So, using \ac{UT} has a side effect of improving the code and understand their functioning better.
+\end{itemize}
+
+The other four test categories are briefly described below:
+
+\begin{description}
+\item[Component Testing] The target universe of this type of test is a little larger than \ac{UT},
+here it is important to test the components as a whole, but not considering the interaction with other parts of the system;
+\item[Integration Testing] The aim of this testing category is to
+test the interaction among the different components, previously tested separately, when they are integrated.
+%It is a systematic, for construction of the program structure by performing at the same time, tests to detect errors associated interfaces.
+Mainly it tests if units tested individually perform properly when placed together.
+\item[System Testing]
+The main purpose is to compare the system or program with its original goals.
+Here are performed tests considering the whole picture, software elements integrated operating environment.
+While the previous three categories adopt clearly a \ac{WB} approach, this category usually is performed using \ac{BB}
+techniques and is executed by a tester.
+\item[Acceptance Testing] Usually performed by a small group of end users of the system, that will simulate the
+different routines of a daily  operation of the system, aims
+at verifying if the behavior of the system is according to their expectations.
+\end{description}
+
+\section{Test Strategies}
+There are several ways to test software. There are techniques that were widely used in systems developed in structured languages
+that still have great value for \ac{OO} languages. Despite the
+development paradigms are different,
+the main objective of these techniques remains the same: to find flaws in software\cite{Myers:2004:AST:983238}.
+The most widely known are the \ac{WB} and \ac{BB}.
+These methods complement each other and must be applied together in order to ensure a good quality test.
+\subsection{White-box vs Black-box testing}
+In \ac{WB} testing the tester needs to understand the internals of
+the code to be able to write tests for it.
+The goal of selecting \ac{TC}s that test specific parts of the code
+is to cause the execution of specific spots in the software, such as
+statements, branches or paths.
+This technique consists in analyzing statically a program, by reading
+the program code and using symbolic execution techniques to simulate
+abstract program
+executions in order to attempt to compute inputs to drive the program
+along specific execution paths or branches, without ever executing the
+program. Control Flow based testing approach can be useful to analyze all the
+possible paths in the code and write \ac{UTS} to cover multiple paths.
+The \ac{CFG} of the program can be built,
+test inputs can be generated to make any path execute regarding a given criterion:
+Select all paths;
+Select paths to achieve complete statement
+coverage\cite{stt,Ntafos:1988:CST:630792.631017};
+Select paths to achieve complete branch coverage\cite{Roper1994,stt};
+or Select paths to achieve predicate
+coverage\cite{stt,Ntafos:1988:CST:630792.631017}.
+
+Data Flow Testing is designed into looking at the life cycle
+(creation, usage and destruction) of a particular
+piece of data and observe how it is used along the \ac{CFG}, this ensures
+that the number of paths is always finite\cite{dataflow}.\\
+
+Opposite to \ac{WBT}, \ac{BBT} is based on
+functionality, so the tester observes a system based
+on its functional contracts and writes the pairs of inputs and the
+expected outputs.
+This approach is used for \ac{UT} of single methods/functions,
+integration testing
+of combinations of the methods/functions, or even final system testing.\\
+
+\section{Tool Approaches}\label{testingapproaches}
+In this Section, a study of the most recent approaches to the development testing tools,
+like \ac{SB}, \ac{CB}, \ac{GB} and \ac{RB} tests generation
+for the most popular languages - C, JAVA and C\#, will be presented.
+
+\subsection{Specification-based Generation Testing}
+\ac{SBT} appeared in order to address the testing activities in a systematic manner, this subject is currently under
+much discussion in academia and have been gaining interest in the software industry.
+According to the philosophy of \ac{SBT}, \ac{TC}s are derived from the system specification\cite{conrad:graph}, so it 
+is possible to say that \ac{TC}s can be generated systematically from specifications,
+with this technique the testing phase and development phase can be started in parallel, since it is not
+needed the implementation to start the development of \ac{TC}s. The only thing needed is the functional contracts (The specification, or a model)
+and/or oracles\footnote{A test oracle determines whether or not the results of a test execution are correct\cite{Peters95generatinga}.} for each function/method.\\
+
+These specifications serve as input for the definition of \ac{TC}s to test a given system.
+If the generation of the test is performed automatically, any change in the system specification will have repercussion in the \ac{TC}s.
+However, there are some difficulties in application of \ac{SBT}, as mentioned by\cite{Bertolino04towardsanti-model-based},
+namely that exist a gap between the level of abstraction of a model and the level of abstraction of \ac{TC}s.
+\ac{SBT} is composed of several activities; the main one is\cite{Lindholm06model-basedtesting} the
+\textbf{Construction of the model} for the definition of \ac{SBT}, various types of models has been used, for example, \ac{UML} diagrams with
+\ac{OCL} annotations\cite{Simula.SE.30}, Z specifications\cite{Horcher95improvingsoftware,Stocks:1996:FST:239916.239918},
+\ac{UML} Statecharts\cite{Offutt:1999:GTU:1767297.1767341}, \ac{VDM}\cite{Aichernig99automatedblack-box},
+\ac{ADL} specifications\cite{Sankar94specifyingand}, or models defined in B Language\cite{Legeard:2002:ABT:647541.730142,Bernard:2004:GTS:1134155.1134156}.
+The use of formal specifications leads to a better understanding of the system, as well as provides means for automatic identification of incomplete
+or inconsistent specifications making the other steps of \ac{SBT} less error prone.
+Since the use of formal specifications tends to diminish ambiguities, when compared
+with those stated in a natural languages, automatic generation of tests is privileged using this philosophy.
+
+Other activity of \ac{SBT} is the
+\textbf{definition of derivation criteria of \ac{TC}s from the model}, where it first must be established a technique to be used in the design of the \ac{TC}s,
+the techniques may be \ac{WBT} (those where the system source code is visible) or \ac{BBT} (where only the specification is considered - the code is not taken into account).\\
+The derivation criteria defines the test coverage. For example in \cite{Lindholm06model-basedtesting}, where \ac{TC}s are generated from \ac{FSA},
+two types of covering are considered, the first is when the test suite reaches each model state at least once and the second
+is when the test suite reaches each state transition at least once.
+Obviously, the latter is tightened, creating a greater number of tests, since all the combinations of the two states by two
+are achieved at least once. However, in many cases test coverage condition may be infeasible, depending on the model.\\
+
+Other activity of \ac{SBT} is the
+\textbf{generation of \ac{TC}s and test suite} where the derivation of test criteria defined in the previous section are applied.
+From this interaction \ac{TC}s are generated and grouped into test suites.
+
+And finally one of the lats activities of applying \ac{SBT} is the
+\textbf{adaptation of \ac{TC}s} by being created from an abstract model, generated \ac{TC}s
+may have a level of abstraction that is not interesting for system testing.
+If this occurs, it is necessary to make an adaptation of this suite to the concrete level of the system being tested.
+These specifications typically do not consider structurally complex inputs and the existing tools do not generate JUnit \ac{TC}s.
+Nowadays there are some commercial tools out there that can perform \ac{SBT} approach, namely:
+\begin{description}
+\item[Conformiq] is a commercial Tool Suite that generates
+human-readable test plans and executable test scripts from Java code, state charts and \ac{UML}\footnote{See more at: \url{http://www.conformiq.com/products.php}}.
+\item[MaTeLo] stands for Markov Test Logic and is a commercial tool
+that generates test sequences from a collection of states, transitions, classes of equivalence, types, sequences, global variables and test oracles
+using their user interface\footnote{See more at: \url{http://www.all4tec.net/index.php/All4tec/matelo-product.html}}.
+\item[Smartesting CertifyIt] is a commercial tool that generates \ac{TC}s from a functional model, as \ac{UML}\footnote{See more at: \url{http://www.smartesting.com/index.php/cms/en/product/certify-it}}.
+\item[T-Vec] is a commercial tool that generates \ac{TC}s from modeling tools available from T-VEC or third-party vendors\footnote{See more at: \url{http://www.t-vec.com/}}.
+\item[Rational Tau] is an \ac{IBM} commercial tool that provides automated error checking, rules-based model checking, and a \ac{SB} explorer using
+\ac{UML}\footnote{See more at: \url{http://www-01.ibm.com/software/awdtools/tau/}}.
+\end{description}
+
+The relevant ones or the recent open-source ones will be discussed.
+\paragraph{Spec Explorer}
+\note{see more at: Geração de Casos de Teste a partir de Modelos de Tarefas\\}
+This is a Microsoft \ac{SBT} that uses one software modeling languages, the \ac{AsmL}.
+This modeling language provides the foundations of the Spec Explorer\footnote{See more at: \url{http://research.microsoft.com/en-us/projects/specexplorer/}} tool
+and Spec\# that is a formal language for \ac{API} contracts (influenced by \ac{JML}, \ac{AsmL}, and Eiffel), which extends C\# with constructs for non-null types,
+pre-conditions, post-conditions, and object invariants\footnote{See more at: \url{http://research.microsoft.com/en-us/projects/specsharp/}}.
+These tool is already available to users and is in a very mature phase.\\
+\indent The user of Spec Explorer writes a model of the system and sets the possible values for some properties in his code, furthermore the user also provides a scenario.
+These scenarios are simple sets of calls to methods without their parameters (remember that this is Spec Explorer job).
+Then Spec Explorer will generate a visual graph where each node represents a state of the system and the arrows represent a call to some method.
+It searches throw all possible sequences of methods invocation that do not violate the contracts (pre, pos conditions) and
+that are relevant to a user-specified set of test properties. After that we can generate from this visual graphs the \ac{UTS} (the arrows) and the
+\ac{TC}s (a graph).
+
+\paragraph{JMLUnit}
+JMLUnit\cite{Cheon04thejml} is a tool that automates the generation of oracles for JAVA testing classes. This tool
+monitors the specified behavior of the method being tested to decide whether the test passed or failed.
+This monitoring is done using the formal specification language runtime assertion checker.
+The main idea behind these tools is to translate the pre- and post-conditions methods into the code of the testing method.\\
+The pre-conditions became the criteria for selecting test inputs, and the post-conditions provided the properties to check for
+test results. So, the post-conditions became the test oracles.\\
+This tool uses the \ac{JML}\cite{Burdy03anoverview} specification language to annotate JAVA methods code with pre- and post-conditions and
+automatically generate JUnit test classes from \ac{JML} specifications.
+
+\paragraph{TestEra}
+TestEra\cite{testera} can be used to perform automated \ac{SBT} of
+JAVA programs. This framework requires as input a JAVA method, a formal specification\footnote{Specifications are first-order logic formulae.}
+of the pre and post-conditions of that method, and a bound that limits the size of the \ac{TC}s to be generated.\\
+With the pre-condition it automatically generates all non-isomorphic test inputs up to the given bound.
+It executes the method on each test input, and uses the method post-condition as an oracle to check the correctness of each output. This tool
+uses Alloy's\footnote{Alloy is a first-order declarative language based on sets and relations. The Alloy Analyzer is a fully
+automatic tool that finds instances of Alloy specifications: an instance
+assigns values to the sets and relations in the specification such that
+all formulae in the specification evaluate to true.} \ac{SAT} system to analyze first-order  formulae.
+The authors claim that have used TestEra to check several JAVA programs including an architecture for
+dynamic networks, the Alloy-alpha analyzer, a fault-tree analyzer, and methods from the JAVA Collection Framework.
+
+\paragraph{Korat}
+Korat\cite{Boyapati02korat:automated} is a mature framework for automated testing structurally complex inputs of JAVA programs.
+Given a formal specification for a method, Korat\footnote{See more at: \url{http://korat.sourceforge.net/}} uses the method pre-condition
+to automatically generate all (non-isomorphic) \ac{TC}s up to a given small size.
+Korat then executes the method on each \ac{TC}, and uses the method post-condition as a test oracle to check the correctness of each output.\\
+To be able to generate \ac{TC}s for a method, Korat uses a predicate and a bound on the size of its inputs,
+Korat generates all (non-isomorphic) inputs for which the predicate returns $true$.
+Korat generates all the possible input spaces regarding the predicate and monitor the predicate's executions to be able to prune large portions of the search space.\\
+\indent The writing of a predicate is done using JAVA language and in most cases can be written the first thing that cames to programmer's head to restrict the input space.
+But for more complex structures it is better to understand how the matching algorithm work to be able to write a fast verifiable predicate.\\
+Unfortunately the test derivation tool using Korat (that also uses \ac{JML}) is not available to the public.
+
+\subsection{Constraint-based Generation Testing}
+\ac{CBT}\cite{DeMillo91constraint-basedautomatic} can be used to select \ac{TC}s satisfying specific constraints by
+solving a set of constraints over a set of variables. The system is described using constraints and these can be solved by \ac{SAT} solvers.\\
+Constraint programming can be combined with symbolic execution, regarding this approach a program is executed symbolically,
+collecting data constraints over different paths in the \ac{CFG}, and then solving the constraints and producing \ac{TC}s from there.
+There are some tools out there, like:
+
+\begin{description}
+\item[Euclide] for verifying safety properties over C code using \ac{ACSL} annotations, CPBPV for program verification.
+\item[OSMOSE] a tool that uses concolic execution and path-based techniques over machine code.
+\item[GATeL] for Lustre language to generate test sequences\footnote{See more at: \url{http://www-list.cea.fr/labos/gb/LSL/test/gatel/index.html}}.
+\end{description}
+
+Here two tools will be explained, one proprietary and other academic.
+
+\paragraph{Pex} Pex\cite{Tillmann:2008:PWB:1792786.1792798} is an automatic \ac{WB} test generation tool for .NET. Starting from a
+method that takes parameters, Pex performs path-bounded model-checking
+by repeatedly executing the program and solving constraint systems to obtain inputs that will steer the program along different execution paths.
+This uses the idea of dynamic symbolic execution\cite{Tillmann06unittests}. Pex uses the theorem prover and
+constraint solver Z3\footnote{See more at: \url{http://research.microsoft.com/en-us/um/redmond/projects/z3/}} to reason about the feasibility of execution paths, and
+to obtain ground models for constraint systems.\\
+Pex came with Moles that helps to generate \ac{UTS}. These tools together are able to understand the input (by analyzing branches in the code:
+declarations, all exceptions throws operations, if statements, asserts and .net Contracts). With this information Pex uses Z3 constraint solver to
+produce new test inputs which exercise diferent program behavior.\\
+The result is an automatically generated small test suite which often achieves high code coverage.\\
+Pex can be used in a project, class or method (which makes it a very helpful and versatile tool). After the analysis process the "Pex Explorarion Results" shows
+the $input \times output$ pairs selected for each \ac{TC} for the method, here it also shows the percentage of the test coverage.
+
+\paragraph{PathCrawler} This is an academic tool based on dynamic and static analysis\cite{Williams05pathcrawler:automatic}, 
+it uses constraint logic programming to generate the \ac{TC}s. PathCrawler\footnote{See more at: \url{http://www-list.cea.fr/labos/gb/LSL/test/pathcrawler/index.html}} executes an instrumented function for each function under test
+with the generated inputs, it preserves this information to not cover the same path.\\
+This tool supports assertions in any point in the code and pre-conditions regarding the input values.
+
+\subsection{Grammar-based Generation Testing}
+In this approach inputs to a system under test are defined by a context-free grammar. The language of the grammar contains all possible \ac{TC}s.
+Using this approach to describe the syntax of the input to the system under test proves to be very helpful to test
+network protocols\cite{tal:syntax-based,kaksonen2001functional} and parsers and compilers\cite{1994-burgess,Burgess_Saidi_1996}.
+
+\paragraph{ASTGen}
+ASTGen\cite{Daniel:2007:ATR:1287624.1287651} is a JAVA framework that automates testing of refactoring engines: generation of test inputs
+and checking of test outputs. The main technique is an iterative generation of structurally complex test inputs.
+ASTGen\footnote{See more at: \url{http://mir.cs.illinois.edu/astgen/}} allows developers to write imperative generators whose executions
+produce input programs for refactoring engines. More precisely, ASTGen
+offers a library of generic, reusable, and composable generators that produce \ac{AST}.\\
+So, ASTGen ensures the production of test inputs instead of the developer produce them. The developer needs to write a generator whose execution
+produces thousands of programs with structural properties that are relevant for the specific refactoring being tested. This tool has found
+21 bugs in Eclipse and 26 bugs in Netbeans applications.
+
+\subsection{Random-based Generation Testing}
+In the \ac{RBT}, test inputs are selected randomly from the input domain of the system.
+To have a random testing suite first we must identify the input domain, after that select test inputs independently from the domain,
+then the system under test is executed on these inputs, the results are compared to the system specification, an oracle.
+
+Random testing is based on the input domain, so the method generally applied is \ac{BBT}.
+Tests are randomly selected from all over the input domain, not considering any information about the structure or program specification.
+The use of a \ac{RBT} could be helpful as a valuable blueprint for the generation of test cases, especially in the final stage of software testing\cite{reliable}.
+\ac{RBT} provides an easy way to generate test cases,
+but does not present a detailed analysis about its reliability.
+The data obtained from random testing can then be used to find bugs or non expected behaviors.\\
+Since \ac{RBGT} does not use any information about the software specification, only some entries are selected, so it can not guarantee the effectiveness of this selection.
+Test inputs are randomly generated according to an operational profile, and failure times are recorded.
+The generated tests can be too sparse to actually test specifics parts of the program. Anyway, this technique proves to be very effective for testing
+compilers and network protocols.
+
+\paragraph{Csmith}
+Csmith\cite{Yang:2011:FUB:1993316.1993532} is a \ac{BB} random tests generator that is able to generate C programs
+conform to the C99\footnote{See more at: \url{http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf}} Standard. This is a very recent tool that already discover
+more than 195 bugs in \ac{LLVM} and 79 bugs in \ac{GCC}. With Csmith we are able to generate random programs with unambiguous meanings (undefined behavior or 
+unspecified behavior). Does not attempt to generate terminating program, so they use timeouts for long time consuming generated programs.
+And the main supported features right now are: Arithmetic, logical, and bit operations on integers, Loops, Conditionals, Function calls, Const and volatile,
+Structs and Bitfields, Pointers and arrays, Goto, Break and continue. The generation of code regarding this features can be tuned using the command line program.
+
+\paragraph{QuickCheck for JAVA}
+QuickCheck was originally a combinator library for the Haskell\footnote{See more at \url{haskell.org}} programming language\cite{Claessen:2000:QLT:357766.351266}.
+Later on QuickCheck philosophy spread to other programming languages like: JAVA, Erlang, Perl, Ruby and JavaScript.\\
+QuickCheck works by generating high amounts of data (within the method domain) and checking it against a given property,
+it is expected to create a wide range of the input domain, thus increasing the chances of giving more test coverage.
+
+\section{Summary}
+summary\ldots
+\secendnote

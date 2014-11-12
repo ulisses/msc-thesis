@@ -1,0 +1,155 @@
+%\ifx\neat\undefined
+%\begin{savequote}[10pc]
+%{%
+%\parindent 0pt
+%\ifx\preLilyPondExample \undefined
+%\else
+%  \expandafter\preLilyPondExample
+%\fi
+%\def\lilypondbook{}%
+%\includegraphics[width=3.5\textwidth]{img/bachPrelude}
+%\ifx\postLilyPondExample \undefined
+%\else
+%  \expandafter\postLilyPondExample
+%\fi
+%}
+%\qauthor{Cello Suite No.1 i-Prelude, Johann Sebastian Bach}
+%\end{savequote}
+%\fi
+\chapter{Introduction}
+%\minitoc
+
+With the increasing size and complexity of software systems, modeling techniques related to abstraction
+and decomposition\footnote{Decomposition, also known as factoring, is the process of break down a complex system
+into parts that are easier to conceive, understand, program, and maintain.}\cite{struct-analy} of the system have
+shown to be very important\cite{dicsbuchs06}.
+These techniques allow an early vision of the software to be developed, enabling analysis and previous evaluation before
+the model be implemented.
+Because of this, the use of software models in the process of developing a software system is very important regarding
+the organization of the activities in order to obtain high quality at lower cost.
+In this context, the \ac{UML} is the standard language, used for modeling the structure of software projects.\\
+
+Since the beginning, every industry use testing methods to discover problems in early stages of the development and delivery
+process to improve the products quality, and software industry is not an exception.
+Software testing became an essential method for software quality assurance and became widely used
+and accepted for the validation and verification of software systems.
+It can be considered as a complete revision of the specification, design and implementation of a software system.
+
+Miller\cite{miller} describe the utility of software testing as:
+
+\begin{quotation}
+The general aim of testing is to affirm the quality of software systems by systematically
+exercising the software in carefully controlled circumstances.
+\end{quotation}
+
+In the most recent period of software history the integration of
+software testing as an important step in the process of
+software development opened up to the origin of xUnit\cite{xunit} tools and Agile during software development phase.
+Also, \ac{ESA} started to use possible to automate written tests as a part of their
+software development processes.\\
+%Using  manual written tests is tedious, time consuming and error-prone.
+%Lots of functions/methods need full code coverage and this practice
+%leads to incomplete test suites;
+%as it is hard to create tests that cover specific code paths, many
+%hidden bugs can be left.
+%Many times a supervision leaded by the developer
+%is needed to assure that the right paths in the code are being tested,
+%specially regarding \ac{BBT}.\\
+%Nowadays we start to observe a rapid increase in the automatic test
+%generation field.
+
+\note{fazer uma passagem mais tranquila do texto de cima para baixo, talvez falar em model driven testing}
+
+In this chapter we will show the architecture and some of the relevant details of the software used to manage and control
+the \ac{ESA} satellites: the \ac{MCS} and it's architecture; the nowadays system that is used to perform Tests on the \ac{MCS} and the
+database infrastructure that keeps all the data collected from the \ac{ESA} missions, known as \ac{MIB}.
+
+\new{
+\section{The Mission Control System architecture}
+
+\section{The nowadays Automatic Regression Testing}
+
+\section{The Mission Data Base}
+}
+\section{Operational Simulator Infrastructure}
+\ac{ESA}'s Operational Simulator called \ac{SIMSAT}
+is a satellite simulator that model and simulate
+the behavior of satellites in order to allow operators\footnote{Operators are responsible for the operation of the satellite after its launch.} train more effectively 
+and help them to define the satellites' operational processes.
+
+The simulator consists of operational models of the various internal components of the satellite from their main computer to its payload (instruments aboard the satellite),
+which interact with each other and thus define the behavior of the satellite.
+\ac{VST} has participated in the development of tests to validate the operational simulator.
+The development of these simulators is based on operating rules simulation of
+\ac{ESA} -- \ac{SMP}\footnote{\ac{SMP} is based on the ideas of component-based design and \ac{MDA}
+as promoted by the \ac{OMG} and is based on the open standards of \ac{UML} and \ac{XML}.
+One of the basic principles is the separation of the platform specific and platform independent aspects of the simulation model.
+This protects the investments in the model from changes in technology by defining the model in a platform independent way, which can then be mapped into different technologies.
+Further the \ac{SMP} specification provides standardized interfaces between the simulation models and the simulation run-time environment for common simulation services as well as a
+number of mechanisms to support inter-model communication.\cite{1A,2A,3A,4A,5A}}, as well as in infrastructure \ac{SIMSAT} simulation.
+This standard is infrastructure agnostic of any space specific model, so any other needs of simulation can be used, such as defense, transport, energy, etc.\\
+\ac{SIMSAT}\footnote{More information in: \url{http://www.egos.esa.int/portal/egos-web/products/Simulators/simsat/intro-sim.html}} is composed by $6$ parts:
+\ac{SIMSAT} Kernel is a generic simulation infrastructure that provides the framework to run space systems simulations.
+\ac{SIMSAT} \ac{MMI} is a generic \ac{GUI} enabling the user interaction with the simulator's components.
+Ground Models are a family of \ac{SIMSAT} compatible models enabling a realistic simulations of all ground systems between the spacecraft (or spacecraft model)
+and the control center at \ac{ESOC}\cite{Martin_whitepaper}. These modules are standard and include implementation of uplink and downlink processors.
+Emulator Suite On-board Processor Emulators support the execution in satellite simulators of the real flight software.
+Generic Models a set of generic space models that ease the developments of the spacecraft models used in operational simulators.
+\ac{GSTV} this is a family of test simulators that are based on the generic simulators infrastructure components listed above and are able to support the different levels
+of testing of ground infrastructure systems.\\
+
+The \ac{SIMSAT} Kernel is the part we are interested in performing automatic test generation, because is the main component regarding the simulation.
+The Kernel is made up of several components\footnote{More information in: \url{http://www.egos.esa.int/portal/egos-web/products/Simulators/SIMSAT/}} including
+a Scheduler that is responsible for the co-ordination and processing of all events within the Simulation Kernel.
+An event on the schedule identifies an action that needs to be performed at a specified point in simulated time.\\
+A Mode Manager that is the simulation state machine. The Simulation has a number of operational modes, which control the operation of the simulation.\\
+The Time-Manager that is responsible for maintaining and providing models and the \ac{MMI} with the correct simulation-Time,
+it provides time in four formats, Simulation-Time, Epoch-Time, Zulu-Time and Correlated Zulu-Time, this is a family of \ac{SIMSAT}
+compatible models enabling a realistic simulations.\\
+The Logger supports the recording of Kernel or model events that occur during a simulation.
+The log in which the current simulation messages are written is called the active log.
+The logger also provides a view of the simulation event history in an \ac{MMI} during a simulation session.\\
+The Visualization manager is responsible for making the values of both model and Kernel data items available for display in an \ac{MMI}.
+State-vector manager is responsible for the saving and restoring of the state of the simulation. Its main purpose is to allow the Simulation State, at any point in the simulation, to be saved. This allows the user to return to an earlier simulation scenario.\\
+Command handler is responsible for the reception and execution of Kernel and user defined commands.a set of generic space models that ease the developments of the spacecraft models used in operational.\\
+Command procedure interpreter is responsible for the interpretation of command procedures.
+A command procedure contains Kernel and User defined simulator commands and supports a procedural language to control the flow of these commands.
+The execution of command procedures is controlled directly from the \ac{MMI}\cite{1996ESASP.394..399L}.
+
+Right now, to be able to perform tests in the Operational Simulator, in order to validate \ac{SIMSAT}, \ac{VST} Engineers need to write scripts that
+perform simulations and validate the results using \ac{GUI} (\ac{SIMSAT} \ac{MMI}). This job can be tedious and difficult to replicate.\\
+So a first solution will have to go through a preliminary study of the tools
+that currently exist with which we can generate tests automatically.
+By studding these tools we do not hope to find the perfect solution, but combine techniques to obtain an optimal solution to improve \ac{VST} work.
+\section{Goals}
+This document correspond to the first milestone in the author's dissertation (developed under a partnership agreement between \ac{UM} and \ac{VST}) aimed at producing a tool
+that is able to automatically generate interesting testcases for the C++ \ac{ESA}'s Operational Simulator.\\
+This document reviews the most studied techniques
+and the tools that implement them in order to choose the best set of
+suitable techniques to incorporate in an automatic
+testing generator to the Ground Segment infrastructure, specially the
+Operational Simulator at \ac{ESA}.\\
+Two different techniques emerge for different purposes, Structural
+Techniques and Functional Techniques,
+known respectively as \ac{WB}\cite{stt} testing and \ac{BB}\cite{black} testing.
+Functional testing is the most common at \ac{ESA}, because of the
+calculation complexity behind the Operational Simulators.\\
+A brief discussion will be presented regarding \ac{WBT} vs. \ac{BBT}
+and then some automatic generation techniques will be discussed in more detail.
+Furthermore the potential of the described tools will be explained, and how they can help
+on solving the problem \ac{VST} has nowadays. First of all an explanation about the Operational Simulator Infrastructure will be provided.
+
+\section{Contribution}
+\note{Falar nos resultados atingidos}
+\section{Document Outline}
+\note{Falar no forma como os capitulos se organizam e sugerir formas de leitura}\\
+At the beginning of each chapter there will be a brief explanation about the chapter content and at
+the end a summary is provided in order to sum up the explained content.\\
+
+Moreover at the beginning of each chapter there is a mini table
+of contents showing the whole structure and location of all sections and subsections within that chapter.
+Each chapter notes will be shown at the end of the chapter in a separate section called "Notes of chapter $c$" where $c$ is the chapter number,
+in order to facilitate reading throughout the full page while not restricting the size of the notes.
+Each note is referenced with the format $X.Y$ meaning that
+the note $Y$ belongs to chapter $X$.
+\secendnote
